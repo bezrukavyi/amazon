@@ -1,7 +1,7 @@
 class Provider < ApplicationRecord
   belongs_to :user
 
-  def self.with_omniauth(auth)
+  def self.get_omniauth_user(auth)
     provider = where(name: auth.provider, uid: auth.uid).first
     return provider.user if provider
 
