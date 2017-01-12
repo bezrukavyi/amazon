@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, length: { maximum: 50 }
 
-  has_many :providers
+  has_many :providers, dependent: :destroy
 
   def self.new_with_session(params, session)
     super.tap do |user|
