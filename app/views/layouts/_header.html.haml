@@ -6,7 +6,9 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand Bookstore
+
+      = link_to "Bookstore", root_path, class: 'navbar-brand'
+
       %a.shop-link.pull-right.visible-xs{href: "#"}
         %span.shop-icon
           %span.shop-quantity 3
@@ -49,3 +51,12 @@
                 %a{href: "#"} Log out
           %li
             %a{href: "#"} My account
+
+  .header-messages
+    - if notice
+      .alert.alert-success= notice
+    - if alert
+      .alert.alert-warning= alert
+    - if signed_in?
+      = link_to t('.title'), destroy_user_session_path, method: :delete,
+        class: 'btn btn-danger btn-block btn-sm'

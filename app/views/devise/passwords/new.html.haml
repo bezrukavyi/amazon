@@ -1,0 +1,16 @@
+.container.general-main-wrap
+  .text-center
+    %h1.mb-30 Forgot your password?
+    %p.general-password-text We'll email you instructions on how to reset it
+
+  = general_simple_form_for(resource, as: resource_name,
+    url: password_path(resource_name), html: { method: :post }) do |field|
+
+    .form-group.mb-25
+      = field.input :email, autocomplete: 'true', placeholder: 'Enter your email',
+        label: false
+
+    = field.button :submit, 'Email Instructions', class: 'btn btn-default center-block mb-20'
+
+    .text-center
+      = link_to 'Cancel', :back, class: 'in-gold-500 mb-20'
