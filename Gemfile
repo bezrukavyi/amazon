@@ -48,6 +48,7 @@ gem 'ffaker'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-vkontakte'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -55,6 +56,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda'
   gem 'rails-controller-testing'
+  gem 'pry'
 end
 
 group :test do

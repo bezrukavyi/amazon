@@ -1,8 +1,9 @@
 .container.general-main-wrap
   .text-center
     %h3.general-login-title Sign up
-    %a.general-login-icon{href: "#"}
-      %i.fa.fa-facebook-official
+
+    = render 'omni_links'
+
     %p.general-login-text or
 
   = general_simple_form_for resource, as: resource_name,
