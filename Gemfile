@@ -45,6 +45,10 @@ gem 'rectify'
 
 gem 'ffaker'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'

@@ -27,3 +27,9 @@
           %li
             %a.nav-link{href: "#"}
               %i.fa.fa-instagram{'aria-hidden': "true"}
+
+        - if signed_in?
+          = link_to 'Log out', destroy_user_session_path, method: :delete,
+            class: 'btn btn-danger btn-block btn-sm'
+          = link_to 'Destory', registration_path(current_user), method: :delete,
+            class: 'btn btn-danger btn-block btn-sm'

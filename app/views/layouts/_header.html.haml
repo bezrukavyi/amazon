@@ -57,6 +57,3 @@
       .alert.alert-success= notice
     - if alert
       .alert.alert-warning= alert
-    - if signed_in?
-      = link_to t('.title'), destroy_user_session_path, method: :delete,
-        class: 'btn btn-danger btn-block btn-sm'
