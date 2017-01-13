@@ -9,10 +9,10 @@ RSpec.feature 'Authentication', :type => :feature do
     scenario 'when user not exist' do
       visit new_user_registration_path
       within '#new_user' do
-        fill_in 'Email', with: FFaker::Internet.email
-        fill_in 'Password', with: '12345678'
-        fill_in 'Password confirmation', with: '12345678'
-        click_button 'Sign up'
+        fill_in I18n.t('simple_form.labels.user.email'), with: FFaker::Internet.email
+        fill_in I18n.t('simple_form.labels.user.password'), with: 'rspec123'
+        fill_in I18n.t('simple_form.labels.user.password_confirmation'), with: 'rspec123'
+        click_button I18n.t('simple_form.titles.sign_up')
       end
       expect(page).to have_content I18n.t('devise.registrations.signed_up')
     end
@@ -21,10 +21,10 @@ RSpec.feature 'Authentication', :type => :feature do
       visit new_user_registration_path
       login_as(user, scope: :user)
       within '#new_user' do
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password
-        fill_in 'Password confirmation', with: user.password
-        click_button 'Sign up'
+        fill_in I18n.t('simple_form.labels.user.email'), with: user.email
+        fill_in I18n.t('simple_form.labels.user.password'), with: user.password
+        fill_in I18n.t('simple_form.labels.user.password_confirmation'), with: user.password
+        click_button I18n.t('simple_form.titles.sign_up')
       end
       expect(page).to have_content I18n.t('devise.failure.already_authenticated')
     end
@@ -53,8 +53,8 @@ RSpec.feature 'Authentication', :type => :feature do
     scenario 'when user not exist' do
       visit new_user_session_path
       within '#new_user' do
-        fill_in 'Email', with: FFaker::Internet.email
-        fill_in 'Password', with: '12345678'
+        fill_in I18n.t('simple_form.labels.user.email'), with: FFaker::Internet.email
+        fill_in I18n.t('simple_form.labels.user.password'), with: 'rspec123'
         click_button 'Log in'
       end
       expect(page).to have_content I18n.t('devise.failure.invalid', authentication_keys: 'Email')
@@ -63,9 +63,9 @@ RSpec.feature 'Authentication', :type => :feature do
     scenario 'when user not singed in' do
       visit new_user_session_path
       within '#new_user' do
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password
-        click_button 'Log in'
+        fill_in I18n.t('simple_form.labels.user.email'), with: user.email
+        fill_in I18n.t('simple_form.labels.user.password'), with: user.password
+        click_button I18n.t('simple_form.titles.log_in')
       end
       expect(page).to have_content I18n.t('devise.sessions.signed_in')
     end
@@ -74,9 +74,9 @@ RSpec.feature 'Authentication', :type => :feature do
       visit new_user_session_path
       login_as(user, scope: :user)
       within '#new_user' do
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password
-        click_button 'Log in'
+        fill_in I18n.t('simple_form.labels.user.email'), with: user.email
+        fill_in I18n.t('simple_form.labels.user.password'), with: user.password
+        click_button I18n.t('simple_form.titles.log_in')
       end
       expect(page).to have_content I18n.t('devise.failure.already_authenticated')
     end

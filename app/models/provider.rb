@@ -2,12 +2,12 @@ class Provider < ApplicationRecord
   belongs_to :user
 
   scope :find_by_omniauth, -> (auth) do
-     find_by(name: auth.provider, uid: auth.uid)
+    where(name: auth.provider, uid: auth.uid)
   end
 
   def self.authorize(auth)
     provider = find_by_omniauth(auth)
-    return provider if provider.present?
+    return provider.first if provider.present?
     user = User.where(email: auth.info.email).first_or_create do |user|
       user.password = Devise.friendly_token[0,20]
     end

@@ -1,13 +1,16 @@
 .text-center
-  %h3.general-login-title Set new password
+  %h3.general-login-title= t('simple_form.titles.new_password')
 
 = general_simple_form_for resource, as: resource_name,
   url: user_edit_password_path do |field|
 
   .form-group.mb-30
-    = field.input :password, placeholder: "Type a new Password"
+    = field.input :password, placeholder: t('simple_form.user.new_password'),
+      label: t('simple_form.user.new_password')
 
   .form-group.mb-40
-    = field.input :password_confirmation, placeholder: "Confirm Password"
+    = field.input :password_confirmation, t('simple_form.user.new_password'),
+      label: t('simple_form.user.new_password')
 
-  = field.button :submit, "Change", class: 'btn btn-default center-block mb-20'
+  = field.button :submit, t('simple_form.titles.change'),
+    class: 'btn btn-default center-block mb-20'

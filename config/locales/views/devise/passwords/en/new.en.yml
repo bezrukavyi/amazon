@@ -1,0 +1,7 @@
+en:
+  devise:
+    passwords:
+      new:
+        title: We'll email you instructions on how to reset it
+        email_instruct: Email Instructions
+        enter_email: Enter your email

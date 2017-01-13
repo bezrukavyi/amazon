@@ -1,17 +1,38 @@
 .container.general-main-wrap
   .text-center
-    %h3.general-login-title Log In
+    %h3.general-login-title= t('simple_form.titles.log_in')
 
     = render 'omni_links'
 
-    %p.general-login-text or
+    %p.general-login-text= t('or')
 
   = general_simple_form_for resource, as: resource_name,
     url: session_path(resource_name) do |field|
 
-    = render partial: 'fields', locals: { field: field, title: 'Log in' }
+    .form-group.mb-30
+      = field.input :email, autofocus: true
+
+    .form-group.mb-30
+      = field.input :password, autocomplete: 'off'
+      = link_to t('simple_form.titles.forgot_password?'),
+        new_password_path(resource_name),
+        class: 'help-block in-gold-500'
+
+    - if devise_mapping.rememberable?
+      .form-group.checkbox.text-center.mb-30
+        %label.checkbox-label
+          = field.check_box :remember_me, class: 'checkbox-input', hidden: true
+          %span.checkbox-icon
+            %i.fa.fa-check
+          %span.checkbox-text= t('simple_form.labels.user.remember_me')
+
+    .text-center
+      = field.button :submit, t('simple_form.titles.log_in'),
+        class: 'btn btn-default mb-20'
+
 
   %p.general-sign-text.text-center
-    Don’t have an Account?
-    = link_to "Sign up", new_registration_path(resource_name),
+    = t('.not_account?')
+    = link_to t('simple_form.titles.sign_up'),
+      new_registration_path(resource_name),
       class: 'in-gold-500'

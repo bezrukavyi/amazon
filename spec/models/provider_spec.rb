@@ -13,7 +13,7 @@ RSpec.describe Provider, type: :model do
     let(:auth) { OmniAuth.config.mock_auth[:google] }
 
     it 'when provider exist' do
-      allow(Provider).to receive(:find_by_omniauth).and_return(subject)
+      allow(Provider).to receive(:find_by_omniauth).and_return([subject])
       expect(Provider.authorize(auth)).to eq(subject)
     end
 
