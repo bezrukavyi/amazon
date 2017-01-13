@@ -9,12 +9,4 @@ class User < ApplicationRecord
 
   has_many :providers, dependent: :destroy
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"]
-        user.email = data["email"] if user.email.blank?
-      end
-    end
-  end
-
 end
