@@ -9,7 +9,7 @@
   = general_simple_form_for resource, as: resource_name,
     url: session_path(resource_name) do |field|
 
-    = render partial: 'fields', locals: { field: field }
+    = render partial: 'fields', locals: { field: field, title: 'Log in' }
 
   %p.general-sign-text.text-center
     Don’t have an Account?
