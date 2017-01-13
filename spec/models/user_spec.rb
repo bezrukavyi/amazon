@@ -25,4 +25,18 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context 'Concern Addressing' do
+    it 'has one shipping' do
+      expect(subject).to respond_to(:shipping)
+    end
+    it 'has one billing' do
+      expect(subject).to respond_to(:billing)
+    end
+  end
+
+  context 'Concern Addressing' do
+    it_behaves_like 'addressing'
+  end
+
+
 end
