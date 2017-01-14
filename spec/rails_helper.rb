@@ -40,6 +40,7 @@ RSpec.configure do |config|
   config.include Rectify::RSpec::Helpers
   config.include Warden::Test::Helpers
   config.include Support::OmniauthHelper
+  config.include Rectify::RSpec::Helpers
   config.include I18n
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
