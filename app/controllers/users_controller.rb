@@ -10,11 +10,7 @@ class UsersController < Devise::RegistrationsController
   end
 
   def update
-    if params[:with_password]
-      super
-    else
-      params[:address] ? address_update : user_update
-    end
+    params[:address] ? address_update : super
   end
 
   def destroy
@@ -29,6 +25,11 @@ class UsersController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     user_edit_path
+  end
+
+  def update_resource(resource, resource_params)
+    type = params[:with_password] ? 'with' : 'without'
+    resource.send("update_#{type}_password", resource_params)
   end
 
   private
