@@ -11,10 +11,10 @@ FactoryGirl.define do
   end
 
   factory :shipping_address, parent: :address do
-    address_type 1
+    address_type :shipping
   end
 
   factory :billing_address, parent: :address do
-    address_type 0
+    address_type :billing
   end
 end

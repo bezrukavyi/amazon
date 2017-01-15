@@ -1,4 +1,6 @@
 en:
   hello: "Hello world"
   or: or
-  cancel: 'Cancel'
+  cancel: Cancel
+  confirm_intentions: You must confirm your intentions
+  success_updated: Success updated

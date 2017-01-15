@@ -1,0 +1,10 @@
+= simple_form_for current_user,
+  url: user_update_path,
+  html: { class: 'general-form-md' } do |field|
+
+  .form-group.mb-35
+    = field.input :email
+
+  .general-text-align
+    = field.button :submit, t('simple_form.titles.save'),
+      class: 'btn btn-default mb-35'

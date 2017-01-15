@@ -3,8 +3,12 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def update_resource(resource, params)
-    params.delete(:password) unless params[:password]
-    params.delete(:password_confirmation) unless params[:password_confirmation]
-    resource.update_attributes(params)
+    resource.update_with_password(params)
   end
+
+  private
+  def user_params
+    params(:user).permit(:first_name, :last_name, :address)
+  end
+
 end

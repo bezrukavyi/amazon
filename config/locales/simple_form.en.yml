@@ -15,6 +15,7 @@ en:
         email: Enter Email
         password: Password
         password_confirmation: Confirm Password
+        current_password: Old Password
     labels:
       user:
         first_name: First name
@@ -22,6 +23,7 @@ en:
         email: Enter Email
         password: Password
         password_confirmation: Confirm Password
+        current_password: Old Password
         remember_me: Remember me
       address:
         street: Street
@@ -56,6 +58,7 @@ en:
       new_password: Type a new Password
     titles:
       change: Change
+      save: Save
       forgot_password?: Forgot password?
       new_password: Set new password
       log_in: 'Log in'

@@ -1,0 +1,26 @@
+- @countries ||= countries
+
+= simple_form_for object, url: user_update_path,
+  html: { id: "#{type}_address" }, method: :patch do |field|
+
+  = field.hidden_field :address_type, value: type
+  = field.hidden_field :addressable_id, value: current_user.id
+  = field.hidden_field :addressable_type, value: current_user.class
+
+
+  - [:first_name, :last_name, :name, :city, :zip].each do |name|
+    .form-group
+      = field.input name, input_html: { id: "#{name}_#{type}_address" }
+
+  .form-group
+    = field.input :country_id, collection: @countries,
+      label_method: :name, value_method: :id,
+      include_blank: "Choose country",
+      input_html: { id: "country_id_#{type}_address" }
+
+  .form-group
+    = field.input :phone, input_html: { id: "phone_#{type}_address" }
+
+  .text-center.general-text-align
+    = field.button :submit, t('simple_form.titles.save'),
+      class: "btn"

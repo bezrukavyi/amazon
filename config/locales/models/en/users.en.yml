@@ -1,0 +1,4 @@
+en:
+  users:
+    confirm_intentions: You must confirm your intentions about destroy account
+    success_updated_email: Your email success updated

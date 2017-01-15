@@ -1,7 +1,7 @@
 class AddressForm < Rectify::Form
 
   [:first_name, :last_name, :name, :zip, :phone, :city,
-    :country_id].each do |name|
+    :country_id, :addressable_type].each do |name|
     attribute name, String
     validates name, presence: true
   end
