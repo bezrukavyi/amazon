@@ -1,9 +1,9 @@
 class UsersController < Devise::RegistrationsController
+  before_action :authenticate_user!
+  before_action :set_countries, only: [:edit, :update]
 
   include Addressable
-  before_action :authenticate_user!
   before_action :set_addresses, only: [:edit, :update]
-  before_action :set_countries, only: [:edit, :update]
 
   def edit
     @address = AddressForm.from_params(params)
@@ -13,7 +13,7 @@ class UsersController < Devise::RegistrationsController
     if params[:with_password]
       super
     else
-      params[:address] ? address_update : update_update
+      params[:address] ? address_update : user_update
     end
   end
 
@@ -23,6 +23,12 @@ class UsersController < Devise::RegistrationsController
     else
       redirect_to user_edit_path, alert: t('.confirm_intentions')
     end
+  end
+
+  protected
+
+  def after_update_path_for(resource)
+    user_edit_path
   end
 
   private
