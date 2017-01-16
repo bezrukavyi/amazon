@@ -5,10 +5,6 @@ class UsersController < Devise::RegistrationsController
   include Addressable
   before_action :set_addresses, only: [:edit, :update]
 
-  def edit
-    @address = AddressForm.from_params(params)
-  end
-
   def update
     params[:address] ? address_update : super
   end
@@ -33,18 +29,6 @@ class UsersController < Devise::RegistrationsController
   end
 
   private
-
-  def user_update
-    if current_user.update_attributes(user_params)
-      redirect_to user_edit_path, notice: t('.success_updated_email')
-    else
-      render :edit
-    end
-  end
-
-  def user_params
-    params.require(:user).permit(:email)
-  end
 
   def set_countries
     @countries = Country.all

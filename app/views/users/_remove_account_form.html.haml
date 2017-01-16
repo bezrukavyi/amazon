@@ -2,7 +2,7 @@
   method: :delete do |field|
 
   .general-settings-btn
-    %button.btn.mb-20 Please Remove My Account
+    %button.btn.mb-20= t('users.edit.remove_account.petition')
 
   .form-group.checkbox.general-settings-checkbox
     %label.checkbox-label
@@ -10,4 +10,4 @@
         hidden: 'hidden'
       %span.checkbox-icon
         %i.fa.fa-check
-      %span.checkbox-text I understand that all data will be lost
+      %span.checkbox-text= t('users.edit.remove_account.confirm_title')

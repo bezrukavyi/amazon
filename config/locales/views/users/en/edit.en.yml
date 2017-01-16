@@ -1,0 +1,10 @@
+en:
+  users:
+    edit:
+      settings: Settings
+      remove_account:
+        title: Remove account
+        petition: Please Remove My Account
+        confirm_title: I understand that all data will be lost
+      email: Email
+      password: Password
