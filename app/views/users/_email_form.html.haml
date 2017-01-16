@@ -1,6 +1,6 @@
 = simple_form_for current_user,
   url: user_update_path,
-  html: { class: 'general-form-md' } do |field|
+  html: { class: 'general-form-md', id: 'edit_user_email' } do |field|
 
   .form-group.mb-35
     = field.input :email

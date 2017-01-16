@@ -6,43 +6,24 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.0.1'
-
 gem 'pg', '~> 0.18'
-
 gem 'puma', '~> 3.0'
-
 gem 'bootstrap-sass', '3.2.0.0'
-
 gem 'will_paginate'
-
 gem 'sass-rails', '~> 5.0'
-
 gem 'uglifier', '>= 1.3.0'
-
 gem 'coffee-rails', '~> 4.2'
-
 gem 'jquery-rails'
-
 gem 'turbolinks', '~> 5'
-
 gem 'jbuilder', '~> 2.5'
-
 gem 'devise'
-
 gem 'haml-rails'
-
 gem 'simple_form', '~> 3.2', '>= 3.2.1'
-
 gem 'rails-i18n'
-
 gem 'roo'
-
 gem 'aasm'
-
 gem 'wicked'
-
 gem 'rectify'
-
 gem 'ffaker'
 
 gem 'omniauth'
@@ -57,11 +38,12 @@ group :development, :test do
   gem 'shoulda'
   gem 'rails-controller-testing'
   gem 'pry'
+  gem 'capybara'
 end
 
 group :test do
   gem 'database_cleaner'
-  gem 'capybara'
+  gem 'capybara-screenshot'
 end
 
 group :development do

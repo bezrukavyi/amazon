@@ -9,6 +9,7 @@ require 'aasm/rspec'
 require 'support/support_helpers'
 require 'rectify/rspec'
 require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
 require 'omniauth'
 Dir[Rails.root.join('spec/shared_examples/**/*.rb')].each { |share| require share }
 # Add additional requires below this line. Rails is not loaded until this point!

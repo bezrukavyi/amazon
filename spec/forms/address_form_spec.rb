@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe AddressForm, :address_form do
+  let(:addressable) { create :user }
 
   subject { AddressForm.from_params(attributes_for(:shipping_address,
-    addressable_id: 1)) }
+    addressable_id: addressable.id, addressable_type: addressable.class)) }
 
   context 'valid' do
     it 'valid object' do

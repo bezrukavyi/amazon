@@ -1,7 +1,8 @@
-module Addressable
+module AddressableController
   extend ActiveSupport::Concern
 
   included do
+    before_action :set_countries, only: [:edit, :update]
     attr_accessor(*Address.address_types.keys)
   end
 
@@ -9,7 +10,7 @@ module Addressable
     @address = AddressForm.from_params(params)
     if @address.valid?
       UpdateAddress.call(@address) do
-        on(:valid) { redirect_to user_edit_path, notice: t('.success_updated_email') }
+        on(:valid) { redirect_back fallback_location: root_path, notice: t('devise.registrations.updated') }
         on(:invalid) { render :edit }
       end
     else
@@ -28,5 +29,8 @@ module Addressable
     send("#{type}=", address_form)
   end
 
+  def set_countries
+    @countries = Country.all
+  end
 
 end

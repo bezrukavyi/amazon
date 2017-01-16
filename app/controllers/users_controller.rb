@@ -1,12 +1,15 @@
 class UsersController < Devise::RegistrationsController
   before_action :authenticate_user!
-  before_action :set_countries, only: [:edit, :update]
 
-  include Addressable
+  include AddressableController
   before_action :set_addresses, only: [:edit, :update]
 
   def update
-    params[:address] ? address_update : super
+    if params[:address]
+      address_update
+    elsif params[:user]
+      params[:with_password] ? super : user_update
+    end
   end
 
   def destroy
@@ -23,15 +26,18 @@ class UsersController < Devise::RegistrationsController
     user_edit_path
   end
 
-  def update_resource(resource, resource_params)
-    type = params[:with_password] ? 'with' : 'without'
-    resource.send("update_#{type}_password", resource_params)
-  end
-
   private
 
-  def set_countries
-    @countries = Country.all
+  def user_update
+    if current_user.update_attributes(user_params)
+      redirect_to user_edit_path, notice: t('.success_updated_email')
+    else
+      render :edit
+    end
+  end
+
+  def user_params
+    params.require(:user).permit(:email)
   end
 
 end

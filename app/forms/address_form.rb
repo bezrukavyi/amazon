@@ -22,12 +22,10 @@ class AddressForm < Rectify::Form
   validate :wrong_code
 
   def wrong_code
-    return unless country_id = self.country_id
-    country = Country.find(country_id)
-    return if self.phone =~ /^\+#{country.code}/
+    return unless country = Country.find_by_id(country_id)
+    return if phone =~ /^\+#{country.code}/
     errors.add(:phone, I18n.t('simple_form.error_notification.country_code',
       code: "+#{country.code}"))
   end
-
 
 end
