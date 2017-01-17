@@ -1,0 +1,47 @@
+%main.container
+  %h1.general-title-margin
+    Сatalog
+    .hidden-xs.clearfix
+
+      = form_tag books_path, method: 'get', id: 'filter_book' do
+        .dropdowns.pull-right
+          .dropdown.width-240
+            %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+              = params[:sorted_by] || 'newest'
+              %i.fa.fa-angle-down.dropdown-icon.pull-right
+
+            %ul.dropdown-menu
+              - @sort_types.each do |type|
+                %li
+                  %label
+                    = type
+                    = radio_button_tag :sorted_by, type, params[:sorted_by] == type.to_s
+
+
+
+
+
+        %ul.list-inline.pt-10.mb-25.mr-240
+          = render partial: "category", collection: @categories
+
+    .dropdowns.mb-25.visible-xs
+      %p.lead.small.mb-10 Filter by category
+      .dropdown
+        %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+          Newest first
+          %i.fa.fa-angle-down.dropdown-icon.pull-right
+        %ul.dropdown-menu
+          %li
+            %a{href: "#"} Newest first
+          %li
+            %a{href: "#"} Popular first
+          %li
+            %a{href: "#"} Price: Low to hight
+          %li
+            %a{href: "#"} Price: Low to hight
+      %p.lead.small.mb-10 Sort by
+
+    .mb-120
+      - @books.in_groups_of(4).each do |group|
+        .row
+          = render partial: "book", collection: group

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       patch '/settings', to: 'users#update', as: :user_update
     end
 
+    resources :books, only: [:index, :show]
+
     root to: 'main_pages#index'
 
   end

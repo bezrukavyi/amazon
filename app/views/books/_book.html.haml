@@ -1,0 +1,17 @@
+- if book
+  .col-xs-6.col-sm-3
+    .general-thumb-wrap
+      .thumbnail.general-thumbnail
+        %img.img-shadow.general-thumbnail-img{:alt => "design-book",
+        :src => "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo"}/
+        .thumb-hover
+          .general-thumb-link-wrap
+            %a.thumb-hover-link{:href => "#"}
+              %i.fa.fa-eye.thumb-icon{"aria-hidden" => "true"}
+            %a.thumb-hover-link{:href => "#"}
+              %i.fa.fa-shopping-cart.thumb-icon
+    .general-thumb-info
+      %p.title= book.title
+      %p.font-16.in-gold-500= book.price
+      %span.divider-sm
+      %p.lead.small Bass Jobsen, David Cochran, Ian Whitley

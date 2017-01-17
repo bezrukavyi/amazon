@@ -1,0 +1,5 @@
+%li.mr-35
+  %label.filter-link
+    = category.title
+    = radio_button_tag :with_category, category.title, 'Photo' == category.title
+    %span.badge.general-badge= category.books.count

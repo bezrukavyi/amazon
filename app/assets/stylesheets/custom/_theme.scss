@@ -46,6 +46,13 @@
     white-space: unset;
     word-break: break-word;
   }
+  label {
+    @extend a;
+    outline: none !important;
+    border: 0;
+    width: 100%;
+    text-align: left;
+  }
 }
 .carousel {
   margin-left: -15px;
@@ -66,7 +73,7 @@
   word-break: break-word;
 }
 .small {
-  font-size: $font-size-base;
+  font-size: $font-size-base !important;
 }
 .btn {
   max-width: 100%;
@@ -246,6 +253,7 @@
   position: relative;
   cursor: pointer;
   margin-bottom: 10px;
+  font-weight: 300 !important;
   &:hover {
     color: $grey-900;
     text-decoration: none;
