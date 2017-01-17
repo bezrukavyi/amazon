@@ -1,7 +1,8 @@
 - @countries ||= countries
 
 = simple_form_for object, url: user_update_path,
-  html: { id: "#{type}_address" }, method: :patch do |field|
+  html: { id: "#{type}_address" }, method: :patch,
+  data: { type: 'address' } do |field|
 
   = field.hidden_field :address_type, value: type
   = field.hidden_field :addressable_id, value: current_user.id

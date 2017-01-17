@@ -28,6 +28,11 @@ class UsersController < Devise::RegistrationsController
     resource.send("update_#{type}_password", resource_params)
   end
 
+  def account_update_params
+    params.require(:user).permit(:email, :password, :password_confirmation,
+      :current_password)
+  end
+
   private
 
   def address_update
