@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :providers, dependent: :destroy
 
-  include Addressing
+  include AddressableRelation
   Address.address_types.keys.each do |name|
     has_address name
     accepts_nested_attributes_for name

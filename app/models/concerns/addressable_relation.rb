@@ -1,4 +1,4 @@
-module Addressing
+module AddressableRelation
   extend ActiveSupport::Concern
 
   module ClassMethods

@@ -1,7 +1,8 @@
 class UsersController < Devise::RegistrationsController
   before_action :authenticate_user!
 
-  include AddressableController
+  include AddressableAttrubutes
+  before_action :set_countries, only: [:edit, :update]
   before_action :set_addresses, only: [:edit, :update]
 
   def update
@@ -25,6 +26,18 @@ class UsersController < Devise::RegistrationsController
   def update_resource(resource, resource_params)
     type = params[:with_password] ? 'with' : 'without'
     resource.send("update_#{type}_password", resource_params)
+  end
+
+  private
+
+  def address_update
+    form = AddressForm.from_params(params)
+    type = form.address_type
+    send("#{type}=", form)
+    UpdateAddress.call(send("#{type}")) do
+      on(:valid) { redirect_back fallback_location: root_path, notice: t('devise.registrations.updated') }
+      on(:invalid) { render :edit }
+    end
   end
 
 end

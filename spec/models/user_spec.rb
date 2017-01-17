@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
   end
 
   context 'Concern Addressing' do
-    it_behaves_like 'addressing'
+    it_behaves_like 'addressable_relation'
   end
 
 

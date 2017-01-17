@@ -1,4 +1,4 @@
-shared_examples_for 'addressing' do
+shared_examples_for 'addressable_relation' do
   let(:resource) { create(described_class.name.underscore) }
 
   describe '#has_address' do
