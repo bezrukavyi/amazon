@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114102209) do
+ActiveRecord::Schema.define(version: 20170117125738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,38 @@ ActiveRecord::Schema.define(version: 20170114102209) do
     t.integer  "address_type"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
     t.index ["country_id"], name: "index_addresses_on_country_id", using: :btree
+  end
+
+  create_table "authors", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.text     "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "authors_books", id: false, force: :cascade do |t|
+    t.integer "author_id"
+    t.integer "book_id"
+    t.index ["author_id"], name: "index_authors_books_on_author_id", using: :btree
+    t.index ["book_id"], name: "index_authors_books_on_book_id", using: :btree
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string   "title"
+    t.text     "desc"
+    t.decimal  "price",      precision: 12, scale: 3
+    t.integer  "count"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["title"], name: "index_books_on_title", using: :btree
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_categories_on_title", using: :btree
   end
 
   create_table "countries", force: :cascade do |t|
@@ -68,4 +100,6 @@ ActiveRecord::Schema.define(version: 20170114102209) do
   end
 
   add_foreign_key "addresses", "countries"
+  add_foreign_key "authors_books", "authors"
+  add_foreign_key "authors_books", "books"
 end
