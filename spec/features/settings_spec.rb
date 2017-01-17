@@ -36,7 +36,7 @@ RSpec.feature 'Settings', :type => :feature do
           fill_in I18n.t('simple_form.labels.user.email'), with: 'rspec1@gmail.com'
           click_button I18n.t('simple_form.titles.save')
         end
-        expect(page).to have_content I18n.t('users.success_updated_email')
+        expect(page).to have_content I18n.t('devise.registrations.updated')
       end
 
       scenario 'password update' do
