@@ -1,0 +1,11 @@
+en:
+  books:
+    index:
+      title: 'Catalog'
+      sorted_by:
+        title: Sort by
+        newest: Newest first
+        low_price: "Price: Low to high"
+        hight_price: "Price: Hight to low"
+        popular: Popular first
+      filter_by: Filter by category

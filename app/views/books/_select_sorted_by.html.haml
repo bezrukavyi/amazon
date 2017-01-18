@@ -1,0 +1,5 @@
+- select_objects.each do |type|
+  %li
+    %label
+      = t("books.index.sorted_by.#{type}")
+      = radio_button_tag :sorted_by, type, params[:sorted_by] == type.to_s, hidden: true

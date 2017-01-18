@@ -1,11 +1,9 @@
 class BooksController < ApplicationController
   def index
     @categories = Category.all
-    @books = Book.all
     @sort_types = Book::SORT_TYPES
-    filtering_params.each do |param, value|
-      @books = @books.public_send(param, value) if value.present?
-    end
+    @books = default_sort? ? Book.newest : Book.all
+    filtering_books!
   end
 
   def show
@@ -15,8 +13,16 @@ class BooksController < ApplicationController
 
   private
 
-  def filtering_params
-    params.slice(:with_category, :sorted_by)
+  def filtering_books!
+    filtering_params = params.slice(:with_category, :sorted_by)
+    filtering_params.each do |param, value|
+      @books = @books.public_send(param, value) if value.present?
+    end
+  end
+
+  def default_sort?
+    return true unless params[:sorted_by]
+    params[:sorted_by] == :newest
   end
 
 end

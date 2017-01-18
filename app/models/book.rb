@@ -2,18 +2,17 @@ class Book < ApplicationRecord
   belongs_to :category
   has_and_belongs_to_many :authors
 
-  SORT_TYPES = [:newest, :low_price, :hight_price]
+  validates :title, :price, :count, presence: true
 
-  default_scope { newest }
+  SORT_TYPES = [:newest, :low_price, :hight_price]
 
   scope :with_category, -> (term) do
     joins(:category).where("lower(categories.title) like '#{term.downcase}'")
   end
-  scope :newest, -> { order('created_at DESC') }
-  scope :low_price, -> { order('price ASC') }
-  scope :hight_price, -> { order('price DESC') }
 
-  validates :title, :price, :count, presence: true
+  scope :newest, -> { order(created_at: :desc) }
+  scope :low_price, -> { order(price: :asc) }
+  scope :hight_price, -> { order(price: :desc) }
 
   def self.sorted_by(type)
     send(type)

@@ -1,0 +1,5 @@
+- select_objects.each do |category|
+  %li
+    %label
+      = category.title
+      = radio_button_tag :with_category, category.title, params[:with_category] == category.title.to_s, hidden: true
