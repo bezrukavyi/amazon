@@ -19,21 +19,23 @@ RSpec.describe BooksController, type: :controller do
     context 'with filter' do
       let(:horror) { create :category }
       let(:drama) { create :category }
-      let(:book_1) { create :book, category: horror, price: 25.0 }
-      let(:book_2) { create :book, category: horror, price: 50.0 }
-      let(:book_3) { create :book, category: drama, price: 100.0 }
-      let(:book_4) { create :book, category: horror, price: 75.0 }
+
+      before do
+        @harry_potter = create(:book, category: horror, price: 25.0)
+        @ruby_way = create(:book, category: horror, price: 50.0)
+        @rails_way = create(:book, category: drama, price: 100.0)
+        @book = create(:book, category: horror, price: 75.0)
+      end
+
 
       it 'set category' do
-        books = [book_1, book_2, book_3, book_4]
         get :index, params: { with_category: horror.title }
         expect(assigns(:books).count).to eq(3)
       end
 
       it 'set price' do
-        books = [book_1, book_2, book_3, book_4]
         get :index, params: { sorted_by: :hight_price }
-        expect(assigns(:books)).to eq([book_3, book_4, book_2, book_1])
+        expect(assigns(:books)).to eq([@rails_way, @book, @ruby_way, @harry_potter])
       end
 
     end

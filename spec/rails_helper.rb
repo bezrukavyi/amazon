@@ -10,6 +10,7 @@ require 'rectify/rspec'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require "capybara/poltergeist"
+require 'carrierwave/test/matchers'
 require 'aasm/rspec'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -25,7 +26,10 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Support::OmniauthHelper
   config.include Rectify::RSpec::Helpers
+  config.include CarrierWave::Test::Matchers
   config.include I18n
+
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   Capybara.javascript_driver = :poltergeist
 
