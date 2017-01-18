@@ -9,7 +9,6 @@ gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'bootstrap-sass', '3.2.0.0'
-gem 'will_paginate'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
@@ -25,11 +24,13 @@ gem 'aasm'
 gem 'wicked'
 gem 'rectify'
 gem 'ffaker'
-
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-vkontakte'
+gem 'rails_admin'
+gem 'cancancan'
+
 
 group :development, :test do
   gem 'byebug', platform: :mri
