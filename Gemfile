@@ -44,6 +44,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'capybara-screenshot'
+  gem 'poltergeist'
 end
 
 group :development do

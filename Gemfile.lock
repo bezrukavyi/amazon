@@ -62,6 +62,7 @@ GEM
       capybara (>= 1.0, < 3)
       launchy
     choice (0.2.0)
+    cliver (0.3.2)
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -167,6 +168,10 @@ GEM
       omniauth-oauth2 (~> 1.1)
     orm_adapter (0.5.0)
     pg (0.19.0)
+    poltergeist (1.11.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -332,6 +337,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-vkontakte
   pg (~> 0.18)
+  poltergeist
   pry
   puma (~> 3.0)
   rails (~> 5.0.1)

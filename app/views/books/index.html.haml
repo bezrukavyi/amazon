@@ -2,7 +2,7 @@
   %h1.general-title-margin= t('.title')
 
   -# TODO Decorators
-  - sort_key = params[:sorted_by].blank? || :newest
+  - sort_key = params[:sorted_by].blank? ? :newest : params[:sorted_by]
   - sort_title = t(".sorted_by.#{sort_key}")
   - category_title = params[:with_category].blank? ? t('all') : params[:with_category]
 

@@ -6,7 +6,7 @@
         :src => "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo"}/
         .thumb-hover
           .general-thumb-link-wrap
-            %a.thumb-hover-link{:href => "#"}
+            = link_to book, class: 'thumb-hover-link' do
               %i.fa.fa-eye.thumb-icon{"aria-hidden" => "true"}
             %a.thumb-hover-link{:href => "#"}
               %i.fa.fa-shopping-cart.thumb-icon
