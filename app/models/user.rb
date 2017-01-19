@@ -3,10 +3,11 @@ class User < ApplicationRecord
   :recoverable, :rememberable, :trackable, :validatable,
   :omniauthable
 
+  has_many :providers, dependent: :destroy
+  has_many :reviews
+
   validates :first_name, :last_name, length: { maximum: 50 }
   validates :email, length: { maximum: 63 }
-
-  has_many :providers, dependent: :destroy
 
   include AddressableRelation
   Address.address_types.keys.each do |name|

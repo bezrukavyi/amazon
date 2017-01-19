@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!, only: [:update]
 
   def index
     @categories = Category.all
@@ -9,8 +10,17 @@ class BooksController < ApplicationController
   end
 
   def show
+    @review = AddressForm.new
     @book = Book.find_by(id: params[:id])
-    redirect_to books_path, notice: 'Not found' unless @book
+    redirect_to books_path, notice: 'Not found any' unless @book
+  end
+
+  def update
+    @review = ReviewForm.from_params(params)
+    CreateReview.call(@review) do
+      on(:valid) { redirect_back fallback_location: root_path, notice: 'Review created' }
+      on(:invalid) { render :edit }
+    end
   end
 
   private

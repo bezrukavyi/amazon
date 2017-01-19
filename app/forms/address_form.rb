@@ -1,12 +1,16 @@
 class AddressForm < Rectify::Form
 
-  [:first_name, :last_name, :name, :zip, :phone, :city,
-    :country_id, :addressable_type].each do |name|
+  STRING_ATTRS = [:first_name, :last_name, :name, :zip, :phone, :city,
+    :country_id, :addressable_type]
+
+  INTEGER_ATTRS = [:addressable_id, :address_type]
+
+  STRING_ATTRS.each do |name|
     attribute name, String
     validates name, presence: true
   end
 
-  [:addressable_id, :address_type].each do |name|
+  INTEGER_ATTRS.each do |name|
     attribute name, Integer
     validates name, presence: true
   end

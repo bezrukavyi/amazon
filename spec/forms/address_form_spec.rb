@@ -4,7 +4,7 @@ RSpec.describe AddressForm, :address_form do
   let(:addressable) { create :user }
 
   subject { AddressForm.from_params(attributes_for(:shipping_address,
-    addressable_id: addressable.id, addressable_type: addressable.class)) }
+    addressable_id: addressable.id, addressable_type: 'User')) }
 
   context 'valid' do
     it 'valid object' do
@@ -24,7 +24,7 @@ RSpec.describe AddressForm, :address_form do
       is_expected.not_to be_valid
     end
     it 'format' do
-      subject.phone = '+380632A63823'
+      subject.phone = '+380AAAAA42342'
       is_expected.not_to be_valid
     end
     it '#wrong_code' do

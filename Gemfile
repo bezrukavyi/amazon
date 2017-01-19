@@ -70,6 +70,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'capybara-screenshot'
+  gem 'shoulda-matchers'
   gem 'poltergeist'
 end
 
