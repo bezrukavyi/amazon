@@ -2,8 +2,8 @@
   .col-xs-6.col-sm-3
     .general-thumb-wrap
       .thumbnail.general-thumbnail
-        %img.img-shadow.general-thumbnail-img{:alt => "design-book",
-        :src => "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo"}/
+        - path = book.avatar.blank? ? "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo" : book.avatar
+        = image_tag path, class: 'img-shadow general-thumbnail-img'
         .thumb-hover
           .general-thumb-link-wrap
             = link_to book, class: 'thumb-hover-link' do

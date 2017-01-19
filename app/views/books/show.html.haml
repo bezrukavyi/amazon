@@ -4,9 +4,10 @@
     Back to results
   .row
     .col-sm-6
-      .product-gallery
+      .product-pictures
         .mb-20
-          = image_tag @book.pictures.first.path.to_s, class: 'img-responsive'
+          - path = @book.pictures.first.blank? ? "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo" : @book.pictures.first.path.to_s
+          = image_tag path, class: 'img-responsive'
         .images.clearfix
           - @book.pictures.drop(1).each do |picture|
             = image_tag picture.path.to_s, class: 'img-link'

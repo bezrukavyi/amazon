@@ -1,7 +1,8 @@
 class Book < ApplicationRecord
   belongs_to :category
   has_and_belongs_to_many :authors
-  has_many :pictures, dependent: :destroy
+  has_many :pictures, as: :imageable
+  mount_uploader :avatar, ImageUploader
 
   validates :title, :price, :count, presence: true
 

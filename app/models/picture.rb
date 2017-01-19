@@ -1,4 +1,4 @@
 class Picture < ApplicationRecord
-  belongs_to :book, optional: true
+  belongs_to :imageable, polymorphic: true
   mount_uploader :path, ImageUploader
 end

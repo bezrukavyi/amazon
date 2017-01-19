@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118221832) do
+ActiveRecord::Schema.define(version: 20170119011708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20170118221832) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.integer  "category_id"
+    t.string   "avatar"
     t.index ["category_id"], name: "index_books_on_category_id", using: :btree
     t.index ["title"], name: "index_books_on_title", using: :btree
   end
@@ -75,10 +76,11 @@ ActiveRecord::Schema.define(version: 20170118221832) do
 
   create_table "pictures", force: :cascade do |t|
     t.string   "path"
-    t.integer  "book_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_pictures_on_book_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "imageable_type"
+    t.integer  "imageable_id"
+    t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id", using: :btree
   end
 
   create_table "providers", force: :cascade do |t|
@@ -114,5 +116,4 @@ ActiveRecord::Schema.define(version: 20170118221832) do
   add_foreign_key "authors_books", "authors"
   add_foreign_key "authors_books", "books"
   add_foreign_key "books", "categories"
-  add_foreign_key "pictures", "books"
 end
