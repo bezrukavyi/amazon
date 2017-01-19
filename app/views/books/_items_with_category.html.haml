@@ -1,4 +1,9 @@
-- select_objects.each do |category|
+%li
+  %label
+    All
+    = radio_button_tag :with_category, '', false, hidden: true
+
+- items.each do |category|
   %li
     %label
       = category.title

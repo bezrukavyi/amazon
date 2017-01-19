@@ -3,5 +3,4 @@
   = title
   %i.fa.fa-angle-down.dropdown-icon.pull-right
 %ul.dropdown-menu
-  = yield
-  = render partial: "select_#{type}", locals: { select_objects: items }
+  = render partial: "items_#{type}", locals: { items: items }

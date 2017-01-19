@@ -7,40 +7,37 @@
   - category_title = params[:with_category].blank? ? t('all') : params[:with_category]
 
 
-  = form_tag books_path, method: 'get', id: 'filter_book' do
+  = form_tag books_path, method: :get, id: 'filter_book' do
 
     .hidden-xs.clearfix
       .dropdowns.pull-right
         .dropdown.width-240
-          = render partial: 'drop_down_items', locals: { items: @sort_types,
+          = render partial: 'drop_down_list', locals: { items: @sort_types,
             type: :sorted_by, title: sort_title }
 
       %ul.list-inline.pt-10.mb-25.mr-240
-        %li.mr-35
-          %label.filter-link
-            = 'All'
-            = radio_button_tag :with_category, '', false, hidden: true
-            %span.badge.general-badge= Book.count
-        = render partial: "category", collection: @categories
+        = render partial: 'category_items', locals: { categories: @categories }
 
     .dropdowns.mb-25.visible-xs
 
       %p.lead.small.mb-10= t('.filter_by')
       .dropdown
-        = render partial: 'drop_down_items', locals: { items: @sort_types,
+        = render partial: 'drop_down_list', locals: { items: @sort_types,
           type: :sorted_by, title: sort_title }
+
 
       %p.lead.small.mb-10= t('.sorted_by.title')
       .dropdown
-        = render layout: 'drop_down_items', locals: { items: @categories,
-          type: :with_category, title: category_title } do
-          %li
-            %label
-              = 'All'
-              = radio_button_tag :with_category, '', false, hidden: true
+        = render partial: 'drop_down_list', locals: { items: @categories,
+          type: :with_category, title: category_title }
 
 
   .mb-120
     - @books.in_groups_of(4).each do |group|
       .row
         = render partial: "book", collection: group
+
+    .text-center
+      - page_params = { sorted_by: params[:sorted_by], with_category: params[:with_category] }
+      = link_to_previous_page @books, t('kaminari.back_page'), class: 'btn btn-primary', params: page_params
+      = link_to_next_page @books, t('kaminari.view_more'), class: 'btn btn-primary', params: page_params
