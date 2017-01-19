@@ -36,13 +36,17 @@ class UsersController < Devise::RegistrationsController
   private
 
   def address_update
-    form = AddressForm.from_params(params)
+    form = AddressForm.from_params(address_params)
     type = form.address_type
     send("#{type}=", form)
     UpdateAddress.call(send("#{type}")) do
       on(:valid) { redirect_back fallback_location: root_path, notice: t('devise.registrations.updated') }
       on(:invalid) { render :edit }
     end
+  end
+
+  def address_params
+    params[:address].merge({ addressable_id: current_user.id, addressable_type: 'User' })
   end
 
 end

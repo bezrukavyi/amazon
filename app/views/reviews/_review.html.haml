@@ -1,0 +1,16 @@
+.general-message-wrap.divider-lg
+  .clearfix
+    %img.img-circle.logo-size.inlide-block.pull-left{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+    .ml-70
+      %div
+        .general-message-date.hidden-xs= formated_date(review.created_at)
+        .max-240
+          .general-message-verified= review.title
+          - name = review.user.first_name.present? ? review.user.first_name : review.user.email
+          .general-message-name= name
+
+      .mb-15
+        - review.grade.times do
+          %i.fa.fa-star.rate-star
+        - if review.desc
+          %p= review.desc

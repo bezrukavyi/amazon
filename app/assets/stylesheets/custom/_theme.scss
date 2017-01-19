@@ -491,6 +491,13 @@
   }
 }
 
+.form-group {
+  textarea {
+    @extend .form-control;
+    height: 100px;
+    resize: vertical;
+  }
+}
 
 @media (min-width: $grid-float-breakpoint) {
   .navbar-nav {

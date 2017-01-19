@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe BooksController, type: :controller do
 
   subject { create :book }
+  let(:user) { create :user }
+
+  before(:each) do
+    sign_in user
+  end
 
   describe 'GET #index' do
 
@@ -49,6 +54,36 @@ RSpec.describe BooksController, type: :controller do
     end
     it 'renders the :show template' do
       expect(response).to render_template(:show)
+    end
+  end
+
+  describe 'PUT #update' do
+    context 'Valid' do
+      let(:params) { attributes_for(:review) }
+
+      it 'updated data' do
+        expect { put :update, params: { id: subject.id, review: params } }
+          .to change { subject.reviews.count }.by(1)
+      end
+
+      it 'redirect to the new user' do
+        put :update, params: { id: subject.id, review: params }
+        expect(response).to redirect_to(book_path(subject))
+      end
+    end
+
+    context 'Invalid' do
+      let(:params) { attributes_for(:invalid_review) }
+
+      it 'updated data' do
+        expect { put :update, params: { id: subject.id, review: params } }
+          .not_to change { subject.reviews.count }
+      end
+
+      it 'redirect to the new user' do
+        put :update, params: { id: subject.id, review: params }
+        expect(response).to render_template(:show)
+      end
     end
   end
 

@@ -19,7 +19,6 @@ class UpdateAddress < Rectify::Command
   def current_object
     model_type = address_form[:addressable_type]
     model_id = address_form[:addressable_id]
-    binding.pry
     Object.const_get(model_type).find(model_id)
   end
 

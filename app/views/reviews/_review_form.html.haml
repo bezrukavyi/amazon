@@ -1,0 +1,14 @@
+= simple_form_for @book, as: @review_form do |field|
+
+  .form-group
+    = field.input :title
+
+  .form-group
+    = field.input :grade, as: :integer
+
+  .form-group
+    = field.input :desc, as: :text
+
+  .text-center.general-text-align
+    = field.button :submit, t('simple_form.titles.save'),
+      class: "btn"

@@ -5,9 +5,6 @@
   data: { type: 'address' } do |field|
 
   = field.hidden_field :address_type, value: type
-  = field.hidden_field :addressable_id, value: current_user.id
-  = field.hidden_field :addressable_type, value: current_user.class
-
 
   - [:first_name, :last_name, :name, :city, :zip].each do |name|
     .form-group
