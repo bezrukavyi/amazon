@@ -8,25 +8,19 @@ class BookDecorator < Draper::Decorator
   end
 
   def publicate_at
-    object.created_at.strftime('%Y')
+    created_at.strftime('%Y')
   end
 
   def main_picture
-    object.pictures.first || object.avatar_url.to_s
+    pictures.first || avatar_url.to_s
   end
 
   def other_picutres
-    object.pictures.drop(1)
+    pictures.drop(1)
   end
 
   def currency_price
-    number_to_currency object.price, locale: :eu
-  end
-
-  private
-
-  def authors
-    @authors ||= object.authors
+    number_to_currency price, locale: :eu
   end
 
 end
