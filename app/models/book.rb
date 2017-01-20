@@ -6,6 +6,7 @@ class Book < ApplicationRecord
   mount_uploader :avatar, ImageUploader
 
   validates :title, :price, :count, presence: true
+  validates_associated :authors
 
   SORT_TYPES = [:newest, :low_price, :hight_price]
 

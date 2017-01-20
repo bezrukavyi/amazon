@@ -23,7 +23,7 @@ Category.find_each do |category|
 end
 
 Book.find_each do |book|
-  rand(0..2).times do
+  rand(1..3).times do
     book.authors << Author.find_by(id: rand(1..Author.count))
   end
 end

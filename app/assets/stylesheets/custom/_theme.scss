@@ -499,6 +499,11 @@
   }
 }
 
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
 @media (min-width: $grid-float-breakpoint) {
   .navbar-nav {
     float: right;

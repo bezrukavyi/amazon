@@ -12,7 +12,6 @@ class BooksController < ApplicationController
 
   def show
     @review_form = ReviewForm.new
-    redirect_to books_path, notice: 'Not found any' unless @book
   end
 
   def update
@@ -25,10 +24,6 @@ class BooksController < ApplicationController
 
   private
 
-  def filtered_params
-    params.slice(:with_category, :sorted_by)
-  end
-
   def filtered_books
     books = default_sort? ? Book.newest : Book.all
     filtered_params.each do |param, value|
@@ -37,17 +32,22 @@ class BooksController < ApplicationController
     books
   end
 
-  def review_params
-    params[:review].merge({ user_id: current_user.id, book_id: @book.id })
-  end
-
   def default_sort?
     return true unless params[:sorted_by]
     params[:sorted_by] == :newest
   end
 
+  def filtered_params
+    params.slice(:with_category, :sorted_by)
+  end
+
+  def review_params
+    params[:review].merge({ user_id: current_user.id, book_id: @book.id })
+  end
+
   def set_book
-    @book = Book.find_by(id: params[:id])
+    @book = Book.find_by(id: params[:id]).try(:decorate)
+    redirect_to books_path, alert: 'Not found any' unless @book
   end
 
   def set_reviews

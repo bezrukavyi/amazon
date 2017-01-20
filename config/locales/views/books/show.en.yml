@@ -1,0 +1,8 @@
+en:
+  books:
+    show:
+      back_to_result: Back to results
+      publicate_at: Year of publication
+      dimensions: Dimensions
+      materials: Materials
+      reviews_count: 'Reviews (%{amount})'

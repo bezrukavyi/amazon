@@ -1,55 +1,54 @@
 %main.container
   %a.general-back-link{href: "#"}
     %i.fa.fa-long-arrow-left.mr-15
-    Back to results
+    = t('.back_to_result')
   .row
     .col-sm-6
       .product-pictures
         .mb-20
-          - path = @book.pictures.first.blank? ? "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo" : @book.pictures.first.path.to_s
-          = image_tag path, class: 'img-responsive'
+          = image_tag @book.main_picture, class: 'img-responsive'
         .images.clearfix
-          - @book.pictures.drop(1).each do |picture|
+          - @book.other_picutres.each do |picture|
             = image_tag picture.path.to_s, class: 'img-link'
 
     .col-sm-6
       %h1.mt-res-0= @book.title
-      %p.lead.small Vitaly Friedman, Daniel Mall,Vitaly Friedman
+      %p.lead.small= @book.authors_name
       .row
         .col-xs-12.col-md-4
-          %p.h1.in-gold-500.mt-10= @book.price
+          %p.h1.in-gold-500.mt-10= @book.currency_price
         .col-xs-5.col-md-3
-          .input-group.general-position
+          .input-group.general-position.align-center
             %a.input-link{href: "#"}
               %i.fa.fa-minus.line-height-40
             %input.form-control.quantity-input{type: "text"}
             %a.input-link{href: "#"}
               %i.fa.fa-plus.line-height-40
         .col-xs-7.col-md-5
-          %button.btn.btn-default.pull-right.general-position Add to Cart
+          %button.btn.btn-default.pull-right.general-position= t('add_to_cart')
       .general-info-wrap.divider-lg
-        %p Description
+        %p= t('description')
         %p.lead.small.line-height-2
-          Smashing Book 5: Real-Life  ...
-          %a.in-gold-500.ml-10{href: "#"} Read More
+          = @book.desc
+          -# %a.in-gold-500.ml-10{href: "#"} Read More
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Year of publication
-          %p.lead.small.pull-right 2016
+          %p.pull-left= t('.publicate_at')
+          %p.lead.small.pull-right= @book.publicate_at
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Dimensions
+          %p.pull-left= t('.dimensions')
           %p.lead.small.pull-right H:6.4\" x W: 0.9\" x D: 5.0
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Materials
+          %p.pull-left= t('.materials')
           %p.lead.small.pull-right Hardcove, glossy paper
 
 
 
   .mb-80
-    %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
-    = render @reviews
+    %h3.in-gold-500.mb-25= t('.reviews_count', amount: @reviews.count)
+    = render @reviews.decorate
 
   - if current_user
     .mb-80

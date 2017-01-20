@@ -2,8 +2,7 @@
   .col-xs-6.col-sm-3
     .general-thumb-wrap
       .thumbnail.general-thumbnail
-        - path = book.avatar.blank? ? "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo" : book.avatar
-        = image_tag path, class: 'img-shadow general-thumbnail-img'
+        = image_tag book.avatar_url, class: 'img-shadow general-thumbnail-img'
         .thumb-hover
           .general-thumb-link-wrap
             = link_to book, class: 'thumb-hover-link' do
@@ -12,6 +11,6 @@
               %i.fa.fa-shopping-cart.thumb-icon
     .general-thumb-info
       %p.title= book.title
-      %p.font-16.in-gold-500= book.price
+      %p.font-16.in-gold-500= book.currency_price
       %span.divider-sm
-      %p.lead.small Bass Jobsen, David Cochran, Ian Whitley
+      %p.lead.small= book.authors_name

@@ -5,8 +5,4 @@ module ApplicationHelper
     simple_form_for(path, options, &block)
   end
 
-  def formated_date(date)
-    date.strftime("%d/%m/%y")
-  end
-
 end

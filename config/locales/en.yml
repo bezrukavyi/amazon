@@ -8,3 +8,5 @@ en:
   address: Address
   shipping_address: Shipping Address
   billing_address: Billing Address
+  add_to_cart: Add to cart
+  description: Description
