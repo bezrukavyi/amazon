@@ -12,6 +12,14 @@ RSpec.describe Book, type: :model do
       subject.dimension = { "h": 10.2,"w": 10.2,"zdsfsdf": 10.1 }
       expect(subject).not_to be_valid
     end
+    it 'invalid price' do
+      subject.price = 0
+      expect(subject).not_to be_valid
+    end
+    it 'invalid count' do
+      subject.count = -1
+      expect(subject).not_to be_valid
+    end
   end
 
   context 'association' do
@@ -68,6 +76,17 @@ RSpec.describe Book, type: :model do
         answer = [@book, @ruby_way, @harry_potter, @rails_way]
         expect(Book.sorted_by(:hight_price)).to eq(answer)
       end
+    end
+  end
+
+  describe '#in_stock?' do
+    it 'true' do
+      subject.count = 1
+      expect(subject.in_stock?).to be_truthy
+    end
+    it 'true' do
+      subject.count = 0
+      expect(subject.in_stock?).to be_falsey
     end
   end
 

@@ -24,8 +24,14 @@
             %input.form-control.quantity-input{type: "text"}
             %a.input-link{href: "#"}
               %i.fa.fa-plus.line-height-40
+
         .col-xs-7.col-md-5
-          %button.btn.btn-default.pull-right.general-position= t('add_to_cart')
+          - if @book.in_stock?
+            %button.btn.btn-default.pull-right.general-position= t('add_to_cart')
+          - else
+            .general-position.align-center
+              %h3.mt-res-0= t('.not_in_stock')
+
       .general-info-wrap.divider-lg
         %p= t('description')
         %p.lead.small.line-height-2

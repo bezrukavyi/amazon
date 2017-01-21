@@ -9,6 +9,8 @@ class Book < ApplicationRecord
   validates :title, :price, :count, presence: true
   validates_associated :authors
   validate :access_dimension
+  validates_numericality_of :count, greater_than_or_equal_to: 0
+  validates_numericality_of :price, greater_than: 0
 
   SORT_TYPES = [:newest, :low_price, :hight_price]
 
@@ -22,6 +24,10 @@ class Book < ApplicationRecord
 
   def self.sorted_by(type)
     send(type)
+  end
+
+  def in_stock?
+    count > 0
   end
 
   private

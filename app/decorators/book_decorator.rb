@@ -33,4 +33,8 @@ class BookDecorator < Draper::Decorator
     end.join(' x ')
   end
 
+  def in_stock_class
+    'disabled' unless in_stock?
+  end
+
 end

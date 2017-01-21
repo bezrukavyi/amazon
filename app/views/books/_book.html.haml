@@ -1,7 +1,7 @@
 - if book
   .col-xs-6.col-sm-3
     .general-thumb-wrap
-      .thumbnail.general-thumbnail
+      .thumbnail.general-thumbnail{class: book.in_stock_class}
         = image_tag book.avatar_url, class: 'img-shadow general-thumbnail-img'
         .thumb-hover
           .general-thumb-link-wrap
