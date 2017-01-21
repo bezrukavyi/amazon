@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121230611) do
+ActiveRecord::Schema.define(version: 20170121233413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,17 @@ ActiveRecord::Schema.define(version: 20170121230611) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "code"
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "price",      precision: 10, scale: 2
+    t.integer  "min_days"
+    t.integer  "max_days"
+    t.integer  "country_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["country_id"], name: "index_deliveries_on_country_id", using: :btree
   end
 
   create_table "materials", force: :cascade do |t|
@@ -162,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170121230611) do
   add_foreign_key "authors_books", "authors"
   add_foreign_key "authors_books", "books"
   add_foreign_key "books", "categories"
+  add_foreign_key "deliveries", "countries"
   add_foreign_key "order_items", "books"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"

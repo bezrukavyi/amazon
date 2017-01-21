@@ -23,6 +23,9 @@ RSpec.describe User, type: :model do
     it 'has many providers' do
       expect(subject).to respond_to(:providers)
     end
+    it 'has many orders' do
+      expect(subject).to respond_to(:orders)
+    end
   end
 
   context 'Concern Addressing' do
