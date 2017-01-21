@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119105147) do
+ActiveRecord::Schema.define(version: 20170121095048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,10 +52,11 @@ ActiveRecord::Schema.define(version: 20170119105147) do
     t.text     "desc"
     t.decimal  "price",       precision: 10, scale: 2
     t.integer  "count"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "category_id"
     t.string   "avatar"
+    t.json     "dimension",                            default: []
     t.index ["category_id"], name: "index_books_on_category_id", using: :btree
     t.index ["title"], name: "index_books_on_title", using: :btree
   end

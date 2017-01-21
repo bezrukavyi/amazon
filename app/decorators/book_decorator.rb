@@ -23,4 +23,10 @@ class BookDecorator < Draper::Decorator
     number_to_currency price, locale: :eu
   end
 
+  def parse_dimension
+    dimension.map do |key, value|
+      [I18n.t("books.show.dimensions.#{key}"), value].join(':')
+    end.join(' x ')
+  end
+
 end

@@ -8,7 +8,6 @@ describe BookDecorator do
     expect(subject.publicate_at).to match(/\w{1}$/)
   end
 
-
   context 'Pictures' do
     let(:first_picture) { create :picture }
     let(:second_picture) { create :picture }

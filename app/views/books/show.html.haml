@@ -37,8 +37,8 @@
           %p.lead.small.pull-right= @book.publicate_at
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left= t('.dimensions')
-          %p.lead.small.pull-right H:6.4\" x W: 0.9\" x D: 5.0
+          %p.pull-left= t('.dimensions.title')
+          %p.lead.small.pull-right= @book.parse_dimension
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left= t('.materials')
