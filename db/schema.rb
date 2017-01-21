@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121095048) do
+ActiveRecord::Schema.define(version: 20170121112615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 20170121095048) do
     t.index ["title"], name: "index_books_on_title", using: :btree
   end
 
+  create_table "books_materials", id: false, force: :cascade do |t|
+    t.integer "book_id",     null: false
+    t.integer "material_id", null: false
+    t.index ["book_id", "material_id"], name: "index_books_materials_on_book_id_and_material_id", using: :btree
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -73,6 +79,12 @@ ActiveRecord::Schema.define(version: 20170121095048) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "code"
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pictures", force: :cascade do |t|

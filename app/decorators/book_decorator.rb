@@ -7,6 +7,10 @@ class BookDecorator < Draper::Decorator
     authors.decorate.map(&:full_name).join(', ')
   end
 
+  def materials_name
+    materials.map(&:name).join(', ').capitalize
+  end
+
   def publicate_at
     created_at.strftime('%Y')
   end

@@ -1,6 +1,7 @@
 class Book < ApplicationRecord
   belongs_to :category
   has_and_belongs_to_many :authors
+  has_and_belongs_to_many :materials
   has_many :reviews
   has_many :pictures, as: :imageable
   mount_uploader :avatar, ImageUploader
@@ -23,7 +24,7 @@ class Book < ApplicationRecord
     send(type)
   end
 
-  protected
+  private
 
   def access_dimension
     valid_dimension = ['h', 'w', 'd']

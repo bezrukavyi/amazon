@@ -18,6 +18,9 @@ RSpec.describe Book, type: :model do
     it 'HABM authors' do
       expect(subject).to have_and_belong_to_many(:authors)
     end
+    it 'HABM materials' do
+      expect(subject).to have_and_belong_to_many(:materials)
+    end
     it 'belong to category' do
       expect(subject).to belong_to(:category)
     end
