@@ -51,5 +51,12 @@
     = render @reviews.decorate
 
   - if current_user
+    .h3.in-gold-500 Write your review about this book
     .mb-80
       = render partial: 'reviews/review_form'
+
+  - else
+    .h3.in-gold-500
+      If you want write review you must
+      = link_to link_to t('simple_form.titles.log_in'), new_user_session_path,
+        class: 'in-gold-500'
