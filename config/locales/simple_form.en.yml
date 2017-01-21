@@ -29,7 +29,7 @@ en:
       review:
         title: Enter Title
         grade: Enter Grade
-        desc: Enter Description
+        desc: Enter Review
     labels:
       user:
         first_name: First Name
@@ -62,9 +62,9 @@ en:
         author: Author
         categories: Categories
       review:
-        title: Enter Title
-        grade: Enter Grade
-        desc: Enter Description
+        title: Title
+        grade: Grade
+        desc: Review
       author:
         first_name: First name
         last_name: Last name
