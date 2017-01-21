@@ -13,13 +13,23 @@ en:
     placeholders:
       user:
         email: Enter Email
+        first_name: Enter First Name
+        last_name: Enter Last Name
         password: Password
         password_confirmation: Confirm Password
         current_password: Old Password
+      address:
+        first_name: Enter First Name
+        last_name: Enter Last Name
+        name: Enter Address
+        city: Enter City
+        zip: Enter Zip code
+        country: Choose Country
+        phone: Enter Phone
     labels:
       user:
-        first_name: First name
-        last_name: Last name
+        first_name: First Name
+        last_name: Last Name
         email: Enter Email
         password: Password
         password_confirmation: Confirm Password

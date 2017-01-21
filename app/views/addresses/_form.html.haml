@@ -13,7 +13,7 @@
   .form-group
     = field.input :country_id, collection: @countries,
       label_method: :name, value_method: :id,
-      include_blank: "Choose country",
+      include_blank: t('simple_form.placeholders.address.country'),
       input_html: { id: "country_id_#{type}_address" }
 
   .form-group
