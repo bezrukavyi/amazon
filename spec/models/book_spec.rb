@@ -56,10 +56,20 @@ RSpec.describe Book, type: :model do
 
     describe '#sorted_by' do
       before do
-        @harry_potter = create(:book, price: 2.0)
-        @ruby_way = create(:book, price: 3.0)
-        @rails_way = create(:book, price: 1.0)
-        @book = create(:book, price: 4.0)
+        @harry_potter = create(:book, price: 2.0, title: 'A title')
+        @ruby_way = create(:book, price: 3.0, title: 'D title')
+        @rails_way = create(:book, price: 1.0, title: 'C title')
+        @book = create(:book, price: 4.0, title: 'B title')
+      end
+
+      it '#asc_title' do
+        answer = [@harry_potter, @book, @rails_way, @ruby_way]
+        expect(Book.sorted_by(:asc_title)).to eq(answer)
+      end
+
+      it '#desc_title' do
+        answer = [@ruby_way, @rails_way, @book, @harry_potter]
+        expect(Book.sorted_by(:desc_title)).to eq(answer)
       end
 
       it '#newest' do

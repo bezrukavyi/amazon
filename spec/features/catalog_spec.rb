@@ -20,21 +20,19 @@ RSpec.feature 'Catalog', :type => :feature do
 
   context 'Filter', js: true do
 
-    before do
-      within '#filter_book' do
-        first('label', text: fantasy.title).click
+    context 'Fantasy category' do
+      before do
+        within '#filter_book' { first('label', text: fantasy.title).click }
       end
-    end
-
-    scenario 'with fantasy books' do
-      Book.where(category: fantasy).map(&:title).each do |title|
-        expect(page).to have_content(title)
+      scenario 'with fantasy books' do
+        Book.where(category: fantasy).map(&:title).each do |title|
+          expect(page).to have_content(title)
+        end
       end
-    end
-
-    scenario 'without drama book' do
-      Book.where(category: drama).map(&:title).each do |title|
-        expect(page).not_to have_content(title)
+      scenario 'without drama book' do
+        Book.where(category: drama).map(&:title).each do |title|
+          expect(page).not_to have_content(title)
+        end
       end
     end
 

@@ -40,7 +40,7 @@ class UsersController < Devise::RegistrationsController
     type = form.address_type
     send("#{type}=", form)
     UpdateAddress.call(send("#{type}")) do
-      on(:valid) { redirect_back fallback_location: root_path, notice: t('devise.registrations.updated') }
+      on(:valid) { redirect_back fallback_location: root_path, notice: t('devise.registrations.updated'), anchor: 'address' }
       on(:invalid) { render :edit }
     end
   end

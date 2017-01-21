@@ -4,7 +4,7 @@ module BooksHelper
   end
 
   def sort_key
-    params[:sorted_by].blank? ? :newest : params[:sorted_by]
+    params[:sorted_by].blank? ? Book::SORT_TYPES.first : params[:sorted_by]
   end
 
   def sort_title

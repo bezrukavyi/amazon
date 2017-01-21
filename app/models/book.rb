@@ -6,18 +6,21 @@ class Book < ApplicationRecord
   has_many :pictures, as: :imageable
   mount_uploader :avatar, ImageUploader
 
-  validates :title, :price, :count, presence: true
   validates_associated :authors
-  validate :access_dimension
+  validates :title, :price, :count, presence: true
   validates_numericality_of :count, greater_than_or_equal_to: 0
   validates_numericality_of :price, greater_than: 0
 
-  SORT_TYPES = [:newest, :low_price, :hight_price]
+  validate :access_dimension
+
+  SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price]
 
   scope :with_category, -> (term) do
     joins(:category).where("lower(categories.title) like '#{term.downcase}'")
   end
 
+  scope :asc_title, -> { order(title: :asc) }
+  scope :desc_title, -> { order(title: :desc) }
   scope :newest, -> { order(created_at: :desc) }
   scope :low_price, -> { order(price: :asc) }
   scope :hight_price, -> { order(price: :desc) }

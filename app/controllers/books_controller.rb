@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   private
 
   def filtered_books
-    books = default_sort? ? Book.newest : Book.all
+    books = default_sort? ? Book.asc_title : Book.all
     filtered_params.each do |param, value|
       books = books.public_send(param, value) if value.present?
     end
@@ -34,7 +34,7 @@ class BooksController < ApplicationController
 
   def default_sort?
     return true unless params[:sorted_by]
-    params[:sorted_by] == :newest
+    params[:sorted_by] == Book::SORT_TYPES.first
   end
 
   def filtered_params
