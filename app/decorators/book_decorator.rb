@@ -1,6 +1,9 @@
 class BookDecorator < Draper::Decorator
   delegate_all
 
+  MAIN_PARAMS = { count: 'count', publicate_at: 'publicate_at',
+    parse_dimension: 'dimensions.title', materials_name: 'materials' }
+
   include ActionView::Helpers::NumberHelper
 
   def authors_name

@@ -32,24 +32,18 @@
             .general-position.align-center
               %h3.mt-res-0= t('.not_in_stock')
 
+
       .general-info-wrap.divider-lg
         %p= t('description')
         %p.lead.small.line-height-2
           = @book.desc
           -# %a.in-gold-500.ml-10{href: "#"} Read More
-      .general-info-wrap.divider-lg
-        .clearfix
-          %p.pull-left= t('.publicate_at')
-          %p.lead.small.pull-right= @book.publicate_at
-      .general-info-wrap.divider-lg
-        .clearfix
-          %p.pull-left= t('.dimensions.title')
-          %p.lead.small.pull-right= @book.parse_dimension
-      .general-info-wrap.divider-lg
-        .clearfix
-          %p.pull-left= t('.materials')
-          %p.lead.small.pull-right= @book.materials_name
 
+        - BookDecorator::MAIN_PARAMS.each do |attribute_name, i18n_title|
+          .general-info-wrap.divider-lg
+            .clearfix
+              %p.pull-left= t(".#{i18n_title}")
+              %p.lead.small.pull-right= @book.send(attribute_name)
 
 
   .mb-80

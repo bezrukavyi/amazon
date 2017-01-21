@@ -2,6 +2,7 @@ en:
   books:
     show:
       back_to_result: Back to results
+      count: Quantity
       publicate_at: Year of publication
       materials: Materials
       reviews_count: 'Reviews (%{amount})'
