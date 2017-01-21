@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :providers, dependent: :destroy
   has_many :reviews
+  has_many :orders
   mount_uploader :avatar, ImageUploader
 
   validates :first_name, :last_name, length: { maximum: 50 }

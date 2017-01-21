@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
+  has_many :order_items, dependent: :destroy
+
 
   include AddressableRelation
   Address.address_types.keys.each do |type|
