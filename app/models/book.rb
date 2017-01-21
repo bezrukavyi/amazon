@@ -7,6 +7,7 @@ class Book < ApplicationRecord
 
   validates :title, :price, :count, presence: true
   validates_associated :authors
+  validate :access_dimension
 
   SORT_TYPES = [:newest, :low_price, :hight_price]
 
@@ -20,6 +21,15 @@ class Book < ApplicationRecord
 
   def self.sorted_by(type)
     send(type)
+  end
+
+  protected
+
+  def access_dimension
+    valid_dimension = ['h', 'w', 'd']
+    dimension.each do |key, value|
+      errors.add(:dimension, "not support #{key}") unless valid_dimension.include?(key)
+    end
   end
 
 end

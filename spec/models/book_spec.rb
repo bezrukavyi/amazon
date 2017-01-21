@@ -8,6 +8,10 @@ RSpec.describe Book, type: :model do
     it 'when validate' do
       expect(subject).to be_valid
     end
+    it 'invalid dimension' do
+      subject.dimension = { "h": 10.2,"w": 10.2,"zdsfsdf": 10.1 }
+      expect(subject).not_to be_valid
+    end
   end
 
   context 'association' do
