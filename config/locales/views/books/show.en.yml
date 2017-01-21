@@ -11,3 +11,5 @@ en:
         w: W
         d: D
       not_in_stock: Not in stock
+      not_found: Not found this book
+      review_created: Your review sent for approval

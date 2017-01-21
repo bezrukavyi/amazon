@@ -17,7 +17,7 @@ class BooksController < ApplicationController
   def update
     @review_form = ReviewForm.from_params(review_params)
     CreateReview.call(@review_form) do
-      on(:valid) { redirect_to book_path(params[:id]), notice: 'Review created' }
+      on(:valid) { redirect_to book_path(params[:id]), notice: t('books.show.review_created') }
       on(:invalid) { render :show }
     end
   end
@@ -47,7 +47,7 @@ class BooksController < ApplicationController
 
   def set_book
     @book = Book.find_by(id: params[:id]).try(:decorate)
-    redirect_to books_path, alert: 'Not found any' unless @book
+    redirect_to books_path, alert: t('books.show.not_found') unless @book
   end
 
   def set_reviews

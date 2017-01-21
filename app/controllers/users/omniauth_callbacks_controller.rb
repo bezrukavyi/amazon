@@ -6,10 +6,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user = provider.user
       if user.try(:persisted?)
         sign_in_and_redirect user, event: :authentication
-        set_flash_message(:notice, :success, kind: "#{provider_type}") if is_navigational_format?
+        set_flash_message(:notice, :success, kind: t("devise.providers.#{provider_type}"))
       else
         session["devise.#{provider_type}_data"] = request.env["omniauth.auth"]
-        redirect_to new_user_registration_url, notice: "Faild authentication by #{provider_type}"
+        redirect_to new_user_registration_url
+        set_flash_message(:notice, :failure, kind: t("devise.providers.#{provider_type}"))
       end
     end
   end

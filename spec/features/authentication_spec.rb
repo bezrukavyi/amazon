@@ -35,14 +35,16 @@ RSpec.feature 'Authentication', :type => :feature do
         set_omniauth(:facebook)
         visit new_user_registration_path
         find_by_id('facebook_omniauth').click
-        expect(page).to have_content I18n.t('devise.omniauth_callbacks.success', kind: 'facebook')
+        expect(page).to have_content I18n.t('devise.omniauth_callbacks.success',
+          kind: I18n.t('devise.providers.facebook'))
       end
 
       scenario 'failure sign up' do
         set_invalid_omniauth(:facebook)
         visit new_user_registration_path
         find_by_id('facebook_omniauth').click
-        expect(page).to have_content I18n.t('devise.omniauth_callbacks.failure', kind: 'Facebook', reason: 'Invalid crendentials')
+        expect(page).to have_content I18n.t('devise.omniauth_callbacks.failure',
+          kind: I18n.t('devise.providers.facebook'), reason: 'Invalid crendentials')
       end
     end
 
