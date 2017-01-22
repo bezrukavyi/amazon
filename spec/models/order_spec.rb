@@ -8,6 +8,9 @@ RSpec.describe Order, type: :model do
     it 'belongs_to user' do
       expect(subject).to belong_to(:user)
     end
+    it 'belongs_to credit_card' do
+      expect(subject).to belong_to(:credit_card)
+    end
   end
 
   context 'Concern Addressing' do

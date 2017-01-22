@@ -1,8 +1,10 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belongs_to :delivery
+  belongs_to :delivery, optional: true
+  belongs_to :credit_card, optional: true
   has_many :order_items, dependent: :destroy
 
+  accepts_nested_attributes_for :order_items, allow_destroy: true
 
   include AddressableRelation
   Address.address_types.keys.each do |type|
