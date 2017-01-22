@@ -15,26 +15,34 @@ class Order < ApplicationRecord
   include AASM
 
   aasm column: :state, whiny_transitions: false do
-    state :in_progress, initial: true
-    state :processing
-    state :shipping
+    state :processing, initial: true
+    state :in_progress
+    state :in_delivery
     state :delivered
     state :canceled
 
     event :confirm do
-      transitions from: :in_progress, to: :processing
+      transitions from: :processing, to: :in_progress
     end
 
     event :send_to_user do
-      transitions from: :processing, to: :shipping
+      transitions from: :in_progress, to: :in_delivery
     end
 
     event :deliver do
-      transitions from: :shipping, to: :delivered
+      transitions from: :in_delivery, to: :delivered
     end
 
     event :cancel do
-      transitions from: :processing, to: :canceled
+      transitions from: :in_progress, to: :canceled
+    end
+  end
+
+  def add_item(book_id, quantity = 1)
+    if item = order_items.find_by(book_id: book_id)
+      item.increment :quantity, quantity
+    else
+      order_items.new(quantity: quantity, book_id: book_id)
     end
   end
 

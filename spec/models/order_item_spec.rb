@@ -13,6 +13,11 @@ RSpec.describe OrderItem, type: :model do
       subject.quantity = 0
       expect(subject).not_to be_valid
     end
+    it '#stock_validate' do
+      subject.book.count = 5
+      subject.quantity = 6
+      expect(subject).not_to be_valid
+    end
   end
 
   context 'association' do

@@ -18,4 +18,8 @@ class User < ApplicationRecord
     accepts_nested_attributes_for type
   end
 
+  def order_in_processing
+    orders.processing.first || orders.create
+  end
+
 end

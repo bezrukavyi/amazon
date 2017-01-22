@@ -18,17 +18,28 @@ RSpec.describe Order, type: :model do
   end
 
   context 'aasm state' do
-    it 'in_progress -> processing' do
-      expect(subject).to transition_from(:in_progress).to(:processing).on_event(:confirm)
+    it 'processing -> in_progress' do
+      expect(subject).to transition_from(:processing).to(:in_progress).on_event(:confirm)
     end
-    it 'processing -> shipping' do
-      expect(subject).to transition_from(:processing).to(:shipping).on_event(:send_to_user)
+    it 'in_progress -> in_delivery' do
+      expect(subject).to transition_from(:in_progress).to(:in_delivery).on_event(:send_to_user)
     end
-    it 'shipping -> delivered' do
-      expect(subject).to transition_from(:shipping).to(:delivered).on_event(:deliver)
+    it 'in_delivery -> delivered' do
+      expect(subject).to transition_from(:in_delivery).to(:delivered).on_event(:deliver)
     end
-    it 'processing -> cancel' do
-      expect(subject).to transition_from(:processing).to(:canceled).on_event(:cancel)
+    it 'in_progress -> cancel' do
+      expect(subject).to transition_from(:in_progress).to(:canceled).on_event(:cancel)
+    end
+  end
+
+  describe '#add_item' do
+    it 'when order item exist' do
+      order_item = create :order_item, order: subject
+      expect { subject.add_item(order_item.book.id, 20) }.to change { order_item.reload.quantity }.by(20)
+    end
+    it 'when order item not exist' do
+      book = create :book
+      expect { subject.add_item(book.id) }.to change { OrderItem.count }.by(1)
     end
   end
 

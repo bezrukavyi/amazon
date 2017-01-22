@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     end
 
     resources :books, only: [:index, :show, :update]
+    resources :order_items, only: :create
 
     root to: 'main_pages#index'
 
