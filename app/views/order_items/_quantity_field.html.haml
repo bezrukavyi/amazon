@@ -1,0 +1,12 @@
+- if !field.blank?
+
+  %a.input-link{href: "#"}
+    %i.fa.fa-minus.line-height-40
+  .hidden-errors
+    = field.input :quantity, as: :string, label: false,
+      input_html: { class: 'form-control quantity-input' }
+  %a.input-link{href: "#"}
+    %i.fa.fa-plus.line-height-40
+
+- else
+  = order_item.quantity

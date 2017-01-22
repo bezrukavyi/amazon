@@ -7,14 +7,11 @@
   %td
     %span.font-16.in-gold-500= currency_price(order_item.book.price)
   %td
-    .input-group
-      %a.input-link{href: "#"}
-        %i.fa.fa-minus.line-heaght-40
-      %input.form-control.quantity-input{type: "text"}
-      %a.input-link{href: "#"}
-        %i.fa.fa-plus.line-heaght-40
+    .input-group.align-center
+      = render partial: 'order_items/quantity_field',
+        locals: { field: local_assigns[:field] }
+
   %td
     %span.font-16.in-gold-500= currency_price(order_item.sub_total)
   %td
-    %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
-      %span{'aria-hidden': "true"} &times;
+    = render partial: 'order_items/delete_link', locals: { order_item: order_item }

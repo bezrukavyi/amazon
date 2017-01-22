@@ -45,4 +45,33 @@ RSpec.describe Order, type: :model do
     end
   end
 
+  it '#sub_total' do
+    item_first = create :order_item, order: subject
+    item_second = create :order_item, order: subject
+    expect(subject.sub_total).to eq([item_first.sub_total, item_second.sub_total].sum)
+  end
+
+  it '#coupon_cost' do
+    subject.coupon = create :coupon, discount: 50
+    allow(subject).to receive(:sub_total).and_return(100)
+    expect(subject.coupon_cost).to eq(-50.0)
+  end
+
+  describe '#calc_total_cost' do
+    it 'without coupon' do
+      expect(subject.calc_total_cost).to eq(subject.sub_total)
+    end
+    it 'with coupon' do
+      allow(subject).to receive(:sub_total).and_return(30)
+      allow(subject).to receive(:coupon_cost).and_return(-20)
+      expect(subject.calc_total_cost(:coupon)).to eq(10)
+    end
+    it 'with coupon and delivery' do
+      allow(subject).to receive(:sub_total).and_return(10)
+      allow(subject).to receive(:coupon_cost).and_return(-20)
+      allow(subject).to receive(:delivery_cost).and_return(20)
+      expect(subject.calc_total_cost(:coupon, :delivery)).to eq(10)
+    end
+  end
+
 end

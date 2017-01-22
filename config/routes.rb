@@ -16,9 +16,10 @@ Rails.application.routes.draw do
     end
 
     resources :books, only: [:index, :show, :update]
-    resources :order_items, only: :create
+    resources :order_items, only: [:create, :destroy]
 
-    get 'cart', to: 'carts#edit', as: :cart_edit
+    get 'cart', to: 'carts#edit', as: :cart
+    patch '/cart', to: 'carts#update', as: :cart_update
 
     root to: 'main_pages#index'
 

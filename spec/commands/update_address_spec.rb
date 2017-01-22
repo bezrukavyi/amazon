@@ -16,7 +16,7 @@ describe UpdateAddress do
       it 'set valid broadcast' do
         expect { subject.call }.to broadcast(:valid)
       end
-      it 'set processing state' do
+      it 'create new address' do
         expect { subject.call }.to change{ Address.count }.by(1)
       end
     end

@@ -1,0 +1,13 @@
+en:
+  carts:
+    edit:
+      title: Cart
+      product: Product
+      price: Price
+      quantity: Quantity
+      sub_total: SubTotal
+      coupon: Coupon
+      order_total: Order Total
+      checkout: Checkout
+      order_summary: Order Summary
+      update_cart: Update cart

@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   belongs_to :delivery, optional: true
   belongs_to :credit_card, optional: true
   has_many :order_items, dependent: :destroy
+  has_one :coupon
 
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
@@ -44,6 +45,22 @@ class Order < ApplicationRecord
     else
       order_items.new(quantity: quantity, book_id: book_id)
     end
+  end
+
+  def calc_total_cost(*additions)
+    sub_total + additions.map { |addition| send("#{addition}_cost") }.sum
+  end
+
+  def sub_total
+    order_items.map(&:sub_total).sum
+  end
+
+  def coupon_cost
+    coupon ? sub_total * coupon.discount * -0.01 : 0.00
+  end
+
+  def delivery_cost
+    delivery.price
   end
 
 end

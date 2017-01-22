@@ -8,7 +8,7 @@ class OrderItem < ApplicationRecord
   validate :stock_validate
 
   def sub_total
-    quantity * book.price
+    @sub_total ||= quantity * book.price
   end
 
   private

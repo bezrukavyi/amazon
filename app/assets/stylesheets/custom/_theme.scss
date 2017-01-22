@@ -278,6 +278,11 @@
   margin-left: 12px;
   margin-right: 12px;
 }
+.hidden-errors {
+  .help-block {
+    display: none;
+  }
+}
 .logo-max {
   max-width: unset;
 }

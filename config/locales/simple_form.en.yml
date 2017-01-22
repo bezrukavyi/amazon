@@ -30,6 +30,8 @@ en:
         title: Enter Title
         grade: Enter Grade
         desc: Enter Review
+      coupon:
+        code: Enter Your Coupon Code
     labels:
       user:
         first_name: First Name
@@ -73,6 +75,8 @@ en:
         name: Name
       category:
         title: Title
+      coupon:
+        code: Enter Your Coupon Code
     user:
       new_password: Type a new Password
     titles:

@@ -1,53 +1,60 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin Cart
-  .visible-xs
+  %h1.general-title-margin= t('.title')
 
-    = render current_order.order_items
+  = form_for current_order, url: cart_update_path do |field|
 
-  .hidden-xs
-    %table.table.table-hover
-      %tr.no-hover
-        %th.col-pic.pl-0
-          %span.in-grey-600 Product
-        %th.col-title
-        %th.col-price
-          %span.in-grey-600 Price
-        %th.col-quantity
-          %span.in-grey-600 Quantity
-        %th.col-total
-          %span.in-grey-600 SubTotal
-        %th.col-close
+    .visible-xs
+      = field.simple_fields_for :order_items do |item_field|
+        = render partial: 'order_items/order_item',
+          locals: { order_item: item_field.object, field: item_field }
 
-        - current_order.order_items.each do |order_item|
-          = render partial: 'order_items/order_item_table', locals: { order_item: order_item }
+    .hidden-xs
+      %table.table.table-hover
+        %tr.no-hover
+          %th.col-pic.pl-0
+            %span.in-grey-600= t('.product')
+          %th.col-title
+          %th.col-price
+            %span.in-grey-600= t('.price')
+          %th.col-quantity
+            %span.in-grey-600= t('.quantity')
+          %th.col-total
+            %span.in-grey-600= t('.sub_total')
+          %th.col-close
 
-  .general-order-wrap
-    .row
-      .col-sm-4
-        .input-group.general-input-group
-          %label.input-label Enter Your Coupon Code
-          %input.form-control.mb-30{type: "text", placeholder: "Enter Your Coupon Code "}
-          %div
+          = field.simple_fields_for :order_items do |item_field|
+            = render partial: 'order_items/order_item_table',
+              locals: { order_item: item_field.object, field: item_field }
+
+    .general-order-wrap
+      .row
+        .col-sm-4
+          .input-group.general-input-group
+            = field.simple_fields_for :coupon, @coupon_form do |coupon|
+              = coupon.input :code
+          .mb-30
             %button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block Apply Coupon
-            %button.btn.btn-primary.mb-15.res-block Update cart
-      .col-sm-8
-        .res-mr-200.text-center.general-text-right
-          %p.in-gold-500.font-18 Order Summary
-          %table.general-summary-table.general-summary-table-right.general-text-right
-            %tr
-              %td
-                %p.font-16 Subtotal:
-              %td
-                %p.font-16 €117.69
-            %tr
-              %td
-                %p.font-16 Coupon:
-              %td
-                %p.font-16 €0.00
-            %tr
-              %td
-                %strong.font-18 Order Total:
-              %td
-                %strong.font-18 €117.69
-          %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
-  %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+            = field.submit t('.update_cart'), class: 'btn btn-primary mb-15 res-block'
+
+        .col-sm-8
+          .res-mr-200.text-center.general-text-right
+            %p.in-gold-500.font-18= t('.order_summary')
+            %table.general-summary-table.general-summary-table-right.general-text-right
+              %tr
+                %td
+                  %p.font-16= "#{t('.sub_total')}:"
+                %td
+                  %p.font-16= currency_price(current_order.sub_total)
+              %tr
+                %td
+                  %p.font-16= current_order.decorate.discount_title
+                %td
+                  %p.font-16= currency_price(current_order.coupon_cost)
+              %tr
+                %td
+                  %strong.font-18= "#{t('.order_total')}:"
+                %td
+                  %strong.font-18= currency_price(current_order.calc_total_cost(:coupon))
+
+            %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
+    %button.btn.btn-default.mb-20.hidden-xs.center-block= t('.checkout')
