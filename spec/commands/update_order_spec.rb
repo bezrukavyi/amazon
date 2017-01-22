@@ -4,7 +4,7 @@ describe UpdateOrder do
 
   let(:order_item) { create :order_item, quantity: 2 }
   let(:order) { order_item.order }
-  subject { UpdateOrder.new(order, {}) }
+  subject { UpdateOrder.new({ order: order }) }
 
   context 'update order items' do
     let(:order_params) { { order_items_attributes: { id: order_item.id, quantity: 20 } } }
