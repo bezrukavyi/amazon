@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122000911) do
+ActiveRecord::Schema.define(version: 20170122002524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,19 @@ ActiveRecord::Schema.define(version: 20170122000911) do
     t.datetime "updated_at",                null: false
     t.index ["code"], name: "index_coupons_on_code", using: :btree
     t.index ["order_id"], name: "index_coupons_on_order_id", using: :btree
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.integer  "order_id"
+    t.string   "number"
+    t.string   "cvv"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "month"
+    t.integer  "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_credit_cards_on_order_id", using: :btree
   end
 
   create_table "deliveries", force: :cascade do |t|
@@ -187,6 +200,7 @@ ActiveRecord::Schema.define(version: 20170122000911) do
   add_foreign_key "authors_books", "books"
   add_foreign_key "books", "categories"
   add_foreign_key "coupons", "orders"
+  add_foreign_key "credit_cards", "orders"
   add_foreign_key "deliveries", "countries"
   add_foreign_key "order_items", "books"
   add_foreign_key "order_items", "orders"
