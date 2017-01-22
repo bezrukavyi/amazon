@@ -28,4 +28,10 @@ RSpec.describe OrderItem, type: :model do
       expect(subject).to belong_to(:order)
     end
   end
+
+  it '#sub_total' do
+    subject.book = create :book, price: 10
+    subject.quantity = 2
+    expect(subject.sub_total).to eq(20)
+  end
 end

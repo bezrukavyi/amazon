@@ -5,4 +5,8 @@ module ApplicationHelper
     simple_form_for(path, options, &block)
   end
 
+  def currency_price(price)
+    number_to_currency price, locale: :eu
+  end
+
 end

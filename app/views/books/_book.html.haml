@@ -4,11 +4,16 @@
       .thumbnail.general-thumbnail{class: book.in_stock_class}
         = image_tag book.avatar_url, class: 'img-shadow general-thumbnail-img'
         .thumb-hover
-          .general-thumb-link-wrap
-            = link_to book, class: 'thumb-hover-link' do
+          .general-thumb-link-wrap.align-center
+            = link_to book, class: 'thumb-hover-link button' do
               %i.fa.fa-eye.thumb-icon{"aria-hidden" => "true"}
-            %a.thumb-hover-link{:href => "#"}
-              %i.fa.fa-shopping-cart.thumb-icon
+
+            = form_tag order_items_path, method: :post do
+              = hidden_field_tag :book_id, book.id
+              = hidden_field_tag :quantity, 1
+              = button_tag '', class: "thumb-hover-link", name: nil, type: :submit do
+                %i.fa.fa-shopping-cart.thumb-icon
+
     .general-thumb-info
       %p.title= book.title
       %p.font-16.in-gold-500= book.currency_price

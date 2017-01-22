@@ -22,7 +22,9 @@ RSpec.feature 'Catalog', :type => :feature do
 
     context 'Fantasy category' do
       before do
-        within '#filter_book' { first('label', text: fantasy.title).click }
+        within '#filter_book' do
+          first('label', text: fantasy.title).click
+        end
       end
       scenario 'with fantasy books' do
         Book.where(category: fantasy).map(&:title).each do |title|

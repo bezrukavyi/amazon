@@ -12,7 +12,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: update_attrs
   end
 
+  helper_method :current_order
+
   def current_order
+    @current_order ||= set_order
+  end
+
+  def set_order
     if current_user.blank?
       order = Order.find_by_id(session[:order_id]) || Order.create
       session[:order_id] = order.id

@@ -35,11 +35,13 @@ RSpec.describe Order, type: :model do
   describe '#add_item' do
     it 'when order item exist' do
       order_item = create :order_item, order: subject
-      expect { subject.add_item(order_item.book.id, 20) }.to change { order_item.reload.quantity }.by(20)
+      expect { subject.add_item(order_item.book.id, 20).save }
+        .to change { order_item.reload.quantity }.by(20)
     end
     it 'when order item not exist' do
       book = create :book
-      expect { subject.add_item(book.id) }.to change { OrderItem.count }.by(1)
+      expect { subject.add_item(book.id).save }
+        .to change { OrderItem.count }.by(1)
     end
   end
 

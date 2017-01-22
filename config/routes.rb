@@ -11,12 +11,14 @@ Rails.application.routes.draw do
       controllers: { registrations: 'users' }
 
     devise_scope :user do
-      get  'settings', to: 'users#edit', as: :user_edit
+      get 'settings', to: 'users#edit', as: :user_edit
       patch '/settings', to: 'users#update', as: :user_update
     end
 
     resources :books, only: [:index, :show, :update]
     resources :order_items, only: :create
+
+    get 'cart', to: 'carts#edit', as: :cart_edit
 
     root to: 'main_pages#index'
 
