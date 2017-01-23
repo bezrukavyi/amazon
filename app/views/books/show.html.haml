@@ -19,7 +19,7 @@
         .col-xs-12.col-md-4
           %p.h1.in-gold-500.mt-10= @book.currency_price
 
-        = form_tag order_items_path, method: :post do
+        = form_tag order_items_path, method: :post, id: 'add_to_cart' do
           = hidden_field_tag :book_id, @book.id
           .col-xs-5.col-md-3
             .input-group.general-position.align-center

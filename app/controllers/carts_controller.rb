@@ -8,7 +8,7 @@ class CartsController < ApplicationController
     @coupon_form = CouponForm.from_params(params[:order][:coupon])
     options = { order: current_order, params: params, coupon_form: @coupon_form }
     UpdateOrder.call(options) do
-      on(:valid) { redirect_to cart_path, notice: 'Order successfully updated' }
+      on(:valid) { redirect_to cart_path, notice: 'Cart successfully updated' }
       on(:invalid) { render :edit }
     end
   end

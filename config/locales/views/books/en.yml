@@ -1,0 +1,7 @@
+en:
+  books:
+    success_add:
+      one: "To cart successfully added 1 book"
+      other: "To cart successfully added %{count} books"
+    failed_add: "Cant add this book %{error}"
+    success_destroy: "Book '%{title}' deleted from yout cart"

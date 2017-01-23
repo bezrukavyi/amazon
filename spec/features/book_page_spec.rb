@@ -25,5 +25,25 @@ RSpec.feature 'BookPage', :type => :feature do
     expect(page).to have_content(I18n.t('books.show.review_created'))
   end
 
+  context 'Add to cart' do
+    scenario 'Success added' do
+      within '#add_to_cart' do
+        fill_in ('quantity'), with: 2
+        click_button I18n.t('add_to_cart')
+      end
+      expect(page).to have_content(I18n.t('books.success_add', count: 2))
+    end
+
+    scenario 'Failed added' do
+      within '#add_to_cart' do
+        fill_in ('quantity'), with: 100
+        click_button I18n.t('add_to_cart')
+      end
+      message = ['Quantity', I18n.t('errors.messages.less_than_or_equal_to', count: 99)].join(' ')
+      expect(page).to have_content(I18n.t('books.failed_add', error: message))
+    end
+
+  end
+
 
 end

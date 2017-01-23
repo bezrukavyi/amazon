@@ -19,24 +19,35 @@ RSpec.feature 'Catalog', :type => :feature do
   end
 
   context 'Filter', js: true do
-
-    context 'Fantasy category' do
-      before do
-        within '#filter_book' do
-          first('label', text: fantasy.title).click
-        end
-      end
-      scenario 'with fantasy books' do
-        Book.where(category: fantasy).map(&:title).each do |title|
-          expect(page).to have_content(title)
-        end
-      end
-      scenario 'without drama book' do
-        Book.where(category: drama).map(&:title).each do |title|
-          expect(page).not_to have_content(title)
-        end
+    before do
+      within '#filter_book' do
+        first('label', text: fantasy.title).click
       end
     end
 
+    scenario 'with fantasy books' do
+      Book.where(category: fantasy).map(&:title).each do |title|
+        expect(page).to have_content(title)
+      end
+    end
+
+    scenario 'without drama book' do
+      Book.where(category: drama).map(&:title).each do |title|
+        expect(page).not_to have_content(title)
+      end
+    end
   end
+
+  scenario 'Add to cart' do
+    book = Book.first
+    find("#add_to_cart_#{book.id}").click
+    expect(page).to have_content(I18n.t('books.success_add', count: 1))
+  end
+
+  scenario 'Redirect to book' do
+    book = Book.first
+    find(:xpath, "//a[@href='/books/#{book.id}']").click
+    current_path.should == "/books/#{book.id}"
+  end
+
 end
