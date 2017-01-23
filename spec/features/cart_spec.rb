@@ -78,7 +78,7 @@ RSpec.feature 'Cart', :type => :feature do
   scenario 'destroy order item' do
     delete_link = page.first(:xpath, "//a[@href='/order_items/#{first_item.id}']")
     delete_link.click
-    expect(delete_link['data-confirm']).to eq 'Are you sure?'
+    expect(delete_link['data-confirm']).to eq I18n.t('sure?')
   end
 
 end
