@@ -11,3 +11,5 @@ en:
       checkout: Checkout
       order_summary: Order Summary
       update_cart: Update cart
+      success_updated: Cart successfully updated
+      failed_updated: We cant update cart

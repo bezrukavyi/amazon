@@ -33,7 +33,6 @@
             = field.simple_fields_for :coupon, @coupon_form do |coupon|
               = coupon.input :code
           .mb-30
-            %button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block Apply Coupon
             = field.submit t('.update_cart'), class: 'btn btn-primary mb-15 res-block'
 
         .col-sm-8
