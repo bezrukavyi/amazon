@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-  belongs_to :category
+  belongs_to :category, counter_cache: true
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :materials
   has_many :reviews
@@ -15,15 +15,17 @@ class Book < ApplicationRecord
 
   SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price]
 
-  scope :with_category, -> (term) do
-    joins(:category).where("lower(categories.title) like '#{term.downcase}'")
-  end
-
   scope :asc_title, -> { order(title: :asc) }
   scope :desc_title, -> { order(title: :desc) }
   scope :newest, -> { order(created_at: :desc) }
   scope :low_price, -> { order(price: :asc) }
   scope :hight_price, -> { order(price: :desc) }
+
+  scope :with_authors, -> { includes(:authors) }
+
+  scope :with_category, -> (term) do
+    joins(:category).where("lower(categories.title) like '#{term.downcase}'")
+  end
 
   def self.sorted_by(type)
     send(type)

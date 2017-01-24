@@ -11,7 +11,7 @@ end
 end
 
 Category.find_each do |category|
-  rand(2..10).times do
+  rand(5..25).times do
     title = FFaker::Book.title
     Book.find_or_create_by!(title: title) do |book|
       book.price = rand(10.00..20.00)
@@ -28,8 +28,6 @@ end
 end
 
 Book.find_each do |book|
-  rand(1..3).times do
-    book.authors << Author.find_by(id: rand(1..Author.count))
-    book.materials << Material.find_by(id: rand(1..Material.count))
-  end
+  book.authors = Author.last(rand(1..3))
+  book.materials = Material.last(rand(1..3))
 end

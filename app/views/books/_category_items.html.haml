@@ -9,4 +9,4 @@
     %label.filter-link
       = category.title
       = radio_button_tag :with_category, category.title, params[:with_category] == category.title.to_s, hidden: true
-      %span.badge.general-badge= category.books.count
+      %span.badge.general-badge= category.books_count

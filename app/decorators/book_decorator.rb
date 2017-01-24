@@ -1,5 +1,6 @@
 class BookDecorator < Draper::Decorator
   delegate_all
+  decorates_association :authors
 
   MAIN_PARAMS = { count: 'count', publicate_at: 'publicate_at',
     parse_dimension: 'dimensions.title', materials_name: 'materials' }
@@ -7,7 +8,7 @@ class BookDecorator < Draper::Decorator
   include ActionView::Helpers::NumberHelper
 
   def authors_name
-    authors.decorate.map(&:full_name).join(', ')
+    authors.map(&:full_name).join(', ')
   end
 
   def materials_name
@@ -36,7 +37,7 @@ class BookDecorator < Draper::Decorator
     end.join(' x ')
   end
 
-  def in_stock_class
+  def disabled_class
     'disabled' unless in_stock?
   end
 
