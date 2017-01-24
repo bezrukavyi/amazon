@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   private
 
   def filtered_books
-    books = default_sort? ? Book.all : Book.all
+    books = default_sort? ? Book.asc_title : Book.all
     filtered_params.each do |param, value|
       books = books.public_send(param, value) if value.present?
     end
@@ -46,12 +46,12 @@ class BooksController < ApplicationController
   end
 
   def set_book
-    @book = Book.find_by(id: params[:id]).try(:decorate)
+    @book = Book.full_includes.find_by(id: params[:id]).try(:decorate)
     redirect_to books_path, alert: t('books.show.not_found') unless @book
   end
 
   def set_reviews
-    @reviews = @book.reviews.approved
+    @reviews = @book.reviews
   end
 
 end

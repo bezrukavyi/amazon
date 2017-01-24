@@ -52,7 +52,7 @@
 
   .mb-80
     %h3.in-gold-500.mb-25= t('.reviews_count', amount: @reviews.count)
-    = render @reviews.decorate
+    = render @reviews
 
   .mb-80
     - if can? :create, Review
