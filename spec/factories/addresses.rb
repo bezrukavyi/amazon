@@ -10,11 +10,21 @@ FactoryGirl.define do
     country_id { create(:country).id }
   end
 
-  factory :shipping_address, parent: :address do
-    address_type :shipping
+  factory :address_user, parent: :address do
+    addressable { create :user }
+
+    trait :shipping do
+      address_type :shipping
+    end
+
+    trait :billing do
+      address_type :billing
+    end
+
+    trait :invalid do
+      first_name nil
+      address_type :billing
+    end
   end
 
-  factory :billing_address, parent: :address do
-    address_type :billing
-  end
 end

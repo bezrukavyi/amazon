@@ -5,9 +5,10 @@ FactoryGirl.define do
     grade 4
     user_id { create(:user).id }
     book_id { create(:book).id }
+
+    trait :invalid do
+      title nil
+    end
   end
 
-  factory :invalid_review, parent: :review do
-    title nil
-  end
 end

@@ -4,11 +4,11 @@ shared_examples_for 'addressable_relation' do
   describe '#has_address' do
     it 'has one test' do
       resource.class.send('has_address', :test)
-      expect(resource).to respond_to(:test)
+      expect(resource).to have_one(:test)
     end
     it 'redefine setter billing' do
-      resource.class.send('has_address', :billing)
-      address = create :shipping_address, addressable: resource
+      resource.class.send('has_address', :shipping)
+      address = build :address_user, :shipping, addressable: resource
       expect { resource.billing = address }.to change { address.address_type }.from('shipping').to('billing')
     end
   end

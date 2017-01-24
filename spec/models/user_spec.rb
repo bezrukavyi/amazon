@@ -4,37 +4,16 @@ RSpec.describe User, type: :model do
 
   subject { create :user }
 
+  context 'associations' do
+    [:providers, :reviews, :orders, :credit_cards].each do |model_name|
+      it { should have_many(model_name) }
+    end
+  end
+
   context 'validation' do
-    it 'when validate' do
-      expect(subject).to be_valid
-    end
-    it 'when invalid format of email' do
-      subject.email = 'yaroslav555@gmail'
-      expect(subject).not_to be_valid
-    end
-    it 'when invalid uniqueness email' do
-      another_user = create :user
-      user = build :user, email: another_user.email
-      expect(user).not_to be_valid
-    end
-  end
-
-  context 'association' do
-    it 'has many providers' do
-      expect(subject).to respond_to(:providers)
-    end
-    it 'has many orders' do
-      expect(subject).to respond_to(:orders)
-    end
-  end
-
-  context 'Concern Addressing' do
-    it 'has one shipping' do
-      expect(subject).to respond_to(:shipping)
-    end
-    it 'has one billing' do
-      expect(subject).to respond_to(:billing)
-    end
+    it { should validate_length_of(:first_name).is_at_most(50) }
+    it { should validate_length_of(:last_name).is_at_most(50) }
+    it { should validate_length_of(:email).is_at_most(63) }
   end
 
   context 'Concern Addressing' do

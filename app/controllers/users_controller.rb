@@ -19,10 +19,6 @@ class UsersController < Devise::RegistrationsController
 
   protected
 
-  def after_update_path_for(resource)
-    user_edit_path
-  end
-
   def update_resource(resource, resource_params)
     type = params[:with_password] ? 'with' : 'without'
     resource.send("update_#{type}_password", resource_params)
@@ -31,6 +27,10 @@ class UsersController < Devise::RegistrationsController
   def account_update_params
     params.require(:user).permit(:email, :password, :password_confirmation,
       :current_password, :first_name, :last_name)
+  end
+
+  def after_update_path_for(resource)
+    user_edit_path
   end
 
   private

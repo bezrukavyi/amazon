@@ -3,41 +3,47 @@ require 'rails_helper'
 RSpec.describe AddressForm, :address_form do
   let(:addressable) { create :user }
 
-  subject { AddressForm.from_params(attributes_for(:shipping_address,
+  subject { AddressForm.from_params(attributes_for(:address_user, :shipping,
     addressable_id: addressable.id, addressable_type: 'User')) }
 
-  context 'valid' do
-    it 'valid object' do
-      is_expected.to be_valid
-    end
-    it '#wrong_code' do
-      country = create :country, code: '280'
-      subject.country_id = country.id
-      subject.phone = '+280632863823'
-      is_expected.to be_valid
-    end
-  end
+  context 'validation' do
 
-  context 'invalid phone' do
-    it 'length' do
-      subject.phone = '+380632863482334234'
-      is_expected.not_to be_valid
+    AddressForm::STRING_ATTRS.each do |attribute_name|
+      it { should validate_presence_of(attribute_name) }
     end
-    it 'format' do
-      subject.phone = '+380AAAAA42342'
-      is_expected.not_to be_valid
+    AddressForm::INTEGER_ATTRS.each do |attribute_name|
+      it { should validate_presence_of(attribute_name) }
     end
-    it '#wrong_code' do
-      country = create :country, code: '280'
-      subject.country_id = country.id
-      subject.phone = '+380632863823'
-      is_expected.not_to be_valid
-    end
-  end
 
-  it 'invalid country' do
-    subject.country_id = nil
-    is_expected.not_to be_valid
+    it { should validate_length_of(:zip).is_at_most(10) }
+    it { should validate_numericality_of(:zip).only_integer }
+
+    [:first_name, :last_name, :city].each do |attribute_name|
+      it { should validate_length_of(attribute_name).is_at_most(50) }
+    end
+
+    context 'phone' do
+      it { should validate_length_of(:phone).is_at_least(9) }
+      it { should validate_length_of(:phone).is_at_most(15) }
+
+      it 'format' do
+        subject.phone = '+380AAAAA42342'
+        is_expected.not_to be_valid
+      end
+
+      it '#wrong_code' do
+        country = create :country, code: '280'
+        subject.country_id = country.id
+        subject.phone = '+380632863823'
+        is_expected.not_to be_valid
+      end
+    end
+
+    it 'country' do
+      subject.country_id = nil
+      is_expected.not_to be_valid
+    end
+
   end
 
 end

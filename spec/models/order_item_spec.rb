@@ -2,30 +2,22 @@ require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
 
-  let(:order) { create(:order) }
-  subject { create(:order_item, order: order) }
+  subject { build :order_item }
+  let(:order) { order_item.order }
+
+  context 'association' do
+    it { expect(subject).to belong_to(:book) }
+    it { expect(subject).to belong_to(:order) }
+  end
 
   context 'validation' do
-    it 'when validate' do
-      expect(subject).to be_valid
-    end
-    it 'when invalid quantity' do
-      subject.quantity = 0
-      expect(subject).not_to be_valid
-    end
+    it { should validate_numericality_of(:quantity).is_greater_than(0) }
+    it { should validate_numericality_of(:quantity).is_less_than_or_equal_to(99) }
+
     it '#stock_validate' do
       subject.book.count = 5
       subject.quantity = 6
       expect(subject).not_to be_valid
-    end
-  end
-
-  context 'association' do
-    it 'belong to books' do
-      expect(subject).to belong_to(:book)
-    end
-    it 'belong to order' do
-      expect(subject).to belong_to(:order)
     end
   end
 

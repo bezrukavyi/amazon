@@ -25,9 +25,10 @@ RSpec.describe UsersController, type: :controller do
 
       context 'updating address' do
         it 'updated data' do
-          params = attributes_for(:shipping_address)
+          params = attributes_for(:address_user, :billing)
+          put :update, params: { address: params }
           expect { put :update, params: { address: params } }
-            .to change { subject.reload.shipping }
+            .to change { subject.reload.billing }
         end
         it 'redirect to the new user' do
           put :update, params: { user: attributes_for(:user) }
@@ -51,7 +52,7 @@ RSpec.describe UsersController, type: :controller do
 
       context 'updating address' do
         it 'updated data' do
-          params = attributes_for(:shipping_address, phone: nil)
+          params = attributes_for(:address_user, :invalid)
           expect { put :update, params: { address: params } }
             .not_to change { subject.reload.shipping }
         end

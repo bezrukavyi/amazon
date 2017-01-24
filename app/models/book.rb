@@ -2,8 +2,8 @@ class Book < ApplicationRecord
   belongs_to :category, counter_cache: true
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :materials
-  has_many :reviews, -> { where approved: true }
   has_many :pictures, as: :imageable
+  has_many :reviews, -> { where approved: true }
   mount_uploader :avatar, ImageUploader
 
   validates_associated :authors

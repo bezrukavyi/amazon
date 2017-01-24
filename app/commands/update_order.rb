@@ -23,10 +23,6 @@ class UpdateOrder < Rectify::Command
     @params.require(:order).permit(order_items_attributes: [:id, :quantity])
   end
 
-  def coupon_code
-    @params[:order][:coupon][:code]
-  end
-
   def coupon_valid?
     return true if coupon_form.blank?
     coupon_form.valid?
@@ -39,6 +35,10 @@ class UpdateOrder < Rectify::Command
       coupon = Coupon.find_by_code(coupon_code)
       order.coupon = coupon unless coupon.blank?
     end
+  end
+
+  def coupon_code
+    params[:order][:coupon][:code]
   end
 
 end

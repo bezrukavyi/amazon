@@ -11,6 +11,7 @@ RSpec.describe ApplicationController, type: :controller do
         expect(controller.current_order).to eq('Test order')
       end
     end
+
     context 'current_user not exist' do
       it 'order with session' do
         order = create :order
@@ -26,6 +27,7 @@ RSpec.describe ApplicationController, type: :controller do
         end
       end
     end
+
   end
 
 

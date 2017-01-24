@@ -1,14 +1,14 @@
 class OrderItemsController < ApplicationController
 
   def create
-    order_item = current_order.add_item(params[:book_id], params[:quantity].to_i)
+    book_id, quantity = params[:book_id], params[:quantity].to_i
+    order_item = current_order.add_item(book_id, quantity)
     if order_item.save
-      flash[:notice] = t('books.success_add', count: params[:quantity].to_i)
+      flash[:notice] = t('books.success_add', count: quantity)
     else
-      flash[:alert] = t('books.failed_add',
-        error: order_item.errors.full_messages.join('. '))
+      flash[:alert] = t('books.failed_add', error: order_item.decorate.all_errors)
     end
-    redirect_back(fallback_location: book_path(params[:book_id]))
+    redirect_back(fallback_location: book_path(book_id))
   end
 
   def destroy
@@ -16,6 +16,7 @@ class OrderItemsController < ApplicationController
     if @order_item.destroy
       flash[:notice] = t('books.success_destroy', title: @order_item.book.title)
     else
+      binding.pry
       flash[:alert] = "#{@order_item.errors.full_messages}"
     end
     redirect_back(fallback_location: cart_path)

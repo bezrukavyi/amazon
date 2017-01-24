@@ -2,12 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Delivery, type: :model do
 
-  subject { create :delivery }
+  subject { build :delivery }
+
+  context 'association' do
+    it { should have_many :orders }
+    it { should belong_to :country }
+  end
 
   context 'validation' do
+    [:min_days, :max_days, :name, :price].each do |attribute_name|
+      it { should validate_presence_of(attribute_name) }
+    end
 
-    context 'valid' do
-      it 'valid of uniq name and different country' do
+    it { should validate_numericality_of(:min_days).is_greater_than(0) }
+    it { should validate_numericality_of(:max_days).is_greater_than(0) }
+
+    context 'validetion of uniq name and different country' do
+      it 'valid' do
         country_first = create :country
         country_second = create :country
         name = 'Rspec'
@@ -15,28 +26,26 @@ RSpec.describe Delivery, type: :model do
         delivery_second = build :delivery, name: name, country: country_second
         expect(delivery_second).to be_valid
       end
-    end
 
-    context 'invalid' do
-      it 'when min_days is less 0' do
-        subject.min_days = -1
-        expect(subject).not_to be_valid
-      end
-      it 'when max_days is less 0' do
-        subject.max_days = -1
-        expect(subject).not_to be_valid
-      end
-      it 'when not uniq name and country' do
+      it 'invalid' do
         country = create :country
         name = 'Rspec'
         delivery_first = create :delivery, name: name, country: country
         delivery_second = build :delivery, name: name, country: country
         expect(delivery_second).not_to be_valid
       end
-      it '#min_days_cannot_be_greater_than_max_days' do
+    end
+
+    describe '#access_max_days' do
+      it 'valid' do
+        delivery = build :delivery, min_days: 10, max_days: 11
+        expect(delivery).to be_valid
+      end
+      it 'invalid' do
         delivery = build :delivery, min_days: 10, max_days: 5
         expect(delivery).not_to be_valid
       end
     end
   end
+
 end

@@ -3,8 +3,8 @@ require 'rails_helper'
 describe UpdateAddress do
   let(:addressable) { create :user }
 
-  let(:address_form) { AddressForm.from_params(attributes_for(:shipping_address,
-    addressable_id: addressable.id, addressable_type: 'User')) }
+  let(:address_form) { AddressForm.from_params(attributes_for(:address_user,
+    :shipping, addressable_id: addressable.id, addressable_type: 'User')) }
 
   context '#call' do
     subject { UpdateAddress.new(address_form) }

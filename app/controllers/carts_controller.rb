@@ -14,6 +14,7 @@ class CartsController < ApplicationController
   end
 
   private
+
   def failed_update
     flash[:alert] = t('carts.edit.failed_updated')
     render :edit

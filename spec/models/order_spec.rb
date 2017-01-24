@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
 
-  subject { create :order }
+  subject { build :order }
 
-  context 'association' do
-    it 'belongs_to user' do
-      expect(subject).to belong_to(:user)
+  context 'associations' do
+    [:user, :credit_card, :delivery].each do |model_name|
+      it { should belong_to(model_name) }
     end
-    it 'belongs_to credit_card' do
-      expect(subject).to belong_to(:credit_card)
-    end
+    it { should have_many(:order_items) }
+    it { should have_one(:coupon) }
+    it { should accept_nested_attributes_for(:order_items) }
   end
 
   context 'Concern Addressing' do
@@ -46,13 +46,12 @@ RSpec.describe Order, type: :model do
   end
 
   it '#sub_total' do
-    item_first = create :order_item, order: subject
-    item_second = create :order_item, order: subject
-    expect(subject.sub_total).to eq([item_first.sub_total, item_second.sub_total].sum)
+    items = create_list :order_item, 2, order: subject
+    expect(subject.sub_total).to eq(items.map(&:sub_total).sum)
   end
 
   it '#coupon_cost' do
-    subject.coupon = create :coupon, discount: 50
+    subject.coupon = build :coupon, discount: 50
     allow(subject).to receive(:sub_total).and_return(100)
     expect(subject.coupon_cost).to eq(-50.0)
   end

@@ -3,9 +3,11 @@ FactoryGirl.define do
     active true
     code { rand(100000).to_s }
     discount 25
+
+    trait :used do
+      active false
+    end
+
   end
 
-  factory :used_coupon, parent: :coupon do
-    active false
-  end
 end

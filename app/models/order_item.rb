@@ -13,7 +13,7 @@ class OrderItem < ApplicationRecord
 
   private
   def stock_validate
-    return if quantity <= book.count
+    return if !errors.blank? || quantity <= book.count
     errors.add(:quantity, 'You cant add more than we have in stock')
   end
 

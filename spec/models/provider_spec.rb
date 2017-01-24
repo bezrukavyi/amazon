@@ -9,6 +9,10 @@ RSpec.describe Provider, type: :model do
     set_omniauth(:google)
   end
 
+  context 'associations' do
+    it { should belong_to(:user) }
+  end
+
   describe '#authorize' do
     let(:auth) { OmniAuth.config.mock_auth[:google] }
 
@@ -17,7 +21,7 @@ RSpec.describe Provider, type: :model do
       expect(Provider.authorize(auth)).to eq(subject)
     end
 
-    describe 'when provider not exist' do
+    context 'when provider not exist' do
 
       before do
         allow(Provider).to receive(:find_by_omniauth).and_return(nil)

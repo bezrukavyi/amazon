@@ -11,8 +11,8 @@ RSpec.feature 'Cart', :type => :feature do
   let(:order) { create :order, order_items: [first_item, second_item] }
 
   before do
-    allow_any_instance_of(ApplicationController)
-    .to receive(:current_order).and_return(order)
+    allow_any_instance_of(CartsController)
+      .to receive(:current_order).and_return(order)
     visit cart_path
   end
 
@@ -31,7 +31,7 @@ RSpec.feature 'Cart', :type => :feature do
     second_item.sub_total, order.sub_total)
 
     order.order_items.each do |item|
-      expect(find_field("order_order_items_attributes_#{item.id}_quantity").value)
+      expect(find_field("order_order_items_attributes_2_quantity").value)
       .to eq item.quantity.to_s
     end
   end

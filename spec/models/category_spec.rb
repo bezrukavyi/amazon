@@ -1,23 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  subject { create(:category) }
-
-  context 'validation' do
-    it 'when validate' do
-      expect(subject).to be_valid
-    end
-    it 'when invalid uniqueness of title' do
-      title = 'test'
-      category = create(:category, title: title)
-      subject.title = title
-      expect(subject).not_to be_valid
-    end
-  end
+  subject { build :category }
 
   context 'association' do
-    it 'has many books' do
-      expect(subject).to have_many(:books)
-    end
+    it { should have_many :books }
+    it { should have_many :authors }
+  end
+
+  context 'validation' do
+    it { should validate_presence_of(:title) }
+    it { should validate_length_of(:title).is_at_most(50) }
+    it { should validate_uniqueness_of(:title) }
   end
 end

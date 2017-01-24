@@ -7,9 +7,11 @@ FactoryGirl.define do
     number '111111111111111'
     year 2016
     association :user
+
+    trait :invalid do
+      first_name nil
+    end
+
   end
 
-  factory :invalid_credit_card, parent: :credit_card do
-    first_name nil
-  end
 end

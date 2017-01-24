@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Settings', :type => :feature do
 
-  let(:billing_attr) { attributes_for :billing_address }
+  let(:billing_attr) { attributes_for :address_user, :billing }
   let(:password) { 'test555' }
   let(:user) { create :user, password: password, password_confirmation: password }
 
@@ -60,7 +60,7 @@ RSpec.feature 'Settings', :type => :feature do
       visit user_edit_path
       click_link I18n.t('address')
       within '#billing_address' do
-        fill_in I18n.t('simple_form.labels.address.first_name'), with: ''
+        fill_in I18n.t('simple_form.labels.address.first_name'), with: nil
         click_button I18n.t('simple_form.titles.save')
       end
       expect(page).to have_content "can't be blank"
@@ -70,7 +70,7 @@ RSpec.feature 'Settings', :type => :feature do
       visit user_edit_path
       click_link I18n.t('privacy')
       within '#edit_user_email' do
-        fill_in I18n.t('simple_form.labels.user.email'), with: ''
+        fill_in I18n.t('simple_form.labels.user.email'), with: nil
         click_button I18n.t('simple_form.titles.save')
       end
       expect(page).to have_content "can't be blank"
@@ -81,7 +81,7 @@ RSpec.feature 'Settings', :type => :feature do
       visit user_edit_path
       click_link I18n.t('privacy')
       within '#edit_user_password' do
-        fill_in I18n.t('simple_form.labels.user.current_password').first, with: ''
+        fill_in I18n.t('simple_form.labels.user.current_password').first, with: nil
         click_button I18n.t('simple_form.titles.save')
       end
       expect(page).to have_content "can't be blank"

@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
     @current_order ||= set_current_order
   end
 
+  private
+
   def set_current_order
     if current_user.blank?
       order = Order.find_by_id(session[:order_id]) || Order.create

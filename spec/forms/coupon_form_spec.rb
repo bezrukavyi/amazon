@@ -18,7 +18,7 @@ RSpec.describe CouponForm, :address_form do
       is_expected.not_to be_valid
     end
     it '#exist_coupon' do
-      used_coupon = create :used_coupon
+      used_coupon = create :coupon, :used
       coupon_form = CouponForm.from_model used_coupon
       expect(coupon_form.valid?).to be_falsey
     end
