@@ -13,6 +13,8 @@ class Order < ApplicationRecord
     accepts_nested_attributes_for type
   end
 
+  scope :with_items_book, -> { includes(order_items: :book) }
+
   include AASM
 
   aasm column: :state, whiny_transitions: false do

@@ -15,10 +15,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_order
 
   def current_order
-    @current_order ||= set_order
+    @current_order ||= set_current_order
   end
 
-  def set_order
+  def set_current_order
     if current_user.blank?
       order = Order.find_by_id(session[:order_id]) || Order.create
       session[:order_id] = order.id

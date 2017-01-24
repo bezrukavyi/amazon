@@ -19,4 +19,8 @@ class CartsController < ApplicationController
     render :edit
   end
 
+  def current_order
+    @current_order ||= super && Order.with_items_book.find(@current_order.id)
+  end
+
 end
