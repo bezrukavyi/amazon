@@ -27,4 +27,9 @@ FactoryGirl.define do
     end
   end
 
+  factory :address_order, parent: :address_user do
+    addressable { create :order }
+  end
+
+
 end

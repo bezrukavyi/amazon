@@ -1,4 +1,4 @@
-class AccessStep < Rectify::Command
+class Checkout::AccessStep < Rectify::Command
 
   attr_reader :order, :step
 

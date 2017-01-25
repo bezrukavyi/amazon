@@ -8,10 +8,11 @@ RSpec.describe AddressForm, :address_form do
 
   context 'validation' do
 
-    AddressForm::STRING_ATTRS.each do |attribute_name|
+    [:first_name, :last_name, :name, :zip, :phone, :city].each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
-    AddressForm::INTEGER_ATTRS.each do |attribute_name|
+
+    [:country_id, :address_type].each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
 

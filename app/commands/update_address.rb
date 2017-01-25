@@ -1,29 +1,32 @@
 class UpdateAddress < Rectify::Command
 
-  attr_reader :address_form
+  attr_reader :addressable, :addresses
 
-  def initialize(address_form)
-    @address_form = address_form
+  def initialize(options)
+    @addressable = options[:addressable]
+    @addresses = options[:addresses]
   end
 
   def call
-    if address_form.valid? && update_object
-      broadcast :valid
+    if attributes_valid? && update_order
+      broadcast(:valid)
     else
-      broadcast :invalid
+      broadcast(:invalid)
     end
   end
 
   private
 
-  def current_object
-    Object.const_get(address_form[:addressable_type])
-      .find(address_form[:addressable_id])
+  def attributes_valid?
+    addresses.map(&:valid?).all? { |validation| validation == true }
   end
 
-  def update_object
-    type = address_form[:address_type]
-    current_object.update_attributes({ "#{type}_attributes": address_form.to_h })
+  def update_order
+    attributes = addresses.map do |address|
+      address[:id] = nil
+      ["#{address[:address_type]}_attributes", address.to_h]
+    end.to_h
+    addressable.update_attributes(attributes)
   end
 
 end

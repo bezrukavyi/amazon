@@ -1,4 +1,4 @@
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def self.generate_provider(*provider_types)
     provider_types.each do |type|

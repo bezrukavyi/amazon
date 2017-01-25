@@ -1,9 +1,7 @@
 class AddressForm < Rectify::Form
 
-  STRING_ATTRS = [:first_name, :last_name, :name, :zip, :phone, :city,
-    :country_id, :addressable_type]
-
-  INTEGER_ATTRS = [:addressable_id, :address_type]
+  STRING_ATTRS = [:first_name, :last_name, :name, :zip, :phone, :city]
+  INTEGER_ATTRS = [:country_id, :address_type]
 
   STRING_ATTRS.each do |name|
     attribute name, String
