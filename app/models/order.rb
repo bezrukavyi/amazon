@@ -62,7 +62,7 @@ class Order < ApplicationRecord
   end
 
   def delivery_cost
-    delivery.price
+    delivery ? delivery.price : 0.00
   end
 
 end

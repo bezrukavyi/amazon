@@ -10,14 +10,21 @@ FactoryGirl.define do
     last_name { FFaker::Name.last_name }
     password 'test555'
     password_confirmation 'test555'
-  end
 
-  factory :invalid_user, parent: :user do
-    first_name nil
-  end
+    trait :full_package do
+      credit_card
+      shipping { create :address_user, :shipping }
+      billing { create :address_user, :billing }
+    end
 
-  factory :admin, parent: :user do
-    admin true
+    trait :invalid do
+      first_name nil
+    end
+
+    trait :admin do
+      admin true
+    end
+
   end
 
 end

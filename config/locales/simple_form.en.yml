@@ -11,6 +11,9 @@ en:
         country: 'We not support this country'
       country_code: "Phone must started by %{code}"
     placeholders:
+      order:
+        shipping: :"simple_form.placeholders.address"
+        billing: :"simple_form.placeholders.address"
       user:
         email: Enter Email
         first_name: Enter First Name

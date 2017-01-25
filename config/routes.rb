@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     get 'cart', to: 'carts#edit', as: :cart
     patch '/cart', to: 'carts#update', as: :cart_update
 
+    resources :checkouts
+
     root to: 'main_pages#index'
 
   end

@@ -2,8 +2,8 @@ class UsersController < Devise::RegistrationsController
   before_action :authenticate_user!
 
   include AddressableAttrubutes
+  before_action only: [:edit, :update] { set_addresses(current_user) }
   before_action :set_countries, only: [:edit, :update]
-  before_action :set_addresses, only: [:edit, :update]
 
   def update
     params[:address] ? address_update : super

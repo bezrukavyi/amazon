@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   %h1.general-title-margin= t('.title')
 
-  = form_for current_order, url: cart_update_path do |field|
+  = simple_form_for current_order, url: cart_update_path do |field|
 
     .visible-xs
       = field.simple_fields_for :order_items do |item_field|
@@ -55,5 +55,9 @@
                 %td
                   %strong.font-18= currency_price(current_order.calc_total_cost(:coupon))
 
-            %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
-    %button.btn.btn-default.mb-20.hidden-xs.center-block= t('.checkout')
+            = link_to t('.checkout'), checkouts_path(:address),
+              class: 'button btn btn-default mb-20 visible-xs-inline-block'
+
+    .hidden-xs.center-block.general-text-align
+      = link_to t('.checkout'), checkout_path(:address),
+        class: 'button btn btn-default mb-20'

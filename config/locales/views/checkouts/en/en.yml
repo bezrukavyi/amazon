@@ -1,0 +1,9 @@
+en:
+  checkout:
+    title: Checkout
+    nav:
+      address: Address
+      delivery: Delivery
+      payment: Payment
+      confirm: Confirm
+      complete: Complete
