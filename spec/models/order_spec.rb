@@ -73,4 +73,14 @@ RSpec.describe Order, type: :model do
     end
   end
 
+  it '#access_deliveries' do
+    country = create :country
+    shipping = create :address_order, :shipping, country: country
+    first_delivery = create :delivery, country: country
+    second_delivery = create :delivery, country: country
+    third_delivery = create :delivery
+    allow(subject).to receive(:shipping).and_return(shipping)
+    expect(subject.access_deliveries).to eq([first_delivery, second_delivery])
+  end
+
 end

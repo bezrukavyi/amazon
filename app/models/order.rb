@@ -65,4 +65,8 @@ class Order < ApplicationRecord
     delivery ? delivery.price : 0.00
   end
 
+  def access_deliveries
+    Delivery.where(country: shipping.country) if shipping
+  end
+
 end
