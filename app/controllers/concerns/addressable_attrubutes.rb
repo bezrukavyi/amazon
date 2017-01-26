@@ -11,10 +11,19 @@ module AddressableAttrubutes
     end
   end
 
-  def set_addresses_by_params(object_params)
-    Address.address_types.keys.each do |type|
-      send("#{type}=", AddressForm.from_params(object_params[:"#{type}_attributes"]))
+  def set_addresses_by_params(params, use_billing)
+    Address.address_types.keys.map do |type|
+      form_params = params[:"#{type}_attributes"]
+      if use_billing && type != 'billing'
+        form_params = params[:billing_attributes].merge(address_type: type)
+      end
+      set_address_by_params(form_params)
     end
+  end
+
+  def set_address_by_params(form_params)
+    type = form_params[:address_type]
+    send("#{type}=", AddressForm.from_params(form_params))
   end
 
   def all_addresses

@@ -2,17 +2,17 @@ require 'rails_helper'
 
 describe UpdateAddress do
 
-  let(:user) { create :user }
+  let(:addressable) { create :order }
 
   context 'valid' do
-    let(:address) { AddressForm.from_params(attributes_for(:address_user, :shipping)) }
-    subject { UpdateAddress.new({ addressable: user, addresses: [address] }) }
+    let(:address) { AddressForm.from_params(attributes_for(:address_order, :billing)) }
+    subject { UpdateAddress.new({ addressable: addressable, addresses: [address] }) }
 
     it 'set broadcast' do
       expect { subject.call }.to broadcast(:valid)
     end
-    it 'update user shipping' do
-      expect { subject.call }.to change(user, :shipping)
+    it 'update addressable shipping' do
+      expect { subject.call }.to change(addressable, :billing)
     end
     it 'create new address' do
       expect { subject.call }.to change { Address.count }.by(1)
@@ -20,14 +20,14 @@ describe UpdateAddress do
   end
 
   context 'invalid' do
-    let(:address) { AddressForm.from_params(attributes_for(:address_user, :invalid)) }
-    subject { UpdateAddress.new({ addressable: user, addresses: [address] }) }
+    let(:address) { AddressForm.from_params(attributes_for(:address_order, :invalid)) }
+    subject { UpdateAddress.new({ addressable: addressable, addresses: [address] }) }
 
     it 'set broadcast' do
       expect { subject.call }.to broadcast(:invalid)
     end
-    it 'dont update user' do
-      expect { subject.call }.not_to change(user, :shipping)
+    it 'dont update addressable' do
+      expect { subject.call }.not_to change(addressable, :shipping)
     end
     it 'dont create new address' do
       expect { subject.call }.not_to change { Address.count }

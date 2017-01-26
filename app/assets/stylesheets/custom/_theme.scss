@@ -508,7 +508,9 @@
   display: flex;
   align-items: center;
 }
-
+.hidden-fields {
+  display: none;
+}
 
 @media (min-width: $grid-float-breakpoint) {
   .navbar-nav {

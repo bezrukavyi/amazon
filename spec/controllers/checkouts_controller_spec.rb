@@ -100,6 +100,11 @@ RSpec.describe CheckoutsController, type: :controller do
           expect { put :update, params: { id: :address, order: @params } }
             .to change { order.reload.billing }
         end
+        it 'updated with user billing' do
+          @params = { billing_attributes: attributes_for(:address_order, :billing) }
+          expect { put :update, params: { id: :address, use_billing: true, order: @params } }
+            .to change { order.reload.shipping }
+        end
         it 'redirect to the new user' do
           put :update, params: { id: :address, order: @params }
           expect(response).to redirect_to checkout_path(:delivery)

@@ -19,14 +19,22 @@
           = render partial: 'addresses/fields',
             locals: { field: item_field, type: 'billing' }
 
-      .col-md-5.col-md-offset-1.mb-25
+      .col-md-5.col-md-offset-1
         .visible-xs.visible-sm
           %h3.general-subtitle.mt-0= t('shipping_address')
 
         = field.simple_fields_for :shipping, @shipping do |item_field|
-          = render partial: 'addresses/fields',
-            locals: { field: item_field, type: 'shipping' }
+          #shipping_fields{class: "#{'hidden-fields' if params[:use_billing]}"}
+            = render partial: 'addresses/fields',
+              locals: { field: item_field, type: 'shipping' }
 
+        .form-group.checkbox
+          %label.checkbox-label
+            = check_box_tag :use_billing, 0, params[:use_billing], class: 'checkbox-input',
+              hidden: 'hidden', id: 'use_billing'
+            %span.checkbox-icon
+              %i.fa.fa-check
+            %span.checkbox-text= t('.use_billing')
 
     = render 'result_panel'
 

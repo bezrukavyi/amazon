@@ -43,8 +43,8 @@ class CheckoutsController < ApplicationController
   end
 
   def address_options
-    set_addresses_by_params(params[:order])
-    { addressable: current_order, addresses: all_addresses }
+    addresses = set_addresses_by_params(params[:order], params[:use_billing])
+    { addressable: current_order, addresses: addresses }
   end
 
 end

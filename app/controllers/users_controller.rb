@@ -36,10 +36,8 @@ class UsersController < Devise::RegistrationsController
   private
 
   def address_update
-    form = AddressForm.from_params(params[:address])
-    type = form.address_type
-    send("#{type}=", form)
-    UpdateAddress.call({ addressable: current_user, addresses: [send("#{type}")] }) do
+    address = set_address_by_params(params[:address])
+    UpdateAddress.call({ addressable: current_user, addresses: [address] }) do
       on(:valid) { redirect_back fallback_location: root_path, notice: t('devise.registrations.updated'), anchor: 'address' }
       on(:invalid) { render :edit }
     end

@@ -23,8 +23,7 @@ class UpdateAddress < Rectify::Command
 
   def update_order
     attributes = addresses.map do |address|
-      address[:id] = nil
-      ["#{address[:address_type]}_attributes", address.to_h]
+      ["#{address[:address_type]}_attributes", address.to_h.except(:id)]
     end.to_h
     addressable.update_attributes(attributes)
   end
