@@ -45,13 +45,16 @@ en:
         current_password: Old Password
         remember_me: Remember me
       address:
-        first_name: First name
-        last_name: Last name
+        first_name: First Name
+        last_name: Last Name
         name: Address
         city: City
         zip: Zip code
         country: Country
         phone: Phone
+      order:
+        shipping: :"simple_form.labels.address"
+        billing: :"simple_form.labels.address"
       credit_card:
         first_name: First name
         last_name: Last name

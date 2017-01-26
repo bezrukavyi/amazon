@@ -1,15 +1,18 @@
-.row
-  .col-md-5
-    %p.in-gold-500.font-18= t('carts.edit.order_summary')
-    .general-text-align
-      %table.general-summary-table
-        %tr
-          %td
-            %p.font-16= "#{t('carts.edit.sub_total')}:"
-          %td
-            %p.font-16= currency_price(current_order.sub_total)
-        %tr
-          %td
-            %p.font-16= "#{t('carts.edit.order_total')}:"
-          %td
-            %p.font-16= currency_price(current_order.calc_total_cost(:coupon, :delivery))
+.general-text-align
+  %p.in-gold-500.font-18= t('carts.edit.order_summary')
+  %table.general-summary-table
+    %tbody
+      %tr
+        %td
+          %p.font-16= "#{t('carts.edit.sub_total')}:"
+        %td
+          %p.font-16= currency_price(current_order.sub_total)
+
+      = yield
+
+      %tr
+        %td
+          %strong.font-18= "#{t('carts.edit.order_total')}:"
+        %td
+          %strong#order_subtotal.font-18
+            = currency_price(current_order.calc_total_cost(:coupon, :delivery))

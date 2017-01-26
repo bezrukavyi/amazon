@@ -11,3 +11,6 @@ en:
   add_to_cart: Add to cart
   description: Description
   sure?: Are you sure?
+  from: from
+  to: to
+  days: days

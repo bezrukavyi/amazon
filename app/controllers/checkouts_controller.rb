@@ -47,7 +47,7 @@ class CheckoutsController < ApplicationController
     { addressable: current_order, addresses: addresses }
   end
 
-  def delivery_options
+  def delivery_components
     @deliveries = current_order.access_deliveries
   end
 

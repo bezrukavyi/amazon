@@ -1,0 +1,7 @@
+%label.radio-label
+  = radio_button_tag :delivery_id, delivery.id, params[:delivery_id] == delivery.id,
+    class: 'radio-input', hidden: true
+  %span.radio-icon
+  %span.radio-text= delivery.name
+  %span.hidden.delivery-order-subtotal
+    = currency_price(delivery.order_subtotal(current_order))
