@@ -6,6 +6,7 @@ class Order < ApplicationRecord
   has_one :coupon
 
   accepts_nested_attributes_for :order_items, allow_destroy: true
+  accepts_nested_attributes_for :credit_card
 
   include AddressableRelation
   Address::TYPES.each do |type|

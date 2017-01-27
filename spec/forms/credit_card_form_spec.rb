@@ -5,11 +5,7 @@ RSpec.describe CreditCardForm, :credit_card_form do
   context 'validation' do
     subject { CreditCardForm.from_model(build :credit_card) }
 
-    it 'valud factory' do
-      expect(subject).to be_valid
-    end
-
-    [:name:number, :cvv, :year, :month].each do |attribute_name|
+    [:name, :number, :cvv].each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
 
@@ -17,34 +13,42 @@ RSpec.describe CreditCardForm, :credit_card_form do
       it { should validate_numericality_of(attribute_name).only_integer }
     end
 
-
     it { should validate_length_of(:name).is_at_most(100) }
-
-
     it { should validate_length_of(:cvv).is_equal_to(3) }
 
-    it { should validate_numericality_of(:month).is_greater_than_or_equal_to(1) }
-    it { should validate_numericality_of(:month).is_less_than_or_equal_to(12) }
+    context 'month_year MM/YY' do
 
-    describe '#greater_than_or_equal_to_current_year' do
-      it 'valid' do
-        subject.year = Time.now.year + 1
-        expect(subject).to be_valid
+      describe '#slash_format' do
+        it 'valid format' do
+          subject.month_year = '12/17'
+          expect(subject).to be_valid
+        end
+        it 'invalid format' do
+          subject.month_year = '12\17'
+          expect(subject).not_to be_valid
+        end
       end
-      it 'invalid' do
-        subject.year = Time.now.year - 1
-        expect(subject).not_to be_valid
-      end
-    end
 
-    describe '#less_than_or_equal_to_five_years_from_now' do
-      it 'valid' do
-        subject.year = Time.now.year + 4
-        expect(subject).to be_valid
+      describe '#month_format' do
+        it 'valid format' do
+          subject.month_year = '12/17'
+          expect(subject).to be_valid
+        end
+        it 'invalid format' do
+          subject.month_year = '102/17'
+          expect(subject).not_to be_valid
+        end
       end
-      it 'invalid' do
-        subject.year = Time.now.year + 6
-        expect(subject).not_to be_valid
+
+      describe '#year_format' do
+        it 'valid format' do
+          subject.month_year = '12/17'
+          expect(subject).to be_valid
+        end
+        it 'invalid format' do
+          subject.month_year = '102/1721'
+          expect(subject).not_to be_valid
+        end
       end
     end
 

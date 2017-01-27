@@ -1,44 +1,47 @@
 class CreditCardForm < Rectify::Form
 
-  STRING_ATTRS = [:name, :number, :cvv]
-  INTEGER_ATTRS = [:year, :month]
+  STRING_ATTRS = [:name, :number, :cvv, :month_year]
 
   STRING_ATTRS.each do |name|
     attribute name, String
     validates name, presence: true
   end
 
-  INTEGER_ATTRS.each do |name|
-    attribute name, Integer
-    validates name, presence: true
-  end
-
-  validates :name, length: { maximum: 50 },
+  validates :name, length: { maximum: 100 },
     format: { with: /\A[a-zA-Z]+\z/ }
 
   validates :number, credit_card_number: true
 
-  validates :number, :cvv, :year, numericality: { only_integer: true }
+  validates :number, :cvv, numericality: { only_integer: true }
 
   validates :cvv, length: { is: 3 }
 
-  validates_numericality_of :month, greater_than_or_equal_to: 1,
-    less_than_or_equal_to: 12
 
-  validates_numericality_of :year, greater_than_or_equal_to: Time.now.year,
-    less_than_or_equal_to: 5.years.from_now.year
+  validate :slash_format, :month_format, :year_format
 
-  def greater_than_or_equal_to_current_year
-    validate_year = Time.now.year
-    return if year >= validate_year
-    errors.add(:year, "Year cant be less than #{validate_year}")
+  private
+
+  def slash_format
+    return if month_year =~ /\A\d{2}\/\d{2}\z/
+    errors.add(:month_year, "Does not match format: 'MM/YY'")
   end
 
-  def less_than_or_equal_to_five_years_from_now
-    validate_year = 5.years.from_now.year
-    return if year <= validate_year
-    errors.add(:year, "Year cant be greater than #{validate_year}")
+  def month_format
+    return if month =~ /0[1-9]|1[0-2]/
+    errors.add(:month_year, "Month format with numbers from 01 to 12")
   end
 
+  def year_format
+    return if year =~ /\A\d{2}\z/
+    errors.add(:month_year, "You should record the last two numbers of the year")
+  end
+
+  def month
+    @month ||= month_year.split('/').first
+  end
+
+  def year
+    @year ||= month_year.split('/').last
+  end
 
 end
