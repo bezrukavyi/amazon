@@ -99,6 +99,9 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
+    credit_card_validations (3.3.0)
+      activemodel (>= 3)
+      activesupport (>= 3)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
@@ -376,6 +379,7 @@ DEPENDENCIES
   capybara-screenshot
   carrierwave
   coffee-rails (~> 4.2)
+  credit_card_validations
   database_cleaner
   devise
   draper!

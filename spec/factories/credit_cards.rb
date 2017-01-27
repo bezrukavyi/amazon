@@ -4,8 +4,8 @@ FactoryGirl.define do
     last_name { FFaker::Name.last_name }
     cvv '123'
     month 12
-    number '111111111111111'
-    year 2016
+    number 5274576394259961
+    year 2018
     association :user
 
     trait :invalid do
