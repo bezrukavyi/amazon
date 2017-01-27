@@ -1,19 +1,24 @@
 require 'rails_helper'
 
-describe CheckoutDelivery do
+describe Checkout::StepDelivery do
+
   let(:order) { create :order }
+  let(:delivery) { create :delivery }
 
-  context '#call' do
-    subject { CheckoutDelivery.new(order, {}) }
+  describe '#call' do
+    subject { Checkout::StepDelivery.new({ order: order, delivery_id: delivery_id }) }
 
-    it 'valid' do
-      params = { delivery_id: create(:delivery).id }
-      allow(subject).to receive(:allowed_params).and_return(params)
-      expect { subject.call }.to broadcast(:valid)
+    context 'valid' do
+      it ':valid broadcast' do
+        expect { subject.call }.to broadcast(:valid)
+      end
+      it 'update order' do
+        expect { subject.call }.to change(order, :delivery).from(nil)
+      end
     end
-    it 'invalid' do
-      params = { delivery_id: nil }
-      allow(subject).to receive(:allowed_params).and_return(params)
+
+    it ':invalid broadcast' do
+      allow(subject).to receive(:delivery_id).and_return(nil)
       expect { subject.call }.to broadcast(:invalid)
     end
   end

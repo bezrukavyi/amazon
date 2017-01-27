@@ -34,11 +34,8 @@ class CheckoutsController < ApplicationController
   end
 
   def address_components
-    if current_order.shipping || current_order.billing
-      set_addresses(current_order)
-    else
-      set_addresses(current_user)
-    end
+    object = current_order.any_address? ? current_order : current_user
+    set_addresses(object)
     set_countries
   end
 
@@ -49,6 +46,10 @@ class CheckoutsController < ApplicationController
 
   def delivery_components
     @deliveries = current_order.access_deliveries
+  end
+
+  def delivery_options
+    { order: current_order, delivery_id: params[:delivery_id] }
   end
 
 end

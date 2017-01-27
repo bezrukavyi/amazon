@@ -113,13 +113,12 @@ RSpec.describe CheckoutsController, type: :controller do
 
       context 'delivery step' do
         let(:delivery) { create :delivery }
-        before do
-          put :update, params: { id: :delivery, order: { delivery_id: delivery.id } }
-        end
         it 'updated data' do
-          expect(order.delivery.id).to eq(delivery.id)
+          expect { put :update, params: { id: :delivery, delivery_id: delivery.id } }
+            .to change(order, :delivery)
         end
         it 'redirect to payment' do
+          put :update, params: { id: :delivery, delivery_id: delivery.id }
           expect(response).to redirect_to checkout_path(:payment)
         end
       end

@@ -1,5 +1,5 @@
 %label.radio-label
-  = radio_button_tag :delivery_id, delivery.id, params[:delivery_id] == delivery.id,
+  = radio_button_tag :delivery_id, delivery.id, current_delivery?(delivery),
     class: 'radio-input', hidden: true
   %span.radio-icon
   %span.radio-text= delivery.name

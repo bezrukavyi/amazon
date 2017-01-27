@@ -2,17 +2,17 @@ module AddressableAttrubutes
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor(*Address.address_types.keys)
+    attr_accessor(*Address::TYPES)
   end
 
   def set_addresses(current_object)
-    Address.address_types.keys.each do |type|
+    Address::TYPES.each do |type|
       send("#{type}=", AddressForm.from_model(current_object.send(type)))
     end
   end
 
   def set_addresses_by_params(params, use_billing)
-    Address.address_types.keys.map do |type|
+    Address::TYPES.map do |type|
       form_params = params[:"#{type}_attributes"]
       if use_billing && type != 'billing'
         form_params = params[:billing_attributes].merge(address_type: type)
@@ -27,7 +27,7 @@ module AddressableAttrubutes
   end
 
   def all_addresses
-    Address.address_types.keys.map { |type| send("#{type}") }
+    Address::TYPES.map { |type| send("#{type}") }
   end
 
   def set_countries

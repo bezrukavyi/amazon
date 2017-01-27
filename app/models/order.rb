@@ -8,7 +8,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
   include AddressableRelation
-  Address.address_types.keys.each do |type|
+  Address::TYPES.each do |type|
     has_address type
     accepts_nested_attributes_for type
   end
@@ -67,6 +67,10 @@ class Order < ApplicationRecord
 
   def access_deliveries
     Delivery.where(country: shipping.country) if shipping
+  end
+
+  def any_address?
+    shipping || billing
   end
 
 end

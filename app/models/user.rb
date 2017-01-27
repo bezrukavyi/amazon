@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :email, length: { maximum: 63 }
 
   include AddressableRelation
-  Address.address_types.keys.each do |type|
+  Address::TYPES.each do |type|
     has_address type
     accepts_nested_attributes_for type
   end

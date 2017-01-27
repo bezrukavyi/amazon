@@ -83,4 +83,15 @@ RSpec.describe Order, type: :model do
     expect(subject.access_deliveries).to eq([first_delivery, second_delivery])
   end
 
+  describe '#any_address?' do
+    it 'when true' do
+      shipping = create :address_order, :shipping, addressable: subject
+      expect(subject.any_address?).to be_truthy
+    end
+    it 'when false' do
+      subject.shipping = nil
+      expect(subject.any_address?).to be_falsey
+    end
+  end
+
 end
