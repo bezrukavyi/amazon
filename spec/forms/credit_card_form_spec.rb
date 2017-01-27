@@ -9,7 +9,7 @@ RSpec.describe CreditCardForm, :credit_card_form do
       expect(subject).to be_valid
     end
 
-    [:first_name, :last_name, :number, :cvv, :year, :month].each do |attribute_name|
+    [:name:number, :cvv, :year, :month].each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
 
@@ -17,9 +17,9 @@ RSpec.describe CreditCardForm, :credit_card_form do
       it { should validate_numericality_of(attribute_name).only_integer }
     end
 
-    [:first_name, :last_name].each do |attribute_name|
-      it { should validate_length_of(attribute_name).is_at_most(50) }
-    end
+
+    it { should validate_length_of(:name).is_at_most(100) }
+
 
     it { should validate_length_of(:cvv).is_equal_to(3) }
 

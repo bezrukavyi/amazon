@@ -1,6 +1,6 @@
 class CreditCardForm < Rectify::Form
 
-  STRING_ATTRS = [:first_name, :last_name, :number, :cvv]
+  STRING_ATTRS = [:name, :number, :cvv]
   INTEGER_ATTRS = [:year, :month]
 
   STRING_ATTRS.each do |name|
@@ -13,7 +13,7 @@ class CreditCardForm < Rectify::Form
     validates name, presence: true
   end
 
-  validates :first_name, :last_name, length: { maximum: 50 },
+  validates :name, length: { maximum: 50 },
     format: { with: /\A[a-zA-Z]+\z/ }
 
   validates :number, credit_card_number: true
