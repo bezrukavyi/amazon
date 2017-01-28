@@ -4,14 +4,15 @@
       %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
   %td
     %p.title= order_item.book.title
+    %p.in-grey-600.fw-300
   %td
     %span.font-16.in-gold-500= currency_price(order_item.book.price)
   %td
-    .input-group.align-center
-      = render partial: 'order_items/quantity_field',
-        locals: { field: local_assigns[:field] }
-
+    = render partial: 'order_items/quantity_field',
+      locals: { order_item: order_item, field: local_assigns[:field] }
   %td
     %span.font-16.in-gold-500= currency_price(order_item.sub_total)
-  %td
-    = render partial: 'order_items/delete_link', locals: { order_item: order_item }
+
+  - if local_assigns[:field]
+    %td
+      = render partial: 'order_items/delete_link', locals: { order_item: order_item }

@@ -42,6 +42,10 @@ class Order < ApplicationRecord
     end
   end
 
+  def addresses
+    [shipping, billing]
+  end
+
   def add_item(book_id, quantity = 1)
     if item = order_items.find_by(book_id: book_id)
       item.increment :quantity, quantity

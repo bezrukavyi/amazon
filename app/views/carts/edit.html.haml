@@ -21,7 +21,7 @@
           %th.col-total
             %span.in-grey-600= t('.sub_total')
           %th.col-close
-
+        %tbody
           = field.simple_fields_for :order_items do |item_field|
             = render partial: 'order_items/order_item_table',
               locals: { order_item: item_field.object, field: item_field }

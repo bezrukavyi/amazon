@@ -1,0 +1,12 @@
+%h3.general-subtitle= t("#{address.address_type}")
+%p.general-address
+  = address.decorate.full_name
+  %span.general-edit edit
+  %br
+  = address.name
+  %br
+  = address.decorate.city_zip
+  %br
+  = address.country.name
+  %br
+  = address.phone

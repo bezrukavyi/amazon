@@ -1,6 +1,8 @@
 .general-cart-item.divider-lg-bottom.mb-30
 
-  = render partial: 'order_items/delete_link', locals: { order_item: order_item }
+  - if local_assigns[:field]
+    = render partial: 'order_items/delete_link',
+      locals: { order_item: order_item }
 
   .general-img-wrap-table
     %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
@@ -17,7 +19,7 @@
       %td
         .input-group.align-center
           = render partial: 'order_items/quantity_field',
-            locals: { field: local_assigns[:field] }
+            locals: { order_item: order_item, field: local_assigns[:field] }
 
     %tr
       %td

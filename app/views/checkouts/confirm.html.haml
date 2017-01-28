@@ -1,0 +1,53 @@
+%main.container.general-main-wrap
+  = render 'step_nav'
+
+  = form_tag checkout_path, class: 'delivery_form', method: :patch do
+    .row.mb-20
+      - current_order.addresses.each do |address|
+        .col-sm-3
+          = render partial: 'addresses/panel', locals: { address: address }
+      .col-sm-3
+        %h3.general-subtitle Shipments
+        %p.general-address
+          = current_order.delivery.name
+          %span.general-edit edit
+          %br
+          = current_order.delivery.decorate.duration
+      .col-sm-3
+        %h3.general-subtitle Payment Information
+        %p.general-address
+          = current_order.credit_card.decorate.hidden_number
+          %span.general-edit edit
+          %br
+          = current_order.credit_card.month_year
+
+
+    .visible-xs
+      - current_order.order_items.each do |order_item|
+        = render partial: 'order_items/order_item',
+          locals: { order_item: order_item }
+
+    .hidden-xs.divider-lg.pt-20
+      %table.table.table-hover
+        %tr.no-hover
+          %th.col-pic.pl-0
+            %span.in-grey-600= t('.product')
+          %th.col-title
+          %th.col-price
+            %span.in-grey-600= t('.price')
+          %th.col-quantity
+            %span.in-grey-600= t('.quantity')
+          %th.col-total
+            %span.in-grey-600= t('.sub_total')
+          %th.col-close
+        %tbody
+          - current_order.order_items.each do |order_item|
+            = render partial: 'order_items/order_item_table',
+              locals: { order_item: order_item }
+
+      = render 'result_panel'
+
+      .col-md-12.mb-40
+        .center-block.general-text-align
+          = submit_tag 'Save and Continue',
+            class: 'button btn btn-default mb-20'
