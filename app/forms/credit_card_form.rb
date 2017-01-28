@@ -7,8 +7,8 @@ class CreditCardForm < Rectify::Form
     validates name, presence: true
   end
 
-  validates :name, length: { maximum: 100 },
-    format: { with: /\A[a-zA-Z]+\z/ }
+  validates :name, length: { maximum: 50 },
+    format: { with: /\A[a-zA-Z\s]+\z/ }
 
   validates :number, credit_card_number: true
 

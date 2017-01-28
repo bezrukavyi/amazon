@@ -6,12 +6,10 @@
   = simple_form_for current_order, url: checkout_path,
     html: { class: 'max-600 mb-80' } do |field|
 
-    = field.simple_fields_for :credit_card, @credit_card do |item_field|
+    = field.simple_fields_for :credit_card, @payment_form do |item_field|
       = render partial: 'credit_cards/fields', locals: { field: item_field }
 
-
       = render 'result_panel'
-
 
     .col-md-12.mb-40
       .center-block.general-text-align

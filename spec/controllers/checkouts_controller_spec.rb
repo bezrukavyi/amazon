@@ -125,14 +125,15 @@ RSpec.describe CheckoutsController, type: :controller do
 
       context 'payment step' do
         before do
-          @params = { delivery_attributes: attributes_for(:credit_card) }
+          order.credit_card = nil
+          @params = { credit_card_attributes: attributes_for(:credit_card) }
         end
         it 'updated data' do
-          expect { put :update, params: { id: :payment, order: { credit_card: @params } }
-            .to change(order, :credit_card)
+          expect { put :update, params: { id: :payment, order: @params } }
+            .to change { order.credit_card }
         end
         it 'redirect to payment' do
-          put :update, params: { id: :delivery, delivery_id: delivery.id }
+          put :update, params: { id: :payment, order: @params }
           expect(response).to redirect_to checkout_path(:confirm)
         end
       end

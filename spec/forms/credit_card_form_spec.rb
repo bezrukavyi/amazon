@@ -13,7 +13,7 @@ RSpec.describe CreditCardForm, :credit_card_form do
       it { should validate_numericality_of(attribute_name).only_integer }
     end
 
-    it { should validate_length_of(:name).is_at_most(100) }
+    it { should validate_length_of(:name).is_at_most(50) }
     it { should validate_length_of(:cvv).is_equal_to(3) }
 
     context 'month_year MM/YY' do

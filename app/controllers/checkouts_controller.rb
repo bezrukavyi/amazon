@@ -52,4 +52,13 @@ class CheckoutsController < ApplicationController
     { order: current_order, delivery_id: params[:delivery_id] }
   end
 
+  def payment_components
+    @payment_form = CreditCardForm.from_model(current_order.credit_card)
+  end
+
+  def payment_options
+    @payment_form = CreditCardForm.from_params(params[:order][:credit_card_attributes])
+    { order: current_order, payment_form: @payment_form }
+  end
+
 end
