@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def complete_order
-    orders.in_progress.first
+    @complete_order ||= orders.in_progress.last
   end
 
 end

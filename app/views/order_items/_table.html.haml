@@ -1,0 +1,22 @@
+%table.table.table-hover
+  %tr.no-hover
+    %th.col-pic.pl-0
+      %span.in-grey-600= t('carts.edit.product')
+    %th.col-title
+    %th.col-price
+      %span.in-grey-600= t('carts.edit.price')
+    %th.col-quantity
+      %span.in-grey-600= t('carts.edit.quantity')
+    %th.col-total
+      %span.in-grey-600= t('carts.edit.sub_total')
+  %tbody
+
+    - if local_assigns[:field]
+      = field.simple_fields_for :order_items do |item_field|
+        = render partial: 'order_items/table_field',
+          locals: { order_item: item_field.object, field: item_field }
+
+    - else
+      - order_items.each do |order_item|
+        = render partial: 'order_items/table_field',
+          locals: { order_item: order_item }

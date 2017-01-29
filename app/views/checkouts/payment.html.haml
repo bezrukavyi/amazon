@@ -1,7 +1,7 @@
 .container.mb-res-50
   = render 'step_nav'
 
-  %h3.general-subtitle Credit Card
+  %h3.general-subtitle= t('.title')
 
   = simple_form_for current_order, url: checkout_path,
     html: { class: 'max-600 mb-80' } do |field|
@@ -9,9 +9,9 @@
     = field.simple_fields_for :credit_card, @payment_form do |item_field|
       = render partial: 'credit_cards/fields', locals: { field: item_field }
 
-      = render 'result_panel'
+    = render 'result_panel'
 
     .col-md-12.mb-40
       .center-block.general-text-align
-        = field.submit 'Save and Continue',
+        = field.submit t('simple_form.titles.save_and_continue'),
           class: 'button btn btn-default mb-20'

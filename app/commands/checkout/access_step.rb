@@ -8,7 +8,7 @@ class Checkout::AccessStep < Rectify::Command
   end
 
   def call
-    return broadcast(:not_allow) unless step && order
+    return broadcast(:empty_cart) if order.cart_empty?
     allow? ? broadcast(:allow) : broadcast(:not_allow)
   end
 
@@ -24,12 +24,7 @@ class Checkout::AccessStep < Rectify::Command
 
   private
 
-  def order_complete?
-    order.in_progress?
-  end
-
   def delivery_accessed?
-    return false if order_complete?
     order.shipping.present? && order.billing.present?
   end
 
@@ -42,7 +37,7 @@ class Checkout::AccessStep < Rectify::Command
   end
 
   def complete_accessed?
-    order_complete? || confirm_accessed?
+    confirm_accessed? && order.in_progress?
   end
 
 

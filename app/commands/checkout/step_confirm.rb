@@ -12,8 +12,8 @@ class Checkout::StepConfirm < Rectify::Command
     return broadcast(:invalid) if confirm.blank? || user.blank?
     transaction do
       update_order
+      use_coupon
       send_mail
-      clear_order_session
     end
     broadcast :valid
   end
@@ -25,12 +25,13 @@ class Checkout::StepConfirm < Rectify::Command
     order.update_attributes(user: user)
   end
 
-  def send_mail
-    CheckoutMailer.complete(user, order).deliver
+  def use_coupon
+    return unless order.coupon
+    order.coupon.use!
   end
 
-  def clear_order_session
-    session[:order_id] = nil
+  def send_mail
+    CheckoutMailer.complete(user, order).deliver
   end
 
 end

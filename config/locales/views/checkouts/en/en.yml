@@ -7,6 +7,13 @@ en:
       payment: Payment
       confirm: Confirm
       complete: Complete
+    delivery:
+      title: Shipping
+    payment:
+      title: Credit Card
+    confirm:
+      shipments: Shipments
+      payment: Payment Information
     complete:
       order_id: "Order #%{id}"
       thanks_message: Thank You for your Order!

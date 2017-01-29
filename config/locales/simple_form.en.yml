@@ -35,6 +35,11 @@ en:
         desc: Enter Review
       coupon:
         code: Enter Your Coupon Code
+      credit_card:
+        number: Card Number
+        name: Name on Card
+        month_year: MM / YY
+        cvv: CVV
     labels:
       user:
         first_name: First Name
@@ -56,12 +61,10 @@ en:
         shipping: :"simple_form.labels.address"
         billing: :"simple_form.labels.address"
       credit_card:
-        first_name: First name
-        last_name: Last name
-        cvv: Cvv
-        month: Month
-        number: Number
-        year: Year
+        number: Card Number
+        name: Name on Card
+        month_year: MM / YY
+        cvv: CVV
       book:
         title: Title
         desc: Description
@@ -88,7 +91,9 @@ en:
     titles:
       change: Change
       save: Save
+      save_and_continue: Save and Continue
       forgot_password?: Forgot password?
       new_password: Set new password
       log_in: 'Log in'
       sign_up: 'Sign up'
+      required_fields: all fields are required

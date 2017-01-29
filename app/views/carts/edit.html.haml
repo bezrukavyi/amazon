@@ -9,22 +9,7 @@
           locals: { order_item: item_field.object, field: item_field }
 
     .hidden-xs
-      %table.table.table-hover
-        %tr.no-hover
-          %th.col-pic.pl-0
-            %span.in-grey-600= t('.product')
-          %th.col-title
-          %th.col-price
-            %span.in-grey-600= t('.price')
-          %th.col-quantity
-            %span.in-grey-600= t('.quantity')
-          %th.col-total
-            %span.in-grey-600= t('.sub_total')
-          %th.col-close
-        %tbody
-          = field.simple_fields_for :order_items do |item_field|
-            = render partial: 'order_items/order_item_table',
-              locals: { order_item: item_field.object, field: item_field }
+      = render partial: 'order_items/table', locals: { field: field }
 
     .general-order-wrap
       .row

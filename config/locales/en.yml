@@ -10,7 +10,9 @@ en:
   billing_address: Billing Address
   add_to_cart: Add to cart
   description: Description
+  back_to_store: Back To Store
   sure?: Are you sure?
   from: from
   to: to
   days: days
+  edit: edit

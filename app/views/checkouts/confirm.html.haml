@@ -7,17 +7,17 @@
         .col-sm-3
           = render partial: 'addresses/panel', locals: { address: address }
       .col-sm-3
-        %h3.general-subtitle Shipments
+        %h3.general-subtitle= t('.shipments')
         %p.general-address
           = current_order.delivery.name
-          %span.general-edit= link_to 'edit', checkout_path(:delivery)
+          %span.general-edit= link_to t('edit'), checkout_path(:delivery)
           %br
           = current_order.delivery.decorate.duration
       .col-sm-3
-        %h3.general-subtitle Payment Information
+        %h3.general-subtitle= t('.payment')
         %p.general-address
           = current_order.credit_card.decorate.hidden_number
-          %span.general-edit= link_to 'edit', checkout_path(:payment)
+          %span.general-edit= link_to t('edit'), checkout_path(:payment)
           %br
           = current_order.credit_card.month_year
 
@@ -28,26 +28,13 @@
           locals: { order_item: order_item }
 
     .hidden-xs.divider-lg.pt-20
-      %table.table.table-hover
-        %tr.no-hover
-          %th.col-pic.pl-0
-            %span.in-grey-600= t('.product')
-          %th.col-title
-          %th.col-price
-            %span.in-grey-600= t('.price')
-          %th.col-quantity
-            %span.in-grey-600= t('.quantity')
-          %th.col-total
-            %span.in-grey-600= t('.sub_total')
-        %tbody
-          - current_order.order_items.each do |order_item|
-            = render partial: 'order_items/order_item_table',
-              locals: { order_item: order_item }
+      = render partial: 'order_items/table',
+        locals: { order_items: current_order.order_items }
 
-      = render 'result_panel'
+    = render 'result_panel'
 
-      .col-md-12.mb-40
-        .center-block.general-text-align
-          = hidden_field_tag :confirm, true
-          = submit_tag 'Save and Continue',
-            class: 'button btn btn-default mb-20'
+    .col-md-12.mb-40
+      .center-block.general-text-align
+        = hidden_field_tag :confirm, true
+        = submit_tag t('simple_form.titles.save_and_continue'),
+          class: 'button btn btn-default mb-20'

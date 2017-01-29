@@ -1,7 +1,7 @@
 .container
   = render 'step_nav'
 
-  %h3.general-subtitle Shipping
+  %h3.general-subtitle= t('.title')
 
   .visible-xs.mb-40
     = form_tag checkout_path, class: 'delivery_form', method: :patch do
@@ -14,17 +14,9 @@
       = render partial: 'deliveries/deliveries_md',
         locals: { deliveries: @deliveries }
 
-    .col-md-12.mb-40
-      .center-block.general-text-align
-        = render layout: 'result_panel' do
-          %tr
-            %td
-              %p.font-16= "#{t('carts.edit.delivery')}:"
-            %td
-              %p#order_delivery.font-16= currency_price(current_order.delivery_cost)
-
+    = render 'result_panel'
 
     .col-md-12.mb-40
       .center-block.general-text-align
-        = submit_tag 'Save and Continue',
+        = submit_tag t('simple_form.titles.save_and_continue'),
           class: 'button btn btn-default mb-20'

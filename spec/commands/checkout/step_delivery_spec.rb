@@ -6,7 +6,7 @@ describe Checkout::StepDelivery do
   let(:delivery) { create :delivery }
 
   describe '#call' do
-    subject { Checkout::StepDelivery.new({ order: order, delivery_id: delivery_id }) }
+    subject { Checkout::StepDelivery.new({ order: order, delivery_id: delivery.id }) }
 
     context 'valid' do
       it ':valid broadcast' do

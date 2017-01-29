@@ -4,6 +4,8 @@ describe UpdateOrder do
 
   let(:order_item) { create :order_item, quantity: 2 }
   let(:order) { order_item.order }
+  let(:coupon) { create :coupon }
+
   subject { UpdateOrder.new({ order: order }) }
 
   context 'update order items' do
@@ -11,7 +13,7 @@ describe UpdateOrder do
     let(:invalid_order_params) { { order_items_attributes: { id: order_item.id, quantity: -100 } } }
 
     before do
-      allow(subject).to receive(:set_coupon)
+      allow(subject).to receive(:coupon).and_return(nil)
     end
 
     context 'valid' do
@@ -22,7 +24,7 @@ describe UpdateOrder do
         expect { subject.call }.to broadcast(:valid)
       end
       it 'change order items' do
-        expect { subject.call }.to change{ order_item.reload.quantity }.from(2).to(20)
+        expect { subject.call }.to change { order_item.reload.quantity }.from(2).to(20)
       end
     end
 
@@ -35,15 +37,14 @@ describe UpdateOrder do
   context 'update coupon' do
     before do
       allow(subject).to receive(:order_params).and_return({})
+      allow(subject).to receive(:coupon).and_return(coupon)
     end
     it 'set new coupon' do
-      coupon = create :coupon
-      allow(subject).to receive(:coupon_code).and_return(coupon.code)
       expect { subject.call }.to change{ order.reload.coupon }.from(nil).to(coupon)
     end
     it 'delete coupon' do
-      coupon = create :coupon, order: order
-      allow(subject).to receive(:coupon_code).and_return(nil)
+      order.coupon = coupon
+      allow(subject).to receive(:coupon).and_return(nil)
       expect { subject.call }.to change{ order.reload.coupon }.from(coupon).to(nil)
     end
   end

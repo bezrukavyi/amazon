@@ -10,6 +10,7 @@ class CheckoutsController < ApplicationController
 
   def show
     Checkout::AccessStep.call(current_order, step) do
+      on(:empty_cart) { redirect_to books_path, alert: 'Empty cart' }
       on(:allow) { render_wizard }
       on(:not_allow) { redirect_to checkout_path(previous_step), alert: 'You must end this step' }
     end
@@ -66,8 +67,9 @@ class CheckoutsController < ApplicationController
   end
 
   def current_order
-    order = current_user.complete_order
-    step == :complete && !order.blank? ? order : super
+    return super unless super.cart_empty?
+    user_order = current_user.complete_order
+    step == :complete && user_order ? user_order : super
   end
 
 end

@@ -1,4 +1,5 @@
-.general-text-align
+.center-block.general-text-align
+  .general-text-align
   %p.in-gold-500.font-18= t('carts.edit.order_summary')
   %table.general-summary-table
     %tbody
@@ -8,7 +9,14 @@
         %td
           %p.font-16= currency_price(current_order.sub_total)
 
-      = yield
+      - components ||= [:coupon, :delivery]
+      - components.each do |component|
+        %tr
+          %td
+            %p.font-16= t("carts.edit.#{component}") + ':'
+          %td
+            %p.font-16{ id: "order_#{component}" }
+              = currency_price(current_order.send("#{component}_cost"))
 
       %tr
         %td

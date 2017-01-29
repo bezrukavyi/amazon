@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_order
-    order = Order.find_by_id(session[:order_id]) || Order.create
+    order = Order.with_items_book.find_by(id: session[:order_id], state: 'processing') || Order.create
     session[:order_id] = order.id
     order
   end

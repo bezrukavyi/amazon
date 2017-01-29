@@ -12,7 +12,6 @@ RSpec.describe CheckoutsController, type: :controller do
 
     context 'accessed' do
       let(:order) { create :order, :checkout_package, user: user }
-      let(:order_item) { create :order_item, quantity: 1, order: order }
 
       before do
         allow(controller).to receive(:current_order).and_return(order)
@@ -46,8 +45,7 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     context 'not accessed' do
-      let(:order) { create :order, user: user }
-      let(:order_item) { create :order_item, quantity: 1, order: order }
+      let(:order) { create :order, :with_items, user: user }
 
       before do
         allow(controller).to receive(:current_order).and_return(order)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Checkout::StepConfirm do
 
-  let(:order) { create :order, user: nil }
+  let(:order) { create :order, :checkout_package, user: nil }
   let(:user) { create :user }
 
   context 'valid' do
@@ -18,6 +18,10 @@ describe Checkout::StepConfirm do
 
     it 'set order to user' do
       expect { subject.call }.to change(order, :user).from(nil).to(user)
+    end
+
+    it 'activate coupon' do
+      expect { subject.call }.to change(order.coupon, :active).from(true).to(false)
     end
 
     it 'send letter' do
