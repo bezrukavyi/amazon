@@ -4,7 +4,7 @@
   %h3.general-subtitle= t('.title')
 
   = simple_form_for current_order, url: checkout_path,
-    html: { class: 'max-600 mb-80' } do |field|
+    html: { class: 'max-600 mb-80', id: 'credit_card_form' } do |field|
 
     = field.simple_fields_for :credit_card, @payment_form do |item_field|
       = render partial: 'credit_cards/fields', locals: { field: item_field }
