@@ -1,7 +1,7 @@
 %h3.general-subtitle= t("#{address.address_type}")
 %p.general-address
   = address.decorate.full_name
-  %span.general-edit edit
+  %span.general-edit= link_to 'edit', checkout_path(:address)
   %br
   = address.name
   %br

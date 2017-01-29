@@ -61,4 +61,13 @@ class CheckoutsController < ApplicationController
     { order: current_order, payment_form: @payment_form }
   end
 
+  def confirm_options
+    { order: current_order, user: current_user, confirm: params[:confirm] }
+  end
+
+  def current_order
+    order = current_user.complete_order
+    step == :complete && !order.blank? ? order : super
+  end
+
 end

@@ -6,4 +6,8 @@ class OrderDecorator < Draper::Decorator
     coupon ? "#{title} (#{coupon.discount}%):" : "#{title}:"
   end
 
+  def created_strf
+    created_at.strftime("%B, %d, %Y")
+  end
+
 end

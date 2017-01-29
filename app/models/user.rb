@@ -22,4 +22,8 @@ class User < ApplicationRecord
     orders.processing.first || orders.create
   end
 
+  def complete_order
+    orders.in_progress.first
+  end
+
 end

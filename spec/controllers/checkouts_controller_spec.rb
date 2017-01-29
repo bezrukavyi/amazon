@@ -138,6 +138,17 @@ RSpec.describe CheckoutsController, type: :controller do
         end
       end
 
+      context 'confirm step' do
+        it 'updated data' do
+          expect { put :update, params: { id: :confirm, confirm: true } }
+            .to change { order.state }
+        end
+        it 'redirect to payment' do
+          put :update, params: { id: :confirm, confirm: true }
+          expect(response).to redirect_to checkout_path(:complete)
+        end
+      end
+
     end
 
   end

@@ -1,0 +1,56 @@
+%head
+  :css
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(2n+1) {
+      background-color: #dddddd;
+    }
+%body
+  %table
+    %tr
+      %td{ colspan: "3" }= "Hello, #{@user.decorate.full_name}"
+    %tr
+      %td{ align: "center", colspan: "3", style: "padding: 25px 0px; font-size: 17px; line-height: 24px; font-size: 26px; text-align: center" }
+        %b= "Order ##{@order.id}"
+
+  %table
+    %tr
+      %th= t('carts.edit.product')
+      %th= t('carts.edit.price')
+      %th= t('carts.edit.quantity')
+      %th= t('carts.edit.sub_total')
+    - @order.order_items.each do |order_item|
+      %tr
+        %td= order_item.book.title
+        %td= currency_price(order_item.book.price)
+        %td= order_item.quantity
+        %td= currency_price(order_item.sub_total)
+
+  %p
+  %table{ style: "width: 300px" }
+    %tr
+      %td Checkout
+      %td
+    %tr
+      %td= "#{t('carts.edit.sub_total')}:"
+      %td= currency_price(@order.sub_total)
+    %tr
+      %td= @order.decorate.discount_title
+      %td= currency_price(@order.coupon_cost)
+    %tr
+      %td= "#{t('carts.edit.delivery')}:"
+      %td= currency_price(@order.delivery_cost)
+    %tr
+      %td
+        %b= "#{t('carts.edit.order_total')}:"
+      %td
+        %b= currency_price(@order.calc_total_cost(:coupon, :delivery))

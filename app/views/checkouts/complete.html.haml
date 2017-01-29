@@ -1,0 +1,43 @@
+%main.container.general-main-wrap
+  = render 'step_nav'
+
+  .text-center.mb-40
+    %h3.general-subtitle= t('.thanks_message')
+    %p.fw-300= t('.email_confirm', email: current_user.email)
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0= t('.order_id', id: current_order.id)
+        %p.general-address.mb-30= current_order.decorate.created_strf
+      = render partial: 'addresses/panel', locals: { address: current_order.shipping }
+
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0= t('.order_id', id: current_order.id)
+      %p.general-address.mb-30= current_order.decorate.created_strf
+
+    .visible-xs
+      - current_order.order_items.each do |order_item|
+        = render partial: 'order_items/order_item',
+          locals: { order_item: order_item }
+
+    .hidden-xs
+      %table.table.table-hover.divider-lg.pt-20
+        %tr.no-hover
+          %th.col-pic.pl-0
+            %span.in-grey-600= t('.product')
+          %th.col-title
+          %th.col-price
+            %span.in-grey-600= t('.price')
+          %th.col-quantity
+            %span.in-grey-600= t('.quantity')
+          %th.col-total
+            %span.in-grey-600= t('.sub_total')
+        %tbody
+          - current_order.order_items.each do |order_item|
+            = render partial: 'order_items/order_item_table',
+              locals: { order_item: order_item }
+
+  = render 'result_panel'
+
+  .text-center
+    = link_to 'Back to Store', books_path, class: 'btn btn-default mb-20'

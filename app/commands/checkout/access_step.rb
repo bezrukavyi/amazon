@@ -24,7 +24,12 @@ class Checkout::AccessStep < Rectify::Command
 
   private
 
+  def order_complete?
+    order.in_progress?
+  end
+
   def delivery_accessed?
+    return false if order_complete?
     order.shipping.present? && order.billing.present?
   end
 
@@ -37,7 +42,7 @@ class Checkout::AccessStep < Rectify::Command
   end
 
   def complete_accessed?
-    confirm_accessed? && order.in_progress?
+    order_complete? || confirm_accessed?
   end
 
 
