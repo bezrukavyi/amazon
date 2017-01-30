@@ -1,3 +1,5 @@
+- order ||= current_order
+
 .center-block.general-text-align
   .general-text-align
   %p.in-gold-500.font-18= t('carts.edit.order_summary')
@@ -7,7 +9,7 @@
         %td
           %p.font-16= "#{t('carts.edit.sub_total')}:"
         %td
-          %p.font-16= currency_price(current_order.sub_total)
+          %p.font-16= currency_price(order.sub_total)
 
       - components ||= [:coupon, :delivery]
       - components.each do |component|
@@ -16,11 +18,11 @@
             %p.font-16= t("carts.edit.#{component}") + ':'
           %td
             %p.font-16{ id: "order_#{component}" }
-              = currency_price(current_order.send("#{component}_cost"))
+              = currency_price(order.send("#{component}_cost"))
 
       %tr
         %td
           %strong.font-18= "#{t('carts.edit.order_total')}:"
         %td
           %strong#order_subtotal.font-18
-            = currency_price(current_order.total_price)
+            = currency_price(order.total_price)

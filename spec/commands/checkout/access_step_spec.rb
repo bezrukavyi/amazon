@@ -33,7 +33,7 @@ describe Checkout::AccessStep do
         order.shipping = user.shipping
         order.billing = user.billing
         order.delivery = create :delivery
-        order.credit_card = user.credit_card
+        order.credit_card = user.credit_cards.first
         subject = Checkout::AccessStep.new(order, :confirm)
         expect{ subject.call }.to broadcast(:allow)
       end
@@ -42,7 +42,7 @@ describe Checkout::AccessStep do
         order.shipping = user.shipping
         order.billing = user.billing
         order.delivery = create :delivery
-        order.credit_card = user.credit_card
+        order.credit_card = user.credit_cards.first
         order.confirm
         subject = Checkout::AccessStep.new(order, :complete)
         expect{ subject.call }.to broadcast(:allow)
@@ -73,7 +73,7 @@ describe Checkout::AccessStep do
       it ':complete step' do
         order.shipping = user.shipping
         order.billing = user.billing
-        order.credit_card = user.credit_card
+        order.credit_card = user.credit_cards.first
         subject = Checkout::AccessStep.new(order, :complete)
         expect{ subject.call }.to broadcast(:empty_cart)
       end

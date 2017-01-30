@@ -32,7 +32,89 @@ Book.find_each do |book|
   book.materials = Material.last(rand(1..3))
 end
 
-Country.create!(name: 'Ukraine', code: '380')
+{ 'Ukraine': '380', 'Russia': '230' }.each do |name, code|
+  Country.find_or_create_by!(name: name, code: code)
+end
 
-Delivery.create!(name: 'Ukrpost', country: Country.last, price: 20, min_days: 10,
-  max_days: 20)
+Country.find_each do |country|
+  %w[Standart Express].each do |delivery_name|
+    Delivery.find_or_create_by!(name: "#{country.name}#{delivery_name}") do |delivery|
+      delivery.country = country
+      delivery.price = rand(30..100)
+      delivery.min_days = rand(5..10)
+      delivery.max_days = rand(15..20)
+    end
+  end
+end
+
+5.times do |index|
+  email = "rspec_#{index}@gmail.com"
+  User.find_or_create_by!(email: email) do |user|
+    user.password = 'password'
+    user.password_confirmation = 'password'
+  end
+end
+
+User.find_or_create_by!(email: 'yaroslav555@gmail.com') do |user|
+  user.password = 'yaroslav555'
+  user.password_confirmation = 'yaroslav555'
+  user.admin = true
+end
+
+ORDER_STATES = [:in_progress, :in_delivery, :delivered, :canceled]
+
+User.find_each do |user|
+
+  card = CreditCard.find_or_create_by!(number: 5274576394259961, user: user) do |card|
+    card.name = FFaker::Name.first_name
+    card.cvv = '123'
+    card.month_year = '12/17'
+  end
+
+  country = Country.find(rand(1..Country.count))
+
+  user.shipping = Address.create! do |shipping|
+    shipping.address_type = 'shipping'
+    shipping.first_name = FFaker::Name.first_name
+    shipping.last_name = FFaker::Name.last_name
+    shipping.name = FFaker::Address.street_name
+    shipping.city = 'Dnepr'
+    shipping.zip = 49000
+    shipping.country = country
+    shipping.phone = "+#{country.code}632863823"
+  end
+
+  user.billing = Address.create! do |billing|
+    billing.address_type = 'billing'
+    billing.first_name = FFaker::Name.first_name
+    billing.last_name = FFaker::Name.last_name
+    billing.name = FFaker::Address.street_name
+    billing.city = 'Dnepr'
+    billing.zip = 49000
+    billing.country = country
+    billing.phone = "+#{country.code}632863823"
+  end
+
+  rand(5..10).times do
+
+    order = Order.create! do |order|
+      order.credit_card = card.dup
+      order.shipping = user.shipping.dup
+      order.billing = user.billing.dup
+      order.delivery = country.deliveries.first
+      order.state = ORDER_STATES[rand(0..3)]
+    end
+
+    rand(1..5).times do
+      item = OrderItem.create! do |item|
+        item.quantity = rand(1..3)
+        item.book_id = rand(1..Book.count)
+        order.order_items << item
+      end
+
+      user.orders << order
+    end
+  end
+
+  user.save!
+end

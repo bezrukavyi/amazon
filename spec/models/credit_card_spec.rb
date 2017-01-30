@@ -6,5 +6,6 @@ RSpec.describe CreditCard, type: :model do
 
   context 'association' do
     it { should belong_to :user }
+    it { should have_many(:orders) }
   end
 end

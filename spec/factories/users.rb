@@ -12,7 +12,7 @@ FactoryGirl.define do
     password_confirmation 'test555'
 
     trait :full_package do
-      credit_card
+      credit_cards { [create(:credit_card)] }
       shipping { create :address_user, :shipping }
       billing { create :address_user, :billing }
     end
