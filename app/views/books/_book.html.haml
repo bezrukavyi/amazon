@@ -3,17 +3,8 @@
     .general-thumb-wrap
       .thumbnail.general-thumbnail{class: book.disabled_class}
         = image_tag book.avatar_url, class: 'img-shadow general-thumbnail-img'
-        .thumb-hover
-          .general-thumb-link-wrap.align-center
-            = link_to book, class: 'thumb-hover-link button' do
-              %i.fa.fa-eye.thumb-icon{"aria-hidden" => "true"}
 
-            = form_tag order_items_path, method: :post do
-              = hidden_field_tag :book_id, book.id
-              = hidden_field_tag :quantity, 1
-              = button_tag '', name: nil, type: :submit, class: "thumb-hover-link",
-                id: "add_to_cart_#{book.id}" do
-                %i.fa.fa-shopping-cart.thumb-icon
+        = render partial: 'books/book_buttons', locals: { book: book }
 
     .general-thumb-info
       %p.title= book.title

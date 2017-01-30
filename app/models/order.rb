@@ -72,10 +72,6 @@ class Order < ApplicationRecord
     shipping || billing
   end
 
-  def cart_empty?
-    items_count == 0
-  end
-
   def items_count
     @items_count ||= order_items.map(&:quantity).sum
   end

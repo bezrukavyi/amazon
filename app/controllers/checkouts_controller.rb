@@ -67,7 +67,7 @@ class CheckoutsController < ApplicationController
   end
 
   def current_order
-    return super unless super.cart_empty?
+    return super unless super.items_count.zero?
     user_order = current_user.complete_order
     step == :complete && user_order ? user_order : super
   end

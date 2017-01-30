@@ -124,17 +124,6 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe '#cart_empty?' do
-    it 'when true' do
-      subject.order_items = []
-      expect(subject.cart_empty?).to be_truthy
-    end
-    it 'when false' do
-      order = create :order, :with_items
-      expect(order.cart_empty?).to be_falsey
-    end
-  end
-
   context 'Before save' do
     it '#update_total_price' do
       subject.order_items = [create(:order_item)]

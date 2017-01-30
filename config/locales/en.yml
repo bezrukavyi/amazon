@@ -1,5 +1,14 @@
 en:
-  hello: "Hello world"
+  home: Home
+  Shop: Shop
+  account: My account
+  settings: Settings
+  orders:
+    title: Orders
+  buy_now: Buy now
+  log_in: Log in
+  sign_up: Sign up
+  log_out: Log out
   or: or
   cancel: Cancel
   confirm_intentions: You must confirm your intentions
@@ -16,3 +25,7 @@ en:
   to: to
   days: days
   edit: edit
+  language:
+    title: Language
+    en: English
+    ru: Russian

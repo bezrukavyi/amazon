@@ -8,7 +8,7 @@ class Checkout::AccessStep < Rectify::Command
   end
 
   def call
-    return broadcast(:empty_cart) if order.cart_empty?
+    return broadcast(:empty_cart) if order.items_count.zero?
     allow? ? broadcast(:allow) : broadcast(:not_allow)
   end
 

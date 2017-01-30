@@ -26,4 +26,5 @@ RSpec.describe OrderItem, type: :model do
     subject.quantity = 2
     expect(subject.sub_total).to eq(20)
   end
+
 end

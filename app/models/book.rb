@@ -6,6 +6,9 @@ class Book < ApplicationRecord
   has_many :reviews, -> { where approved: true }
   mount_uploader :avatar, ImageUploader
 
+  has_many :order_items
+  has_many :orders, through: :order_items
+
   validates_associated :authors
   validates :title, :price, :count, presence: true
   validates_numericality_of :count, greater_than_or_equal_to: 0
@@ -36,6 +39,15 @@ class Book < ApplicationRecord
 
   def in_stock?
     count > 0
+  end
+
+  def self.best_sellers
+    Book
+      .joins(:orders)
+      .where('orders.state': 'delivered')
+      .group('order_items.book_id', 'books.id')
+      .order('SUM(order_items.quantity) desc')
+      .limit(4)
   end
 
   private

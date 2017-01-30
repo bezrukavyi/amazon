@@ -1,5 +1,6 @@
 en:
   orders:
+    title: Orders
     index:
       states:
         all: All orders

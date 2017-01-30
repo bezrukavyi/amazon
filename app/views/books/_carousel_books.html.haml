@@ -1,0 +1,36 @@
+#slider.carousel.slide{'data-ride': "carousel"}
+  %ol.carousel-indicators
+    - books.count.times do |index|
+      %li{class: "#{'active' if index == 1}",
+          'data-target': "#slider", 'data-slide-to': index}
+
+
+  .carousel-inner{role: "listbox"}
+    - books.decorate.each_with_index do |book, index|
+      .item{class: "#{book.disabled_class} #{'active' if index == 1}"}
+        .row
+          .col-sm-5
+            .general-img-wrap
+              = link_to book do
+                = image_tag book.avatar_url,
+                  class: 'img-shadow general-thumbnail-img'
+
+          .col-sm-7
+            .mb-60
+              %h1
+                = link_to book.title, book
+              %p.lead= truncate(book.desc, length: 50)
+              %p.lead.small= book.authors_name
+              .general-align
+                = form_tag order_items_path, method: :post do
+                  = hidden_field_tag :book_id, book.id
+                  = hidden_field_tag :quantity, 1
+                  = button_tag t('buy_now'), name: nil, type: :submit,
+                    class: "btn btn-primary #{book.disabled_class}"
+
+  %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
+    %span.icon-prev{'aria-hidden': "true"}
+    %span.sr-only Previous
+  %a.right.carousel-control{href: "#slider", role: "button", 'data-slide': "next"}
+    %span.icon-next{'aria-hidden': "true"}
+    %span.sr-only Next

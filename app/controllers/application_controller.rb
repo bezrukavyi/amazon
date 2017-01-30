@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_categories
   include Localable
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -27,6 +29,10 @@ class ApplicationController < ActionController::Base
     end
     session[:order_id] = order.id
     order
+  end
+
+  def set_categories
+    @categories = Category.select(:id, :title)
   end
 
 end

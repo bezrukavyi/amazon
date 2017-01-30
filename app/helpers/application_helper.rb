@@ -9,4 +9,8 @@ module ApplicationHelper
     number_to_currency price, locale: :eu
   end
 
+  def empty_cart_class
+    'empty' if current_order.items_count.zero?
+  end
+
 end
