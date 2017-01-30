@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe CartsController, type: :controller do
 
-  let(:order_item) { create :order_item, quantity: 1 }
-  subject { order_item.order }
+  subject { create :order, :with_items }
+  let(:order_item) { subject.order_items.first }
   let(:coupon) { create :coupon }
 
   describe 'PUT #update' do

@@ -3,23 +3,8 @@
 
   = form_tag checkout_path, class: 'delivery_form', method: :patch do
     .row.mb-20
-      - current_order.addresses.each do |address|
-        .col-sm-3
-          = render partial: 'addresses/panel', locals: { address: address }
-      .col-sm-3
-        %h3.general-subtitle= t('.shipments')
-        %p.general-address
-          = current_order.delivery.name
-          %span.general-edit= link_to t('edit'), checkout_path(:delivery)
-          %br
-          = current_order.delivery.decorate.duration
-      .col-sm-3
-        %h3.general-subtitle= t('.payment')
-        %p.general-address
-          = current_order.credit_card.decorate.hidden_number
-          %span.general-edit= link_to t('edit'), checkout_path(:payment)
-          %br
-          = current_order.credit_card.month_year
+      = render partial: 'orders/components_panel',
+        locals: { order: current_order, edit: true }
 
 
     .visible-xs

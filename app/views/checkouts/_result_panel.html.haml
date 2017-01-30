@@ -23,4 +23,4 @@
           %strong.font-18= "#{t('carts.edit.order_total')}:"
         %td
           %strong#order_subtotal.font-18
-            = currency_price(current_order.calc_total_cost(:coupon, :delivery))
+            = currency_price(current_order.total_price)

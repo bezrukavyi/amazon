@@ -511,7 +511,9 @@
 .hidden-fields {
   display: none;
 }
-
+.table-link {
+  cursor: pointer;
+}
 @media (min-width: $grid-float-breakpoint) {
   .navbar-nav {
     float: right;

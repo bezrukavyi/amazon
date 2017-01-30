@@ -1,0 +1,33 @@
+- order.addresses.each do |address|
+  .col-sm-3
+    %h3.general-subtitle= t("#{address.address_type}_address")
+    %p.general-address
+      = address.decorate.full_name
+      - if local_assigns[:edit]
+        %span.general-edit= link_to t('edit'), checkout_path(:address)
+      %br
+      = address.name
+      %br
+      = address.decorate.city_zip
+      %br
+      = address.country.name
+      %br
+      = address.phone
+
+.col-sm-3
+  %h3.general-subtitle= t('.shipments')
+  %p.general-address
+    = order.delivery.name
+    - if local_assigns[:edit]
+      %span.general-edit= link_to t('edit'), checkout_path(:delivery)
+    %br
+    = order.delivery.decorate.duration
+
+.col-sm-3
+  %h3.general-subtitle= t('.payment')
+  %p.general-address
+    = order.credit_card.decorate.hidden_number
+    - if local_assigns[:edit]
+      %span.general-edit= link_to t('edit'), checkout_path(:payment)
+    %br
+    = order.credit_card.month_year

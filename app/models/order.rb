@@ -14,6 +14,8 @@ class Order < ApplicationRecord
     accepts_nested_attributes_for type
   end
 
+  before_save :update_total_price
+
   scope :with_items_book, -> { includes(order_items: :book) }
 
   include AASM
@@ -42,11 +44,6 @@ class Order < ApplicationRecord
     end
   end
 
-  def addresses
-    [shipping, billing]
-  end
-
-
   def calc_total_cost(*additions)
     sub_total + additions.map { |addition| send("#{addition}_cost") }.sum
   end
@@ -67,21 +64,28 @@ class Order < ApplicationRecord
     Delivery.where(country: shipping.country) if shipping
   end
 
+  def addresses
+    [shipping, billing]
+  end
+
   def any_address?
     shipping || billing
   end
 
   def cart_empty?
-    @items_count ||= order_items.count
-    @items_count == 0
+    items_count == 0
+  end
+
+  def items_count
+    @items_count ||= order_items.map(&:quantity).sum
   end
 
   def merge_order!(order)
     return self if self == order
-    order.order_items.each do |order_item|3
+    order.order_items.each do |order_item|
       add_item(order_item.book_id, order_item.quantity).save
     end
-    self
+    tap(&:save)
   end
 
   def add_item(book_id, quantity = 1)
@@ -90,6 +94,12 @@ class Order < ApplicationRecord
     else
       order_items.new(quantity: quantity, book_id: book_id)
     end
+  end
+
+  private
+
+  def update_total_price
+    self.total_price = calc_total_cost(:coupon, :delivery)
   end
 
 end

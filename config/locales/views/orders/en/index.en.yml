@@ -1,0 +1,14 @@
+en:
+  orders:
+    index:
+      states:
+        all: All orders
+        processing: Waiting for processing
+        in_progress: In Progress
+        in_delivery: In delivery
+        delivered: Delivered
+        canceled: Canceled
+      number: Number
+      completed_at: Completed at
+      status: Status
+      total: Total

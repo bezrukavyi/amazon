@@ -38,7 +38,7 @@
                 %td
                   %strong.font-18= "#{t('.order_total')}:"
                 %td
-                  %strong.font-18= currency_price(current_order.calc_total_cost(:coupon))
+                  %strong.font-18= currency_price(current_order.total_price)
 
             = link_to t('.checkout'), checkouts_path(:address),
               class: 'button btn btn-default mb-20 visible-xs-inline-block'

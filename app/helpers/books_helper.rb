@@ -1,6 +1,7 @@
 module BooksHelper
   def category_title
-    params[:with_category].blank? ? t('all') : params[:with_category]
+    type = params[:with_category].blank? ? :all : params[:with_category]
+    t("books.index.sorted_by.#{type}")
   end
 
   def sort_key
@@ -8,7 +9,7 @@ module BooksHelper
   end
 
   def sort_title
-    t(".sorted_by.#{sort_key}")
+    t("books.index.sorted_by.#{sort_key}")
   end
 
   def user_avatar(user)

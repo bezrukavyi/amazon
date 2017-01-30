@@ -2,22 +2,23 @@
   %thead
     %tr
       %th
-        %span.in-grey-600 Number
+        %span.in-grey-600= t('orders.index.number')
       %th
-        %span.in-grey-600 Completed at
+        %span.in-grey-600= t('orders.index.completed_at')
       %th
-        %span.in-grey-600 Status
+        %span.in-grey-600= t('orders.index.status')
       %th
-        %span.in-grey-600 Total
+        %span.in-grey-600= t('orders.index.total')
   %tbody
     - orders.each do |order|
-      %tr
+      %tr{ class: 'table-link', 'data-href': order_state_path(order) }
         %td
           %span.general-order-number= order.id
         %td
-          %span.in-grey-900.font-16.fw-300 2016-11-14
+          %span.in-grey-900.font-16.fw-300= order.decorate.completed_at
         %td
-          %span.font-16.in-grey-900.fw-300= order.state
+          %span.font-16.fw-300{ class: state_klass(order) }
+            = t("orders.index.states.#{order.state}")
         %td
           %strong.font-16
-            = currency_price(order.calc_total_cost(:coupon, :delivery))
+            = currency_price(order.total_price)

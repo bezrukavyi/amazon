@@ -10,4 +10,8 @@ class OrderDecorator < Draper::Decorator
     created_at.strftime("%B, %d, %Y")
   end
 
+  def completed_at
+    updated_at.strftime("%Y-%m-%d") unless processing?
+  end
+
 end

@@ -1,24 +1,22 @@
 %main.container.general-main-wrap
   %h1.mt-0.mb-25 My Orders
 
-  %p.lead.small.mb-10.visible-xs Sort by
-  .dropdowns.dropdown.general-order-dropdown
-    %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      Waiting for processing
-      %i.fa.fa-angle-down.dropdown-icon.pull-right
-    %ul.dropdown-menu
-      %li
-        %a{href: "#"} Newest first
-      %li
-        %a{href: "#"} Popular first
-      %li
-        %a{href: "#"} Price: Low to hight
-      %li
-        %a{href: "#"} Price: Low to hight
+  = form_tag orders_path, method: :get, id: 'filter_orders' do
+    %p.lead.small.mb-10.visible-xs Sort by
+    .dropdowns.dropdown.general-order-dropdown
+      %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        = state_title
+        %i.fa.fa-angle-down.dropdown-icon.pull-right
+      %ul.dropdown-menu
+        - @states.each do |state|
+          %li
+            %label
+              = t(".states.#{state}")
+              = radio_button_tag :state, state, params[:state] == state.to_s, hidden: true
 
-  .visible-xs
-    = render @orders
+    .visible-xs
+      = render @orders
 
 
-  .hidden-xs.mb-res-50
-    = render partial: 'orders_table', locals: { orders: @orders }
+    .hidden-xs.mb-res-50
+      = render partial: 'orders_table', locals: { orders: @orders }

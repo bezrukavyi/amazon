@@ -3,6 +3,7 @@ en:
     index:
       title: 'Catalog'
       sorted_by:
+        all: All books
         title: Sort by
         newest: Newest first
         asc_title: 'Title: A - Z'

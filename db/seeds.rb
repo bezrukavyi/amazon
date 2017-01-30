@@ -31,3 +31,8 @@ Book.find_each do |book|
   book.authors = Author.last(rand(1..3))
   book.materials = Material.last(rand(1..3))
 end
+
+Country.create!(name: 'Ukraine', code: '380')
+
+Delivery.create!(name: 'Ukrpost', country: Country.last, price: 20, min_days: 10,
+  max_days: 20)

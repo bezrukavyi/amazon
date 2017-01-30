@@ -45,9 +45,39 @@ RSpec.describe Order, type: :model do
     end
   end
 
+  describe '#merge_order!' do
+    it 'when current order' do
+      order = create :order, :with_items
+      expect { order.merge_order!(order) }.not_to change(order, :order_items)
+    end
+    context 'when another order' do
+      before do
+        @book = create :book
+        @first_item = create :order_item, book: @book, quantity: 2
+        @second_item = create :order_item, book: @book, quantity: 2
+        @first_order = create :order, order_items: [@first_item]
+        @second_order = create :order, order_items: [@second_item]
+      end
+
+      it 'update order_item quantity' do
+        expect { @first_order.merge_order!(@second_order) }
+          .to change { @first_item.reload.quantity }.by(2)
+      end
+      it 'update order total_price' do
+        expect { @first_order.merge_order!(@second_order) }
+          .to change { @first_order.reload.total_price }
+      end
+    end
+    it 'return first_order' do
+      @first_order = create :order, :with_items
+      @second_order = create :order, :with_items
+      expect(@first_order.merge_order!(@second_order)).to eq(@first_order)
+    end
+  end
+
   it '#sub_total' do
     items = create_list :order_item, 2, order: subject
-    expect(subject.sub_total).to eq(items.map(&:sub_total).sum)
+    expect(subject.reload.sub_total).to eq(items.map(&:sub_total).sum)
   end
 
   it '#coupon_cost' do
@@ -94,18 +124,20 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe '#merge_order!' do
-    it 'when current order' do
-      order = create :order, :with_items
-      expect { order.merge_order!(order) }.not_to change(order, :order_items)
+  describe '#cart_empty?' do
+    it 'when true' do
+      subject.order_items = []
+      expect(subject.cart_empty?).to be_truthy
     end
-    it 'when another order' do
-      book = create :book
-      first_item = create :order_item, book: book, quantity: 2
-      second_item = create :order_item, book: book, quantity: 2
-      first_order = create :order, order_items: [first_item]
-      second_order = create :order, order_items: [second_item]
-      expect { first_order.merge_order!(second_order) }.to change { first_item.reload.quantity }.by(2)
+    it 'when false' do
+      order = create :order, :with_items
+      expect(order.cart_empty?).to be_falsey
+    end
+  end
+
+  context 'Before save' do
+    it '#update_total_price' do
+      expect(subject.save).to change { subject.total_price }
     end
   end
 
