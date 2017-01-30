@@ -1,0 +1,23 @@
+%table.table.table-hover
+  %thead
+    %tr
+      %th
+        %span.in-grey-600 Number
+      %th
+        %span.in-grey-600 Completed at
+      %th
+        %span.in-grey-600 Status
+      %th
+        %span.in-grey-600 Total
+  %tbody
+    - orders.each do |order|
+      %tr
+        %td
+          %span.general-order-number= order.id
+        %td
+          %span.in-grey-900.font-16.fw-300 2016-11-14
+        %td
+          %span.font-16.in-grey-900.fw-300= order.state
+        %td
+          %strong.font-16
+            = currency_price(order.calc_total_cost(:coupon, :delivery))

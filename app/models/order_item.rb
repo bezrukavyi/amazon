@@ -11,6 +11,10 @@ class OrderItem < ApplicationRecord
     @sub_total ||= quantity * book.price
   end
 
+  def update_amount(amount)
+    update(quantity: quantity + amount)
+  end
+
   private
   def stock_validate
     return if !errors.blank? || quantity <= book.count

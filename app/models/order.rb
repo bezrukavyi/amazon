@@ -46,13 +46,6 @@ class Order < ApplicationRecord
     [shipping, billing]
   end
 
-  def add_item(book_id, quantity = 1)
-    if item = order_items.find_by(book_id: book_id)
-      item.increment :quantity, quantity
-    else
-      order_items.new(quantity: quantity, book_id: book_id)
-    end
-  end
 
   def calc_total_cost(*additions)
     sub_total + additions.map { |addition| send("#{addition}_cost") }.sum
@@ -79,11 +72,24 @@ class Order < ApplicationRecord
   end
 
   def cart_empty?
-    items_count == 0
+    @items_count ||= order_items.count
+    @items_count == 0
   end
 
-  def items_count
-    @items_count ||= order_items.count
+  def merge_order!(order)
+    return self if self == order
+    order.order_items.each do |order_item|3
+      add_item(order_item.book_id, order_item.quantity).save
+    end
+    self
+  end
+
+  def add_item(book_id, quantity = 1)
+    if item = order_items.find_by(book_id: book_id)
+      item.increment :quantity, quantity
+    else
+      order_items.new(quantity: quantity, book_id: book_id)
+    end
   end
 
 end

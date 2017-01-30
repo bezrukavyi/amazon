@@ -16,14 +16,14 @@ RSpec.feature 'Settings', :type => :feature do
     scenario 'billing update' do
       visit user_edit_path
       click_link I18n.t('address')
-      within '#billing_address' do
+      within('form', id: 'billing_address') do
         fill_in I18n.t('simple_form.labels.address.first_name'), with: billing_attr[:first_name]
         fill_in I18n.t('simple_form.labels.address.last_name'), with: billing_attr[:last_name]
         fill_in I18n.t('simple_form.labels.address.name'), with: billing_attr[:name]
         fill_in I18n.t('simple_form.labels.address.city'), with: billing_attr[:city]
         fill_in I18n.t('simple_form.labels.address.zip'), with: billing_attr[:zip]
         fill_in I18n.t('simple_form.labels.address.phone'), with: billing_attr[:phone]
-        find('#country_id_billing_address').find(:country_id, 'option[2]').select_option
+        find('#country_id_billing_address').find(:xpath, 'option[2]').select_option
         click_button I18n.t('simple_form.titles.save')
       end
       expect(page).to have_content I18n.t('devise.registrations.updated')
@@ -59,7 +59,7 @@ RSpec.feature 'Settings', :type => :feature do
     scenario 'billing update' do
       visit user_edit_path
       click_link I18n.t('address')
-      within '#billing_address' do
+      within('form', id: 'billing_address') do
         fill_in I18n.t('simple_form.labels.address.first_name'), with: nil
         click_button I18n.t('simple_form.titles.save')
       end

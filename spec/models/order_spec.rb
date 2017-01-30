@@ -94,4 +94,19 @@ RSpec.describe Order, type: :model do
     end
   end
 
+  describe '#merge_order!' do
+    it 'when current order' do
+      order = create :order, :with_items
+      expect { order.merge_order!(order) }.not_to change(order, :order_items)
+    end
+    it 'when another order' do
+      book = create :book
+      first_item = create :order_item, book: book, quantity: 2
+      second_item = create :order_item, book: book, quantity: 2
+      first_order = create :order, order_items: [first_item]
+      second_order = create :order, order_items: [second_item]
+      expect { first_order.merge_order!(second_order) }.to change { first_item.reload.quantity }.by(2)
+    end
+  end
+
 end

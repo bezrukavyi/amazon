@@ -9,6 +9,8 @@
       %span.in-grey-600= t('carts.edit.quantity')
     %th.col-total
       %span.in-grey-600= t('carts.edit.sub_total')
+    - if local_assigns[:field]
+      %th.close-link
   %tbody
 
     - if local_assigns[:field]

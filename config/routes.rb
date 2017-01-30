@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     patch '/cart', to: 'carts#update', as: :cart_update
 
     resources :checkouts
+    resources :orders, only: [:index, :show]
 
     root to: 'main_pages#index'
 

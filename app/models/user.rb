@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def order_in_processing
-    orders.processing.first || orders.create
+    @order_in_processing ||= orders.processing.last || orders.create
   end
 
   def complete_order

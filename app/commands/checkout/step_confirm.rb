@@ -21,8 +21,7 @@ class Checkout::StepConfirm < Rectify::Command
   private
 
   def update_order
-    order.confirm
-    order.update_attributes(user: user)
+    order.confirm!
   end
 
   def use_coupon
