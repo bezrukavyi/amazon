@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe UpdateOrder do
 
-  let(:order_item) { create :order_item, quantity: 2 }
-  let(:order) { order_item.order }
+  let(:order) { create :order, :with_items }
+  let(:order_item) { order.order_items.first }
   let(:coupon) { create :coupon }
 
   subject { UpdateOrder.new({ order: order }) }
@@ -24,7 +24,7 @@ describe UpdateOrder do
         expect { subject.call }.to broadcast(:valid)
       end
       it 'change order items' do
-        expect { subject.call }.to change { order_item.reload.quantity }.from(2).to(20)
+        expect { subject.call }.to change { order_item.reload.quantity }.from(1).to(20)
       end
     end
 

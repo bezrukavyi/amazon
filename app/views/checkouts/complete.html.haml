@@ -10,7 +10,7 @@
       .visible-xs
         %p.general-order-number.mb-0= t('.order_id', id: current_order.id)
         %p.general-address.mb-30= current_order.decorate.created_strf
-      = render partial: 'addresses/panel', locals: { address: current_order.shipping }
+      = render partial: 'addresses/panel', locals: { addresses: [current_order.shipping] }
 
     .col-sm-6.hidden-xs.text-right
       %p.general-order-number.mb-0= t('.order_id', id: current_order.id)

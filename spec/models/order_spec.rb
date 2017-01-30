@@ -137,7 +137,8 @@ RSpec.describe Order, type: :model do
 
   context 'Before save' do
     it '#update_total_price' do
-      expect(subject.save).to change { subject.total_price }
+      subject.order_items = [create(:order_item)]
+      expect { subject.save }.to change { subject.total_price }
     end
   end
 

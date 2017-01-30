@@ -47,7 +47,7 @@ RSpec.feature 'Catalog', :type => :feature do
   scenario 'Redirect to book' do
     book = Book.first
     find(:xpath, "//a[@href='/books/#{book.id}']").click
-    current_path.should == "/books/#{book.id}"
+    expect(current_path).to eq("/books/#{book.id}")
   end
 
 end
