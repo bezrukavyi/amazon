@@ -3,7 +3,7 @@ class Delivery < ApplicationRecord
   belongs_to :country
 
   validates :min_days, :max_days, :name, :price, presence: true
-  validates_numericality_of :min_days, :max_days, greater_than: 0
+  validates :min_days, :max_days, numericality: { greater_than: 0 }
   validates_uniqueness_of :name, scope: :country
   validate :access_max_days
 

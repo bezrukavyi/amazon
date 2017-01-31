@@ -1,4 +1,7 @@
 class Order < ApplicationRecord
+  include AddressableRelation
+  include AASM
+
   belongs_to :user
   belongs_to :delivery, optional: true
   belongs_to :credit_card, optional: true
@@ -8,7 +11,6 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_items, allow_destroy: true
   accepts_nested_attributes_for :credit_card
 
-  include AddressableRelation
   Address::TYPES.each do |type|
     has_address type
     accepts_nested_attributes_for type
@@ -17,8 +19,6 @@ class Order < ApplicationRecord
   before_save :update_total_price
 
   scope :with_items_book, -> { includes(order_items: :book) }
-
-  include AASM
 
   aasm column: :state, whiny_transitions: false do
     state :processing, initial: true
@@ -44,10 +44,6 @@ class Order < ApplicationRecord
     end
   end
 
-  def calc_total_cost(*additions)
-    sub_total + additions.map { |addition| send("#{addition}_cost") }.sum
-  end
-
   def sub_total
     order_items.map(&:sub_total).sum
   end
@@ -60,8 +56,13 @@ class Order < ApplicationRecord
     delivery ? delivery.price : 0.00
   end
 
+  def calc_total_cost(*additions)
+    sub_total + additions.map { |addition| send("#{addition}_cost") }.sum
+  end
+
   def access_deliveries
-    Delivery.where(country: shipping.country) if shipping
+    return unless shipping
+    @access_deliveries ||= Delivery.where(country: shipping.country)
   end
 
   def addresses
@@ -76,20 +77,20 @@ class Order < ApplicationRecord
     @items_count ||= order_items.map(&:quantity).sum
   end
 
-  def merge_order!(order)
-    return self if self == order
-    order.order_items.each do |order_item|
-      add_item(order_item.book_id, order_item.quantity).save
-    end
-    tap(&:save)
-  end
-
   def add_item(book_id, quantity = 1)
     if item = order_items.find_by(book_id: book_id)
       item.increment :quantity, quantity
     else
       order_items.new(quantity: quantity, book_id: book_id)
     end
+  end
+
+  def merge_order!(order)
+    return self if self == order
+    order.order_items.each do |order_item|
+      add_item(order_item.book_id, order_item.quantity).save
+    end
+    tap(&:save)
   end
 
   private
