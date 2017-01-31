@@ -17,7 +17,7 @@ class Book < ApplicationRecord
   validates :price, numericality: { greater_than: 0 }
   validate :access_dimension
 
-  SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price]
+  SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price, :popular]
 
   scope :sorted_by, -> (type) { send(type) }
   scope :asc_title, -> { order(title: :asc) }
@@ -35,7 +35,9 @@ class Book < ApplicationRecord
     with_authors.includes(:pictures, :materials, reviews: :user)
   end
 
-  def self.best_sellers
+  scope :best_sellers, -> { popular.limit(4) }
+
+  def self.popular
     Book
       .joins(:orders)
       .where('orders.state': 'delivered')
