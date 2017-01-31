@@ -1,6 +1,6 @@
 %li.mr-35
   %label.filter-link
-    All
+    = t('books.index.sorted_by.all')
     = radio_button_tag :with_category, '', false, hidden: true
     %span.badge.general-badge= @book_count
 
