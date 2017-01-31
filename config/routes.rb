@@ -11,17 +11,17 @@ Rails.application.routes.draw do
       controllers: { registrations: 'users' }
 
     devise_scope :user do
-      get 'settings', to: 'users#edit', as: :user_edit
-      patch '/settings', to: 'users#update', as: :user_update
+      resource :user, only: [:edit, :update], path_names: { edit: '' },
+        path: 'settings'
     end
 
     resources :books, only: [:index, :show, :update]
     resources :order_items, only: [:create, :destroy]
 
-    get 'cart', to: 'carts#edit', as: :cart
-    patch '/cart', to: 'carts#update', as: :cart_update
+    resource :cart, only: [:edit, :update], path_names: { edit: '' },
+      path: 'cart'
 
-    resources :checkouts
+    resources :checkouts, only: [:show, :update]
     resources :orders, only: [:index, :show, :update]
 
     root to: 'main_pages#index'

@@ -9,11 +9,11 @@
 
       = link_to 'Bookstore', root_path, class: 'navbar-brand'
 
-      = link_to cart_path, class: 'shop-link pull-right visible-xs' do
+      = link_to edit_cart_path, class: 'shop-link pull-right visible-xs' do
         %span.shop-icon{class: empty_cart_class}
           %span.shop-quantity= current_order.items_count
 
-    = link_to cart_path, class: 'shop-link pull-right hidden-xs' do
+    = link_to edit_cart_path, class: 'shop-link pull-right hidden-xs' do
       %span.shop-icon{class: empty_cart_class}
         %span.shop-quantity= current_order.items_count
 
@@ -48,7 +48,7 @@
               %a{type: "button", 'data-toggle': "collapse", href: "#account", 'aria-expanded': "false", 'aria-controls': "account"}= t('account')
               %ul#account.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
                 %li
-                  = link_to t('settings'), user_edit_path, class: 'collapse-link'
+                  = link_to t('settings'), edit_user_path, class: 'collapse-link'
                 %li
                   = link_to t('orders.title'), orders_path, class: 'collapse-link'
 
@@ -86,7 +86,7 @@
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('account')
               %ul.dropdown-menu
                 %li
-                  = link_to t('settings'), user_edit_path
+                  = link_to t('settings'), edit_user_path
                 %li
                   = link_to t('orders.title'), orders_path
 

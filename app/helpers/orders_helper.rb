@@ -10,7 +10,7 @@ module OrdersHelper
   end
 
   def order_state_path(order)
-    order.processing? ? cart_path : order_path(order)
+    order.processing? ? edit_cart_path : order_path(order)
   end
 
 end

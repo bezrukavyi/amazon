@@ -19,7 +19,7 @@ class OrderItemsController < ApplicationController
       binding.pry
       flash[:alert] = "#{@order_item.errors.full_messages}"
     end
-    redirect_back(fallback_location: cart_path)
+    redirect_back(fallback_location: edit_cart_path)
   end
 
 end

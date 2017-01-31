@@ -13,7 +13,7 @@ RSpec.feature 'Cart', :type => :feature do
   before do
     allow_any_instance_of(CartsController)
       .to receive(:current_order).and_return(order)
-    visit cart_path
+    visit edit_cart_path
   end
 
   def check_price(*values)

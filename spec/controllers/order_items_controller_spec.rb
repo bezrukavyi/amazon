@@ -55,7 +55,7 @@ RSpec.describe OrderItemsController, type: :controller do
       expect(OrderItem.find_by(id: subject.id)).to be_nil
     end
     it 'renders the :show template' do
-      expect(response).to redirect_to(cart_path)
+      expect(response).to redirect_to(edit_cart_path)
     end
   end
 end

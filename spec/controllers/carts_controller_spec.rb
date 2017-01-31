@@ -28,9 +28,9 @@ RSpec.describe CartsController, type: :controller do
         .to change { subject.coupon }.from(nil).to(coupon)
       end
 
-      it 'redirect to cart_path' do
+      it 'redirect to edit_cart_path' do
         put :update, params: valid_params
-        expect(response).to redirect_to(cart_path)
+        expect(response).to redirect_to(edit_cart_path)
       end
 
     end

@@ -13,7 +13,7 @@ class UsersController < Devise::RegistrationsController
     if params[:agree_cancel]
       super
     else
-      redirect_to user_edit_path, alert: t('.confirm_intentions')
+      redirect_to edit_user_path, alert: t('.confirm_intentions')
     end
   end
 
@@ -30,7 +30,7 @@ class UsersController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    user_edit_path
+    edit_user_path
   end
 
   private

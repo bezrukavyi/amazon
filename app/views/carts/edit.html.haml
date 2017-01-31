@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   %h1.general-title-margin= t('.title')
 
-  = simple_form_for current_order, url: cart_update_path do |field|
+  = simple_form_for current_order, url: cart_path do |field|
 
     .visible-xs
       = field.simple_fields_for :order_items do |item_field|

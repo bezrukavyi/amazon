@@ -14,7 +14,7 @@ RSpec.feature 'Settings', :type => :feature do
   context 'Valid update' do
 
     scenario 'billing update' do
-      visit user_edit_path
+      visit edit_user_path
       click_link I18n.t('address')
       within('form', id: 'billing_address') do
         fill_in I18n.t('simple_form.labels.address.first_name'), with: billing_attr[:first_name]
@@ -30,7 +30,7 @@ RSpec.feature 'Settings', :type => :feature do
     end
 
     scenario 'email update' do
-      visit user_edit_path
+      visit edit_user_path
       click_link I18n.t('privacy')
       within '#edit_user_email' do
         fill_in I18n.t('simple_form.labels.user.email'), with: 'rspec1@gmail.com'
@@ -41,7 +41,7 @@ RSpec.feature 'Settings', :type => :feature do
 
     scenario 'password update' do
       new_password = 'rspec555'
-      visit user_edit_path
+      visit edit_user_path
       click_link I18n.t('privacy')
       within '#edit_user_password' do
         fill_in I18n.t('simple_form.labels.user.current_password').first, with: password
@@ -57,7 +57,7 @@ RSpec.feature 'Settings', :type => :feature do
   context 'Invalid update' do
 
     scenario 'billing update' do
-      visit user_edit_path
+      visit edit_user_path
       click_link I18n.t('address')
       within('form', id: 'billing_address') do
         fill_in I18n.t('simple_form.labels.address.first_name'), with: nil
@@ -67,7 +67,7 @@ RSpec.feature 'Settings', :type => :feature do
     end
 
     scenario 'email update' do
-      visit user_edit_path
+      visit edit_user_path
       click_link I18n.t('privacy')
       within '#edit_user_email' do
         fill_in I18n.t('simple_form.labels.user.email'), with: nil
@@ -78,7 +78,7 @@ RSpec.feature 'Settings', :type => :feature do
 
     scenario 'password update' do
       new_password = 'rspec555'
-      visit user_edit_path
+      visit edit_user_path
       click_link I18n.t('privacy')
       within '#edit_user_password' do
         fill_in I18n.t('simple_form.labels.user.current_password').first, with: nil
