@@ -2,6 +2,8 @@ class OrderItem < ApplicationRecord
   belongs_to :book
   belongs_to :order
 
+  default_scope { order(:created_at) }
+
   validates_numericality_of :quantity, presence: true,
     greater_than: 0, less_than_or_equal_to: 99
 

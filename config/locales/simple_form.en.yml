@@ -85,7 +85,7 @@ en:
       category:
         title: Title
       coupon:
-        code: Enter Your Coupon Code
+        code: Your Coupon Code
     user:
       new_password: Type a new Password
     titles:

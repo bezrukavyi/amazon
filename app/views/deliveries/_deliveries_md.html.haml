@@ -2,11 +2,11 @@
   %thead
     %tr
       %th.col-method
-        %span.in-grey-600.ml-40 Method
+        %span.in-grey-600.ml-40= t('carts.edit.method')
       %th
-        %span.in-grey-600 Days
+        %span.in-grey-600= t('days').mb_chars.capitalize.to_s
       %th
-        %span.in-grey-600 Price
+        %span.in-grey-600= t('carts.edit.price')
   %tbody
 
   - deliveries.decorate.each do |delivery|

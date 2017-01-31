@@ -1,0 +1,10 @@
+ru:
+  users:
+    edit:
+      settings: Настройки
+      remove_account:
+        title: Удалить аккаунт
+        petition: Пожалуйста, удалите мой аккаунт
+        confirm_title: Я осознаю что все данные будут утрачены
+      email: Эл.почта
+      password: Пароль

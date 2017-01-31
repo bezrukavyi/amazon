@@ -1,0 +1,14 @@
+ru:
+  books:
+    index:
+      title: Каталог
+      sorted_by:
+        all: Все книги
+        title: Сортировать по
+        newest: Сначала новые
+        asc_title: 'Заголовок: A - Z'
+        desc_title: 'Заголовок: Z - A'
+        low_price: 'Цена: От низкой к высокой'
+        hight_price: 'Цена: От высокой к низкой'
+        popular: Сначала Популярные
+      filter_by: Искать по категориям

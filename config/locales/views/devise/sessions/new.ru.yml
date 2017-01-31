@@ -1,0 +1,5 @@
+ru:
+  devise:
+    sessions:
+      new:
+        not_account?: Все еще не аккаунта?

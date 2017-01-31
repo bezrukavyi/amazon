@@ -1,0 +1,4 @@
+ru:
+  orders:
+    show:
+      order_id: "Заказ #%{id}"

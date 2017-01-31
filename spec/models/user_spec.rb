@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
   subject { create :user }
 
   context 'associations' do
-    [:providers, :reviews, :orders, :credit_card].each do |model_name|
+    [:providers, :reviews, :orders, :credit_cards].each do |model_name|
       it { should have_many(model_name) }
     end
   end

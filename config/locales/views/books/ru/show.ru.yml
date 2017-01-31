@@ -1,0 +1,16 @@
+ru:
+  books:
+    show:
+      back_to_result: Назад к результатам
+      count: Количество
+      publicate_at: Год публикации
+      materials: Материалы
+      reviews_count: 'Отзывы (%{amount})'
+      dimensions:
+        title: Размерность (дюймы)
+        h: В
+        w: Ш
+        d: Г
+      not_in_stock: Нет в наличии
+      not_found: Данной книги не существует
+      review_created: Ваш отзыв отправлен на рассмотрение администратора

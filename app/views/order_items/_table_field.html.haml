@@ -1,9 +1,10 @@
 %tr
   %td
     .general-img-wrap-table
-      %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+      = link_to order_item.book do
+        = image_tag order_item.book.avatar_url, class: 'cart-img-shadow pull-left'
   %td
-    %p.title= order_item.book.title
+    = link_to order_item.book.title, order_item.book, class: 'title'
     %p.in-grey-600.fw-300
   %td
     %span.font-16.in-gold-500= currency_price(order_item.book.price)

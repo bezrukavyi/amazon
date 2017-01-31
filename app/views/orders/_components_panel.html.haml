@@ -4,7 +4,7 @@
       locals: { address: address, edit: local_assigns[:edit] }
 
 .col-sm-3
-  %h3.general-subtitle= t('.shipments')
+  %h3.general-subtitle= t('checkouts.confirm.shipments')
   %p.general-address
     = order.delivery.name
     - if local_assigns[:edit]
@@ -13,7 +13,7 @@
     = order.delivery.decorate.duration
 
 .col-sm-3
-  %h3.general-subtitle= t('.payment')
+  %h3.general-subtitle= t('checkouts.confirm.payment')
   %p.general-address
     = order.credit_card.decorate.hidden_number
     - if local_assigns[:edit]
