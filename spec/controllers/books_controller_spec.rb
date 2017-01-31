@@ -11,65 +11,33 @@ RSpec.describe BooksController, type: :controller do
 
   describe 'GET #index' do
 
-    it 'get categories' do
-      create_list :category, 2
-      get :index
-      expect(assigns(:categories).size).to eq(2)
-    end
-
     it 'get book_count' do
-      create_list :book, 2
+      expect(Book).to receive(:count)
       get :index
-      expect(assigns(:book_count)).to eq(2)
     end
 
-    context 'without filter' do
-      before do
-        @first_book = create :book, title: 'A'
-        subject.title = 'B'
-        subject.save
-        get :index
-      end
-      it 'populates of books' do
-        expect(assigns(:books)).to eq([@first_book, subject])
-      end
-      it 'renders the :index template' do
-        expect(response).to render_template(:index)
-      end
+    it 'get sort_types' do
+      get :index
+      expect(assigns(:sort_types)).not_to be_nil
     end
 
-    context 'with filter' do
-      before do
-        @horror = create :category
-        @drama = create :category
-        @harry_potter = create(:book, category: @horror, price: 25.0)
-        @ruby_way = create(:book, category: @horror, price: 50.0)
-        @rails_way = create(:book, category: @drama, price: 100.0)
-        @book = create(:book, category: @horror, price: 75.0)
-      end
-
-      it 'set category' do
-        get :index, params: { with_category: @horror.title }
-        expect(assigns(:books).count).to eq(3)
-      end
-
-      it 'set price' do
-        get :index, params: { sorted_by: :hight_price }
-        expect(assigns(:books)).to eq([@rails_way, @book, @ruby_way, @harry_potter])
-      end
-
-      it 'set category and price' do
-        get :index, params: { sorted_by: :low_price, with_category: @horror.title }
-        expect(assigns(:books)).to eq([@harry_potter, @ruby_way, @book])
-      end
-
+    it 'get filter book' do
+      params = { with_category: 'test', sorted_by: 'low_price' }
+      expect(Book).to receive(:filter_with).with(params).and_return(Book.none)
+      get :index, params: params
     end
 
   end
 
   describe 'GET #show' do
+
     context 'when book found' do
       before { get :show, params: { id: subject.id } }
+
+      it 'review form' do
+        expect(assigns(:review_form)).to be_kind_of(ReviewForm)
+      end
+
       it 'assigns the requested book' do
         expect(assigns(:book)).to eq(subject)
       end

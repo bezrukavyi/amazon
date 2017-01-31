@@ -118,4 +118,37 @@ RSpec.describe Book, type: :model do
     expect(Book.best_sellers).to eq([@rspec, @rails, @jruby])
   end
 
+
+  describe '.filter_with' do
+    before do
+      @horror = create :category
+      @drama = create :category
+      @harry_potter = create(:book, category: @horror, price: 25.0)
+      @ruby_way = create(:book, category: @horror, price: 50.0)
+      @rails_way = create(:book, category: @drama, price: 100.0)
+      @book = create(:book, category: @horror, price: 75.0)
+    end
+
+    it 'without options' do
+      options = {}
+      expect(Book.filter_with(options)).to eq(Book.asc_title)
+    end
+
+    it 'with_category' do
+      options = { with_category: @horror.title }
+      expect(Book.filter_with(options).count).to eq(3)
+    end
+
+    it 'sorted_by' do
+      options = { sorted_by: 'hight_price' }
+      expect(Book.filter_with(options)).to eq([@rails_way, @book, @ruby_way, @harry_potter])
+    end
+
+    it 'with_category and sorted_by' do
+      options = { sorted_by: 'low_price', with_category: @horror.title }
+      expect(Book.filter_with(options)).to eq([@harry_potter, @ruby_way, @book])
+    end
+
+  end
+
 end

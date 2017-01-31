@@ -4,10 +4,9 @@ class BooksController < ApplicationController
   before_action :set_reviews, only: [:show, :update]
 
   def index
-    @categories = Category.select(:id, :title, :books_count)
     @sort_types = Book::SORT_TYPES
     @book_count = Book.count
-    @books = filtered_books.page(params[:page]).with_authors
+    @books = Book.filter_with(filter_option).page(params[:page]).with_authors
   end
 
   def show
@@ -24,21 +23,8 @@ class BooksController < ApplicationController
 
   private
 
-  def filtered_books
-    books = default_sort? ? Book.asc_title : Book.all
-    filtered_params.each do |param, value|
-      books = books.public_send(param, value) if value.present?
-    end
-    books
-  end
-
-  def default_sort?
-    return true unless params[:sorted_by]
-    params[:sorted_by] == Book::SORT_TYPES.first
-  end
-
-  def filtered_params
-    params.slice(:with_category, :sorted_by)
+  def filter_option
+    { with_category: params[:with_category], sorted_by: params[:sorted_by] }
   end
 
   def review_params

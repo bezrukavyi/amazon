@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_categories
-    @categories = Category.select(:id, :title)
+    @categories = Category.select(:id, :title, :books_count)
   end
 
 end

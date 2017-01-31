@@ -44,6 +44,14 @@ class Book < ApplicationRecord
       .limit(4)
   end
 
+  def self.filter_with(options)
+    books = options[:sorted_by] ? Book.all : Book.asc_title
+    options.each do |param, value|
+      books = books.public_send(param, value) if value.present?
+    end
+    books
+  end
+
   def in_stock?
     count > 0
   end
