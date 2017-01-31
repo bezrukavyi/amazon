@@ -29,9 +29,11 @@
             %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"}= t('language.title')
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               %li
-                = link_to t('language.en'), locale: :en, class: 'collapse-link'
+                = link_to t('language.en'), url_for(locale: :en),
+                  class: 'collapse-link'
               %li
-                = link_to t('language.ru'), locale: :ru, class: 'collapse-link'
+                = link_to t('language.ru'), url_for(locale: :ru),
+                  class: 'collapse-link'
 
           %li
             %a{type: "button", 'data-toggle': "collapse", href: "#language", 'aria-expanded': "false", 'aria-controls': "language"}= t('shop')
