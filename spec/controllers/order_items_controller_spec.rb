@@ -14,48 +14,82 @@ RSpec.describe OrderItemsController, type: :controller do
   describe 'POST #create' do
     let(:book_id) { subject.book.id }
 
-    context 'success add item to order' do
-      let(:create_params) { { book_id: book_id, quantity: 20 } }
+    before do
+      allow(order).to receive(:add_item).and_return(subject)
+    end
 
-      it 'update subject quantity' do
-        expect { post :create, params: create_params }
-          .to change { subject.reload.quantity }.by(20)
+    context 'success add item to order' do
+      before do
+        allow(subject).to receive(:save).and_return(true)
+        allow(order).to receive(:save).and_return(true)
+        post :create, params: { book_id: book_id, quantity: 20 }
       end
-      it 'update order total price' do
-        expect { post :create, params: create_params }
-          .to change { order.reload.total_price }
+
+      it 'notice flash' do
+        expect(flash[:notice]).to eq I18n.t('books.success_add', count: 20)
       end
       it 'redirect_back' do
-        post :create, params: create_params
         expect(response).to redirect_to(book_path(book_id))
       end
     end
 
     context 'failed add item to order' do
-      let(:create_params) { { book_id: book_id, quantity: 1000 } }
+      before do
+        allow(subject).to receive(:save).and_return(false)
+        allow(subject).to receive_message_chain(:decorate, :all_errors).and_return('error')
+        allow(order).to receive(:save).and_return(false)
+        post :create, params: { book_id: book_id, quantity: 1000 }
+      end
+
+      it 'alert flash' do
+        expect(flash[:alert]).to eq I18n.t('books.failed_add', error: 'error')
+      end
+
       it 'redirect_back' do
-        post :create, params: create_params
         expect(response).to redirect_to(book_path(book_id))
       end
-      it 'update order total price' do
-        expect { post :create, params: create_params }
-          .not_to change(order, :total_price)
-      end
+
     end
   end
 
-  describe 'GET #destroy' do
+  describe 'DELETE #destroy' do
     before do
-      delete :destroy, params: { id: subject.id }
+      allow(OrderItem).to receive(:find).and_return(subject)
     end
-    it 'assigns the requested order' do
-      expect(assigns(:order_item)).to eq(subject)
+    context 'success destroy' do
+      before do
+        allow(subject).to receive(:destroy).and_return(true)
+        allow(order).to receive(:save).and_return(true)
+        delete :destroy, params: { id: subject.id }
+      end
+
+      it 'notice flash' do
+        expect(flash[:notice]).to eq I18n.t('books.success_destroy', title: subject.book.title)
+      end
+
+      it 'renders the :show template' do
+        expect(response).to redirect_to(edit_cart_path)
+      end
+
     end
-    it 'assigns the requested order' do
-      expect(OrderItem.find_by(id: subject.id)).to be_nil
+
+    context 'failed destroy' do
+      before do
+        allow(subject).to receive(:destroy).and_return(false)
+        allow(subject).to receive_message_chain(:errors, :full_messages).and_return('error')
+        allow(order).to receive(:save).and_return(false)
+        delete :destroy, params: { id: subject.id }
+      end
+
+      it 'alert falsh' do
+        expect(flash[:alert]).to eq 'error'
+      end
+
+      it 'redirect_to edit_cart_path' do
+        expect(response).to redirect_to(edit_cart_path)
+      end
+
     end
-    it 'renders the :show template' do
-      expect(response).to redirect_to(edit_cart_path)
-    end
+
   end
 end

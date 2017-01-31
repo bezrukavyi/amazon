@@ -31,11 +31,20 @@ RSpec.describe BooksController, type: :controller do
 
   describe 'GET #show' do
 
-    context 'when book found' do
-      before { get :show, params: { id: subject.id } }
+    it 'assigns book' do
+      expect(Book).to receive_message_chain(:full_includes, :find_by)
+      get :show, params: { id: subject.id }
+    end
 
-      it 'review form' do
-        expect(assigns(:review_form)).to be_kind_of(ReviewForm)
+    context 'when book found' do
+      before do
+        get :show, params: { id: subject.id }
+        allow(Book).to receive_message_chain(:full_includes, :find_by)
+          .and_return(subject)
+      end
+
+      it 'assigns book' do
+        expect(assigns(:book)).to eq(subject)
       end
 
       it 'assigns the requested book' do
@@ -53,33 +62,17 @@ RSpec.describe BooksController, type: :controller do
   end
 
   describe 'PUT #update' do
-    context 'Valid' do
-      let(:params) { attributes_for(:review) }
 
-      it 'updated book reviews' do
-        expect { put :update, params: { id: subject.id, review: params } }
-          .to change { Review.count }.by(1)
-      end
-
-      it 'redirect to the book' do
-        put :update, params: { id: subject.id, review: params }
-        expect(response).to redirect_to(book_path(subject))
-      end
+    it 'redirect to the book' do
+      put :update, params: { id: subject.id, review: attributes_for(:review) }
+      expect(response).to redirect_to(book_path(subject))
     end
 
-    context 'Invalid' do
-      let(:params) { attributes_for :review, :invalid }
-
-      it 'updated book reviews' do
-        expect { put :update, params: { id: subject.id, review: params } }
-          .not_to change { subject.reviews.count }
-      end
-
-      it 'redirect to the new user' do
-        put :update, params: { id: subject.id, review: params }
-        expect(response).to render_template(:show)
-      end
+    it 'redirect to the new user' do
+      put :update, params: { id: subject.id, review: attributes_for(:review, :invalid) }
+      expect(response).to render_template(:show)
     end
+
   end
 
 end

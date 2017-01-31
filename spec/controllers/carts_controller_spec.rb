@@ -6,51 +6,35 @@ RSpec.describe CartsController, type: :controller do
   let(:order_item) { subject.order_items.first }
   let(:coupon) { create :coupon }
 
+  before do
+    allow(controller).to receive(:current_order).and_return(subject)
+  end
+
+  describe 'GET #edit' do
+    it 'assign coupon_form' do
+      get :edit
+      expect(assigns[:coupon_form]).to be_kind_of(CouponForm)
+    end
+  end
+
   describe 'PUT #update' do
+    let(:valid_params) { { order: {
+      order_items_attributes: { '0': { quantity: 2, id: order_item.id } },
+      coupon: { code: coupon.code } } } }
 
-    before do
-      allow(controller).to receive(:current_order).and_return(subject)
+    it 'assign coupon_form' do
+      put :update, params: valid_params
+      expect(assigns[:coupon_form]).to be_kind_of(CouponForm)
     end
 
-    context 'Valid' do
-
-      let(:valid_params) { { id: subject.id,
-        order: { order_items_attributes: { 0 => { quantity: 2, id: order_item.id } },
-        coupon: { code: coupon.code } } } }
-
-      it 'update order items' do
-        expect { put :update, params: valid_params }
-        .to change { order_item.reload.quantity }.from(1).to(2)
-      end
-
-      it 'update coupon' do
-        expect { put :update, params: valid_params }
-        .to change { subject.coupon }.from(nil).to(coupon)
-      end
-
-      it 'redirect to edit_cart_path' do
-        put :update, params: valid_params
-        expect(response).to redirect_to(edit_cart_path)
-      end
-
+    it 'valid event' do
+      put :update, params: valid_params
+      expect(response).to redirect_to(edit_cart_path)
     end
 
-    context 'Invalid' do
-
-      let(:invalid_params) { { id: subject.id,
-        order: { order_items_attributes: { 0 => { quantity: -100, id: order_item.id } },
-        coupon: { code: coupon.code } } } }
-
-      it 'update data' do
-        expect { put :update, params: invalid_params }
-        .not_to change { order_item.reload.quantity }
-      end
-
-      it 'render :edit' do
-        put :update, params: invalid_params
-        expect(response).to render_template(:edit)
-      end
-
+    it 'invalid event' do
+      put :update, params: { order: { coupon: { code: 'wrong_coupon' } } }
+      expect(response).to render_template(:edit)
     end
 
   end

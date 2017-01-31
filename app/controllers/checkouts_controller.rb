@@ -40,21 +40,19 @@ class CheckoutsController < ApplicationController
     set_countries
   end
 
-  def address_options
-    addresses = set_addresses_by_params(params[:order], params[:use_billing])
-    { addressable: current_order, addresses: addresses }
-  end
-
   def delivery_components
     @deliveries = current_order.access_deliveries
   end
 
-  def delivery_options
-    { order: current_order, delivery_id: params[:delivery_id] }
-  end
-
   def payment_components
     @payment_form = CreditCardForm.from_model(current_order.credit_card)
+  end
+
+  def address_options
+    { addressable: current_order, addresses: set_addresses_by_params(params[:order]) }
+  end
+  def delivery_options
+    { order: current_order, delivery_id: params[:delivery_id] }
   end
 
   def payment_options

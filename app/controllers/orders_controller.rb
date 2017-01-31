@@ -3,7 +3,8 @@ class OrdersController < ApplicationController
 
   def index
     @states = Order.aasm.states.map(&:name).unshift(:all)
-    @orders = filtered_orders
+    @orders = Order.where(user: current_user)
+    @orders = @orders.send("#{params[:state]}") unless default_sort?
   end
 
   def show
@@ -12,11 +13,6 @@ class OrdersController < ApplicationController
   end
 
   private
-
-  def filtered_orders
-    orders = Order.where(user: current_user)
-    orders = default_sort? ? orders : orders.send("#{params[:state]}")
-  end
 
   def default_sort?
     return true unless params[:state]

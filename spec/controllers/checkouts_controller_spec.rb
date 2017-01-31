@@ -83,70 +83,68 @@ RSpec.describe CheckoutsController, type: :controller do
       allow(controller).to receive(:current_order).and_return(order)
     end
 
-    context 'When attributes valid' do
-
-      context 'address step' do
-        before do
-          @params = { billing_attributes: attributes_for(:address_order, :billing),
-           shipping_attributes: attributes_for(:address_order, :shipping) }
-        end
-        it 'updated shipping' do
-          expect { put :update, params: { id: :address, order: @params } }
-            .to change { order.reload.shipping }
-        end
-        it 'updated billing' do
-          expect { put :update, params: { id: :address, order: @params } }
-            .to change { order.reload.billing }
-        end
-        it 'updated with user billing' do
-          @params = { billing_attributes: attributes_for(:address_order, :billing) }
-          expect { put :update, params: { id: :address, use_billing: true, order: @params } }
-            .to change { order.reload.shipping }
-        end
-        it 'redirect to the new user' do
-          put :update, params: { id: :address, order: @params }
-          expect(response).to redirect_to checkout_path(:delivery)
-        end
+    context 'address step' do
+      before do
+        @params = { billing_attributes: attributes_for(:address_order, :billing),
+         shipping_attributes: attributes_for(:address_order, :shipping) }
       end
 
-      context 'delivery step' do
-        let(:delivery) { create :delivery }
-        it 'updated data' do
-          expect { put :update, params: { id: :delivery, delivery_id: delivery.id } }
-            .to change(order, :delivery)
-        end
-        it 'redirect to payment' do
-          put :update, params: { id: :delivery, delivery_id: delivery.id }
-          expect(response).to redirect_to checkout_path(:payment)
-        end
+      it 'call Checkout::StepAddress' do
+        expect(Checkout::StepAddress).to receive(:call)
+        put :update, params: { id: :address, order: @params }
       end
 
-      context 'payment step' do
-        before do
-          order.credit_card = nil
-          @params = { credit_card_attributes: attributes_for(:credit_card) }
-        end
-        it 'updated data' do
-          expect { put :update, params: { id: :payment, order: @params } }
-            .to change { order.credit_card }
-        end
-        it 'redirect to payment' do
-          put :update, params: { id: :payment, order: @params }
-          expect(response).to redirect_to checkout_path(:confirm)
-        end
+      it 'valid event' do
+        put :update, params: { id: :address, order: @params }
+        expect(response).to redirect_to checkout_path(:delivery)
       end
 
-      context 'confirm step' do
-        it 'updated data' do
-          expect { put :update, params: { id: :confirm, confirm: true } }
-            .to change { order.state }
-        end
-        it 'redirect to payment' do
-          put :update, params: { id: :confirm, confirm: true }
-          expect(response).to redirect_to checkout_path(:complete)
-        end
+    end
+
+    context 'delivery step' do
+      let(:delivery) { create :delivery }
+      let(:params) { { id: :delivery, delivery_id: delivery.id } }
+
+      it 'call Checkout::StepDelivery' do
+        expect(Checkout::StepDelivery).to receive(:call)
+        put :update, params: params
       end
 
+      it 'redirect to payment' do
+        put :update, params: params
+        expect(response).to redirect_to checkout_path(:payment)
+      end
+    end
+
+    context 'payment step' do
+      before do
+        order.credit_card = nil
+        @params = { credit_card_attributes: attributes_for(:credit_card) }
+      end
+
+      it 'call Checkout::StepPayment' do
+        expect(Checkout::StepPayment).to receive(:call)
+        put :update, params: { id: :payment, order: @params }
+      end
+
+      it 'redirect to payment' do
+        put :update, params: { id: :payment, order: @params }
+        expect(response).to redirect_to checkout_path(:confirm)
+      end
+    end
+
+    context 'confirm step' do
+      let(:params) { { id: :confirm, confirm: true } }
+
+      it 'call Checkout::StepConfirm' do
+        expect(Checkout::StepConfirm).to receive(:call)
+        put :update, params: params
+      end
+
+      it 'redirect to payment' do
+        put :update, params: params
+        expect(response).to redirect_to checkout_path(:complete)
+      end
     end
 
   end

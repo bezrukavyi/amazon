@@ -16,7 +16,6 @@ class OrderItemsController < ApplicationController
     if @order_item.destroy && current_order.save
       flash[:notice] = t('books.success_destroy', title: @order_item.book.title)
     else
-      binding.pry
       flash[:alert] = "#{@order_item.errors.full_messages}"
     end
     redirect_back(fallback_location: edit_cart_path)
