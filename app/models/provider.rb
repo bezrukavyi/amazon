@@ -11,8 +11,23 @@ class Provider < ApplicationRecord
     user = User.where(email: auth.info.email).first_or_create do |user|
       generated_password = Devise.friendly_token.first(8)
       user.password = generated_password
+      user.remote_avatar_url = parse_image(auth)
+      user.first_name = parse_name(auth).first
+      user.last_name = parse_name(auth).last
     end
     user.providers.create(name: auth.provider, uid: auth.uid)
+  end
+
+  private
+
+  def self.parse_image(auth)
+    return unless image = auth.info.image
+    image.gsub('http://','https://')
+  end
+
+  def self.parse_name(auth)
+    return unless name = auth.info.name
+    name.split(' ')
   end
 
 end

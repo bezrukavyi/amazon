@@ -6,7 +6,7 @@ RSpec.describe Provider, type: :model do
   let(:user) { subject.user }
 
   before do
-    set_omniauth(:google)
+    set_omniauth(:facebook)
   end
 
   context 'associations' do
@@ -14,7 +14,7 @@ RSpec.describe Provider, type: :model do
   end
 
   describe '#authorize' do
-    let(:auth) { OmniAuth.config.mock_auth[:google] }
+    let(:auth) { OmniAuth.config.mock_auth[:facebook] }
 
     it 'when provider exist' do
       allow(Provider).to receive(:find_by_omniauth).and_return([subject])
@@ -38,6 +38,12 @@ RSpec.describe Provider, type: :model do
         end
         it 'create new user' do
           expect { Provider.authorize(auth) }.to change { User.count }.by(1)
+        end
+        it 'set user attributes' do
+          auth.info.name = 'Rspec Rspecovich'
+          Provider.authorize(auth)
+          expect(User.last.first_name).to eq('Rspec')
+          expect(User.last.last_name).to eq('Rspecovich')
         end
       end
 
