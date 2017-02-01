@@ -27,4 +27,12 @@ class User < ApplicationRecord
     @complete_order ||= orders.in_progress.last
   end
 
+  def purchase(book_id)
+    orders.delivered.joins(:order_items).where('order_items.book_id = ?', book_id)
+  end
+
+  def buy_book?(book_id)
+    purchase(book_id).any?
+  end
+
 end

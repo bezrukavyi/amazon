@@ -15,7 +15,7 @@ class BooksController < ApplicationController
 
   def update
     @review_form = ReviewForm.from_params(review_params)
-    CreateReview.call(@review_form) do
+    CreateReview.call(current_user, @review_form) do
       on(:valid) { redirect_to book_path(params[:id]), notice: t('flash.success.review_create') }
       on(:invalid) { flash_render :show, alert: t('flash.failure.review_create') }
     end

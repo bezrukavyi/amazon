@@ -30,4 +30,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#buy_book?' do
+    let(:book) { create :book }
+    let(:item) { create :order_item, book: book }
+    it 'true' do
+      order = create :order, user: subject, order_items: [item], state: :delivered
+      expect(subject.buy_book?(book.id)).to be_truthy
+    end
+
+    it 'false' do
+      order = create :order, user: subject, order_items: [item]
+      expect(subject.buy_book?(book.id)).to be_falsey
+    end
+
+  end
+
 end
