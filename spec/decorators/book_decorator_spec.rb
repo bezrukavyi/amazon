@@ -16,7 +16,7 @@ describe BookDecorator do
     describe '#main_picture' do
       it 'pictures exist' do
         subject.pictures = [first_picture, second_picture]
-        expect(subject.main_picture).to eq(first_picture)
+        expect(subject.main_picture).to eq(first_picture.path)
       end
 
       it 'pictures not exist' do

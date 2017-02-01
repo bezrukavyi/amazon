@@ -44,7 +44,7 @@
           %a.in-gold-500.ml-10.desc_button= t('.hide')
 
         %div.lead.small.line-height-2.description-block.active
-          = truncate @book.desc, length: 100
+          = @book.short_desc
           %a.in-gold-500.ml-10.desc_button= t('.read_more')
 
         - BookDecorator::MAIN_PARAMS.each do |attribute_name, i18n_title|

@@ -1,4 +1,7 @@
 class BookDecorator < Draper::Decorator
+  include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::TextHelper
+
   delegate_all
   decorates_association :authors
   decorates_association :reviews
@@ -6,8 +9,6 @@ class BookDecorator < Draper::Decorator
   MAIN_PARAMS = { category_name: 'category',  count: 'count',
     publicate_at: 'publicate_at', parse_dimension: 'dimensions.title',
     materials_name: 'materials' }
-
-  include ActionView::Helpers::NumberHelper
 
   def authors_name
     authors.map(&:full_name).join(', ')
@@ -22,7 +23,7 @@ class BookDecorator < Draper::Decorator
   end
 
   def main_picture
-    pictures.first.path || avatar_url.to_s
+    pictures.first.try(:path) || avatar_url.to_s
   end
 
   def other_picutres
@@ -35,6 +36,10 @@ class BookDecorator < Draper::Decorator
 
   def category_name
     category.title
+  end
+
+  def short_desc
+    truncate desc, length: 200
   end
 
   def parse_dimension
