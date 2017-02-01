@@ -1,4 +1,4 @@
-= simple_form_for object, url: user_path, method: :patch,
+= simple_form_for object, url: user_path(anchor: 'address'), method: :patch,
   html: { id: "#{type}_address" }, data: { type: 'address' } do |field|
 
   = render partial: 'addresses/fields', locals: { field: field, type: type }

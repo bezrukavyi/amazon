@@ -1,5 +1,4 @@
-= simple_form_for resource, as: resource_name,
-  url: registration_path(resource_name),
+= simple_form_for current_user, url: user_path(anchor: 'privacy'), method: :patch,
   html: { class: 'general-form-md', id: 'edit_user_email' } do |field|
 
   .form-group.mb-30
