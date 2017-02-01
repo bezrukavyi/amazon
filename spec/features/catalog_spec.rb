@@ -41,7 +41,7 @@ RSpec.feature 'Catalog', :type => :feature do
   scenario 'Add to cart' do
     book = Book.first
     find("#add_to_cart_#{book.id}").click
-    expect(page).to have_content(I18n.t('books.success_add', count: 1))
+    expect(page).to have_content(I18n.t('flash.success.book_add', count: 1))
   end
 
   scenario 'Redirect to book' do

@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id], user: current_user)
-    redirect_to orders_path, alert: t('orders.show.not_found') unless @order
+    redirect_to orders_path, alert: t('flash.failure.order_found') unless @order
   end
 
   private

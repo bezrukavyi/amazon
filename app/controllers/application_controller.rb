@@ -1,12 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  include Localable
+  include Flashable
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_categories
-  include Localable
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to main_app.root_url, :alert => exception.message
+    redirect_to main_app.root_url, alert: exception.message
   end
 
   def configure_permitted_parameters

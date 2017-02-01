@@ -10,58 +10,91 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'PUT #update' do
 
-    context 'Valid' do
-      context 'updating email' do
-        it 'updated data' do
-          params = { email: 'rspec555@gmail.com' }
-          expect { put :update, params: { user: params } }
-            .to change { subject.reload.email }
+    context 'update user data' do
+      let(:user_params) { { email: subject.email } }
+      before do
+        allow(controller).to receive(:current_user).and_return(subject)
+        allow(controller).to receive(:allowed_params).and_return(user_params)
+      end
+
+      context 'Flash messages' do
+        before do
+          allow(controller).to receive(:params).and_return({ address: false, with_password: true })
         end
-        it 'redirect to the new user' do
-          put :update, params: { user: attributes_for(:user) }
-          expect(response).to redirect_to(edit_user_path)
+        it 'flash notice' do
+          expect(subject).to receive(:update_with_password).and_return(true)
+          put :update, params: user_params
+          expect(flash[:notice]).to eq I18n.t('flash.success.user_update')
+        end
+
+        it 'flash alert' do
+          expect(subject).to receive(:update_with_password).and_return(false)
+          put :update, params: user_params
+          expect(flash[:alert]).to eq I18n.t('flash.failure.user_update')
         end
       end
 
-      context 'updating address' do
-        it 'updated data' do
-          params = attributes_for(:address_user, :billing)
-          put :update, params: { address: params }
-          expect { put :update, params: { address: params } }
-            .to change { subject.reload.billing }
+      context 'success update with password' do
+        before do
+          allow(controller).to receive(:params).and_return({ address: false, with_password: true })
         end
-        it 'redirect to the new user' do
-          put :update, params: { user: attributes_for(:user) }
-          expect(response).to redirect_to(edit_user_path)
+        it '#update_with_password' do
+          expect(subject).to receive(:update_with_password).with(user_params)
+          put :update, params: user_params
+        end
+        it '.bypass_sign_in' do
+          allow(subject).to receive(:update_with_password).and_return(true)
+          expect(controller).to receive(:bypass_sign_in).with(subject).and_return(true)
+          put :update, params: user_params
         end
       end
+
+      it 'update without password' do
+        allow(controller).to receive(:params).and_return({ address: false, with_password: false })
+        expect(subject).to receive(:update_without_password).with(user_params).and_return(true)
+        put :update, params: user_params
+      end
+
     end
 
-    context 'Invalid' do
-      context 'updating email' do
-        it 'updated data' do
-          params = { email: '' }
-          expect { put :update, params: { user: params } }
-            .not_to change { subject.reload.email }
-        end
-        it 'redirect to the new user' do
-          put :update, params: { user: attributes_for(:user) }
-          expect(response).to redirect_to(edit_user_path)
-        end
+
+    context 'address user data' do
+      let(:address_params) { { address: attributes_for(:address_user, :billing) } }
+      before do
+        allow(controller).to receive(:params).and_return(address_params)
       end
 
-      context 'updating address' do
-        it 'updated data' do
-          params = attributes_for(:address_user, :invalid)
-          expect { put :update, params: { address: params } }
-            .not_to change { subject.reload.shipping }
-        end
-        it 'redirect to the new user' do
-          put :update, params: { user: attributes_for(:user) }
-          expect(response).to redirect_to(edit_user_path)
-        end
+      it '.set_address_by_params' do
+        allow(UpdateAddress).to receive(:call)
+        expect(controller).to receive(:set_address_by_params).with(address_params[:address])
+        put :update, params: address_params
       end
+
+      it 'UpdateAddress call' do
+        address = double('address')
+        allow(controller).to receive(:set_address_by_params).and_return(address)
+        expect(UpdateAddress).to receive(:call).with({ addressable: subject, addresses: [address] })
+        put :update, params: address_params
+      end
+
     end
 
   end
+
+  describe 'DELETE #destroy' do
+    context 'without agree' do
+      before do
+        allow(controller).to receive(:params).and_return({ agree_cancel: false })
+        delete :destroy, params: { id: subject.id }
+      end
+
+      it 'redirect_to settings' do
+        expect(response).to redirect_to(edit_user_path)
+      end
+      it 'flash alert' do
+        expect(flash[:alert]).to eq I18n.t('flash.failure.confirm_intentions')
+      end
+    end
+  end
+
 end

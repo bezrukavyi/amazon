@@ -43,7 +43,7 @@ RSpec.describe OrdersController, type: :controller do
     it 'not find order' do
       allow(Order).to receive(:find_by).and_return(nil)
       get :show, params: { id: order.id }
-      expect(flash[:alert]).to eq I18n.t('orders.show.not_found')
+      expect(flash[:alert]).to eq I18n.t('flash.failure.order_found')
       expect(response).to redirect_to(orders_path)
     end
   end

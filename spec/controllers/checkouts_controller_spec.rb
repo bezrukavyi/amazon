@@ -44,11 +44,16 @@ RSpec.describe CheckoutsController, type: :controller do
       end
     end
 
-    context 'not accessed' do
+    context 'not allow' do
       let(:order) { create :order, :with_items, user: user }
 
       before do
         allow(controller).to receive(:current_order).and_return(order)
+      end
+
+      it 'flash alert' do
+        get :show, params: { id: :delivery }
+        expect(flash[:alert]).to eq I18n.t('flash.failure.step')
       end
 
       it 'delivery step' do

@@ -43,7 +43,7 @@ RSpec.feature 'Cart', :type => :feature do
         fill_in ("order_order_items_attributes_3_quantity"), with: 1
         click_button I18n.t('carts.edit.update_cart')
       end
-      expect(page).to have_content(I18n.t('carts.edit.success_updated'))
+      expect(page).to have_content(I18n.t('flash.success.cart_update'))
     end
 
     scenario 'failed update quantity' do
@@ -51,7 +51,7 @@ RSpec.feature 'Cart', :type => :feature do
         fill_in ("order_order_items_attributes_2_quantity"), with: 1001
         click_button I18n.t('carts.edit.update_cart')
       end
-      expect(page).to have_content(I18n.t('carts.edit.failed_updated'))
+      expect(page).to have_content(I18n.t('flash.failure.cart_update'))
     end
   end
 
@@ -61,7 +61,7 @@ RSpec.feature 'Cart', :type => :feature do
         fill_in ("order_coupon_code"), with: coupon.code
         click_button I18n.t('carts.edit.update_cart')
       end
-      expect(page).to have_content(I18n.t('carts.edit.success_updated'))
+      expect(page).to have_content(I18n.t('flash.success.cart_update'))
       expect(page).to have_content("#{I18n.t('carts.edit.coupon')} (#{coupon.discount}%):")
     end
 
@@ -70,7 +70,7 @@ RSpec.feature 'Cart', :type => :feature do
         fill_in ("order_coupon_code"), with: 2131241324
         click_button I18n.t('carts.edit.update_cart')
       end
-      expect(page).to have_content(I18n.t('carts.edit.failed_updated'))
+      expect(page).to have_content(I18n.t('flash.failure.cart_update'))
       expect(page).to have_content('Not found this coupon')
     end
   end

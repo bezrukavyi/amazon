@@ -55,23 +55,49 @@ RSpec.describe BooksController, type: :controller do
       end
     end
 
-    it 'when book not found' do
-      get :show, params: { id: 1001 }
-      expect(response).to redirect_to(books_path)
+    context 'when book not found' do
+      before do
+        expect(Book).to receive_message_chain(:full_includes, :find_by).and_return(nil)
+        get :show, params: { id: 1001 }
+      end
+      it 'redirect_to all books' do
+        expect(response).to redirect_to(books_path)
+      end
+      it 'flash alert' do
+        expect(flash[:alert]).to eq I18n.t('flash.failure.book_found')
+      end
     end
   end
 
   describe 'PUT #update' do
-
-    it 'redirect to the book' do
-      put :update, params: { id: subject.id, review: attributes_for(:review) }
-      expect(response).to redirect_to(book_path(subject))
+    before do
+      allow(Book).to receive(:find_by).with(subject.id).and_return(subject)
     end
 
-    it 'redirect to the new user' do
-      put :update, params: { id: subject.id, review: attributes_for(:review, :invalid) }
-      expect(response).to render_template(:show)
+    context 'success' do
+      before do
+        put :update, params: { id: subject.id, review: attributes_for(:review) }
+      end
+      it 'redirect to the book' do
+        expect(response).to redirect_to(book_path(subject))
+      end
+      it 'flash notice' do
+        expect(flash[:notice]).to eq I18n.t('flash.success.review_create')
+      end
     end
+
+    context 'failure' do
+      before do
+        put :update, params: { id: subject.id, review: attributes_for(:review, :invalid) }
+      end
+      it 'render show template' do
+        expect(response).to render_template(:show)
+      end
+      it 'flash alert' do
+        expect(flash[:alert]).to eq I18n.t('flash.failure.review_create')
+      end
+    end
+
 
   end
 

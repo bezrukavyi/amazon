@@ -22,7 +22,7 @@ RSpec.feature 'BookPage', :type => :feature do
       fill_in I18n.t('simple_form.labels.review.desc'), with: review_attr[:desc]
       click_button I18n.t('simple_form.titles.save')
     end
-    expect(page).to have_content(I18n.t('books.show.review_created'))
+    expect(page).to have_content(I18n.t('flash.success.review_create'))
   end
 
   context 'Add to cart' do
@@ -31,7 +31,7 @@ RSpec.feature 'BookPage', :type => :feature do
         fill_in ('quantity'), with: 2
         click_button I18n.t('add_to_cart')
       end
-      expect(page).to have_content(I18n.t('books.success_add', count: 2))
+      expect(page).to have_content(I18n.t('flash.success.book_add', count: 2))
     end
 
     scenario 'Failed added' do
@@ -40,7 +40,7 @@ RSpec.feature 'BookPage', :type => :feature do
         click_button I18n.t('add_to_cart')
       end
       message = ['Quantity', I18n.t('errors.messages.less_than_or_equal_to', count: 99)].join(' ')
-      expect(page).to have_content(I18n.t('books.failed_add', error: message))
+      expect(page).to have_content(I18n.t('flash.failure.book_add', errors: message))
     end
 
   end

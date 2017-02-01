@@ -8,17 +8,12 @@ class CartsController < ApplicationController
     @coupon_form = CouponForm.from_params(params[:order][:coupon])
     options = { order: current_order, params: params, coupon_form: @coupon_form }
     UpdateOrder.call(options) do
-      on(:valid) { redirect_to edit_cart_path, notice: t('carts.edit.success_updated') }
-      on(:invalid) { failed_update }
+      on(:valid) { redirect_to edit_cart_path, notice: t('flash.success.cart_update') }
+      on(:invalid) { flash_render :edit, alert: t('flash.failure.cart_update') }
     end
   end
 
   private
-
-  def failed_update
-    flash[:alert] = t('carts.edit.failed_updated')
-    render :edit
-  end
 
   def current_order
     @current_order ||= super && Order.with_items_book.find(@current_order.id)

@@ -10,9 +10,9 @@ class CheckoutsController < ApplicationController
 
   def show
     Checkout::AccessStep.call(current_order, step) do
-      on(:empty_cart) { redirect_to books_path, alert: 'Empty cart' }
       on(:allow) { render_wizard }
-      on(:not_allow) { redirect_to checkout_path(previous_step), alert: 'You must end this step' }
+      on(:not_allow) { redirect_to checkout_path(previous_step), alert: t('flash.failure.step') }
+      on(:empty_cart) { redirect_to books_path, alert: t('flash.failure.empty_cart') }
     end
   end
 

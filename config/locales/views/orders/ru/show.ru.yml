@@ -2,4 +2,3 @@ ru:
   orders:
     show:
       order_id: "Заказ #%{id}"
-      not_found: Заказ не найден

@@ -13,7 +13,7 @@ class UsersController < Devise::RegistrationsController
     if params[:agree_cancel]
       super
     else
-      redirect_to edit_user_path, alert: t('.confirm_intentions')
+      redirect_to edit_user_path, alert: t('flash.failure.confirm_intentions')
     end
   end
 
@@ -28,27 +28,18 @@ class UsersController < Devise::RegistrationsController
     type = params[:with_password] ? 'with' : 'without'
     if current_user.send("update_#{type}_password", allowed_params)
       bypass_sign_in current_user
-      success_update('privacy')
+      redirect_to edit_user_path, notice: t('flash.success.user_update'), anchor: 'privacy'
     else
-      failure_update
+      flash_render :edit, alert: t('flash.failure.user_update')
     end
   end
 
   def address_update
     address = set_address_by_params(params[:address])
     UpdateAddress.call({ addressable: current_user, addresses: [address] }) do
-      on(:valid) { success_update('address') }
-      on(:invalid) { failure_update }
+      on(:valid) { redirect_to edit_user_path, notice: t('flash.success.address_update'), anchor: 'address' }
+      on(:invalid) { flash_render :edit, alert: t('flash.failure.address_update') }
     end
-  end
-
-  def failure_update
-    flash[:alert] = t('devise.failure.updated')
-    render :edit
-  end
-
-  def success_update(type)
-    redirect_to edit_user_path, notice: t('devise.registrations.updated'), anchor: type
   end
 
 end

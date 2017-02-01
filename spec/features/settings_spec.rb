@@ -26,7 +26,7 @@ RSpec.feature 'Settings', :type => :feature do
         find('#country_id_billing_address').find(:xpath, 'option[2]').select_option
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content I18n.t('devise.registrations.updated')
+      expect(page).to have_content  I18n.t('flash.success.address_update')
     end
 
     scenario 'email update' do
@@ -36,7 +36,7 @@ RSpec.feature 'Settings', :type => :feature do
         fill_in I18n.t('simple_form.labels.user.email'), with: 'rspec1@gmail.com'
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content I18n.t('devise.registrations.updated')
+      expect(page).to have_content  I18n.t('flash.success.user_update')
     end
 
     scenario 'password update' do
@@ -49,7 +49,7 @@ RSpec.feature 'Settings', :type => :feature do
         fill_in I18n.t('simple_form.labels.user.password_confirmation'), with: new_password
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content I18n.t('devise.registrations.updated')
+      expect(page).to have_content I18n.t('flash.success.user_update')
     end
 
   end
@@ -63,7 +63,8 @@ RSpec.feature 'Settings', :type => :feature do
         fill_in I18n.t('simple_form.labels.address.first_name'), with: nil
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content "can't be blank"
+      expect(page).to have_content I18n.t('flash.failure.address_update')
+      expect(page).to have_content I18n.t('errors.messages.blank')
     end
 
     scenario 'email update' do
@@ -73,7 +74,8 @@ RSpec.feature 'Settings', :type => :feature do
         fill_in I18n.t('simple_form.labels.user.email'), with: nil
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content "can't be blank"
+      expect(page).to have_content I18n.t('flash.failure.user_update')
+      expect(page).to have_content I18n.t('errors.messages.blank')
     end
 
     scenario 'password update' do
@@ -84,7 +86,8 @@ RSpec.feature 'Settings', :type => :feature do
         fill_in I18n.t('simple_form.labels.user.current_password').first, with: nil
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content "can't be blank"
+      expect(page).to have_content I18n.t('flash.failure.user_update')
+      expect(page).to have_content I18n.t('errors.messages.blank')
     end
 
   end

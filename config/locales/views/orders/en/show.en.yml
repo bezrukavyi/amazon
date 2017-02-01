@@ -2,4 +2,3 @@ en:
   orders:
     show:
       order_id: "Order #%{id}"
-      not_found: Order not found
