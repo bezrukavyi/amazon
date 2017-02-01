@@ -4,9 +4,9 @@
     .ml-70
       %div
         .general-message-date.hidden-xs= review.created_strf
-        .max-240
-          .general-message-verified= review.title
+        .align-center
           .general-message-name= review.user_name
+          .general-message-verified= review.title
 
       .mb-15
         - review.grade.times do

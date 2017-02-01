@@ -32,7 +32,7 @@ en:
       review:
         title: Enter Title
         grade: Enter Grade
-        desc: Enter Review
+        desc: Enter Review (from 1 to 5)
       coupon:
         code: Enter Your Coupon Code
       credit_card:

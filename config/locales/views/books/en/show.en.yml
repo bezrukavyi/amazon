@@ -6,6 +6,10 @@ en:
       publicate_at: Year of publication
       materials: Materials
       reviews_count: 'Reviews (%{amount})'
+      category: Category
+      review_title: Write your review about this book
+      read_more: Read more
+      hide: Hide
       dimensions:
         title: Dimensions (inches)
         h: H

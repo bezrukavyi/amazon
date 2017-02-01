@@ -3,8 +3,9 @@ class BookDecorator < Draper::Decorator
   decorates_association :authors
   decorates_association :reviews
 
-  MAIN_PARAMS = { count: 'count', publicate_at: 'publicate_at',
-    parse_dimension: 'dimensions.title', materials_name: 'materials' }
+  MAIN_PARAMS = { category_name: 'category',  count: 'count',
+    publicate_at: 'publicate_at', parse_dimension: 'dimensions.title',
+    materials_name: 'materials' }
 
   include ActionView::Helpers::NumberHelper
 
@@ -21,7 +22,7 @@ class BookDecorator < Draper::Decorator
   end
 
   def main_picture
-    pictures.first || avatar_url.to_s
+    pictures.first.path || avatar_url.to_s
   end
 
   def other_picutres
@@ -30,6 +31,10 @@ class BookDecorator < Draper::Decorator
 
   def currency_price
     number_to_currency price, locale: :eu
+  end
+
+  def category_name
+    category.title
   end
 
   def parse_dimension

@@ -514,6 +514,15 @@
 .table-link {
   cursor: pointer;
 }
+.description-block {
+  display: none;
+  &.active {
+    display: block;
+  }
+  .desc_button {
+    cursor: pointer;
+  }
+}
 @media (min-width: $grid-float-breakpoint) {
   .navbar-nav {
     float: right;

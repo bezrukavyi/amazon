@@ -7,10 +7,10 @@
     .col-sm-6
       .product-pictures
         .mb-20
-          = image_tag @book.main_picture, class: 'img-responsive'
+          = image_tag @book.main_picture, class: 'img-responsive', id: 'main-picture'
         .images.clearfix
           - @book.other_picutres.each do |picture|
-            = image_tag picture.path.to_s, class: 'img-link'
+            = image_tag picture.path.to_s, class: 'img-link bonus-picture'
 
     .col-sm-6
       %h1.mt-res-0= @book.title
@@ -39,9 +39,13 @@
 
       .general-info-wrap.divider-lg
         %p= t('description')
-        %p.lead.small.line-height-2
+        %div.lead.small.line-height-2.description-block
           = @book.desc
-          -# %a.in-gold-500.ml-10{href: "#"} Read More
+          %a.in-gold-500.ml-10.desc_button= t('.hide')
+
+        %div.lead.small.line-height-2.description-block.active
+          = truncate @book.desc, length: 100
+          %a.in-gold-500.ml-10.desc_button= t('.read_more')
 
         - BookDecorator::MAIN_PARAMS.each do |attribute_name, i18n_title|
           .general-info-wrap.divider-lg
@@ -56,7 +60,7 @@
 
   .mb-80
     - if can? :create, Review
-      .h3.in-gold-500 Write your review about this book
+      .h3.in-gold-500= t('.review_title')
       = render partial: 'reviews/form'
 
     - else

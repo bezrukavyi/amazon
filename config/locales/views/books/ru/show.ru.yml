@@ -6,6 +6,10 @@ ru:
       publicate_at: Год публикации
       materials: Материалы
       reviews_count: 'Отзывы (%{amount})'
+      category: Категория
+      review_title: Напишите ваше мнение об этой книге
+      read_more: Подробнее
+      hide: Скрыть
       dimensions:
         title: Размерность (дюймы)
         h: В
