@@ -7,7 +7,7 @@ class HumanEmailValidator < ActiveModel::EachValidator
 
   def validate_each(object, attribute, value)
     INSPECTIONS.each do |inspection|
-      if value.present? && value !~ send(inspection) && object.errors.blank?
+      if value.present? && value !~ send(inspection)
         object.errors.add(attribute, I18n.t("validators.human.email.#{inspection}"))
       end
     end

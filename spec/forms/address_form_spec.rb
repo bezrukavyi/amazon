@@ -17,7 +17,6 @@ RSpec.describe AddressForm, :address_form do
     end
 
     it { should validate_length_of(:zip).is_at_most(10) }
-    it { should validate_numericality_of(:zip).only_integer }
 
     [:first_name, :last_name, :city].each do |attribute_name|
       it { should validate_length_of(attribute_name).is_at_most(50) }

@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, length: { maximum: 50 }, human_name: :one
   validates :email, length: { maximum: 63 }, human_email: true
+  validates :password, human_password: true
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :omniauthable

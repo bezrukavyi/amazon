@@ -10,8 +10,8 @@ RSpec.feature 'Authentication', :type => :feature do
       visit new_user_registration_path
       within '#new_user' do
         fill_in I18n.t('simple_form.labels.user.email'), with: FFaker::Internet.email
-        fill_in I18n.t('simple_form.labels.user.password'), with: 'rspec123'
-        fill_in I18n.t('simple_form.labels.user.password_confirmation'), with: 'rspec123'
+        fill_in I18n.t('simple_form.labels.user.password'), with: 'Rspec1234'
+        fill_in I18n.t('simple_form.labels.user.password_confirmation'), with: 'Rspec1234'
         click_button I18n.t('simple_form.titles.sign_up')
       end
       expect(page).to have_content I18n.t('devise.registrations.signed_up')
@@ -56,7 +56,7 @@ RSpec.feature 'Authentication', :type => :feature do
       visit new_user_session_path
       within '#new_user' do
         fill_in I18n.t('simple_form.labels.user.email'), with: FFaker::Internet.email
-        fill_in I18n.t('simple_form.labels.user.password'), with: 'rspec123'
+        fill_in I18n.t('simple_form.labels.user.password'), with: 'Rspec1234'
         click_button 'Log in'
       end
       expect(page).to have_content I18n.t('devise.failure.invalid', authentication_keys: 'Email')

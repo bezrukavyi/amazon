@@ -40,7 +40,7 @@ RSpec.feature 'Settings', :type => :feature do
     end
 
     scenario 'password update' do
-      new_password = 'rspec555'
+      new_password = 'Rspec5555'
       visit edit_user_path
       click_link I18n.t('privacy')
       within '#edit_user_password' do

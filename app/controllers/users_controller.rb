@@ -19,11 +19,6 @@ class UsersController < Devise::RegistrationsController
 
   private
 
-  def allowed_params
-    params.require(:user).permit(:email, :password, :password_confirmation,
-      :current_password, :first_name, :last_name)
-  end
-
   def update_user
     type = params[:with_password] ? 'with' : 'without'
     if current_user.send("update_#{type}_password", allowed_params)
@@ -40,6 +35,11 @@ class UsersController < Devise::RegistrationsController
       on(:valid) { redirect_to edit_user_path, notice: t('flash.success.address_update'), anchor: 'address' }
       on(:invalid) { flash_render :edit, alert: t('flash.failure.address_update') }
     end
+  end
+
+  def allowed_params
+    params.require(:user).permit(:email, :password, :password_confirmation,
+      :current_password, :first_name, :last_name)
   end
 
 end

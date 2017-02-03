@@ -23,9 +23,6 @@ RSpec.describe HumanPasswordValidator, type: :validator do
     it 'without 0-9' do
       user.password = 'YAROSLAVyaroslav'
     end
-    it 'less than 8' do
-      user.password = 'Yar5'
-    end
   end
 
 end
