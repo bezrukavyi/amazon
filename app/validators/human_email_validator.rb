@@ -1,13 +1,13 @@
 class HumanEmailValidator < ActiveModel::EachValidator
 
-  SUPP_SYMBOLS = /[!%$&?'`*^._=~+-\{\|\}\#\/]/
-  DOMAIN = /@[\w\-.]+\.[a-z]+\z/
+  SUPP_SYMBOLS = SpecSymbolsValidator::INSPECTION
+  DOMAIN = /@[\w\-.]+\.[a-z]+/
 
   INSPECTIONS = [:base_regexp, :dot_regexp, :symbols_regexp]
 
   def validate_each(object, attribute, value)
     INSPECTIONS.each do |inspection|
-      if value !~ send(inspection) && object.errors.blank?
+      if value.present? && value !~ send(inspection) && object.errors.blank?
         object.errors.add(attribute, I18n.t("validators.human.email.#{inspection}"))
       end
     end
@@ -16,15 +16,15 @@ class HumanEmailValidator < ActiveModel::EachValidator
   private
 
   def base_regexp
-    /\A.+#{DOMAIN}/
+    /\A.+#{DOMAIN}\z/
   end
 
   def symbols_regexp
-    /\A\w+#{SUPP_SYMBOLS}?\w*#{DOMAIN}/
+    /\A#{SUPP_SYMBOLS}#{DOMAIN}\z/
   end
 
   def dot_regexp
-    /\A(?!\.)+.*(?<!\.)+#{DOMAIN}/
+    /\A(?!\.)+.*(?<!\.)+#{DOMAIN}\z/
   end
 
 end

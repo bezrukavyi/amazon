@@ -3,5 +3,9 @@ en:
     human:
       email:
         base_regexp: must be with local part on the left of an @ and the domain with also alphabetic on the right
-        symbols_regexp: "must consist of a-z, A-Z, 0-9 or one of '! # $ % & ' * + - / = ? ^ _ ` { | } ~ .' not on start"
+        symbols_regexp: :"validators.spec_symbols.base_regexp"
         dot_regexp: must not start with a hyphen, end with a hyphen
+      password:
+        base_regexp: minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number, without spaces and specific symbols
+      name:
+        base_regexp: must consist of only a-z and A-Z characters without special symbols

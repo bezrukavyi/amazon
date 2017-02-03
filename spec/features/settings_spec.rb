@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Settings', :type => :feature do
 
   let(:billing_attr) { attributes_for :address_user, :billing }
-  let(:password) { 'test555' }
+  let(:password) { 'Test77777' }
   let(:user) { create :user, password: password, password_confirmation: password }
 
   before do
@@ -33,7 +33,7 @@ RSpec.feature 'Settings', :type => :feature do
       visit edit_user_path
       click_link I18n.t('privacy')
       within '#edit_user_email' do
-        fill_in I18n.t('simple_form.labels.user.email'), with: 'rspec1@gmail.com'
+        fill_in I18n.t('simple_form.labels.user.email'), with: 'rspec777@gmail.com'
         click_button I18n.t('simple_form.titles.save')
       end
       expect(page).to have_content  I18n.t('flash.success.user_update')

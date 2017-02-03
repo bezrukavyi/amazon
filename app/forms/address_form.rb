@@ -13,13 +13,15 @@ class AddressForm < Rectify::Form
     validates name, presence: true
   end
 
+  validates :name, length: { maximum: 50 }, address: { name: true }
+
   validates :phone, length: { minimum: 9, maximum: 15 },
     format: { with: /\A\+\d{9,15}\z/ }
 
-  validates :zip, length: { maximum: 10 }, numericality: { only_integer: true }
+  validates :zip, length: { maximum: 10 }, address: { zip: true }
 
   validates :first_name, :last_name, :city, length: { maximum: 50 },
-    format: { with: /\A[a-zA-Z]+\z/ }
+    human_name: :one
 
   validate :wrong_code
 

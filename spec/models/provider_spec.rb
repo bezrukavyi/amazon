@@ -32,7 +32,10 @@ RSpec.describe Provider, type: :model do
         expect { Provider.authorize(auth) }.to change { user.reload.providers.count }.by(1)
       end
 
-      describe 'when user not exist' do
+      context 'when user not exist' do
+        before do
+          allow(Provider).to receive(:generate_password).and_return('OmniAuth5555')
+        end
         it 'create new provider' do
           expect { Provider.authorize(auth) }.to change { Provider.count }.by(1)
         end
