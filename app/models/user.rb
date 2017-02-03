@@ -9,7 +9,10 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   validates :first_name, :last_name, length: { maximum: 50 }
-  validates :email, length: { maximum: 63 }
+  validates :email, length: { maximum: 63 }, human_email: true
+
+  validates :password, format: { with: /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}\z/,
+    message: 'Minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number.' }
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :omniauthable

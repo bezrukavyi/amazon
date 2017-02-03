@@ -1,0 +1,7 @@
+en:
+  validators:
+    human:
+      email:
+        base_regexp: must be with local part on the left of an @ and the domain with also alphabetic on the right
+        symbols_regexp: "must consist of a-z, A-Z, 0-9 or one of '! # $ % & ' * + - / = ? ^ _ ` { | } ~ .' not on start"
+        dot_regexp: must not start with a hyphen, end with a hyphen

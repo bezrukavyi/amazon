@@ -8,8 +8,8 @@ FactoryGirl.define do
     email { FactoryGirl.generate(:email) }
     first_name { FFaker::Name.first_name }
     last_name { FFaker::Name.last_name }
-    password 'test555'
-    password_confirmation 'test555'
+    password 'Test55555'
+    password_confirmation 'Test55555'
 
     trait :full_package do
       credit_cards { [create(:credit_card)] }
