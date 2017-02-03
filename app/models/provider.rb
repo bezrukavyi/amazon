@@ -14,7 +14,7 @@ class Provider < ApplicationRecord
       user.first_name = parse_name(auth).first
       user.last_name = parse_name(auth).last
     end
-    user.providers.create(name: auth.provider, uid: auth.uid)
+    user.providers.create(name: auth.provider, uid: auth.uid) if user.persisted?
   end
 
   private
@@ -30,7 +30,8 @@ class Provider < ApplicationRecord
   end
 
   def self.generate_password
-    Devise.friendly_token.first(8)
+    word = [('a'..'z'), ('A'..'Z'), (0..9)].map(&:to_a).flatten
+    string = (0...50).map { word[rand(word.length)] }.join
   end
 
 end

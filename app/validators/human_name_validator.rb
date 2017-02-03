@@ -1,6 +1,6 @@
 class HumanNameValidator < ActiveModel::EachValidator
 
-  SUPP_SYMBOLS = /[a-zA-z]/
+  SUPP_SYMBOLS = /[[:alpha:]]/
 
   def validate_each(object, attribute, value)
     inspection = options[:with] || :one
