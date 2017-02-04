@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   belongs_to :delivery, optional: true
   belongs_to :credit_card, optional: true
   has_many :order_items, dependent: :destroy
-  has_one :coupon
+  has_one :coupon, dependent: :destroy
 
   accepts_nested_attributes_for :order_items, allow_destroy: true
   accepts_nested_attributes_for :credit_card
