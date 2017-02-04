@@ -25,4 +25,13 @@ RSpec.describe HumanPasswordValidator, type: :validator do
     end
   end
 
+  describe '.generate_password' do
+    it 'valid password' do
+      expect(HumanPasswordValidator.generate_password).to match(HumanPasswordValidator::INSPECTION)
+    end
+    it 'lenght 50' do
+      expect(HumanPasswordValidator.generate_password.length).to eq(50)
+    end
+  end
+
 end

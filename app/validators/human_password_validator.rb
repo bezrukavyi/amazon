@@ -8,5 +8,10 @@ class HumanPasswordValidator < ActiveModel::EachValidator
     end
   end
 
+  def self.generate_password
+    symbols = [(0..9), ('A'..'Z'), ('a'..'z')].map(&:to_a).flatten
+    string = (0...50).map { symbols[rand(symbols.length)] }.join
+  end
+
 
 end

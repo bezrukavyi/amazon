@@ -3,9 +3,9 @@ include ActionView::Helpers::NumberHelper
 
 RSpec.feature 'Checkout', :type => :feature do
 
-  let(:user) { create :user }
   let(:coupon) { create :coupon }
   let(:order) { create :order, :with_items, coupon: coupon }
+  let(:user) { create :user, orders: [order] }
   let(:billing_attr) { attributes_for :address_user, :billing }
   let(:card_attr) { attributes_for :credit_card }
 

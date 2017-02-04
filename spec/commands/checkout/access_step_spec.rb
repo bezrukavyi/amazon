@@ -10,14 +10,14 @@ describe Checkout::AccessStep do
       let(:order) { create :order, :with_items, user: user }
 
       it ':address step' do
-        subject = Checkout::AccessStep.new(order, :address)
+        subject = Checkout::AccessStep.new(order, user, :address)
         expect{ subject.call }.to broadcast(:allow)
       end
 
       it ':delivery step' do
         order.shipping = user.shipping
         order.billing = user.billing
-        subject = Checkout::AccessStep.new(order, :delivery)
+        subject = Checkout::AccessStep.new(order, user, :delivery)
         expect{ subject.call }.to broadcast(:allow)
       end
 
@@ -25,7 +25,7 @@ describe Checkout::AccessStep do
         order.shipping = user.shipping
         order.billing = user.billing
         order.delivery = create :delivery
-        subject = Checkout::AccessStep.new(order, :payment)
+        subject = Checkout::AccessStep.new(order, user, :payment)
         expect{ subject.call }.to broadcast(:allow)
       end
 
@@ -34,7 +34,7 @@ describe Checkout::AccessStep do
         order.billing = user.billing
         order.delivery = create :delivery
         order.credit_card = user.credit_cards.first
-        subject = Checkout::AccessStep.new(order, :confirm)
+        subject = Checkout::AccessStep.new(order, user, :confirm)
         expect{ subject.call }.to broadcast(:allow)
       end
 
@@ -44,7 +44,7 @@ describe Checkout::AccessStep do
         order.delivery = create :delivery
         order.credit_card = user.credit_cards.first
         order.confirm
-        subject = Checkout::AccessStep.new(order, :complete)
+        subject = Checkout::AccessStep.new(order, user, :complete)
         expect{ subject.call }.to broadcast(:allow)
       end
     end
@@ -53,29 +53,23 @@ describe Checkout::AccessStep do
       let(:order) { create :order, user: user }
 
       it ':delivery step' do
-        subject = Checkout::AccessStep.new(order, :delivery)
+        subject = Checkout::AccessStep.new(order, user, :delivery)
         expect{ subject.call }.to broadcast(:empty_cart)
       end
 
       it ':payment step' do
-        order.delivery = create :delivery
-        subject = Checkout::AccessStep.new(order, :payment)
+        subject = Checkout::AccessStep.new(order, user, :payment)
         expect{ subject.call }.to broadcast(:empty_cart)
       end
 
       it ':confirm step' do
-        order.shipping = user.shipping
-        order.billing = user.billing
-        subject = Checkout::AccessStep.new(order, :confirm)
+        subject = Checkout::AccessStep.new(order, user, :confirm)
         expect{ subject.call }.to broadcast(:empty_cart)
       end
 
       it ':complete step' do
-        order.shipping = user.shipping
-        order.billing = user.billing
-        order.credit_card = user.credit_cards.first
-        subject = Checkout::AccessStep.new(order, :complete)
-        expect{ subject.call }.to broadcast(:empty_cart)
+        subject = Checkout::AccessStep.new(order, user, :complete)
+        expect{ subject.call }.to broadcast(:allow)
       end
     end
 

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :credit_card do
-    name { FFaker::Name.first_name }
+    name 'Ivan Ivan'
     cvv '123'
     month_year '12/17'
     number 5274576394259961
