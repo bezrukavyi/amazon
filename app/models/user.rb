@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   include AddressableRelation
 
+  attr_accessor :skip_password_validation
+
   mount_uploader :avatar, ImageUploader
 
   has_many :providers, dependent: :destroy
@@ -10,10 +12,10 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, length: { maximum: 50 }, human_name: :one
   validates :email, length: { maximum: 63 }, human_email: true
-  validates :password, human_password: true
+  validates :password, human_password: true, if: :password_required?
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-    :trackable, :validatable, :omniauthable
+    :trackable, :validatable, :omniauthable, :confirmable
 
   Address::TYPES.each do |type|
     has_address type
@@ -32,8 +34,17 @@ class User < ApplicationRecord
     orders.delivered.joins(:order_items).where('order_items.book_id = ?', book_id)
   end
 
-  def buy_book?(book_id)
+  def bought_book?(book_id)
     purchase(book_id).any?
+  end
+
+  def has_password?
+    encrypted_password.present?
+  end
+
+  def password_required?
+    return false if skip_password_validation
+    !persisted? || !password.nil? || !password_confirmation.nil?
   end
 
 end

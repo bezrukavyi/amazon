@@ -1,0 +1,19 @@
+.container.general-main-wrap
+
+  .text-center
+    %p.general-login-text You're almost done! Now create a password to securely access your account.
+
+  = general_simple_form_for resource, as: resource_name,
+    url: update_user_confirmation_path, method: :patch,
+    id: 'activation-form' do |field|
+
+    = field.input :confirmation_token, as: :hidden
+
+    .form-group.mb-30
+      = field.input :password, autofocus: true
+
+    .form-group.mb-30
+      = field.input :password_confirmation
+
+    .text-center
+      = field.button :submit, 'Confirm Account', class: 'btn btn-default mb-20'

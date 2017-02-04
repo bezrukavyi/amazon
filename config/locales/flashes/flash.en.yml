@@ -12,6 +12,7 @@ en:
       review_create: "Your review wasn't created"
       book_add: "Book wasn't add book to cart %{errors}"
       book_destroy: "Can't destroy this book from your cart %{errors}"
+      update_password: "Password wasn't updated"
     success:
       user_update: Your privacy data successfully updated
       address_update: Address successfully saved

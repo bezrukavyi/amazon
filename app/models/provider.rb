@@ -14,7 +14,10 @@ class Provider < ApplicationRecord
       user.first_name = parse_name(auth).first
       user.last_name = parse_name(auth).last
     end
-    user.providers.create(name: auth.provider, uid: auth.uid) if user.persisted?
+    if user.persisted?
+      user.confirm
+      user.providers.create(name: auth.provider, uid: auth.uid)
+    end
   end
 
   private

@@ -5,6 +5,19 @@ class UsersController < Devise::RegistrationsController
   before_action only: [:edit, :update] { set_addresses(current_user) }
   before_action :set_countries, only: [:edit, :update]
 
+  def new
+    super { render 'fast_auth' and return if params[:fast_auth] }
+  end
+
+  def create
+    super do
+      if params[:fast_auth]
+        resource.skip_password_validation = true
+        resource.save
+      end
+    end
+  end
+
   def update
     params[:address] ? address_update : update_user
   end

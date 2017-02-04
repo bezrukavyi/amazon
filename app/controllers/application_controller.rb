@@ -26,8 +26,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       authenticate_user!
     else
-      stored_location_for(resource)
-      redirect_to new_user_session_path(fast_auth: true)
+      redirect_to new_user_registration_path(fast_auth: true)
     end
   end
 

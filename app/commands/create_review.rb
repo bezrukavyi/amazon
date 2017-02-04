@@ -19,7 +19,7 @@ class CreateReview < Rectify::Command
 
   def create_review
     review_attrs = review_form.to_h
-    review_attrs[:verified] = user.buy_book?(review_attrs[:book_id])
+    review_attrs[:verified] = user.bought_book?(review_attrs[:book_id])
     Review.create(review_attrs)
   end
 

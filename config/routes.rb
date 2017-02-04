@@ -8,11 +8,11 @@ Rails.application.routes.draw do
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
     devise_for :users, path: '/', skip: :omniauth_callbacks,
-      controllers: { registrations: 'users', sessions: 'sessions' }
+      controllers: { registrations: 'users', confirmations: 'confirmations' }
 
     devise_scope :user do
-      resource :user, only: [:edit, :update], path_names: { edit: '' },
-        path: 'settings'
+      resource :user, path_names: { edit: '' }, path: 'settings'
+      patch 'confirmation', to: 'confirmations#update', as: :update_user_confirmation
     end
 
     resources :books, only: [:index, :show, :update]

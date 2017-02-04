@@ -14,7 +14,7 @@ RSpec.feature 'Authentication', :type => :feature do
         fill_in I18n.t('simple_form.labels.user.password_confirmation'), with: 'Rspec1234'
         click_button I18n.t('simple_form.titles.sign_up')
       end
-      expect(page).to have_content I18n.t('devise.registrations.signed_up')
+      expect(page).to have_content I18n.t('devise.registrations.signed_up_but_unconfirmed')
     end
 
     scenario 'when user has already signed up' do

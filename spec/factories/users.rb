@@ -5,6 +5,9 @@ FactoryGirl.define do
   end
 
   factory :user do
+    after(:build)   { |user| user.skip_confirmation_notification! }
+    after(:create)  { |user| user.confirm }
+
     email { FactoryGirl.generate(:email) }
     first_name 'Ivan'
     last_name 'Ivan'

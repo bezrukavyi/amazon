@@ -5,10 +5,27 @@ RSpec.describe UsersController, type: :controller do
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    sign_in subject
+  end
+
+  describe '#GET new' do
+    it 'render fast_auth template' do
+      get :new, params: { fast_auth: true }
+      expect(response).to render_template('fast_auth')
+    end
+  end
+
+  describe '#PUT create' do
+    context 'when fast_auth' do
+      it 'call skip_password_validation' do
+        allow(controller).to receive(:resource).and_return(subject)
+        expect(subject).to receive(:skip_password_validation=).with(true)
+        put :create, params: { fast_auth: true }
+      end
+    end
   end
 
   describe 'PUT #update' do
+    before(:each) { sign_in subject }
 
     context 'update user data' do
       let(:user_params) { { email: subject.email } }
@@ -82,6 +99,8 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
+    before(:each) { sign_in subject }
+
     context 'without agree' do
       before do
         allow(controller).to receive(:params).and_return({ agree_cancel: false })
