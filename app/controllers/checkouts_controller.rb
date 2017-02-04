@@ -7,6 +7,7 @@ class CheckoutsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_steps
   before_action :set_step_component
+  before_action :fast_authenticate_user!
 
   def show
     Checkout::AccessStep.call(current_order, current_user, step) do

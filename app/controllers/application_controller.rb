@@ -22,6 +22,15 @@ class ApplicationController < ActionController::Base
     @current_order ||= set_current_order
   end
 
+  def fast_authenticate_user!
+    if user_signed_in?
+      authenticate_user!
+    else
+      stored_location_for(resource)
+      redirect_to new_user_session_path(fast_auth: true)
+    end
+  end
+
   private
 
   def set_current_order
