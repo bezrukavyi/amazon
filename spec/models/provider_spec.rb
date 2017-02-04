@@ -34,7 +34,8 @@ RSpec.describe Provider, type: :model do
 
       context 'when user not exist' do
         before do
-          allow(Provider).to receive(:generate_password).and_return('OmniAuth5555')
+          allow(HumanPasswordValidator).to receive(:generate_password)
+            .and_return('OmniAuth5555')
         end
         it 'create new provider' do
           expect { Provider.authorize(auth) }.to change { Provider.count }.by(1)

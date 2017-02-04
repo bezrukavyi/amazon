@@ -1,14 +1,15 @@
 class Checkout::AccessStep < Rectify::Command
 
-  attr_reader :order, :step
+  attr_reader :order, :user, :step
 
-  def initialize(order, step)
+  def initialize(order, user, step)
     @order = order
+    @user = user
     @step = step
   end
 
   def call
-    return broadcast(:empty_cart) if order.items_count.zero?
+    return broadcast(:empty_cart) if order.items_count.zero? && step != :complete
     allow? ? broadcast(:allow) : broadcast(:not_allow)
   end
 
@@ -37,8 +38,8 @@ class Checkout::AccessStep < Rectify::Command
   end
 
   def complete_accessed?
+    return true if order.items_count.zero?
     confirm_accessed? && order.in_progress?
   end
-
 
 end

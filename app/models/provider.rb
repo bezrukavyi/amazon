@@ -9,7 +9,7 @@ class Provider < ApplicationRecord
     provider = find_by_omniauth(auth)
     return provider.first if provider.present?
     user = User.where(email: auth.info.email).first_or_create do |user|
-      user.password = generate_password
+      user.password = HumanPasswordValidator.generate_password
       user.remote_avatar_url = parse_image(auth)
       user.first_name = parse_name(auth).first
       user.last_name = parse_name(auth).last
@@ -27,11 +27,6 @@ class Provider < ApplicationRecord
   def self.parse_name(auth)
     return [] unless name = auth.info['name']
     name.split(' ')
-  end
-
-  def self.generate_password
-    word = [('a'..'z'), ('A'..'Z'), (0..9)].map(&:to_a).flatten
-    string = (0...50).map { word[rand(word.length)] }.join
   end
 
 end
