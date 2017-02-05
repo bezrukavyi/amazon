@@ -2,6 +2,7 @@ en:
   orders:
     title: Orders
     index:
+      title: My Orders
       states:
         all: All orders
         processing: Waiting for processing

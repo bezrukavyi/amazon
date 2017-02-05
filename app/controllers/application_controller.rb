@@ -23,9 +23,8 @@ class ApplicationController < ActionController::Base
   end
 
   def fast_authenticate_user!
-    if user_signed_in?
-      authenticate_user!
-    else
+    unless user_signed_in?
+      session['user_return_to'] = request.fullpath
       redirect_to new_user_registration_path(fast_auth: true)
     end
   end

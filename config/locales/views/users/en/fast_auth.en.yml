@@ -1,0 +1,11 @@
+en:
+  users:
+    fast_auth:
+      continue_button: Continue to Checkout
+      login_message: Log In with Password
+      quik_regist:
+        title: Quik Register
+        message: You'll be able to create password later
+      customer:
+        old: Returning Customer
+        new: New Customer

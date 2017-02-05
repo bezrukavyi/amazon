@@ -2,11 +2,11 @@ class Order < ApplicationRecord
   include AddressableRelation
   include AASM
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :delivery, optional: true
   belongs_to :credit_card, optional: true
   has_many :order_items, dependent: :destroy
-  has_one :coupon, dependent: :destroy
+  has_one :coupon, dependent: :nullify
 
   accepts_nested_attributes_for :order_items, allow_destroy: true
   accepts_nested_attributes_for :credit_card
@@ -78,6 +78,7 @@ class Order < ApplicationRecord
   end
 
   def add_item(book_id, quantity = 1)
+    return if quantity.zero?
     if item = order_items.find_by(book_id: book_id)
       item.increment :quantity, quantity
     else

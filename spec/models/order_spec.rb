@@ -43,6 +43,10 @@ RSpec.describe Order, type: :model do
       expect { subject.add_item(book.id).save }
         .to change { OrderItem.count }.by(1)
     end
+    it 'when order item quantity is zero' do
+      book = create :book
+      expect(subject.add_item(book.id, 0)).to be_nil
+    end
   end
 
   describe '#merge_order!' do

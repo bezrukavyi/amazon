@@ -47,14 +47,6 @@ Country.find_each do |country|
   end
 end
 
-5.times do |index|
-  email = "rspec_#{index}@gmail.com"
-  User.find_or_create_by!(email: email) do |user|
-    user.password = 'Password555'
-    user.password_confirmation = 'Password555'
-  end
-end
-
 User.find_or_create_by!(email: 'yaroslav555@gmail.com') do |user|
   user.password = 'Password555'
   user.password_confirmation = 'Password555'

@@ -16,8 +16,7 @@
           %h3.general-subtitle.mt-0= t('billing_address')
 
         = field.simple_fields_for :billing, @billing do |item_field|
-          = render partial: 'addresses/fields',
-            locals: { field: item_field, type: 'billing' }
+          = render 'addresses/fields', field: item_field, type: 'billing'
 
       .col-md-5.col-md-offset-1
         .visible-xs.visible-sm
@@ -25,8 +24,7 @@
 
         = field.simple_fields_for :shipping, @shipping do |item_field|
           #shipping_fields{class: "#{'hidden-fields' if params[:use_billing]}"}
-            = render partial: 'addresses/fields',
-              locals: { field: item_field, type: 'shipping' }
+            = render 'addresses/fields', field: item_field, type: 'shipping'
 
         .form-group.checkbox
           %label.checkbox-label
@@ -36,9 +34,9 @@
               %i.fa.fa-check
             %span.checkbox-text= t('.use_billing')
 
-    = render partial: 'result_panel', locals: { components: [:coupon] }
+    = render 'orders/result_panel', components: [:coupon]
 
     .col-md-12.mb-40
-      .center-block.general-text-align
+      .center-block.general-text-align.center
         = field.submit t('simple_form.titles.save_and_continue'),
           class: 'button btn btn-default mb-20'

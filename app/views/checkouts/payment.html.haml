@@ -4,14 +4,15 @@
   %h3.general-subtitle= t('.title')
 
   = simple_form_for current_order, url: checkout_path,
-    html: { class: 'max-600 mb-80', id: 'credit_card_form' } do |field|
+    html: { class: 'mb-80', id: 'credit_card_form' } do |field|
 
-    = field.simple_fields_for :credit_card, @payment_form do |item_field|
-      = render partial: 'credit_cards/fields', locals: { field: item_field }
+    .max-600.mb-80
+      = field.simple_fields_for :credit_card, @payment_form do |item_field|
+        = render 'credit_cards/fields', field: item_field
 
-    = render 'result_panel'
+    = render 'orders/result_panel'
 
     .col-md-12.mb-40
-      .center-block.general-text-align
+      .center-block.general-text-align.center
         = field.submit t('simple_form.titles.save_and_continue'),
           class: 'button btn btn-default mb-20'

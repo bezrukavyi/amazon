@@ -7,14 +7,13 @@
         %span.in-grey-600= t('days').mb_chars.capitalize.to_s
       %th
         %span.in-grey-600= t('carts.edit.price')
-  %tbody
 
+  %tbody
   - deliveries.decorate.each do |delivery|
     %tr.delivery-item
       %td
         .form-group.radio.mt-0.mb-0
-          = render partial: 'deliveries/delivery_checkbox',
-            locals: { delivery: delivery }
+          = render 'deliveries/delivery_checkbox', delivery: delivery
       %td
         %span= delivery.duration
       %td

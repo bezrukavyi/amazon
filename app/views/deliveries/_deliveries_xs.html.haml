@@ -6,8 +6,7 @@
           %span.in-grey-600 Method
         %td.col-half
           .form-group.radio.mt-0.mb-0
-            = render partial: 'deliveries/delivery_checkbox',
-              locals: { delivery: delivery }
+            = render 'deliveries/delivery_checkbox', delivery: delivery
       %tr
         %td
           %span.in-grey-600= t('days').capitalize

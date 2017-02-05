@@ -3,23 +3,19 @@
 
   = form_tag checkout_path, class: 'delivery_form', method: :patch do
     .row.mb-20
-      = render partial: 'orders/components_panel',
-        locals: { order: current_order, edit: true }
+      = render 'orders/components_panel', order: current_order, edit: true
 
 
     .visible-xs
       - current_order.order_items.each do |order_item|
-        = render partial: 'order_items/order_item',
-          locals: { order_item: order_item }
+        = render 'order_items/order_item', order_item: order_item
 
     .hidden-xs.divider-lg.pt-20
-      = render partial: 'order_items/table',
-        locals: { order_items: current_order.order_items }
+      = render 'order_items/table', order_items: current_order.order_items
 
-    = render 'result_panel'
+    = render 'orders/result_panel'
 
     .col-md-12.mb-40
-      .center-block.general-text-align
+      .center-block.general-text-align.center
         = hidden_field_tag :confirm, true
-        = submit_tag t('simple_form.titles.save_and_continue'),
-          class: 'button btn btn-default mb-20'
+        = submit_tag t('.place_order'), class: 'button btn btn-default mb-20'

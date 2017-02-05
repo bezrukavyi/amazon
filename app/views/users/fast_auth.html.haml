@@ -1,38 +1,27 @@
-.row.mb-60.container.general-main-wrap.center
+.mb-60.container.general-main-wrap.center
   .col-sm-6
     .text-center
+      %h3.in-gold-500.mb-25= t('.customer.old')
       = render 'omni_links'
 
       %p.general-login-text= t('or')
 
-    = general_simple_form_for resource, as: resource_name,
-      url: session_path(resource_name) do |field|
+    .general-form
+      %h3.grey-600= t('.login_message')
 
-      .form-group.mb-30
-        = field.input :email, autofocus: true
-
-      .form-group.mb-30
-        = field.input :password, autocomplete: 'off'
-        = link_to t('simple_form.titles.forgot_password?'),
-          new_password_path(resource_name),
-          class: 'help-block in-gold-500'
-
-      - if devise_mapping.rememberable?
-        .form-group.checkbox.text-center.mb-30
-          %label.checkbox-label
-            = field.check_box :remember_me, class: 'checkbox-input', hidden: true
-            %span.checkbox-icon
-              %i.fa.fa-check
-            %span.checkbox-text= t('simple_form.labels.user.remember_me')
-
-      .text-center
-        = field.button :submit, t('simple_form.titles.log_in'),
-          class: 'btn btn-default mb-20'
+    = render 'devise/sessions/login_form', title: t('.continue_button')
 
 
   .col-sm-6
     .text-center
-      %p.general-login-text Sign up. All we need is your email address.
+      %h3.in-gold-500.mb-25= t('.customer.new')
+      = render 'omni_links'
+
+      %p.general-login-text= t('or')
+
+    .general-form
+      %h3.grey-600= t('.quik_regist.title')
+      %p.general-login-text= t('.quik_regist.message')
 
     = general_simple_form_for resource, as: resource_name,
       url: user_registration_path(resource) do |field|
@@ -43,5 +32,4 @@
         = field.input :email, autofocus: true
 
       .text-center
-        = field.button :submit, t('simple_form.titles.log_in'),
-          class: 'btn btn-default mb-20'
+        = field.button :submit, t('.continue_button'), class: 'btn btn-default mb-20'

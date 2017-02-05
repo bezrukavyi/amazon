@@ -11,7 +11,7 @@ RSpec.describe OrderItem, type: :model do
   end
 
   context 'validation' do
-    it { should validate_numericality_of(:quantity).is_greater_than(0) }
+    it { should validate_numericality_of(:quantity).is_greater_than_or_equal_to(0) }
     it { should validate_numericality_of(:quantity).is_less_than_or_equal_to(99) }
 
     it '#stock_validate' do
@@ -26,5 +26,14 @@ RSpec.describe OrderItem, type: :model do
     subject.quantity = 2
     expect(subject.sub_total).to eq(20)
   end
+
+  context 'Before validation' do
+    it '#destroy_if_empty' do
+      item = create :order_item
+      item.quantity = 0
+      expect { item.valid? }.to change { OrderItem.count }.by(-1)
+    end
+  end
+
 
 end

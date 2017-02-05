@@ -14,6 +14,7 @@ ru:
     payment:
       title: Кредитная карта
     confirm:
+      place_order: Разместить заказ
       shipments: Информация о доставке
       payment: Информация об оплате
     complete:

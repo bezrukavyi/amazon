@@ -15,3 +15,4 @@ en:
       success_updated: Cart successfully updated
       failed_updated: We cant update cart
       method: Method
+      empty_message: Sorry, but your cart is empty

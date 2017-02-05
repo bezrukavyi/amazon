@@ -1,0 +1,11 @@
+ru:
+  users:
+    fast_auth:
+      continue_button: Вернуться к Оформлению
+      login_message: Войти с паролем
+      quik_regist:
+        title: Быстрая регистрация
+        message: Вы создадите пароль позже
+      customer:
+        old: Уже с нами?
+        new: Впервые здесь?

@@ -2,6 +2,7 @@ ru:
   orders:
     title: Заказы
     index:
+      title: Мои Заказы
       states:
         all: Все заказы
         processing: В ожидании обработки

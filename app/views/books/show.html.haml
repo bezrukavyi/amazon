@@ -61,7 +61,7 @@
   .mb-80
     - if can? :create, Review
       .h3.in-gold-500= t('.review_title')
-      = render partial: 'reviews/form'
+      = render 'reviews/form'
 
     - else
       .h3

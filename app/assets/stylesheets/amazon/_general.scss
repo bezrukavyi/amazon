@@ -224,7 +224,6 @@ img {
   float: right;
 }
 
-
 @media (min-width: $grid-float-breakpoint) {
   .general-main-wrap {
     margin-bottom: 100px;
@@ -272,6 +271,9 @@ img {
   .general-summary-table-right {
     margin-right: 0;
     margin-left: auto;
+    &.result-panel {
+      float: right;
+    }
   }
   .general-order-wrap {
     margin-bottom: 35px;
@@ -282,6 +284,9 @@ img {
   }
   .general-text-align {
     text-align: left;
+    &.center {
+      text-align: center !important;
+    }
   }
   .general-text-right {
     text-align: right;

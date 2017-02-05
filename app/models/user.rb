@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :providers, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :credit_cards, dependent: :destroy
-  has_many :orders, dependent: :destroy
+  has_many :orders, dependent: :nullify
 
   validates :first_name, :last_name, length: { maximum: 50 }, human_name: :one
   validates :email, length: { maximum: 63 }, human_email: true

@@ -20,7 +20,7 @@
       %td{ colspan: "3" }= "Hello, #{@user.decorate.full_name}"
     %tr
       %td{ align: "center", colspan: "3", style: "padding: 25px 0px; font-size: 17px; line-height: 24px; font-size: 26px; text-align: center" }
-        %b= "Order ##{@order.id}"
+        = link_to "Order ##{@order.id}", order_url(I18n.locale, @order.id)
 
   %table
     %tr

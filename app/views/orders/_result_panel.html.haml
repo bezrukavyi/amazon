@@ -1,9 +1,7 @@
 - order ||= current_order
-
-.center-block.general-text-align
-  .general-text-align
+%div{ class: "#{'general-text-align mb-60' unless local_assigns[:right]}" }
   %p.in-gold-500.font-18= t('carts.edit.order_summary')
-  %table.general-summary-table
+  %table.general-summary-table{ class: "#{'general-summary-table-right general-text-right' if local_assigns[:right]}" }
     %tbody
       %tr
         %td
@@ -15,7 +13,10 @@
       - components.each do |component|
         %tr
           %td
-            %p.font-16= t("carts.edit.#{component}") + ':'
+            - if component == :coupon
+              %p.font-16= current_order.decorate.discount_title
+            - else
+              %p.font-16= t("carts.edit.#{component}") + ':'
           %td
             %p.font-16{ id: "order_#{component}" }
               = currency_price(order.send("#{component}_cost"))

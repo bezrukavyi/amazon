@@ -1,7 +1,6 @@
 - order.addresses.each do |address|
   .col-sm-3
-    = render partial: 'addresses/panel',
-      locals: { address: address, edit: local_assigns[:edit] }
+    = render 'addresses/panel', address: address, edit: local_assigns[:edit]
 
 .col-sm-3
   %h3.general-subtitle= t('checkouts.confirm.shipments')

@@ -1,6 +1,6 @@
 %main.container
 
-  = render partial: 'books/carousel_books', locals: { books: @carousel_books }
+  = render 'books/carousel_books', books: @carousel_books
 
 .container
   .jumbotron.text-center.mb-0
@@ -19,7 +19,7 @@
               = image_tag book.avatar_url,
                 class: 'img-shadow general-thumbnail-img'
 
-              = render partial: 'books/book_buttons', locals: { book: book }
+              = render 'books/book_buttons', book: book
 
           .mb-35
             .clearfix

@@ -16,10 +16,6 @@ describe Checkout::StepConfirm do
       expect { subject.call }.to change(order, :state).from('processing').to('in_progress')
     end
 
-    it 'activate coupon' do
-      expect { subject.call }.to change(order.coupon, :active).from(true).to(false)
-    end
-
     it 'send letter' do
       expect { subject.call }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end

@@ -67,7 +67,7 @@ RSpec.feature 'Cart', :type => :feature do
 
     scenario 'failed update coupon' do
       within "#edit_order_#{order.id}" do
-        fill_in ("order_coupon_code"), with: 2131241324
+        fill_in ("order_coupon_code"), with: 'Code10101'
         click_button I18n.t('carts.edit.update_cart')
       end
       expect(page).to have_content(I18n.t('flash.failure.cart_update'))

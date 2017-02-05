@@ -3,10 +3,11 @@ class OrderItemsController < ApplicationController
   def create
     book_id, quantity = params[:book_id], params[:quantity].to_i
     order_item = current_order.add_item(book_id, quantity)
-    if order_item.save && current_order.save
+    if order_item.try(:save) && current_order.save
       flash[:notice] = t('flash.success.book_add', count: quantity)
     else
-      flash[:alert] = t('flash.failure.book_add', errors: order_item.decorate.all_errors)
+      errors = order_item&.decorate&.all_errors
+      flash[:alert] = t('flash.failure.book_add', errors: errors)
     end
     redirect_back(fallback_location: book_path(book_id))
   end

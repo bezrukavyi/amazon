@@ -43,7 +43,7 @@ RSpec.feature 'Checkout', :type => :feature do
       end
       click_button I18n.t('simple_form.titles.save_and_continue')
 
-      click_button I18n.t('simple_form.titles.save_and_continue')
+      click_button I18n.t('checkouts.confirm.place_order')
 
       expect(page).to have_content(I18n.t('checkouts.complete.thanks_message'))
       expect(page).to have_content(I18n.t('checkouts.complete.email_confirm', email: user.email))

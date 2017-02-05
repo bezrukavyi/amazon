@@ -12,7 +12,6 @@ class Checkout::StepConfirm < Rectify::Command
     return broadcast(:invalid) if confirm.blank? || user.blank?
     transaction do
       update_order
-      use_coupon
       send_mail
     end
     broadcast :valid
@@ -22,11 +21,6 @@ class Checkout::StepConfirm < Rectify::Command
 
   def update_order
     order.confirm!
-  end
-
-  def use_coupon
-    return unless order.coupon
-    order.coupon.use!
   end
 
   def send_mail

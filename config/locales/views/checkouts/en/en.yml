@@ -16,6 +16,7 @@ en:
     confirm:
       shipments: Shipments
       payment: Payment Information
+      place_order: Place Order
     complete:
       order_id: "Order #%{id}"
       thanks_message: Thank You for your Order!

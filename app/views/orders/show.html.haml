@@ -1,15 +1,13 @@
 %main.container.general-main-wrap
   %h1.general-title-margin= t('.order_id', id: @order.id)
   .row.mb-20
-    = render partial: 'orders/components_panel', locals: { order: @order }
+    = render 'orders/components_panel', order: @order
 
   .visible-xs
     - @order.order_items.each do |order_item|
-      = render partial: 'order_items/order_item',
-        locals: { order_item: order_item }
+      = render 'order_items/order_item', order_item: order_item
 
   .hidden-xs.divider-lg.pt-20
-    = render partial: 'order_items/table',
-      locals: { order_items: @order.order_items }
+    = render 'order_items/table', order_items: @order.order_items
 
-  = render partial: 'checkouts/result_panel', locals: { order: @order }
+  = render 'checkouts/result_panel', order: @order

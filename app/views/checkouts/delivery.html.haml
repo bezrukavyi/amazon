@@ -5,18 +5,16 @@
 
   .visible-xs.mb-40
     = form_tag checkout_path, class: 'delivery_form', method: :patch do
-      = render partial: 'deliveries/deliveries_xs',
-        locals: { deliveries: @deliveries }
+      = render 'deliveries/deliveries_xs', deliveries: @deliveries
 
 
   = form_tag checkout_path, class: 'delivery_form', method: :patch do
     .hidden-xs.mb-res-50
-      = render partial: 'deliveries/deliveries_md',
-        locals: { deliveries: @deliveries }
+      = render 'deliveries/deliveries_md', deliveries: @deliveries
 
-    = render 'result_panel'
+    = render 'orders/result_panel'
 
     .col-md-12.mb-40
-      .center-block.general-text-align
+      .center-block.general-text-align.center
         = submit_tag t('simple_form.titles.save_and_continue'),
           class: 'button btn btn-default mb-20'

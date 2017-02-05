@@ -19,15 +19,13 @@
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('billing_address')
 
-          = render partial: 'addresses/user_form',
-            locals: { object: @billing, type: 'billing' }
+          = render 'addresses/user_form', object: @billing, type: 'billing'
 
         .col-md-5.col-md-offset-1.mb-25
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('shipping_address')
 
-          = render partial: 'addresses/user_form',
-            locals: { object: @shipping, type: 'shipping' }
+          = render 'addresses/user_form', object: @shipping, type: 'shipping'
 
     #privacy.tab-pane.fade{:role => "tabpanel"}
       .row.mb-60

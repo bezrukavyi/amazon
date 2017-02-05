@@ -38,7 +38,7 @@ RSpec.describe OrderItemsController, type: :controller do
         allow(subject).to receive(:save).and_return(false)
         allow(subject).to receive_message_chain(:decorate, :all_errors).and_return('errors')
         allow(order).to receive(:save).and_return(false)
-        post :create, params: { book_id: book_id, quantity: 1000 }
+        post :create, params: { book_id: book_id, quantity: 0 }
       end
 
       it 'alert flash' do

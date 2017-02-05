@@ -1,13 +1,13 @@
 .general-cart-item.divider-lg-bottom.mb-30
 
   - if local_assigns[:field]
-    = render partial: 'order_items/delete_link',
-      locals: { order_item: order_item }
+    = render 'order_items/delete_link', order_item: order_item
 
   .general-img-wrap-table
     = link_to order_item.book do
       = image_tag order_item.book.avatar_url, class: 'cart-img-shadow'
   = link_to order_item.book.title, order_item.book, class: 'title'
+
   %table.table
     %tr
       %td
@@ -17,11 +17,10 @@
     %tr
       %td.vertical-middle
         %span.in-grey-600= t('carts.edit.quantity')
+        %p.in-grey-600.fw-300= order_item.book.decorate.short_desc
       %td
         .input-group.align-center
-          = render partial: 'order_items/quantity_field',
-            locals: { order_item: order_item, field: local_assigns[:field] }
-
+          = render 'order_items/quantity_field', order_item: order_item, field: local_assigns[:field]
     %tr
       %td
         %span.in-grey-600= t('carts.edit.sub_total')

@@ -1,4 +1,4 @@
-- if !local_assigns[:field].blank?
+- if local_assigns[:field].present?
 
   .input-group.align-center.quantity-field
     %div.input-link.quantity-minus
