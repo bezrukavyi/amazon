@@ -24,7 +24,12 @@
 
         %ul.nav.navbar-nav
           %li
-            = link_to t('home'), root_path
+            %a{type: "button", 'data-toggle': "collapse", href: "#home", 'aria-expanded': "false", 'aria-controls': "home"}= t('home')
+            %ul#home.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+              - @categories.each do |category|
+                %li
+                  = link_to category.title, home_path(category.decorate.title_key), class: 'collapse-link'
+
           %li
             %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"}= t('language.title')
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
@@ -36,7 +41,7 @@
                   class: 'collapse-link'
 
           %li
-            %a{type: "button", 'data-toggle': "collapse", href: "#language", 'aria-expanded': "false", 'aria-controls': "language"}= t('shop')
+            %a{type: "button", 'data-toggle': "collapse", href: "#categories", 'aria-expanded': "false", 'aria-controls': "categories"}= t('shop')
             %ul#language.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               - @categories.each do |category|
                 %li
@@ -64,8 +69,14 @@
 
       .hidden-xs
         %ul.nav.navbar-nav
-          %li
-            = link_to t('home'), root_path
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('home')
+            %ul.dropdown-menu
+              - @categories.each do |category|
+                %li
+                  = link_to category.title, home_path(category.decorate.title_key), class: 'collapse-link'
+
+
           %li.dropdown
             %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('language.title')
             %ul.dropdown-menu

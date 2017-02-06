@@ -38,12 +38,11 @@ class Book < ApplicationRecord
   scope :best_sellers, -> { popular.limit(4) }
 
   def self.popular
-    Book
-      .joins(:orders)
-      .where('orders.state': 'delivered')
-      .group('order_items.book_id', 'books.id')
-      .order('SUM(order_items.quantity) desc')
-      .limit(4)
+    joins(:orders)
+    .where('orders.state': 'delivered')
+    .group('order_items.book_id', 'books.id')
+    .order('SUM(order_items.quantity) desc')
+    .limit(4)
   end
 
   def self.filter_with(options)

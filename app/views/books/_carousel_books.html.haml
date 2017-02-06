@@ -1,8 +1,8 @@
 #slider.carousel.slide{'data-ride': "carousel"}
   %ol.carousel-indicators
     - books.count.times do |index|
-      %li{class: "#{'active' if index == 1}",
-          'data-target': "#slider", 'data-slide-to': index}
+      %li{ class: "#{'active' if index == 0}",
+          'data-target': "#slider", 'data-slide-to': index }
 
 
   .carousel-inner{role: "listbox"}

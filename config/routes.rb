@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :checkouts, only: [:show, :update]
     resources :orders, only: [:index, :show, :update]
 
+    get "home/(:category)", to: 'main_pages#index', as: :home
     root to: 'main_pages#index'
 
   end

@@ -524,6 +524,11 @@
     cursor: pointer;
   }
 }
+.products_list {
+  li.active label {
+    color: #c59c71;
+  }
+}
 @media (min-width: $grid-float-breakpoint) {
   .navbar-nav {
     float: right;
