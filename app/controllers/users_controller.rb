@@ -6,12 +6,12 @@ class UsersController < Devise::RegistrationsController
   before_action :set_countries, only: [:edit, :update]
 
   def new
-    super { render 'fast_auth' and return if params[:fast_auth] }
+    super { render 'fast_auth' and return if params[:type] == 'fast' }
   end
 
   def create
     super do
-      if params[:fast_auth]
+      if params[:type] == 'fast'
         resource.skip_password_validation = true
         resource.save
       end
@@ -38,7 +38,8 @@ class UsersController < Devise::RegistrationsController
       bypass_sign_in current_user
       redirect_to edit_user_path, notice: t('flash.success.user_update'), anchor: 'privacy'
     else
-      flash_render :edit, alert: t('flash.failure.user_update')
+      template = params[:type] == 'fast' ? 'fast_auth' : 'edit'
+      flash_render template, alert: t('flash.failure.user_update')
     end
   end
 

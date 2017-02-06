@@ -11,8 +11,7 @@ RSpec.feature 'Cart', :type => :feature do
   let(:order) { create :order, order_items: [first_item, second_item] }
 
   before do
-    allow_any_instance_of(CartsController)
-      .to receive(:current_order).and_return(order)
+    allow_any_instance_of(CartsController).to receive(:current_order).and_return(order)
     visit edit_cart_path
   end
 
@@ -79,6 +78,14 @@ RSpec.feature 'Cart', :type => :feature do
     delete_link = page.first(:xpath, "//a[@href='/order_items/#{first_item.id}']")
     delete_link.click
     expect(delete_link['data-confirm']).to eq I18n.t('sure?')
+  end
+
+  scenario 'empty cart' do
+    empty_order = create :order
+    allow_any_instance_of(CartsController).to receive(:current_order).and_return(empty_order)
+    visit edit_cart_path
+    expect(page).to have_content(I18n.t('carts.edit.empty_message'))
+    expect(page).not_to have_content(I18n.t('carts.edit.update_cart'))
   end
 
 end

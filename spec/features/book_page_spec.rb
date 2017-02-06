@@ -15,14 +15,24 @@ RSpec.feature 'BookPage', :type => :feature do
     expect(page).to have_content(book.title)
   end
 
-  scenario 'Create review' do
-    within '#review_form' do
-      fill_in I18n.t('simple_form.labels.review.title'), with: review_attr[:title]
-      fill_in I18n.t('simple_form.labels.review.grade'), with: review_attr[:grade]
-      fill_in I18n.t('simple_form.labels.review.desc'), with: review_attr[:desc]
-      click_button I18n.t('simple_form.titles.save')
+  context 'Create review' do
+    scenario 'success create' do
+      within '#review_form' do
+        fill_in I18n.t('simple_form.labels.review.title'), with: review_attr[:title]
+        fill_in I18n.t('simple_form.labels.review.grade'), with: review_attr[:grade]
+        fill_in I18n.t('simple_form.labels.review.desc'), with: review_attr[:desc]
+        click_button I18n.t('simple_form.titles.save')
+      end
+      expect(page).to have_content(I18n.t('flash.success.review_create'))
     end
-    expect(page).to have_content(I18n.t('flash.success.review_create'))
+
+    scenario 'failure create' do
+      within '#review_form' do
+        fill_in I18n.t('simple_form.labels.review.title'), with: review_attr[:title]
+        click_button I18n.t('simple_form.titles.save')
+      end
+      expect(page).to have_content(I18n.t('flash.failure.review_create'))
+    end
   end
 
   context 'Add to cart' do

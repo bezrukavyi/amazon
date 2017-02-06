@@ -52,6 +52,17 @@ RSpec.feature 'Settings', :type => :feature do
       expect(page).to have_content I18n.t('flash.success.user_update')
     end
 
+    scenario 'destroy account' do
+      create :order, :checkout_package, user: user
+      visit edit_user_path
+      click_link I18n.t('privacy')
+      within '#destroy_account' do
+        first('label', text: I18n.t('users.edit.remove_account.confirm_title')).click
+        click_button I18n.t('users.edit.remove_account.petition')
+      end
+      expect(page).to have_content I18n.t('devise.registrations.destroyed')
+    end
+
   end
 
   context 'Invalid update' do
@@ -88,6 +99,14 @@ RSpec.feature 'Settings', :type => :feature do
       end
       expect(page).to have_content I18n.t('flash.failure.user_update')
       expect(page).to have_content I18n.t('errors.messages.blank')
+    end
+
+    scenario 'destroy account' do
+      create :order, :checkout_package, user: user
+      visit edit_user_path
+      click_link I18n.t('privacy')
+      click_button I18n.t('users.edit.remove_account.petition')
+      expect(page).to have_content I18n.t('flash.failure.confirm_intentions')
     end
 
   end

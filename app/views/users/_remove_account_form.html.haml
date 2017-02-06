@@ -1,8 +1,8 @@
-= simple_form_for current_user, url: user_registration_path,
-  method: :delete do |field|
+= simple_form_for current_user, url: user_registration_path, method: :delete,
+  html: { id: 'destroy_account' } do |field|
 
   .general-settings-btn
-    %button.btn.mb-20= t('users.edit.remove_account.petition')
+    = field.submit t('users.edit.remove_account.petition'), class: 'btn mb-20'
 
   .form-group.checkbox.general-settings-checkbox
     %label.checkbox-label

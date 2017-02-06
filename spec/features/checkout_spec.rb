@@ -11,12 +11,14 @@ RSpec.feature 'Checkout', :type => :feature do
 
   before do
     @delivery = create :delivery
-    login_as(user, scope: :user)
     allow_any_instance_of(CheckoutsController)
     .to receive(:current_order).and_return(order)
   end
 
   context 'checkout fill', js: true do
+    before do
+      login_as(user, scope: :user)
+    end
     scenario 'all steps' do
       visit checkout_path(id: :address)
       within('div', id: 'billing_address') do
@@ -50,6 +52,33 @@ RSpec.feature 'Checkout', :type => :feature do
       expect(page).to have_content(I18n.t('checkouts.complete.order_id', id: order.id))
 
     end
+  end
+
+  context 'Checkout login' do
+    scenario 'quik regist' do
+      visit checkout_path(id: :address)
+      expect(page).to have_content I18n.t('users.fast_auth.quik_regist.message')
+      within '#quik_regist' do
+        fill_in I18n.t('simple_form.labels.user.email'), with: FFaker::Internet.email
+        click_button I18n.t('users.fast_auth.continue_button')
+      end
+      expect(page).to have_content I18n.t('devise.registrations.signed_up')
+      expect(current_path).to eq checkout_path(id: :address)
+    end
+
+    scenario 'simple log_in' do
+      user = create :user
+      visit checkout_path(id: :address)
+      expect(page).to have_content I18n.t('users.fast_auth.login_message')
+      within '#new_user' do
+        fill_in I18n.t('simple_form.labels.user.email'), with: user.email
+        fill_in I18n.t('simple_form.labels.user.password'), with: user.password
+        click_button I18n.t('users.fast_auth.continue_button')
+      end
+      expect(page).to have_content I18n.t('devise.sessions.signed_in')
+      expect(current_path).to eq checkout_path(id: :address)
+    end
+
   end
 
 end

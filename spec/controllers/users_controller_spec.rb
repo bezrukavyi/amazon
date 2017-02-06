@@ -9,7 +9,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe '#GET new' do
     it 'render fast_auth template' do
-      get :new, params: { fast_auth: true }
+      get :new, params: { type: 'fast' }
       expect(response).to render_template('fast_auth')
     end
   end
@@ -19,7 +19,7 @@ RSpec.describe UsersController, type: :controller do
       it 'call skip_password_validation' do
         allow(controller).to receive(:resource).and_return(subject)
         expect(subject).to receive(:skip_password_validation=).with(true)
-        put :create, params: { fast_auth: true }
+        put :create, params: { type: 'fast' }
       end
     end
   end

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     devise_scope :user do
       resource :user, path_names: { edit: '' }, path: 'settings'
       patch 'confirmation', to: 'confirmations#update', as: :update_user_confirmation
+      get "sign_up/(:type)", to: 'users#new', as: :sign_up
+      post "sign_up/(:type)", to: 'users#create'
     end
 
     resources :books, only: [:index, :show, :update]
@@ -24,8 +26,8 @@ Rails.application.routes.draw do
     resources :checkouts, only: [:show, :update]
     resources :orders, only: [:index, :show, :update]
 
-    get "home/(:category)", to: 'main_pages#index', as: :home
-    root to: 'main_pages#index'
+    get "home/(:category)", to: 'main_pages#home', as: :home
+    root to: 'main_pages#home'
 
   end
 
