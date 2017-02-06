@@ -1,5 +1,6 @@
 en:
   home: Home
+  welcome: Welcome to BookStore, %{name}
   Shop: Shop
   account: My account
   settings: Settings

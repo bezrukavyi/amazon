@@ -43,6 +43,9 @@ RSpec.describe Provider, type: :model do
         it 'create new user' do
           expect { Provider.authorize(auth) }.to change { User.count }.by(1)
         end
+        it 'send mail to user' do
+          expect { Provider.authorize(auth) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        end
         it 'set user attributes' do
           auth.info.name = 'Rspec Rspecovich'
           Provider.authorize(auth)

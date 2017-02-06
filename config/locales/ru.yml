@@ -1,4 +1,5 @@
 ru:
+  welcome: Добро пожаловать в BookStore, %{name}
   home: Главная
   shop: Магазин
   account: Мой аккаунт
