@@ -26,6 +26,9 @@ RSpec.describe SpecSymbolsValidator, type: :validator do
     it 'end symbol' do
       review.title = 'yaroslav!'
     end
+    it 'end symbol' do
+      review.title = 'Simple title'
+    end
   end
 
   context 'invalid' do

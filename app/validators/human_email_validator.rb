@@ -20,7 +20,7 @@ class HumanEmailValidator < ActiveModel::EachValidator
   end
 
   def symbols_regexp
-    /\A#{SUPP_SYMBOLS}#{DOMAIN}\z/
+    /\A\w+#{SUPP_SYMBOLS}?\w*#{DOMAIN}\z/
   end
 
   def dot_regexp

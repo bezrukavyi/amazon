@@ -1,9 +1,9 @@
 class SpecSymbolsValidator < ActiveModel::EachValidator
 
-  INSPECTION = /\w+[!%$&?'`*^._=~+-\{\|\}\#\/]?\w*/
+  INSPECTION = /[!%$&?'`*^._=~+-\{\|\}\#\/]/
 
   def validate_each(object, attribute, value)
-    if value !~ /\A#{INSPECTION}\z/
+    if value !~ /\A[\w\s]+#{INSPECTION}?[\w\s]*\z/
       object.errors.add(attribute, I18n.t('validators.spec_symbols.base_regexp'))
     end
   end
