@@ -2,11 +2,17 @@ require 'rails_helper'
 
 RSpec.describe HumanPasswordValidator, type: :validator do
 
-  let(:user) { create :user }
+  with_model :MockUser do
+    table do |t|
+      t.string :password
+    end
 
-  it 'valid' do
-    user.validate(:password)
+    model do
+      validates :password, human_password: true
+    end
   end
+
+  let(:user) { MockUser.new(password: 'Password555') }
 
   context '#invalid' do
     after do

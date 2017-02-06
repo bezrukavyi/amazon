@@ -21,39 +21,41 @@ RSpec.describe Provider, type: :model do
       expect(Provider.authorize(auth)).to eq(subject)
     end
 
-    context 'when provider not exist' do
-
+    context 'when user exist and provider not exist' do
       before do
         allow(Provider).to receive(:find_by_omniauth).and_return(nil)
-      end
-
-      it 'when user exist' do
         auth.info.email = user.email
+      end
+      it 'create provider' do
         expect { Provider.authorize(auth) }.to change { user.reload.providers.count }.by(1)
       end
-
-      context 'when user not exist' do
-        before do
-          allow(HumanPasswordValidator).to receive(:generate_password)
-            .and_return('OmniAuth5555')
-        end
-        it 'create new provider' do
-          expect { Provider.authorize(auth) }.to change { Provider.count }.by(1)
-        end
-        it 'create new user' do
-          expect { Provider.authorize(auth) }.to change { User.count }.by(1)
-        end
-        it 'send mail to user' do
-          expect { Provider.authorize(auth) }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        end
-        it 'set user attributes' do
-          auth.info.name = 'Rspec Rspecovich'
-          Provider.authorize(auth)
-          expect(User.last.first_name).to eq('Rspec')
-          expect(User.last.last_name).to eq('Rspecovich')
-        end
+      it 'not send email to user' do
+        allow(user).to receive(:new_record?).and_return(false)
+        expect { Provider.authorize(auth) }.not_to change { ActionMailer::Base.deliveries.count }
       end
+    end
 
+    context 'when user and provide not exist' do
+      before do
+        allow(Provider).to receive(:find_by_omniauth).and_return(nil)
+        allow(HumanPasswordValidator).to receive(:generate_password).and_return('OmniAuth5555')
+      end
+      it 'create new provider' do
+        expect { Provider.authorize(auth) }.to change { Provider.count }.by(1)
+      end
+      it 'create new user' do
+        expect { Provider.authorize(auth) }.to change { User.count }.by(1)
+      end
+      it 'send mail to user' do
+        allow(user).to receive(:new_record?).and_return(true)
+        expect { Provider.authorize(auth) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+      it 'set user attributes' do
+        auth.info.name = 'Rspec Rspecovich'
+        Provider.authorize(auth)
+        expect(User.last.first_name).to eq('Rspec')
+        expect(User.last.last_name).to eq('Rspecovich')
+      end
     end
 
   end

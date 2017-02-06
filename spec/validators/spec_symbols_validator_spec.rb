@@ -2,7 +2,17 @@ require 'rails_helper'
 
 RSpec.describe SpecSymbolsValidator, type: :validator do
 
-  let(:review) { ReviewForm.from_params attributes_for(:review) }
+  with_model :MockReview do
+    table do |t|
+      t.string :title
+    end
+
+    model do
+      validates :title, spec_symbols: true
+    end
+  end
+
+  let(:review) { MockReview.new(title: 'Test title') }
 
   context 'valid' do
     after do

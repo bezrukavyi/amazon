@@ -71,6 +71,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'pry'
   gem 'capybara'
+  gem 'with_model'
 end
 
 group :test do

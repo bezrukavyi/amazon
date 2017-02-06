@@ -2,7 +2,17 @@ require 'rails_helper'
 
 RSpec.describe HumanEmailValidator, type: :validator do
 
-  let(:user) { create :user }
+  with_model :MockUser do
+    table do |t|
+      t.string :email
+    end
+
+    model do
+      validates :email, human_email: true
+    end
+  end
+
+  let(:user) { MockUser.new(email: 'rspec555@gmail.com') }
 
   it 'valid' do
     user.validate(:email)

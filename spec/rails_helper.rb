@@ -12,6 +12,7 @@ require 'capybara-screenshot/rspec'
 require "capybara/poltergeist"
 require 'carrierwave/test/matchers'
 require 'aasm/rspec'
+require 'with_model'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join('spec/shared_examples/**/*.rb')].each { |share| require share }
@@ -28,6 +29,7 @@ RSpec.configure do |config|
   config.include Rectify::RSpec::Helpers
   config.include CarrierWave::Test::Matchers
   config.include I18n
+  config.extend WithModel
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

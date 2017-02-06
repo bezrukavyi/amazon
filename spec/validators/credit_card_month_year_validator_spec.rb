@@ -2,7 +2,17 @@ require 'rails_helper'
 
 RSpec.describe CreditCardMonthYearValidator, type: :validator do
 
-  let(:credit_card) { CreditCardForm.from_model(build :credit_card) }
+  with_model :MockCard do
+    table do |t|
+      t.string :month_year
+    end
+
+    model do
+      validates :month_year, credit_card_month_year: true
+    end
+  end
+
+  let(:credit_card) { MockCard.new(month_year: '12/12') }
 
   describe '#slash_format' do
     it 'valid format' do
