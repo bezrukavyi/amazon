@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   def index
     @sort_types = Book::SORT_TYPES
     @book_count = Book.count
-    @books = Book.filter_with(filter_option).page(params[:page]).with_authors
+    @books = Book.sorted_by(params[:sorted_by]).page(params[:page]).with_authors
   end
 
   def show
@@ -30,10 +30,6 @@ class BooksController < ApplicationController
 
   def set_reviews
     @reviews = @book.reviews
-  end
-
-  def filter_option
-    { with_category: params[:with_category], sorted_by: params[:sorted_by] }
   end
 
   def review_params

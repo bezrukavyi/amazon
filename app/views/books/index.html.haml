@@ -1,32 +1,32 @@
 %main.container
   %h1.general-title-margin= t('.title')
 
-  = form_tag books_path, method: :get, id: 'filter_book' do
+  = form_tag request.original_url, method: :get, id: 'filter_book' do
 
     .hidden-xs.clearfix
       .dropdowns.pull-right
         .dropdown.width-240
-          = render 'drop_down_list', items: @sort_types, type: :sorted_by, title: sort_title
+          = render 'books/drop_down_list', items: @sort_types, type: :sorted_by, title: sort_title
 
       %ul.list-inline.products_list.pt-10.mb-25.mr-240
-        = render 'category_items', categories: @categories
+        = render 'books/category_items', categories: @categories
 
     .dropdowns.mb-25.visible-xs
 
       %p.lead.small.mb-10= t('.filter_by')
       .dropdown
-        = render 'drop_down_list', items: @sort_types, type: :sorted_by, title: sort_title
+        = render 'books/drop_down_list', items: @sort_types, type: :sorted_by, title: sort_title
 
 
       %p.lead.small.mb-10= t('.sorted_by.title')
       .dropdown
-        = render 'drop_down_list', items: @categories, type: :with_category, title: category_title
+        = render 'books/drop_down_list', items: @categories, type: :with_category, title: category_title(@category)
 
 
   .mb-120
     - @books.decorate.in_groups_of(4).each do |group|
       .row
-        = render partial: 'book', collection: group
+        = render partial: 'books/book', collection: group
 
     .text-center
       - page_params = { sorted_by: params[:sorted_by], with_category: params[:with_category] }

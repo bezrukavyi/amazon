@@ -22,8 +22,8 @@ RSpec.describe BooksController, type: :controller do
     end
 
     it 'get filter book' do
-      params = { with_category: 'test', sorted_by: 'low_price' }
-      expect(Book).to receive(:filter_with).with(params).and_return(Book.none)
+      params = { sorted_by: 'low_price' }
+      expect(Book).to receive(:sorted_by).with(params[:sorted_by]).and_return(Book.none)
       get :index, params: params
     end
 

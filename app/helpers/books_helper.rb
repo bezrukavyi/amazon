@@ -1,7 +1,11 @@
 module BooksHelper
-  def category_title
-    type = params[:with_category].blank? ? :all : params[:with_category]
-    t("books.index.sorted_by.#{type}")
+
+  def category_sorted_path(category)
+    category_path(id: category.id, sorted_by: params[:sorted_by])
+  end
+
+  def category_title(category)
+    category.blank? ? t("books.index.sorted_by.all") : category.title
   end
 
   def sort_key

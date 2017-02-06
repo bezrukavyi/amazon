@@ -7,6 +7,7 @@ en:
       step: You must end this step
       order_found: Order not found
       book_found: Book not found
+      category_found: Category not found
       cart_update: "Your cart wasn't updated"
       empty_cart: "Sorry, but your cart is empty"
       review_create: "Your review wasn't created"

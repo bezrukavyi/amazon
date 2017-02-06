@@ -19,7 +19,7 @@ class Book < ApplicationRecord
 
   SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price, :popular]
 
-  scope :sorted_by, -> (type) { send(type) }
+  scope :sorted_by, -> (type) { type.present? ? send(type) : asc_title }
   scope :asc_title, -> { order(title: :asc) }
   scope :desc_title, -> { order(title: :desc) }
   scope :newest, -> { order(created_at: :desc) }
@@ -43,14 +43,6 @@ class Book < ApplicationRecord
     .group('order_items.book_id', 'books.id')
     .order('SUM(order_items.quantity) desc')
     .limit(4)
-  end
-
-  def self.filter_with(options)
-    books = options[:sorted_by] ? Book.all : Book.asc_title
-    options.each do |param, value|
-      books = books.public_send(param, value) if value.present?
-    end
-    books
   end
 
   def in_stock?

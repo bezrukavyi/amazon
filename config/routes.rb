@@ -18,11 +18,9 @@ Rails.application.routes.draw do
     end
 
     resources :books, only: [:index, :show, :update]
+    resources :categories, only: :show
     resources :order_items, only: [:create, :destroy]
-
-    resource :cart, only: [:edit, :update], path_names: { edit: '' },
-      path: 'cart'
-
+    resource :cart, only: [:edit, :update], path_names: { edit: '' }, path: 'cart'
     resources :checkouts, only: [:show, :update]
     resources :orders, only: [:index, :show, :update]
 

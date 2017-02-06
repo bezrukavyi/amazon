@@ -1,10 +1,6 @@
 %li
-  %label
-    = t('books.index.sorted_by.all')
-    = radio_button_tag :with_category, '', false, hidden: true
+  = link_to t('books.index.sorted_by.all'), books_path(sorted_by: params[:sorted_by])
 
 - items.decorate.each do |category|
   %li
-    %label
-      = category.title
-      = radio_button_tag :with_category, category.title, category.current?(params[:with_category]), hidden: true
+    = link_to category.title, category_sorted_path(category)

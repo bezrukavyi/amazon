@@ -18,10 +18,10 @@ RSpec.feature 'Catalog', :type => :feature do
     end
   end
 
-  context 'Filter', js: true do
+  context 'Filter by category' do
     before do
       within '#filter_book' do
-        first('label', text: fantasy.title).click
+        click_link(fantasy.title)
       end
     end
 

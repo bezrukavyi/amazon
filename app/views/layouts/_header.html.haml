@@ -45,7 +45,7 @@
             %ul#shop.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               - @categories.each do |category|
                 %li
-                  = link_to category.title, books_path(with_category: category.title),
+                  = link_to category.title, category,
                     class: 'collapse-link'
 
           - if signed_in?
@@ -90,7 +90,7 @@
             %ul.dropdown-menu
               - @categories.each do |category|
                 %li
-                  = link_to category.title, books_path(with_category: category.title)
+                  = link_to category.title, category
 
           - if signed_in?
             %li.dropdown

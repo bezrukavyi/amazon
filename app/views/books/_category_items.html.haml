@@ -1,13 +1,10 @@
-%li.mr-35{class: "#{'active' if params[:with_category].blank?}"}
-  %label.filter-link
+%li.mr-35{class: "#{'active' if params[:id].blank?}"}
+  = link_to books_path(sorted_by: params[:sorted_by]), class: 'filter-link' do
     = t('books.index.sorted_by.all')
-    = radio_button_tag :with_category, '', false, hidden: true
     %span.badge.general-badge= @book_count
 
 - categories.decorate.each do |category|
-  - chosen = category.current?(params[:with_category])
-  %li.mr-35{ class: "#{'active' if chosen}" }
-    %label.filter-link
+  %li.mr-35{ class: "#{'active' if current_page?(category)}" }
+    = link_to category_sorted_path(category), class: 'filter-link' do
       = category.title
-      = radio_button_tag :with_category, category.title, chosen, hidden: true
       %span.badge.general-badge= category.books_count
