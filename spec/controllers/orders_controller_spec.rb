@@ -15,7 +15,7 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     it 'assigns orders' do
-      expect(Order).to receive(:where).with(user: user)
+      expect(Order).to receive_message_chain(:where, :not_empty)
       get :index
     end
 

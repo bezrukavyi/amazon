@@ -44,6 +44,12 @@ class Order < ApplicationRecord
     end
   end
 
+  def self.not_empty
+    joins(:order_items)
+    .group('orders.id')
+    .having('COUNT(order_items) != 0')
+  end
+
   def sub_total
     order_items.map(&:sub_total).sum
   end
@@ -97,6 +103,10 @@ class Order < ApplicationRecord
   private
 
   def update_total_price
+    if items_count.zero?
+      self.delivery = nil
+      self.coupon = nil
+    end
     self.total_price = calc_total_cost(:coupon, :delivery)
   end
 

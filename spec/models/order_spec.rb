@@ -135,4 +135,10 @@ RSpec.describe Order, type: :model do
     end
   end
 
+  it '.not_empty' do
+    order = create :order, order_items: [create(:order_item)]
+    empty_order = create :order, order_items: []
+    expect(Order.not_empty).not_to include(empty_order)
+  end
+
 end

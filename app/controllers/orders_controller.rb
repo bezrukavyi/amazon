@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   def index
     @states = Order.aasm.states.map(&:name).unshift(:all)
-    @orders = Order.where(user: current_user)
+    @orders = Order.where(user: current_user).not_empty
     @orders = @orders.send("#{params[:state]}") unless default_sort?
   end
 

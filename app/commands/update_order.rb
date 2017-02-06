@@ -28,7 +28,7 @@ class UpdateOrder < Rectify::Command
   end
 
   def coupon_valid?
-    return true if coupon_form.blank? && coupon == order.coupon
+    return true if coupon_form.blank? || ( coupon.present? && coupon == order.coupon )
     coupon_form.present? ? coupon_form.valid? : true
   end
 

@@ -22,7 +22,7 @@ class Checkout::StepPayment < Rectify::Command
   end
 
   def credit_card
-    CreditCard.first_or_create(number: payment_form.number) do |credit_card|
+    CreditCard.find_or_create_by(number: payment_form.number) do |credit_card|
       credit_card.name = payment_form.name
       credit_card.cvv = payment_form.cvv
       credit_card.month_year = payment_form.month_year

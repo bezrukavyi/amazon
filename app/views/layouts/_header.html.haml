@@ -41,8 +41,8 @@
                   class: 'collapse-link'
 
           %li
-            %a{type: "button", 'data-toggle': "collapse", href: "#categories", 'aria-expanded': "false", 'aria-controls': "categories"}= t('shop')
-            %ul#language.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+            %a{type: "button", 'data-toggle': "collapse", href: "#shop", 'aria-expanded': "false", 'aria-controls': "shop"}= t('shop')
+            %ul#shop.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               - @categories.each do |category|
                 %li
                   = link_to category.title, books_path(with_category: category.title),
