@@ -12,6 +12,10 @@ en:
         coupon: Not found coupon by this code
       country_code: "Phone must started by %{code}"
       coupon_used: This coupon has already userd
+      delivery:
+        access_max_days: cant be greater than max days
+      order_item:
+        stock: You cant add more than we have in stock
     placeholders:
       order:
         shipping: :"simple_form.placeholders.address"

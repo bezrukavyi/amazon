@@ -12,6 +12,10 @@ ru:
         coupon: Купона с таким кодом не существует
       country_code: "Телефон должен начинаться с %{code}"
       coupon_used: Этот купон уже был использован
+      delivery:
+        access_max_days: не может быть больше чем макс. срок прибытия
+      order_item:
+        stock: Вы не можете добавить больше, чем у нас есть в наличие
     placeholders:
       order:
         shipping: :"simple_form.placeholders.address"

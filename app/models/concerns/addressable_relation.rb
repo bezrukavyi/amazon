@@ -9,4 +9,13 @@ module AddressableRelation
       accepts_nested_attributes_for address_type
     end
   end
+
+  def addresses
+    Address::TYPES.map { |type| send("#{type}") }
+  end
+
+  def any_address?
+    addresses.any? { |item| item.present? }
+  end
+
 end

@@ -43,7 +43,8 @@ RSpec.describe Delivery, type: :model do
       end
       it 'invalid' do
         delivery = build :delivery, min_days: 10, max_days: 5
-        expect(delivery).not_to be_valid
+        delivery.valid?
+        expect(delivery.errors.full_messages).to include('Min days ' + I18n.t('simple_form.error_notification.delivery.access_max_days'))
       end
     end
   end

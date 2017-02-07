@@ -6,15 +6,17 @@ class Book < ApplicationRecord
   belongs_to :category, counter_cache: true
   has_many :pictures, as: :imageable
   has_many :reviews, -> { where approved: true }
-  has_many :order_items
-  has_many :orders, through: :order_items
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :materials
+
+  has_many :order_items
+  has_many :orders, through: :order_items
 
   validates_associated :authors
   validates :title, :price, :count, presence: true
   validates :count, numericality: { greater_than_or_equal_to: 0 }
   validates :price, numericality: { greater_than: 0 }
+
   validate :access_dimension
 
   SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price, :popular]
@@ -27,12 +29,12 @@ class Book < ApplicationRecord
   scope :hight_price, -> { order(price: :desc) }
   scope :with_authors, -> { includes(:authors) }
 
-  scope :with_category, -> (term) do
-    joins(:category).where("lower(categories.title) = ?", term.downcase)
-  end
-
   scope :full_includes, -> do
     with_authors.includes(:pictures, :materials, reviews: :user)
+  end
+
+  scope :with_category, -> (term) do
+    joins(:category).where("lower(categories.title) = ?", term.downcase)
   end
 
   scope :best_sellers, -> { popular.limit(4) }

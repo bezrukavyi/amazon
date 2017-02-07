@@ -12,7 +12,7 @@ class Delivery < ApplicationRecord
   def access_max_days
     return unless errors.blank?
     if min_days > max_days
-      errors.add(:min_days, 'cant be greater than max days')
+      errors.add(:min_days, I18n.t('simple_form.error_notification.delivery.access_max_days'))
     end
   end
 end

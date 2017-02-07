@@ -51,6 +51,11 @@ class Order < ApplicationRecord
     .having('COUNT(order_items) != 0')
   end
 
+  def access_deliveries
+    return unless shipping
+    @access_deliveries ||= Delivery.where(country: shipping.country)
+  end
+
   def sub_total
     order_items.map(&:sub_total).sum
   end
@@ -65,19 +70,6 @@ class Order < ApplicationRecord
 
   def calc_total_cost(*additions)
     sub_total + additions.map { |addition| send("#{addition}_cost") }.sum
-  end
-
-  def access_deliveries
-    return unless shipping
-    @access_deliveries ||= Delivery.where(country: shipping.country)
-  end
-
-  def addresses
-    [shipping, billing]
-  end
-
-  def any_address?
-    shipping || billing
   end
 
   def items_count

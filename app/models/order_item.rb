@@ -1,4 +1,5 @@
 class OrderItem < ApplicationRecord
+
   default_scope { order(:created_at) }
 
   belongs_to :book
@@ -8,6 +9,7 @@ class OrderItem < ApplicationRecord
 
   validates :quantity, presence: true,
     numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }
+
   validate :stock_validate
 
   def sub_total
@@ -21,8 +23,9 @@ class OrderItem < ApplicationRecord
   end
 
   def stock_validate
-    return if !errors.blank? || quantity <= book.count
-    errors.add(:quantity, 'You cant add more than we have in stock')
+    return if errors.present? || quantity <= book.count
+    errors.add(:quantity, I18n.t('simple_form.error_notification.order_item.stock'))
+
   end
 
 end
