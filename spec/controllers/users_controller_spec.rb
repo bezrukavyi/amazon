@@ -7,6 +7,10 @@ RSpec.describe UsersController, type: :controller do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
+  context 'Concern Addressable' do
+    it_behaves_like 'addressable_attrubutes'
+  end
+
   describe '#GET new' do
     it 'render fast_auth template' do
       get :new, params: { type: 'fast' }

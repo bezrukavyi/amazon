@@ -4,7 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     provider_types.each do |type|
       define_method("#{type}") do
         provider = Provider.authorize(request.env['omniauth.auth'])
-        user_dispatch(provider, type)
+        dispatch_user(provider, type)
       end
     end
   end
@@ -13,7 +13,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
-  def user_dispatch(provider, type)
+  def dispatch_user(provider, type)
     if provider.present? && provider.user.try(:persisted?)
       sign_in_and_redirect provider.user, event: :authentication
       set_flash_message(:notice, :success, kind: t("devise.providers.#{type}"))

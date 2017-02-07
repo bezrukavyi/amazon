@@ -1,7 +1,7 @@
 %li.mr-35{class: "#{'active' if params[:id].blank?}"}
   = link_to books_path(sorted_by: params[:sorted_by]), class: 'filter-link' do
     = t('books.index.sorted_by.all')
-    %span.badge.general-badge= @book_count
+    %span.badge.general-badge= book_count
 
 - categories.decorate.each do |category|
   %li.mr-35{ class: "#{'active' if current_page?(category)}" }

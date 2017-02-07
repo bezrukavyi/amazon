@@ -11,25 +11,17 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe 'GET #show' do
-    it 'get category' do
-      expect(Category).to receive(:find_by).with(id: subject.id.to_s)
+    it 'when category exist' do
+      params = { sorted_by: 'asc_title', id: subject.id }
+      allow(controller).to receive(:params).and_return(params)
+      expect(Books::IndexPresenter).to receive(:new).with(params: params, category: subject)
       get :show, params: { id: subject.id }
     end
-
-    it 'get book_count' do
-      expect(Book).to receive(:count)
-      get :show, params: { id: subject.id }
-    end
-
-    it 'get sort_types' do
-      get :show, params: { id: subject.id }
-      expect(assigns(:sort_types)).not_to be_nil
-    end
-
-    it 'get filter book' do
-      params = { id: subject.id, sorted_by: 'low_price' }
-      expect(Book).to receive(:sorted_by).with(params[:sorted_by]).and_return(Book.none)
-      get :show, params: params
+    it 'when category isnt exist' do
+      expect(Books::IndexPresenter).not_to receive(:new)
+      get :show, params: { id: 10001 }
+      expect(response).to redirect_to(books_path)
+      expect(flash[:alert]).to eq(I18n.t('flash.failure.category_found'))
     end
   end
 

@@ -10,23 +10,12 @@ RSpec.describe BooksController, type: :controller do
   end
 
   describe 'GET #index' do
-
-    it 'get book_count' do
-      expect(Book).to receive(:count)
+    it 'get presenter' do
+      params = { sorted_by: 'asc_title' }
+      allow(controller).to receive(:params).and_return(params)
+      expect(Books::IndexPresenter).to receive(:new).with(params: params)
       get :index
     end
-
-    it 'get sort_types' do
-      get :index
-      expect(assigns(:sort_types)).not_to be_nil
-    end
-
-    it 'get filter book' do
-      params = { sorted_by: 'low_price' }
-      expect(Book).to receive(:sorted_by).with(params[:sorted_by]).and_return(Book.none)
-      get :index, params: params
-    end
-
   end
 
   describe 'GET #show' do

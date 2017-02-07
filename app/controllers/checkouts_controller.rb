@@ -5,8 +5,7 @@ class CheckoutsController < ApplicationController
   steps :address, :delivery, :payment, :confirm, :complete
 
   before_action :fast_authenticate_user!
-  before_action :set_steps
-  before_action :set_step_component
+  before_action :set_step_components
 
   def show
     Checkout::AccessStep.call(current_order, current_user, step) do
@@ -26,17 +25,14 @@ class CheckoutsController < ApplicationController
 
   private
 
-  def set_steps
+  def set_step_components
     @steps = steps
-  end
-
-  def set_step_component
     send("#{step}_components") if respond_to?("#{step}_components", :private)
   end
 
   def address_components
     object = current_order.any_address? ? current_order : current_user
-    set_addresses(object)
+    set_addresses_by_model(object)
     set_countries
   end
 

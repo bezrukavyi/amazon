@@ -8,13 +8,10 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_one :coupon, dependent: :nullify
 
+  Address::TYPES.each { |type| has_address type }
+
   accepts_nested_attributes_for :order_items, allow_destroy: true
   accepts_nested_attributes_for :credit_card
-
-  Address::TYPES.each do |type|
-    has_address type
-    accepts_nested_attributes_for type
-  end
 
   before_save :update_total_price
 
@@ -42,6 +39,10 @@ class Order < ApplicationRecord
     event :cancel do
       transitions from: :in_progress, to: :canceled
     end
+  end
+
+  def self.assm_states
+    aasm.states.map(&:name)
   end
 
   def self.not_empty

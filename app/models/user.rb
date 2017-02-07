@@ -10,17 +10,14 @@ class User < ApplicationRecord
   has_many :credit_cards, dependent: :destroy
   has_many :orders, dependent: :nullify
 
+  Address::TYPES.each { |type| has_address type }
+
   validates :first_name, :last_name, length: { maximum: 50 }, human_name: :one
   validates :email, length: { maximum: 63 }, human_email: true
   validates :password, human_password: true, if: :password_required?
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :omniauthable, :confirmable
-
-  Address::TYPES.each do |type|
-    has_address type
-    accepts_nested_attributes_for type
-  end
 
   def order_in_processing
     @order_in_processing ||= orders.processing.last || orders.create

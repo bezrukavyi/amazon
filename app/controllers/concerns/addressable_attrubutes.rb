@@ -5,19 +5,11 @@ module AddressableAttrubutes
     attr_accessor(*Address::TYPES)
   end
 
-  def set_addresses(current_object)
+  def set_addresses_by_model(current_object)
     Address::TYPES.each do |type|
       address = current_object.send(type)
       send("#{type}=", AddressForm.from_model(address))
     end
-  end
-
-  def all_addresses
-    Address::TYPES.map { |type| send("#{type}") }
-  end
-
-  def set_address_by_params(params)
-    send("#{params[:address_type]}=", AddressForm.from_params(params))
   end
 
   def set_addresses_by_params(params)
@@ -29,6 +21,10 @@ module AddressableAttrubutes
       end
       set_address_by_params(form_params)
     end
+  end
+
+  def set_address_by_params(params)
+    send("#{params[:address_type]}=", AddressForm.from_params(params))
   end
 
   def set_countries

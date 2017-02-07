@@ -8,6 +8,10 @@ RSpec.describe CheckoutsController, type: :controller do
     sign_in user
   end
 
+  context 'Concern Addressable' do
+    it_behaves_like 'addressable_attrubutes'
+  end
+
   describe 'GET #show' do
 
     context 'accessed' do

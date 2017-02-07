@@ -2,9 +2,9 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @states = Order.aasm.states.map(&:name).unshift(:all)
+    @states = Order.assm_states.unshift(:all)
     @orders = Order.where(user: current_user).not_empty
-    @orders = @orders.send("#{params[:state]}") unless default_sort?
+    @orders = @orders.send("#{params[:state]}") unless default_state?
   end
 
   def show
@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def default_sort?
+  def default_state?
     return true unless params[:state]
     params[:state] == @states.first
   end

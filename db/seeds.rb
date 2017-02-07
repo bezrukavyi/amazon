@@ -87,7 +87,7 @@ User.find_each do |user|
     billing.phone = "+#{country.code}632863823"
   end
 
-  rand(5..10).times do
+  rand(3..6).times do
 
     order = Order.create! do |order|
       order.credit_card = card.dup

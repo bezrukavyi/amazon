@@ -1,17 +1,17 @@
 class UsersController < Devise::RegistrationsController
-  before_action :authenticate_user!
-
   include AddressableAttrubutes
-  before_action only: [:edit, :update] { set_addresses(current_user) }
+
+  before_action :authenticate_user!
+  before_action only: [:edit, :update] { set_addresses_by_model(current_user) }
   before_action :set_countries, only: [:edit, :update]
 
   def new
-    super { render 'fast_auth' and return if params[:type] == 'fast' }
+    super { render 'fast_auth' and return if fast_auth? }
   end
 
   def create
     super do
-      if params[:type] == 'fast'
+      if fast_auth?
         resource.skip_password_validation = true
         resource.save
       end
@@ -38,7 +38,7 @@ class UsersController < Devise::RegistrationsController
       bypass_sign_in current_user
       redirect_to edit_user_path, notice: t('flash.success.user_update'), anchor: 'privacy'
     else
-      template = params[:type] == 'fast' ? 'fast_auth' : 'edit'
+      template = fast_auth? ? 'fast_auth' : 'edit'
       flash_render template, alert: t('flash.failure.user_update')
     end
   end
@@ -54,6 +54,10 @@ class UsersController < Devise::RegistrationsController
   def allowed_params
     params.require(:user).permit(:email, :password, :password_confirmation,
       :current_password, :first_name, :last_name)
+  end
+
+  def fast_auth?
+    params[:type] == 'fast'
   end
 
 end

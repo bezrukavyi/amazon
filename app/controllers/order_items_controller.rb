@@ -6,7 +6,7 @@ class OrderItemsController < ApplicationController
     if order_item.try(:save) && current_order.save
       flash[:notice] = t('flash.success.book_add', count: quantity)
     else
-      errors = order_item&.decorate&.all_errors
+      errors = order_item.decorate.all_errors if order_item.present?
       flash[:alert] = t('flash.failure.book_add', errors: errors)
     end
     redirect_back(fallback_location: book_path(book_id))

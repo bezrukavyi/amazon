@@ -4,9 +4,7 @@ class BooksController < ApplicationController
   before_action :set_reviews, only: [:show, :update]
 
   def index
-    @sort_types = Book::SORT_TYPES
-    @book_count = Book.count
-    @books = Book.sorted_by(params[:sorted_by]).page(params[:page]).with_authors
+    @presenter = Books::IndexPresenter.new(params: params)
   end
 
   def show
