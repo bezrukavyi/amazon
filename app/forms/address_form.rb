@@ -14,20 +14,19 @@ class AddressForm < Rectify::Form
   end
 
   validates :name, length: { maximum: 50 }, address: { name: true }
-
+  validates :zip, length: { maximum: 10 }, address: { zip: true }
   validates :phone, length: { minimum: 9, maximum: 15 },
     format: { with: /\A\+\d{9,15}\z/ }
-
-  validates :zip, length: { maximum: 10 }, address: { zip: true }
-
   validates :first_name, :last_name, :city, length: { maximum: 50 },
     human_name: :one
 
   validate :wrong_code
 
+  private
+
   def wrong_code
     return unless country = Country.find_by_id(country_id)
-    return if phone =~ /^\+#{country.code}/
+    return if phone =~ /\A\+#{country.code}/
     errors.add(:phone, I18n.t('simple_form.error_notification.country_code',
       code: "+#{country.code}"))
   end

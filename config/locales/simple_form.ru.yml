@@ -9,7 +9,9 @@ ru:
       default_message: "Пожалуйста, ознакомьтесь с проблемами, указанными ниже:"
       not_found:
         country: 'Мы не поддерживаем эту страну'
+        coupon: Купона с таким кодом не существует
       country_code: "Телефон должен начинаться с %{code}"
+      coupon_used: Этот купон уже был использован
     placeholders:
       order:
         shipping: :"simple_form.placeholders.address"

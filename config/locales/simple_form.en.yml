@@ -9,7 +9,9 @@ en:
       default_message: "Please review the problems below:"
       not_found:
         country: 'We not support this country'
+        coupon: Not found coupon by this code
       country_code: "Phone must started by %{code}"
+      coupon_used: This coupon has already userd
     placeholders:
       order:
         shipping: :"simple_form.placeholders.address"
@@ -31,8 +33,8 @@ en:
         phone: Enter Phone
       review:
         title: Enter Title
-        grade: Enter Grade
-        desc: Enter Review (from 1 to 5)
+        grade: Enter Grade (from 1 to 5)
+        desc: Enter Review
       coupon:
         code: Enter Your Coupon Code
       credit_card:

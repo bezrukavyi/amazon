@@ -15,12 +15,14 @@ RSpec.describe CouponForm, :address_form do
     end
     it '#exist_coupon' do
       subject.code = 'Test'
-      is_expected.not_to be_valid
+      subject.valid?
+      expect(subject.errors.full_messages).to include('Code ' + I18n.t('simple_form.error_notification.not_found.coupon'))
     end
-    it '#exist_coupon' do
+    it '#activated_coupon' do
       used_coupon = create :coupon, :used
       coupon_form = CouponForm.from_model used_coupon
-      expect(coupon_form.valid?).to be_falsey
+      coupon_form.valid?
+      expect(coupon_form.errors.full_messages).to include('Code ' + I18n.t('simple_form.error_notification.coupon_used'))
     end
   end
 

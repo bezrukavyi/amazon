@@ -1,8 +1,5 @@
 class CouponForm < Rectify::Form
 
-  STRING_ATTRS = [:title, :desc]
-  INTEGER_ATTRS = [:grade, :book_id, :user_id]
-
   attribute :code, String
 
   validate :exist_coupon
@@ -12,12 +9,12 @@ class CouponForm < Rectify::Form
 
   def exist_coupon
     return if code.blank? || !current_coupon.blank?
-    errors.add(:code, 'Not found this coupon')
+    errors.add(:code, I18n.t('simple_form.error_notification.not_found.coupon'))
   end
 
   def activated_coupon
     return if code.blank? || !errors.blank? || current_coupon.try(:active?)
-    errors.add(:code, 'This coupon was used')
+    errors.add(:code, I18n.t('simple_form.error_notification.coupon_used'))
   end
 
   private

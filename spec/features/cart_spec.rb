@@ -70,7 +70,7 @@ RSpec.feature 'Cart', :type => :feature do
         click_button I18n.t('carts.edit.update_cart')
       end
       expect(page).to have_content(I18n.t('flash.failure.cart_update'))
-      expect(page).to have_content('Not found this coupon')
+      expect(page).to have_content(I18n.t('simple_form.error_notification.not_found.coupon'))
     end
   end
 

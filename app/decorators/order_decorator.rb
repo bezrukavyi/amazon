@@ -11,7 +11,7 @@ class OrderDecorator < Draper::Decorator
   end
 
   def completed_at
-    updated_at.strftime("%Y-%m-%d") unless processing?
+    updated_at.strftime("%Y-%m-%d") if delivered?
   end
 
 end
