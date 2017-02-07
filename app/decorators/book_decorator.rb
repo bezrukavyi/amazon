@@ -42,6 +42,10 @@ class BookDecorator < Draper::Decorator
     truncate desc, length: 200
   end
 
+  def long_desc?
+    desc.length > 200
+  end
+
   def parse_dimension
     dimension.map do |key, value|
       [I18n.t("books.show.dimensions.#{key}"), value].join(':')

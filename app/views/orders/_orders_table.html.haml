@@ -1,14 +1,11 @@
 %table.table.table-hover
   %thead
     %tr
-      %th
-        %span.in-grey-600= t('orders.index.number')
-      %th
-        %span.in-grey-600= t('orders.index.completed_at')
-      %th
-        %span.in-grey-600= t('orders.index.status')
-      %th
-        %span.in-grey-600= t('orders.index.total')
+      - ['orders.index.number', 'orders.index.completed_at',
+        'orders.index.status', 'orders.index.total'].each do |title|
+        %th
+          %span.in-grey-600= t(title)
+
   %tbody
     - orders.each do |order|
       %tr{ class: 'table-link', 'data-href': order_state_path(order) }

@@ -2,6 +2,7 @@
   %h1.mt-0.mb-25= t('.title')
 
   = form_tag orders_path, method: :get, id: 'filter_orders' do
+
     %p.lead.small.mb-10.visible-xs Sort by
     .dropdowns.dropdown.general-order-dropdown
       %a#order_types.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}

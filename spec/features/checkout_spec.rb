@@ -54,6 +54,27 @@ RSpec.feature 'Checkout', :type => :feature do
     end
   end
 
+  scenario 'When user have billing address' do
+    address = create :address_user, :billing
+    user = address.addressable
+    order = create :order, :with_items, user: user
+    allow_any_instance_of(CheckoutsController).to receive(:current_order).and_return(order)
+    login_as(user, scope: :user)
+    visit checkout_path(id: :address)
+    within('div', id: 'billing_address') do
+      expect(find_field(I18n.t('simple_form.labels.address.first_name')).value).to eq(address.first_name)
+      expect(find_field(I18n.t('simple_form.labels.address.last_name')).value).to eq(address.last_name)
+      expect(find_field(I18n.t('simple_form.labels.address.name')).value).to eq(address.name)
+      expect(find_field(I18n.t('simple_form.labels.address.city')).value).to eq(address.city)
+      expect(find_field(I18n.t('simple_form.labels.address.zip')).value).to eq(address.zip)
+      expect(find_field(I18n.t('simple_form.labels.address.phone')).value).to eq(address.phone)
+    end
+    first('label', text: I18n.t('checkouts.address.use_billing')).click
+    click_button I18n.t('simple_form.titles.save_and_continue')
+
+    expect(current_path).to eq checkout_path(id: :delivery)
+  end
+
   context 'Checkout login' do
     scenario 'quik regist' do
       visit checkout_path(id: :address)

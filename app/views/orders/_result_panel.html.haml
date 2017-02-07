@@ -1,4 +1,6 @@
 - order ||= current_order
+- components ||= [:coupon, :delivery]
+
 %div{ class: "#{'general-text-align mb-60' unless local_assigns[:right]}" }
   %p.in-gold-500.font-18= t('carts.edit.order_summary')
   %table.general-summary-table{ class: "#{'general-summary-table-right general-text-right' if local_assigns[:right]}" }
@@ -9,7 +11,6 @@
         %td
           %p.font-16= currency_price(order.sub_total)
 
-      - components ||= [:coupon, :delivery]
       - components.each do |component|
         %tr
           %td

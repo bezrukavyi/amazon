@@ -1,5 +1,5 @@
 %main.container
-  = link_to books_path, class: 'general-back-link' do
+  = link_to cookies[:last_catalog_path], class: 'general-back-link' do
     %i.fa.fa-long-arrow-left.mr-15
     = t('.back_to_result')
 
@@ -15,12 +15,14 @@
     .col-sm-6
       %h1.mt-res-0= @book.title
       %p.lead.small= @book.authors_name
+
       .row
         .col-xs-12.col-md-4
           %p.h1.in-gold-500.mt-10= @book.currency_price
 
         = form_tag order_items_path, method: :post, id: 'add_to_cart' do
           = hidden_field_tag :book_id, @book.id
+
           .col-xs-5.col-md-3
             .input-group.general-position.align-center.quantity-field
               %div.input-link.quantity-minus
@@ -36,16 +38,19 @@
               .general-position.align-center
                 %h3.mt-res-0= t('.not_in_stock')
 
-
       .general-info-wrap.divider-lg
         %p= t('description')
-        %div.lead.small.line-height-2.description-block
-          = @book.desc
-          %a.in-gold-500.ml-10.desc_button= t('.hide')
+        - if @book.long_desc?
+          %div.lead.small.line-height-2.description-block
+            = @book.desc
+            %a.in-gold-500.ml-10.desc_button= t('.hide')
 
         %div.lead.small.line-height-2.description-block.active
-          = @book.short_desc
-          %a.in-gold-500.ml-10.desc_button= t('.read_more')
+          - if @book.long_desc?
+            = @book.short_desc
+            %a.in-gold-500.ml-10.desc_button= t('.read_more')
+          - else
+            = @book.desc
 
         - BookDecorator::MAIN_PARAMS.each do |attribute_name, i18n_title|
           .general-info-wrap.divider-lg

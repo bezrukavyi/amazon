@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   before_action :set_reviews, only: [:show, :update]
 
   def index
+    cookies[:last_catalog_path] = books_path(sorted_by: params[:sorted_by])
     @presenter = Books::IndexPresenter.new(params: params)
   end
 
