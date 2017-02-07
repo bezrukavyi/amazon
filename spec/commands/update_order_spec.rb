@@ -41,6 +41,15 @@ describe UpdateOrder do
     it 'set new coupon' do
       expect { subject.call }.to change{ order.reload.coupon }.from(nil).to(coupon)
     end
+    it 'when coupon not passed' do
+      allow(subject).to receive(:coupon_form).and_return(nil)
+      expect { subject.call }.to broadcast(:valid)
+    end
+    it 'when coupon exist and it belongs subject' do
+      order.coupon = coupon
+      allow(subject).to receive(:coupon_form).and_return(CouponForm.from_model(coupon))
+      expect { subject.call }.to broadcast(:valid)
+    end
   end
 
 end

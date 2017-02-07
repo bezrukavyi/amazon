@@ -20,7 +20,7 @@ class Provider < ApplicationRecord
   private
 
   def self.set_user(auth, password)
-    User.where(email: auth.info.email).first_or_initialize do |user|
+    User.find_or_initialize_by(email: auth.info.email) do |user|
       user.password = password
       user.remote_avatar_url = parse_image(auth)
       user.first_name = parse_name(auth).first

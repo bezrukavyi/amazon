@@ -19,7 +19,7 @@ class UpdateOrder < Rectify::Command
   private
 
   def order_params
-    @params.require(:order).permit(order_items_attributes: [:id, :quantity])
+    params.require(:order).permit(order_items_attributes: [:id, :quantity])
   end
 
   def update_order
@@ -29,7 +29,7 @@ class UpdateOrder < Rectify::Command
 
   def coupon_valid?
     return true if coupon_form.blank? || ( coupon.present? && coupon == order.coupon )
-    coupon_form.present? ? coupon_form.valid? : true
+    coupon_form.valid?
   end
 
   def coupon

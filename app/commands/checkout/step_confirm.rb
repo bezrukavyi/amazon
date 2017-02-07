@@ -11,17 +11,13 @@ class Checkout::StepConfirm < Rectify::Command
   def call
     return broadcast(:invalid) if confirm.blank? || user.blank?
     transaction do
-      update_order
+      order.confirm!
       send_mail
     end
     broadcast :valid
   end
 
   private
-
-  def update_order
-    order.confirm!
-  end
 
   def send_mail
     CheckoutMailer.complete(user, order).deliver
