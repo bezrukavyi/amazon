@@ -5,7 +5,13 @@
     = field.input :title
 
   .form-group
-    = field.input :grade, as: :integer
+    = field.input :grade, input_html: { class: 'hidden-fields' } do
+      .rate-fields
+        - 5.downto(1).each do |grade|
+          = field.radio_button :grade, grade, id: "rate_#{grade}",
+            class: 'input-star', hidden: true
+          %label.label-star{ for: "rate_#{grade}" }
+            %i.fa.fa-star.rate-empty
 
   .form-group
     = field.input :desc, as: :text
