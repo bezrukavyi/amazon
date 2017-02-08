@@ -17,7 +17,6 @@
     %tr
       %td.vertical-middle
         %span.in-grey-600= t('carts.edit.quantity')
-        %p.in-grey-600.fw-300= order_item.book.decorate.short_desc
       %td
         .input-group.align-center
           = render 'order_items/quantity_field', order_item: order_item, field: local_assigns[:field]
