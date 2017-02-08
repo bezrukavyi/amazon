@@ -19,8 +19,8 @@ RSpec.feature 'BookPage', :type => :feature do
     scenario 'success create' do
       within '#review_form' do
         fill_in I18n.t('simple_form.labels.review.title'), with: review_attr[:title]
-        fill_in I18n.t('simple_form.labels.review.grade'), with: review_attr[:grade]
         fill_in I18n.t('simple_form.labels.review.desc'), with: review_attr[:desc]
+        choose('rate_5', visible: false)
         click_button I18n.t('simple_form.titles.save')
       end
       expect(page).to have_content(I18n.t('flash.success.review_create'))
