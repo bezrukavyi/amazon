@@ -28,15 +28,82 @@ RailsAdmin.config do |config|
     dashboard                     # mandatory
     index                         # mandatory
     new
-    export
     bulk_delete
     show
     edit
-    delete
+    delete do
+      except ['Order, OrderItem']
+    end
     show_in_app
+    state
 
     ## With an audit adapter, you can add:
     # history_index
     # history_show
   end
+
+  config.model 'Order' do
+    list do
+      scopes [:with_users]
+      fields :id, :created_at
+      field :state, :state
+    end
+    edit do
+      field :state, :enum do
+        enum_method do
+          :assm_states
+        end
+      end
+      include_all_fields
+    end
+
+    state({ states: {
+      processing: 'btn-info',
+      in_progress: 'btn-primary',
+      in_transit: 'btn-warning',
+      delivered: 'btn-success',
+      canceled: 'btn-danger' } })
+  end
+
+
+  config.model 'Book' do
+    list do
+      scopes [:with_authors]
+      fields :avatar, :category, :title, :authors, :desc, :price
+    end
+    exclude_fields :orders, :order_items
+  end
+
+  config.model 'Author' do
+    fields :first_name, :last_name, :desc
+  end
+
+  config.model 'Category' do
+    list do
+      fields :title, :books_count
+    end
+    edit do
+      fields :title
+    end
+  end
+
+  config.model 'Review' do
+    fields :book, :created_at, :user, :approved, :verified
+    edit do
+      exclude_fields :verified
+    end
+  end
+
+  config.model 'Country' do
+    fields :name, :code, :deliveries
+  end
+
+  config.model 'Delivery' do
+    exclude_fields :id, :created_at, :updated_at
+  end
+
+  config.model 'Material' do
+    exclude_fields :id, :created_at, :updated_at, :books
+  end
+
 end

@@ -52,6 +52,8 @@ gem 'omniauth-google-oauth2'
 
 gem 'rails_admin'
 
+gem 'rails_admin_aasm'
+
 gem 'cancancan'
 
 gem 'mini_magick'

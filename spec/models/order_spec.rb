@@ -21,11 +21,11 @@ RSpec.describe Order, type: :model do
     it 'processing -> in_progress' do
       expect(subject).to transition_from(:processing).to(:in_progress).on_event(:confirm)
     end
-    it 'in_progress -> in_delivery' do
-      expect(subject).to transition_from(:in_progress).to(:in_delivery).on_event(:send_to_user)
+    it 'in_progress -> in_transit' do
+      expect(subject).to transition_from(:in_progress).to(:in_transit).on_event(:sent)
     end
-    it 'in_delivery -> delivered' do
-      expect(subject).to transition_from(:in_delivery).to(:delivered).on_event(:deliver)
+    it 'in_transit -> delivered' do
+      expect(subject).to transition_from(:in_transit).to(:delivered).on_event(:delivered)
     end
     it 'in_progress -> cancel' do
       expect(subject).to transition_from(:in_progress).to(:canceled).on_event(:cancel)

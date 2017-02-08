@@ -5,9 +5,9 @@ ru:
       title: Мои Заказы
       states:
         all: Все заказы
-        processing: В ожидании обработки
-        in_progress: В прогрессе
-        in_delivery: В пути
+        processing: Оформляется
+        in_progress: В процессе обработки
+        in_transit: В процессе перевозки
         delivered: Доставлен
         canceled: Отменен
       number: Номер

@@ -16,11 +16,12 @@ class Order < ApplicationRecord
   before_save :update_total_price
 
   scope :with_items_book, -> { includes(order_items: :book) }
+  scope :with_users, -> { where.not(user_id: nil) }
 
   aasm column: :state, whiny_transitions: false do
     state :processing, initial: true
     state :in_progress
-    state :in_delivery
+    state :in_transit
     state :delivered
     state :canceled
 
@@ -28,12 +29,12 @@ class Order < ApplicationRecord
       transitions from: :processing, to: :in_progress
     end
 
-    event :send_to_user do
-      transitions from: :in_progress, to: :in_delivery
+    event :sent do
+      transitions from: :in_progress, to: :in_transit
     end
 
-    event :deliver do
-      transitions from: :in_delivery, to: :delivered
+    event :delivered do
+      transitions from: :in_transit, to: :delivered
     end
 
     event :cancel do
