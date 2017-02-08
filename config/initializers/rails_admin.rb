@@ -87,9 +87,15 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Review' do
-    fields :book, :created_at, :user
-    field :state, :state
-    field :verified
+    list do
+      fields :title, :desc, :book, :created_at, :user
+      field :state, :state
+      field :verified
+    end
+
+    show do
+      fields :title, :desc, :book, :created_at, :user, :state, :verified
+    end
 
     edit do
       field :state, :enum do
@@ -97,7 +103,8 @@ RailsAdmin.config do |config|
           :assm_states
         end
       end
-      exclude_fields :verified
+      fields :book, :created_at, :user
+      exclude_fields :title, :desc, :verified
     end
 
     state({
