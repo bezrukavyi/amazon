@@ -65,7 +65,6 @@ RailsAdmin.config do |config|
       canceled: 'btn-danger' } })
   end
 
-
   config.model 'Book' do
     list do
       scopes [:with_authors]
@@ -88,10 +87,28 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Review' do
-    fields :book, :created_at, :user, :approved, :verified
+    fields :book, :created_at, :user
+    field :state, :state
+    field :verified
+
     edit do
+      field :state, :enum do
+        enum_method do
+          :assm_states
+        end
+      end
       exclude_fields :verified
     end
+
+    state({
+    states: {
+      unprocessed: 'btn-warning',
+      rejected: 'btn-danger',
+      approved: 'btn-success' },
+    events: {
+      approve: 'btn-success',
+      reject: 'btn-danger' }
+    })
   end
 
   config.model 'Country' do

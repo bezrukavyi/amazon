@@ -9,20 +9,13 @@ RSpec.describe Review, type: :model do
     it { should belong_to(:user) }
   end
 
-  context 'scopes' do
-
-    before do
-      @first_review = create :review, approved: false
-      @second_review = create :review, approved: true
-      @third_review = create :review, approved: true
+  context 'aasm state' do
+    it 'unprocessed -> approved' do
+      expect(subject).to transition_from(:unprocessed).to(:approved).on_event(:approve)
     end
-
-    it '.not_approved' do
-      expect(Review.not_approved).to eq([@first_review])
-    end
-
-    it '.approved' do
-      expect(Review.approved).to eq([@second_review, @third_review])
+    it 'unprocessed -> rejecte' do
+      expect(subject).to transition_from(:unprocessed).to(:rejected).on_event(:reject)
     end
   end
+
 end
