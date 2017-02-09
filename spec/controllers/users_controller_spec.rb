@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe UsersController, type: :controller do
+describe UsersController, type: :controller do
   subject { create :user }
 
   before(:each) do

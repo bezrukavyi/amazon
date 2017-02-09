@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe HumanNameValidator, type: :validator do
+describe HumanNameValidator, type: :validator do
 
   with_model :MockUser do
     table do |t|

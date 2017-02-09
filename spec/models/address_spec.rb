@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Address, type: :model do
+describe Address, type: :model do
 
   subject { build :address_user, :billing }
 

@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe HumanEmailValidator, type: :validator do
+describe HumanEmailValidator, type: :validator do
 
   with_model :MockUser do
     table do |t|

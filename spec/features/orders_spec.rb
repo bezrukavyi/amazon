@@ -1,7 +1,6 @@
-require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
-RSpec.feature 'Orders', :type => :feature do
+feature 'Orders', :type => :feature do
 
   let(:user) { create :user }
 

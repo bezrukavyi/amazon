@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe ImageUploader do
+describe ImageUploader do
 
   let(:file) { fixture_file_upload('/books/test_picture.jpg') }
   let(:picture) { create :picture }

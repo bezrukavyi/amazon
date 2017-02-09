@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe CategoriesController, type: :controller do
+describe CategoriesController, type: :controller do
 
   subject { create :category }
   let(:book) { create :book, category: subject }

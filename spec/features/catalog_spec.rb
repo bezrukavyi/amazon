@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.feature 'Catalog', :type => :feature do
+feature 'Catalog', :type => :feature do
 
   let(:fantasy) { create :category }
   let(:drama) { create :category }

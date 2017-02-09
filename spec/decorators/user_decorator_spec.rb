@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe UserDecorator do
 
   subject { create(:user).decorate }

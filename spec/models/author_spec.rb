@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Author, type: :model do
+describe Author, type: :model do
   subject { build :author }
 
   context 'association' do

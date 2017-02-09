@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe CheckoutsController, type: :controller do
+describe CheckoutsController, type: :controller do
 
   let(:user) { create :user }
 

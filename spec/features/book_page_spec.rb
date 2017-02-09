@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.feature 'BookPage', :type => :feature do
+feature 'BookPage', :type => :feature do
 
   let(:review_attr) { attributes_for :review }
   let(:user) { create :user }

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Checkout::StepDelivery do
 
   let(:order) { create :order, :with_items }

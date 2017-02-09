@@ -1,7 +1,6 @@
-require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
-RSpec.feature 'Checkout', :type => :feature do
+feature 'Checkout', :type => :feature do
 
   let(:coupon) { create :coupon }
   let(:order) { create :order, :with_items, coupon: coupon }

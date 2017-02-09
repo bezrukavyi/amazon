@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe AddressValidator, type: :validator do
+describe AddressValidator, type: :validator do
 
   with_model :MockAddress do
     table do |t|

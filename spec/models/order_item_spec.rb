@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe OrderItem, type: :model do
+describe OrderItem, type: :model do
 
   subject { build :order_item }
   let(:order) { order_item.order }

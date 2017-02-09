@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Checkout::AccessStep do
 
   let(:user) { create :user, :full_package }

@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Coupon, type: :model do
+describe Coupon, type: :model do
   subject { build :coupon }
 
   context 'associations' do

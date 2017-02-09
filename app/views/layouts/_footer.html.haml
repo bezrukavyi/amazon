@@ -15,8 +15,8 @@
               = link_to t('settings'), edit_user_path, class: 'nav-link'
 
       .col-sm-3
-        %p.general-nav-mail support@bookstore.com
-        %p.general-nav-number (555)-555-5555
+        %p.general-nav-mail= Figaro.env.mail_support
+        %p.general-nav-number= Figaro.env.phone
         %ul.list-inline.general-align
           %li
             %a.nav-link{href: "#"}

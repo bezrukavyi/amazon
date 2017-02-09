@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe CreateReview do
   let(:user) { create :user }
   let(:review_form) { ReviewForm.from_params attributes_for(:review) }

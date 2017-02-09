@@ -1,6 +1,4 @@
-require "rails_helper"
-
-RSpec.describe CheckoutMailer, type: :mailer do
+describe CheckoutMailer, type: :mailer do
 
   describe '#complete' do
     let(:user) { create :user }

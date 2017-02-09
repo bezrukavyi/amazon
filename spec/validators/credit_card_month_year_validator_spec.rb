@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe CreditCardMonthYearValidator, type: :validator do
+describe CreditCardMonthYearValidator, type: :validator do
 
   with_model :MockCard do
     table do |t|

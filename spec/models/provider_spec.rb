@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Provider, type: :model do
+describe Provider, type: :model do
 
   subject { create :provider }
   let(:user) { subject.user }

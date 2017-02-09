@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe CouponForm, :address_form do
+describe CouponForm, :address_form do
 
   let(:coupon) { create :coupon }
   subject { CouponForm.from_model coupon }

@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Delivery, type: :model do
+describe Delivery, type: :model do
 
   subject { build :delivery }
 

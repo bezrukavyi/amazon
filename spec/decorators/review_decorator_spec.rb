@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe ReviewDecorator do
 
   subject { create(:review).decorate }

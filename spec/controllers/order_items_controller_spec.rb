@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe OrderItemsController, type: :controller do
+describe OrderItemsController, type: :controller do
 
   let(:user) { create :user }
   let(:order) { create :order, :with_items }

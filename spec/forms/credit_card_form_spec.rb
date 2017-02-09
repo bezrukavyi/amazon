@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe CreditCardForm, :credit_card_form do
+describe CreditCardForm, :credit_card_form do
 
   context 'validation' do
     subject { CreditCardForm.from_model(build :credit_card) }

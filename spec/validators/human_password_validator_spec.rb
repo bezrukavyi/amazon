@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe HumanPasswordValidator, type: :validator do
+describe HumanPasswordValidator, type: :validator do
 
   with_model :MockUser do
     table do |t|

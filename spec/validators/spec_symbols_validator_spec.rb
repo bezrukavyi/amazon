@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe SpecSymbolsValidator, type: :validator do
+describe SpecSymbolsValidator, type: :validator do
 
   with_model :MockReview do
     table do |t|

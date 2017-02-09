@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe ReviewForm, :review_form do
+describe ReviewForm, :review_form do
 
   subject { ReviewForm.from_params attributes_for(:review) }
 

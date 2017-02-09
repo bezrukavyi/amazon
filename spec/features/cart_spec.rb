@@ -1,7 +1,6 @@
-require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
-RSpec.feature 'Cart', :type => :feature do
+feature 'Cart', :type => :feature do
 
   let(:first_book) { create :book, price: 100.00 }
   let(:second_book) { create :book, price: 50.00 }

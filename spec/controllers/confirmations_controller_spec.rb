@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe ConfirmationsController, type: :controller do
+describe ConfirmationsController, type: :controller do
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:user]

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Checkout::StepConfirm do
 
   let(:order) { create :order, :checkout_package, user: nil }

@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Material, type: :model do
+describe Material, type: :model do
 
   subject { build :material }
 

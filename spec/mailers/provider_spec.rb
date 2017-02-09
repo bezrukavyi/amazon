@@ -1,6 +1,4 @@
-require "rails_helper"
-
-RSpec.describe ProviderMailer, type: :mailer do
+describe ProviderMailer, type: :mailer do
   describe '#autorize' do
     let(:user) { create :user }
     let(:mail) { described_class.authorize(user: user, provider: 'Facebook', password: 'test').deliver_now }

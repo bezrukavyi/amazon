@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Books::IndexPresenter do
 
   before do

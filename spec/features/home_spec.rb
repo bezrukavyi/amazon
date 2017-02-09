@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.feature 'Home', :type => :feature do
+feature 'Home', :type => :feature do
 
   before do
     @mobile = create :category, title: 'Mobile'

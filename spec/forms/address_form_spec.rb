@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe AddressForm, :address_form do
+describe AddressForm, :address_form do
   let(:addressable) { create :user }
 
   subject { AddressForm.from_params(attributes_for(:address_user, :shipping,

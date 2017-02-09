@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe CartsController, type: :controller do
+describe CartsController, type: :controller do
 
   subject { create :order, :with_items }
   let(:order_item) { subject.order_items.first }

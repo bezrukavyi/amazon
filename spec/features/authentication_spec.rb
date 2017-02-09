@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.feature 'Authentication', :type => :feature do
+feature 'Authentication', :type => :feature do
 
   let(:user) { create :user }
 

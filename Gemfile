@@ -65,6 +65,8 @@ gem 'draper', github: 'audionerd/draper', branch: 'rails5'
 
 gem 'credit_card_validations'
 
+gem 'figaro'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'

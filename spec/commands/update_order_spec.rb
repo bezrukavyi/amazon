@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe UpdateOrder do
 
   let(:order) { create :order, :with_items }

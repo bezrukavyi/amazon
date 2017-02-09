@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.feature 'Settings', :type => :feature do
+feature 'Settings', :type => :feature do
 
   let(:billing_attr) { attributes_for :address_user, :billing }
   let(:password) { 'Test77777' }

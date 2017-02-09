@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe UpdateAddress do
 
   let(:addressable) { create :order }

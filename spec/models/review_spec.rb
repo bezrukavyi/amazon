@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Review, type: :model do
+describe Review, type: :model do
 
   subject { build :review }
 

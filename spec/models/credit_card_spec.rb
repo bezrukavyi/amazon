@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe CreditCard, type: :model do
+describe CreditCard, type: :model do
 
   subject { build :credit_card }
 

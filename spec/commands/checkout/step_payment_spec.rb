@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Checkout::StepPayment do
 
   let(:order) { create :order }
