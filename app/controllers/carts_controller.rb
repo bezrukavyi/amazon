@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-
   def edit
     @coupon_form = CouponForm.from_model(current_order.coupon)
   end
@@ -18,5 +17,4 @@ class CartsController < ApplicationController
   def current_order
     @current_order ||= super && Order.with_items_book.find(@current_order.id)
   end
-
 end

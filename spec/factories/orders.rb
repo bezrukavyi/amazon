@@ -14,6 +14,5 @@ FactoryGirl.define do
       delivery
       credit_card
     end
-
   end
 end

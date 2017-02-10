@@ -30,5 +30,4 @@ module AddressableAttrubutes
   def set_countries
     @countries = Country.all
   end
-
 end

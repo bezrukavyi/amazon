@@ -1,5 +1,4 @@
 describe Provider, type: :model do
-
   subject { create :provider }
   let(:user) { subject.user }
 
@@ -55,7 +54,5 @@ describe Provider, type: :model do
         expect(User.last.last_name).to eq('Rspecovich')
       end
     end
-
   end
-
 end

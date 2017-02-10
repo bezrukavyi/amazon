@@ -1,5 +1,4 @@
 describe UserDecorator do
-
   subject { create(:user).decorate }
 
   describe '#full_name' do
@@ -12,7 +11,5 @@ describe UserDecorator do
       subject.last_name = ''
       expect(subject.full_name).to eq(subject.email)
     end
-
   end
-
 end

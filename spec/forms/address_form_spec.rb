@@ -1,11 +1,13 @@
 describe AddressForm, :address_form do
   let(:addressable) { create :user }
 
-  subject { AddressForm.from_params(attributes_for(:address_user, :shipping,
-    addressable_id: addressable.id, addressable_type: 'User')) }
+  subject do
+    AddressForm.from_params(attributes_for(:address_user, :shipping,
+                                           addressable_id: addressable.id,
+                                           addressable_type: 'User'))
+  end
 
   context 'validation' do
-
     [:first_name, :last_name, :name, :zip, :phone, :city].each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
@@ -41,7 +43,5 @@ describe AddressForm, :address_form do
       subject.country_id = nil
       is_expected.not_to be_valid
     end
-
   end
-
 end

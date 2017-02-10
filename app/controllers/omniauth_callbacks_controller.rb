@@ -1,8 +1,7 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   def self.generate_provider(*provider_types)
     provider_types.each do |type|
-      define_method("#{type}") do
+      define_method(type.to_s) do
         provider = Provider.authorize(request.env['omniauth.auth'])
         dispatch_user(provider, type)
       end
@@ -22,5 +21,4 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:alert, :failure, kind: t("devise.providers.#{type}"))
     end
   end
-
 end

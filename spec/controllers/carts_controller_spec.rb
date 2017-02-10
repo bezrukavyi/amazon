@@ -1,5 +1,4 @@
 describe CartsController, type: :controller do
-
   subject { create :order, :with_items }
   let(:order_item) { subject.order_items.first }
   let(:coupon) { create :coupon }
@@ -16,9 +15,12 @@ describe CartsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let(:valid_params) { { order: {
-      order_items_attributes: { '0': { quantity: 2, id: order_item.id } },
-      coupon: { code: coupon.code } } } }
+    let(:valid_params) do
+      { order: {
+        order_items_attributes: { '0' => { quantity: 2, id: order_item.id } },
+        coupon: { code: coupon.code }
+      } }
+    end
     let(:coupon_form) { CouponForm.new(valid_params[:order][:coupon]) }
     let(:parameters) { ActionController::Parameters.new(valid_params) }
 
@@ -47,7 +49,6 @@ describe CartsController, type: :controller do
         put :update, params: valid_params
         expect(flash[:notice]).to eq I18n.t('flash.success.cart_update')
       end
-
     end
 
     context 'failure' do
@@ -61,8 +62,5 @@ describe CartsController, type: :controller do
         expect(flash[:alert]).to eq I18n.t('flash.failure.cart_update')
       end
     end
-
-
   end
-
 end

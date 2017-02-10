@@ -1,5 +1,4 @@
 describe Books::IndexPresenter do
-
   before do
     @category = create :category
     @book = create :book, category: @category
@@ -35,5 +34,4 @@ describe Books::IndexPresenter do
       subject.books
     end
   end
-
 end

@@ -1,5 +1,4 @@
 class Checkout::AccessStep < Rectify::Command
-
   attr_reader :order, :user, :step
 
   def initialize(order, user, step)
@@ -41,5 +40,4 @@ class Checkout::AccessStep < Rectify::Command
     return true if order.items_count.zero?
     confirm_accessed? && order.in_progress?
   end
-
 end

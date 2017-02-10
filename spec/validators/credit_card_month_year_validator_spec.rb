@@ -17,11 +17,18 @@ describe CreditCardMonthYearValidator, type: :validator do
       credit_card.month_year = '12/17'
       expect(credit_card).to be_valid
     end
-    it 'invalid format' do
-      credit_card.month_year = '12\17'
-      credit_card.validate(:month_year)
-      expect(credit_card.errors.full_messages)
-        .to include('Month year ' + I18n.t('validators.credit_card.slash_format'))
+    context 'invalid' do
+      after do
+        credit_card.validate(:month_year)
+        expect(credit_card.errors.full_messages)
+          .to include('Month year ' + I18n.t('validators.credit_card.slash_format'))
+      end
+      it 'when invalid format' do
+        credit_card.month_year = '12\17'
+      end
+      it 'with empty' do
+        credit_card.month_year = nil
+      end
     end
   end
 
@@ -30,11 +37,18 @@ describe CreditCardMonthYearValidator, type: :validator do
       credit_card.month_year = '12/17'
       expect(credit_card).to be_valid
     end
-    it 'invalid format' do
-      credit_card.month_year = '102/17'
-      credit_card.validate(:month_year)
-      expect(credit_card.errors.full_messages)
-        .to include('Month year ' + I18n.t('validators.credit_card.month_format'))
+    context 'invalid' do
+      after do
+        credit_card.validate(:month_year)
+        expect(credit_card.errors.full_messages)
+          .to include('Month year ' + I18n.t('validators.credit_card.month_format'))
+      end
+      it 'when invalid format' do
+        credit_card.month_year = '102/17'
+      end
+      it 'with empty' do
+        credit_card.month_year = nil
+      end
     end
   end
 
@@ -43,12 +57,18 @@ describe CreditCardMonthYearValidator, type: :validator do
       credit_card.month_year = '12/17'
       expect(credit_card).to be_valid
     end
-    it 'invalid format' do
-      credit_card.month_year = '12/1721'
-      credit_card.validate(:month_year)
-      expect(credit_card.errors.full_messages)
-        .to include('Month year ' + I18n.t('validators.credit_card.year_format'))
+    context 'invalid' do
+      after do
+        credit_card.validate(:month_year)
+        expect(credit_card.errors.full_messages)
+          .to include('Month year ' + I18n.t('validators.credit_card.year_format'))
+      end
+      it 'when invalid format' do
+        credit_card.month_year = '12/1721'
+      end
+      it 'with empty' do
+        credit_card.month_year = nil
+      end
     end
   end
-
 end

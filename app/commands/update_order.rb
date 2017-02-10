@@ -1,5 +1,4 @@
 class UpdateOrder < Rectify::Command
-
   attr_reader :order, :params, :coupon_form
 
   def initialize(options)
@@ -28,12 +27,13 @@ class UpdateOrder < Rectify::Command
   end
 
   def coupon_valid?
-    return true if coupon_form.blank? || ( coupon.present? && coupon == order.coupon )
+    if coupon_form.blank? || (coupon.present? && coupon == order.coupon)
+      return true
+    end
     coupon_form.valid?
   end
 
   def coupon
-    coupon = Coupon.find_by_code(params[:order][:coupon][:code])
+    @coupon ||= Coupon.find_by_code(params[:order][:coupon][:code])
   end
-
 end

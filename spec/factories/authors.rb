@@ -7,7 +7,5 @@ FactoryGirl.define do
     trait :invalid do
       first_name nil
     end
-
   end
-
 end

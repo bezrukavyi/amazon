@@ -1,5 +1,4 @@
 describe Book, type: :model do
-
   subject { build :book }
 
   context 'association' do
@@ -20,11 +19,11 @@ describe Book, type: :model do
 
     describe '#access_dimension' do
       it 'valid' do
-        subject.dimension = { "h": 10.2, "w": 10.2, "d": 10.1 }
+        subject.dimension = { 'h' => 10.2, 'w' => 10.2, 'd' => 10.1 }
         should be_valid
       end
       it 'invalid' do
-        subject.dimension = { "h": 10.2, "w": 10.2, "zdsfsdf": 10.1 }
+        subject.dimension = { 'h' => 10.2, 'w' => 10.2, 'zdsfsdf' => 10.1 }
         expect(subject).not_to be_valid
       end
     end
@@ -54,7 +53,6 @@ describe Book, type: :model do
     end
 
     describe '.sorted_by' do
-
       it '.asc_title' do
         answer = [@potter, @book, @rails, @ruby]
         expect(Book.sorted_by(:asc_title)).to eq(answer)
@@ -115,5 +113,4 @@ describe Book, type: :model do
     end
     expect(Book.best_sellers).to eq([@rspec, @rails, @jruby])
   end
-
 end

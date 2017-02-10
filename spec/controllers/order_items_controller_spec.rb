@@ -1,5 +1,4 @@
 describe OrderItemsController, type: :controller do
-
   let(:user) { create :user }
   let(:order) { create :order, :with_items }
   subject { order.order_items.first }
@@ -46,7 +45,6 @@ describe OrderItemsController, type: :controller do
       it 'redirect_back' do
         expect(response).to redirect_to(book_path(book_id))
       end
-
     end
   end
 
@@ -68,7 +66,6 @@ describe OrderItemsController, type: :controller do
       it 'renders the :show template' do
         expect(response).to redirect_to(edit_cart_path)
       end
-
     end
 
     context 'failed destroy' do
@@ -86,8 +83,6 @@ describe OrderItemsController, type: :controller do
       it 'redirect_to edit_cart_path' do
         expect(response).to redirect_to(edit_cart_path)
       end
-
     end
-
   end
 end

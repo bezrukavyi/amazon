@@ -1,10 +1,9 @@
 describe Checkout::StepPayment do
-
   let(:order) { create :order }
 
   context 'valid' do
     let(:credit_card) { CreditCardForm.from_params(attributes_for(:credit_card)) }
-    subject { Checkout::StepPayment.new({ order: order, payment_form: credit_card }) }
+    subject { Checkout::StepPayment.new(order: order, payment_form: credit_card) }
 
     it 'set broadcast' do
       expect { subject.call }.to broadcast(:valid)
@@ -15,7 +14,7 @@ describe Checkout::StepPayment do
         @credit_card = create :credit_card
       end
       let(:payment_form) { CreditCardForm.from_model(@credit_card) }
-      subject { Checkout::StepPayment.new({ order: order, payment_form: payment_form }) }
+      subject { Checkout::StepPayment.new(order: order, payment_form: payment_form) }
 
       it 'set credit_card to order' do
         expect { subject.call }.to change(order, :credit_card)
@@ -33,12 +32,11 @@ describe Checkout::StepPayment do
         expect { subject.call }.to change { CreditCard.count }.by(1)
       end
     end
-
   end
 
   context 'invalid' do
     let(:credit_card) { CreditCardForm.from_params(attributes_for(:credit_card, :invalid)) }
-    subject { Checkout::StepPayment.new({ order: order, payment_form: credit_card }) }
+    subject { Checkout::StepPayment.new(order: order, payment_form: credit_card) }
 
     it 'set broadcast' do
       expect { subject.call }.to broadcast(:invalid)

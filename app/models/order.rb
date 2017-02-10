@@ -103,5 +103,4 @@ class Order < ApplicationRecord
     end
     self.total_price = calc_total_cost(:coupon, :delivery)
   end
-
 end

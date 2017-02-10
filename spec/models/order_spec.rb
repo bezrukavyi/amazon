@@ -1,5 +1,4 @@
 describe Order, type: :model do
-
   subject { build :order }
 
   context 'associations' do
@@ -138,5 +137,4 @@ describe Order, type: :model do
     empty_order = create :order, order_items: []
     expect(Order.not_empty).not_to include(empty_order)
   end
-
 end

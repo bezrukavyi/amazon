@@ -13,11 +13,11 @@ class User < ApplicationRecord
   Address::TYPES.each { |type| has_address type }
 
   validates :first_name, :last_name, length: { maximum: 50 }, human_name: :one
-  validates :email, length: { maximum: 63 }, human_email: true
+  validates :email, length: { maximum: 63 }, presence: true, human_email: true
   validates :password, human_password: true, if: :password_required?
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-    :trackable, :validatable, :omniauthable, :confirmable
+         :trackable, :validatable, :omniauthable, :confirmable
 
   def order_in_processing
     @order_in_processing ||= orders.processing.last || orders.create
@@ -43,5 +43,4 @@ class User < ApplicationRecord
     return false if skip_password_validation
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
-
 end

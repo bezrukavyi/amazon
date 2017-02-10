@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :address do
     first_name 'Ivan'
     last_name 'Ivan'
@@ -30,6 +29,4 @@ FactoryGirl.define do
   factory :address_order, parent: :address_user do
     addressable { create :order }
   end
-
-
 end

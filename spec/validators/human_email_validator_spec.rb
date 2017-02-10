@@ -23,6 +23,9 @@ describe HumanEmailValidator, type: :validator do
       expect(user.errors.full_messages)
         .to include('Email ' + I18n.t('validators.human.email.base_regexp'))
     end
+    it 'when empty' do
+      user.email = nil
+    end
     it 'without @' do
       user.email = 'yaroslav@test'
     end
@@ -52,7 +55,10 @@ describe HumanEmailValidator, type: :validator do
       after do
         user.validate(:email)
         expect(user.errors.full_messages)
-        .to include('Email ' + I18n.t('validators.human.email.symbols_regexp'))
+          .to include('Email ' + I18n.t('validators.human.email.symbols_regexp'))
+      end
+      it 'when empty' do
+        user.email = nil
       end
       it 'with twice successive dot' do
         user.email = 'yar..oslav@gmail.com'
@@ -72,7 +78,10 @@ describe HumanEmailValidator, type: :validator do
       after do
         user.validate(:email)
         expect(user.errors.full_messages)
-        .to include('Email ' + I18n.t('validators.human.email.dot_regexp'))
+          .to include('Email ' + I18n.t('validators.human.email.dot_regexp'))
+      end
+      it 'when empty' do
+        user.email = nil
       end
       it 'first dot' do
         user.email = '.yaroslav@gmail.com'

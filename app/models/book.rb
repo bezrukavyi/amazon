@@ -1,7 +1,7 @@
 class Book < ApplicationRecord
   mount_uploader :avatar, ImageUploader
 
-  DIMENSION = ['h', 'w', 'd']
+  DIMENSION = %w(h w d).freeze
 
   belongs_to :category, counter_cache: true
   has_many :pictures, as: :imageable
@@ -19,7 +19,8 @@ class Book < ApplicationRecord
 
   validate :access_dimension
 
-  SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price, :popular]
+  SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price,
+                :popular].freeze
 
   scope :sorted_by, -> (type) { type.present? ? send(type) : asc_title }
   scope :asc_title, -> { order(title: :asc) }
@@ -34,14 +35,14 @@ class Book < ApplicationRecord
   end
 
   scope :with_category, -> (term) do
-    joins(:category).where("lower(categories.title) = ?", term.downcase)
+    joins(:category).where('lower(categories.title) = ?', term.downcase)
   end
 
   scope :best_sellers, -> { popular.limit(4) }
 
   def self.popular
     joins(:orders)
-    .where('orders.state': 'delivered')
+    .where('orders.state' => 'delivered')
     .group('order_items.book_id', 'books.id')
     .order('SUM(order_items.quantity) desc')
     .limit(4)
@@ -55,8 +56,8 @@ class Book < ApplicationRecord
 
   def access_dimension
     dimension.each do |key, value|
-      errors.add(:dimension, "not support #{key}") unless DIMENSION.include?(key)
+      next if DIMENSION.include?(key)
+      errors.add(:dimension, "not support #{key}")
     end
   end
-
 end

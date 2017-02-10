@@ -13,7 +13,7 @@ describe CreateReview do
         expect { subject.call }.to broadcast(:valid)
       end
       it 'set processing state' do
-        expect { subject.call }.to change{ Review.count }.by(1)
+        expect { subject.call }.to change { Review.count }.by(1)
       end
       describe 'verifiding' do
         it 'when verified' do
@@ -27,13 +27,11 @@ describe CreateReview do
           expect(Review.last.verified).to be_falsey
         end
       end
-
     end
 
     it 'invalid' do
       allow(subject.review_form).to receive(:valid?).and_return(false)
       expect { subject.call }.to broadcast(:invalid)
     end
-
   end
 end

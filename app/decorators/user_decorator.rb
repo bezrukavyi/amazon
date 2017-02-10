@@ -8,5 +8,4 @@ class UserDecorator < PersonDecorator
   def name_letter
     full_name.first.capitalize
   end
-
 end

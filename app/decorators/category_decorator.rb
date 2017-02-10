@@ -9,5 +9,4 @@ class CategoryDecorator < PersonDecorator
     return false if param.blank?
     title.downcase.eql?(param.downcase)
   end
-
 end

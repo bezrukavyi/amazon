@@ -4,5 +4,4 @@ FactoryGirl.define do
     uid '12345678'
     association :user
   end
-
 end

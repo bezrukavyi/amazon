@@ -4,5 +4,4 @@ class OrderItemDecorator < Draper::Decorator
   def all_errors
     errors.full_messages.join('. ')
   end
-
 end

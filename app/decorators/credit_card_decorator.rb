@@ -5,5 +5,4 @@ class CreditCardDecorator < Draper::Decorator
     hidden = '** ' * 3
     hidden + number.last(4)
   end
-
 end

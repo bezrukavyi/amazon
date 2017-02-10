@@ -1,5 +1,4 @@
 describe ReviewForm, :review_form do
-
   subject { ReviewForm.from_params attributes_for(:review) }
 
   context 'validation' do
@@ -7,6 +6,4 @@ describe ReviewForm, :review_form do
       it { should validate_presence_of(name) }
     end
   end
-
-
 end

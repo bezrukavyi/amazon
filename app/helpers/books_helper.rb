@@ -1,11 +1,10 @@
 module BooksHelper
-
   def category_sorted_path(category)
     category_path(id: category.id, sorted_by: params[:sorted_by])
   end
 
   def category_title(category)
-    category.blank? ? t("books.index.sorted_by.all") : category.title
+    category.blank? ? t('books.index.sorted_by.all') : category.title
   end
 
   def sort_key
@@ -15,5 +14,4 @@ module BooksHelper
   def sort_title
     t("books.index.sorted_by.#{sort_key}")
   end
-
 end

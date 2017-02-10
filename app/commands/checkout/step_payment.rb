@@ -1,5 +1,4 @@
 class Checkout::StepPayment < Rectify::Command
-
   attr_reader :order, :payment_form
 
   def initialize(options)
@@ -28,5 +27,4 @@ class Checkout::StepPayment < Rectify::Command
       credit_card.month_year = payment_form.month_year
     end
   end
-
 end

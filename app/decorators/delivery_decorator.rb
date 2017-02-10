@@ -8,5 +8,4 @@ class DeliveryDecorator < Draper::Decorator
   def order_subtotal(order)
     order.calc_total_cost(:coupon) + price
   end
-
 end

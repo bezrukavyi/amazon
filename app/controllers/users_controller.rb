@@ -6,7 +6,7 @@ class UsersController < Devise::RegistrationsController
   before_action :set_countries, only: [:edit, :update]
 
   def new
-    super { render 'fast_auth' and return if fast_auth? }
+    super { render('fast_auth') && return if fast_auth? }
   end
 
   def create
@@ -36,7 +36,8 @@ class UsersController < Devise::RegistrationsController
     type = params[:with_password] ? 'with' : 'without'
     if current_user.send("update_#{type}_password", allowed_params)
       bypass_sign_in current_user
-      redirect_to edit_user_path, notice: t('flash.success.user_update'), anchor: 'privacy'
+      redirect_to edit_user_path, notice: t('flash.success.user_update'),
+                                  anchor: 'privacy'
     else
       template = fast_auth? ? 'fast_auth' : 'edit'
       flash_render template, alert: t('flash.failure.user_update')
@@ -45,7 +46,7 @@ class UsersController < Devise::RegistrationsController
 
   def address_update
     address = set_address_by_params(params[:address])
-    UpdateAddress.call({ addressable: current_user, addresses: [address] }) do
+    UpdateAddress.call(addressable: current_user, addresses: [address]) do
       on(:valid) { redirect_to edit_user_path, notice: t('flash.success.address_update'), anchor: 'address' }
       on(:invalid) { flash_render :edit, alert: t('flash.failure.address_update') }
     end
@@ -53,11 +54,10 @@ class UsersController < Devise::RegistrationsController
 
   def allowed_params
     params.require(:user).permit(:email, :password, :password_confirmation,
-      :current_password, :first_name, :last_name)
+                                 :current_password, :first_name, :last_name)
   end
 
   def fast_auth?
     params[:type] == 'fast'
   end
-
 end

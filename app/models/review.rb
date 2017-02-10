@@ -21,5 +21,4 @@ class Review < ApplicationRecord
   def self.assm_states
     aasm.states.map(&:name)
   end
-
 end

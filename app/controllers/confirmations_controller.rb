@@ -1,5 +1,4 @@
 class ConfirmationsController < Devise::ConfirmationsController
-
   before_action :set_resource, only: [:show, :update]
 
   def show
@@ -9,7 +8,8 @@ class ConfirmationsController < Devise::ConfirmationsController
   def update
     if !resource.has_password? && resource.update_attributes(allowed_params)
       bypass_sign_in resource
-      redirect_to checkout_path(:address), notice: t('devise.confirmations.confirmed')
+      redirect_to checkout_path(:address),
+                  notice: t('devise.confirmations.confirmed')
     else
       flash_render :show, alert: t('flash.failure.update_password')
     end
@@ -25,5 +25,4 @@ class ConfirmationsController < Devise::ConfirmationsController
     token = params[:confirmation_token] || params[:user][:confirmation_token]
     self.resource = resource_class.confirm_by_token(token)
   end
-
 end

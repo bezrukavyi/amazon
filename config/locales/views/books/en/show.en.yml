@@ -3,7 +3,6 @@ en:
     show:
       back_to_result: Back to results
       count: Quantity
-      publicate_at: Year of publication
       materials: Materials
       reviews_count: 'Reviews (%{amount})'
       category: Category
@@ -16,3 +15,7 @@ en:
         w: W
         d: D
       not_in_stock: Not in stock
+      publicate_at: Year of publication
+      category_name: :"books.show.materials"
+      materials_name: :"books.show.category"
+      parse_dimension: :"books.show.dimensions.title"

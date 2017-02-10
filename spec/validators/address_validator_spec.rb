@@ -1,5 +1,4 @@
 describe AddressValidator, type: :validator do
-
   with_model :MockAddress do
     table do |t|
       t.string :name
@@ -15,7 +14,6 @@ describe AddressValidator, type: :validator do
   let(:address) { MockAddress.new(name: 'Simple address', zip: 123) }
 
   describe '#name' do
-
     context 'valid' do
       after do
         address.validate(:name)
@@ -32,13 +30,18 @@ describe AddressValidator, type: :validator do
         address.name = '234 23423'
       end
     end
-
-    it 'invalid by unsupport symbol' do
-      address.name = 'sdasd#sd'
-      address.validate(:name)
-      expect(address.errors.full_messages).to include('Name ' + I18n.t('validators.address.name'))
+    context 'invalid' do
+      after do
+        address.validate(:name)
+        expect(address.errors.full_messages).to include('Name ' + I18n.t('validators.address.name'))
+      end
+      it 'when empty' do
+        address.name = nil
+      end
+      it 'with unsupport symbol' do
+        address.name = 'sdasd#sd'
+      end
     end
-
   end
 
   describe '#zip' do
@@ -47,11 +50,17 @@ describe AddressValidator, type: :validator do
       address.validate(:zip)
       expect(address.errors.full_messages).to be_blank
     end
-    it 'invalid with ,' do
-      address.zip = '234,234'
-      address.validate(:zip)
-      expect(address.errors.full_messages).to include('Zip ' + I18n.t('validators.address.zip'))
+    context 'invalid' do
+      after do
+        address.validate(:zip)
+        expect(address.errors.full_messages).to include('Zip ' + I18n.t('validators.address.zip'))
+      end
+      it 'when empty' do
+        address.zip = nil
+      end
+      it 'with unsupport symbol' do
+        address.zip = '234,234'
+      end
     end
   end
-
 end

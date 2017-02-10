@@ -1,5 +1,4 @@
 describe User, type: :model do
-
   subject { create :user }
 
   context 'associations' do
@@ -32,20 +31,20 @@ describe User, type: :model do
     let(:book) { create :book }
     let(:item) { create :order_item, book: book }
     it 'true' do
-      order = create :order, user: subject, order_items: [item], state: :delivered
+      create :order, user: subject, order_items: [item], state: :delivered
       expect(subject.bought_book?(book.id)).to be_truthy
     end
 
     it 'false' do
-      order = create :order, user: subject, order_items: [item]
+      create :order, user: subject, order_items: [item]
       expect(subject.bought_book?(book.id)).to be_falsey
     end
-
   end
 
   describe '#has_password?' do
     it 'return true' do
-      user = User.new(email: 'test@gmail.com', password: 'Test5555', password_confirmation: 'Test5555')
+      user = User.new(email: 'test@gmail.com', password: 'Test5555',
+                      password_confirmation: 'Test5555')
       expect(user.has_password?).to be_truthy
     end
     it 'return false' do
@@ -65,7 +64,8 @@ describe User, type: :model do
         expect(user.password_required?).to be_truthy
       end
       it 'exist password_confirmation' do
-        user = User.create(email: 'test@gmail.com', password_confirmation: 'Test5555')
+        user = User.create(email: 'test@gmail.com',
+                           password_confirmation: 'Test5555')
         expect(user.password_required?).to be_truthy
       end
     end
@@ -87,6 +87,4 @@ describe User, type: :model do
       expect(user).not_to be_valid
     end
   end
-
-
 end

@@ -1,5 +1,4 @@
 class UpdateAddress < Rectify::Command
-
   attr_reader :addressable, :addresses
 
   def initialize(options)
@@ -27,5 +26,4 @@ class UpdateAddress < Rectify::Command
     end
     addressable.update_attributes(attributes.to_h)
   end
-
 end

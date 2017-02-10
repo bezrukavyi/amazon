@@ -32,7 +32,6 @@ class BooksController < ApplicationController
   end
 
   def review_params
-    params[:review].merge({ user_id: current_user.id, book_id: @book.id })
+    params[:review].merge(user_id: current_user.id, book_id: @book.id)
   end
-
 end

@@ -6,9 +6,8 @@ class BookDecorator < Draper::Decorator
   decorates_association :authors
   decorates_association :reviews
 
-  MAIN_PARAMS = { category_name: 'category',  count: 'count',
-    publicate_at: 'publicate_at', parse_dimension: 'dimensions.title',
-    materials_name: 'materials' }
+  MAIN_PARAMS = [:category_name, :count, :publicate_at, :parse_dimension,
+                 :materials_name].freeze
 
   def authors_name
     authors.map(&:full_name).join(', ')
@@ -55,5 +54,4 @@ class BookDecorator < Draper::Decorator
   def disabled_class
     'disabled' unless in_stock?
   end
-
 end

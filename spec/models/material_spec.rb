@@ -1,5 +1,4 @@
 describe Material, type: :model do
-
   subject { build :material }
 
   context 'association' do
@@ -19,5 +18,4 @@ describe Material, type: :model do
       expect(subject.reload.name).to eq('rspec')
     end
   end
-
 end

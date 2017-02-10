@@ -1,5 +1,4 @@
-feature 'Catalog', :type => :feature do
-
+feature 'Catalog', type: :feature do
   let(:fantasy) { create :category }
   let(:drama) { create :category }
 
@@ -47,5 +46,4 @@ feature 'Catalog', :type => :feature do
     find(:xpath, "//a[@href='/books/#{book.id}']").click
     expect(current_path).to eq("/books/#{book.id}")
   end
-
 end

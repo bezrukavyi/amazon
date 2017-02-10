@@ -1,5 +1,4 @@
 class CouponForm < Rectify::Form
-
   attribute :code, String
 
   validate :exist_coupon
@@ -17,10 +16,7 @@ class CouponForm < Rectify::Form
     errors.add(:code, I18n.t('simple_form.error_notification.coupon_used'))
   end
 
-  private
-
   def current_coupon
     @current_coupon ||= Coupon.find_by_code(code)
   end
-
 end

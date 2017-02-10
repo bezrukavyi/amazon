@@ -52,11 +52,11 @@
           - else
             = @book.desc
 
-        - BookDecorator::MAIN_PARAMS.each do |attribute_name, i18n_title|
+        - BookDecorator::MAIN_PARAMS.each do |name|
           .general-info-wrap.divider-lg
             .clearfix
-              %p.pull-left= t(".#{i18n_title}")
-              %p.lead.small.pull-right= @book.send(attribute_name)
+              %p.pull-left= t(".#{name}")
+              %p.lead.small.pull-right= @book.send(name)
 
 
   .mb-80

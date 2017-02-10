@@ -1,12 +1,11 @@
 FactoryGirl.define do
-
   sequence :email do |n|
     "email#{n}@factory.com"
   end
 
   factory :user do
-    after(:build)   { |user| user.skip_confirmation_notification! }
-    after(:create)  { |user| user.confirm }
+    after(:build, &:skip_confirmation_notification!)
+    after(:create, &:confirm)
 
     email { FactoryGirl.generate(:email) }
     first_name 'Ivan'
@@ -27,7 +26,5 @@ FactoryGirl.define do
     trait :admin do
       admin true
     end
-
   end
-
 end

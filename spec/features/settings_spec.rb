@@ -1,5 +1,4 @@
-feature 'Settings', :type => :feature do
-
+feature 'Settings', type: :feature do
   let(:billing_attr) { attributes_for :address_user, :billing }
   let(:password) { 'Test77777' }
   let(:user) { create :user, password: password, password_confirmation: password }
@@ -10,7 +9,6 @@ feature 'Settings', :type => :feature do
   end
 
   context 'Valid update' do
-
     scenario 'billing update' do
       visit edit_user_path
       click_link I18n.t('address')
@@ -24,7 +22,7 @@ feature 'Settings', :type => :feature do
         find('#country_id_billing_address').find(:xpath, 'option[2]').select_option
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content  I18n.t('flash.success.address_update')
+      expect(page).to have_content I18n.t('flash.success.address_update')
     end
 
     scenario 'email update' do
@@ -34,7 +32,7 @@ feature 'Settings', :type => :feature do
         fill_in I18n.t('simple_form.labels.user.email'), with: 'rspec777@gmail.com'
         click_button I18n.t('simple_form.titles.save')
       end
-      expect(page).to have_content  I18n.t('flash.success.user_update')
+      expect(page).to have_content I18n.t('flash.success.user_update')
     end
 
     scenario 'password update' do
@@ -60,11 +58,9 @@ feature 'Settings', :type => :feature do
       end
       expect(page).to have_content I18n.t('devise.registrations.destroyed')
     end
-
   end
 
   context 'Invalid update' do
-
     scenario 'billing update' do
       visit edit_user_path
       click_link I18n.t('address')
@@ -106,8 +102,5 @@ feature 'Settings', :type => :feature do
       click_button I18n.t('users.edit.remove_account.petition')
       expect(page).to have_content I18n.t('flash.failure.confirm_intentions')
     end
-
   end
-
-
 end

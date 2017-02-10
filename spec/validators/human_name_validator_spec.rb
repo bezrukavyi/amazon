@@ -13,9 +13,10 @@ describe HumanNameValidator, type: :validator do
   end
 
   describe '#one' do
-    let(:user) { MockUser.new(name: 'Name') }
+    let(:user) { MockUser.new(name: 'Name', names: 'Name name') }
 
     it 'valid' do
+      user.name = 'Bob'
       user.validate(:name)
       expect(user.errors.full_messages).to be_blank
     end
@@ -26,7 +27,6 @@ describe HumanNameValidator, type: :validator do
         expect(user.errors.full_messages)
           .to include('Name ' + I18n.t('validators.human.name.base_regexp'))
       end
-
       it 'without end numeric' do
         user.name = 'yaroslav5'
       end
@@ -40,10 +40,9 @@ describe HumanNameValidator, type: :validator do
   end
 
   describe '#few' do
-    let(:user) { MockUser.new(names: 'Name names') }
+    let(:user) { MockUser.new(name: 'Bob', names: 'Name names') }
 
     it 'valid' do
-      user.names = 'Yaroslav Bezr'
       user.validate(:names)
       expect(user.errors.full_messages).to be_blank
     end
@@ -54,7 +53,6 @@ describe HumanNameValidator, type: :validator do
         expect(user.errors.full_messages)
           .to include('Names ' + I18n.t('validators.human.name.base_regexp'))
       end
-
       it 'with spec sumbols' do
         user.names = 'yaroslav#fdasfd'
       end

@@ -1,5 +1,4 @@
 describe AuthorDecorator do
-
   subject { create(:author).decorate }
 
   context 'PersonDecorator' do
@@ -7,5 +6,4 @@ describe AuthorDecorator do
       expect(subject.full_name).to eq("#{subject.first_name} #{subject.last_name}")
     end
   end
-
 end

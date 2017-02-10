@@ -1,7 +1,6 @@
 include ActionView::Helpers::NumberHelper
 
-feature 'Checkout', :type => :feature do
-
+feature 'Checkout', type: :feature do
   let(:coupon) { create :coupon }
   let(:order) { create :order, :with_items, coupon: coupon }
   let(:user) { create :user, orders: [order] }
@@ -11,7 +10,7 @@ feature 'Checkout', :type => :feature do
   before do
     @delivery = create :delivery
     allow_any_instance_of(CheckoutsController)
-    .to receive(:current_order).and_return(order)
+      .to receive(:current_order).and_return(order)
   end
 
   context 'checkout fill', js: true do
@@ -32,7 +31,6 @@ feature 'Checkout', :type => :feature do
       first('label', text: I18n.t('checkouts.address.use_billing')).click
       click_button I18n.t('simple_form.titles.save_and_continue')
 
-
       first('label', text: @delivery.name).click
       click_button I18n.t('simple_form.titles.save_and_continue')
 
@@ -49,7 +47,6 @@ feature 'Checkout', :type => :feature do
       expect(page).to have_content(I18n.t('checkouts.complete.thanks_message'))
       expect(page).to have_content(I18n.t('checkouts.complete.email_confirm', email: user.email))
       expect(page).to have_content(I18n.t('checkouts.complete.order_id', id: order.id))
-
     end
   end
 
@@ -98,7 +95,5 @@ feature 'Checkout', :type => :feature do
       expect(page).to have_content I18n.t('devise.sessions.signed_in')
       expect(current_path).to eq checkout_path(id: :address)
     end
-
   end
-
 end

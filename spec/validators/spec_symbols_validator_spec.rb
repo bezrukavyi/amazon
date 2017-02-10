@@ -17,7 +17,6 @@ describe SpecSymbolsValidator, type: :validator do
       review.validate(:title)
       expect(review.errors.full_messages).to be_blank
     end
-
     it 'middle symbol' do
       review.title = 'yaros.lav'
     end
@@ -33,9 +32,11 @@ describe SpecSymbolsValidator, type: :validator do
     after do
       review.validate(:title)
       expect(review.errors.full_messages)
-      .to include('Title ' + I18n.t('validators.spec_symbols.base_regexp'))
+        .to include('Title ' + I18n.t('validators.spec_symbols.base_regexp'))
     end
-
+    it 'when empty' do
+      review.title = nil
+    end
     it 'with twice successive dot' do
       review.title = 'yar..oslav'
     end

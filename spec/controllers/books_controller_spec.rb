@@ -1,5 +1,4 @@
 describe BooksController, type: :controller do
-
   subject { create :book }
   let(:user) { create :user }
 
@@ -17,7 +16,6 @@ describe BooksController, type: :controller do
   end
 
   describe 'GET #show' do
-
     it 'assigns book' do
       expect(Book).to receive_message_chain(:full_includes, :find_by)
       get :show, params: { id: subject.id }
@@ -84,8 +82,5 @@ describe BooksController, type: :controller do
         expect(flash[:alert]).to eq I18n.t('flash.failure.review_create')
       end
     end
-
-
   end
-
 end

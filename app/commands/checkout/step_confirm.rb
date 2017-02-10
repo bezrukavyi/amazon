@@ -1,5 +1,4 @@
 class Checkout::StepConfirm < Rectify::Command
-
   attr_reader :order, :user, :confirm
 
   def initialize(options)
@@ -22,5 +21,4 @@ class Checkout::StepConfirm < Rectify::Command
   def send_mail
     CheckoutMailer.complete(user, order).deliver
   end
-
 end

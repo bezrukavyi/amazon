@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :delivery do
     name { "#{FFaker::Address.country} Standart Post" }
     price 9.99
@@ -10,7 +9,5 @@ FactoryGirl.define do
     trait :invalid do
       name nil
     end
-
   end
-
 end

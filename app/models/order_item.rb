@@ -1,5 +1,4 @@
 class OrderItem < ApplicationRecord
-
   default_scope { order(:created_at) }
 
   belongs_to :book
@@ -25,7 +24,5 @@ class OrderItem < ApplicationRecord
   def stock_validate
     return if errors.present? || quantity <= book.count
     errors.add(:quantity, I18n.t('simple_form.error_notification.order_item.stock'))
-
   end
-
 end

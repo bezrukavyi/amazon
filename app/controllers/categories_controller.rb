@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-
   def show
     @category = Category.find_by(id: params[:id])
     if @category.blank?
@@ -10,5 +9,4 @@ class CategoriesController < ApplicationController
       render 'books/index'
     end
   end
-
 end

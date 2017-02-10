@@ -16,3 +16,7 @@ ru:
         w: Ш
         d: Г
       not_in_stock: Нет в наличии
+      publicate_at: Year of publication
+      category_name: :"books.show.materials"
+      materials_name: :"books.show.category"
+      parse_dimension: :"books.show.dimensions.title"

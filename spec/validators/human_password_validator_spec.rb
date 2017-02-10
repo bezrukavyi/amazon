@@ -18,6 +18,9 @@ describe HumanPasswordValidator, type: :validator do
       expect(user.errors.full_messages)
         .to include('Password ' + I18n.t('validators.human.password.base_regexp'))
     end
+    it 'when empty' do
+      user.password = nil
+    end
     it 'without A-Z' do
       user.password = 'yaroslav5555'
     end

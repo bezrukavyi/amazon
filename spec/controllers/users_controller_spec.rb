@@ -2,7 +2,7 @@ describe UsersController, type: :controller do
   subject { create :user }
 
   before(:each) do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
   context 'Concern Addressable' do
@@ -38,7 +38,7 @@ describe UsersController, type: :controller do
 
       context 'Flash messages' do
         before do
-          allow(controller).to receive(:params).and_return({ address: false, with_password: true })
+          allow(controller).to receive(:params).and_return(address: false, with_password: true)
         end
         it 'flash notice' do
           expect(subject).to receive(:update_with_password).and_return(true)
@@ -55,7 +55,7 @@ describe UsersController, type: :controller do
 
       context 'success update with password' do
         before do
-          allow(controller).to receive(:params).and_return({ address: false, with_password: true })
+          allow(controller).to receive(:params).and_return(address: false, with_password: true)
         end
         it '#update_with_password' do
           expect(subject).to receive(:update_with_password).with(user_params)
@@ -69,13 +69,11 @@ describe UsersController, type: :controller do
       end
 
       it 'update without password' do
-        allow(controller).to receive(:params).and_return({ address: false, with_password: false })
+        allow(controller).to receive(:params).and_return(address: false, with_password: false)
         expect(subject).to receive(:update_without_password).with(user_params).and_return(true)
         put :update, params: user_params
       end
-
     end
-
 
     context 'address user data' do
       let(:address_params) { { address: attributes_for(:address_user, :billing) } }
@@ -92,12 +90,10 @@ describe UsersController, type: :controller do
       it 'UpdateAddress call' do
         address = double('address')
         allow(controller).to receive(:set_address_by_params).and_return(address)
-        expect(UpdateAddress).to receive(:call).with({ addressable: subject, addresses: [address] })
+        expect(UpdateAddress).to receive(:call).with(addressable: subject, addresses: [address])
         put :update, params: address_params
       end
-
     end
-
   end
 
   describe 'DELETE #destroy' do
@@ -105,7 +101,7 @@ describe UsersController, type: :controller do
 
     context 'without agree' do
       before do
-        allow(controller).to receive(:params).and_return({ agree_cancel: false })
+        allow(controller).to receive(:params).and_return(agree_cancel: false)
         delete :destroy, params: { id: subject.id }
       end
 
@@ -117,5 +113,4 @@ describe UsersController, type: :controller do
       end
     end
   end
-
 end

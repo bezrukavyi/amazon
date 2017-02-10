@@ -64,5 +64,4 @@ class CheckoutsController < ApplicationController
   def confirm_options
     { order: current_order, user: current_user, confirm: params[:confirm] }
   end
-
 end

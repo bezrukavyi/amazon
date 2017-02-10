@@ -1,12 +1,10 @@
 class CreditCardMonthYearValidator < ActiveModel::EachValidator
-
-  INSPECTIONS = [:slash_format, :month_format, :year_format]
+  INSPECTIONS = [:slash_format, :month_format, :year_format].freeze
 
   def validate_each(object, attribute, value)
     INSPECTIONS.each do |inspection|
-      if value.present? && !send(inspection, value) && object.errors.blank?
-        object.errors.add(attribute, I18n.t("validators.credit_card.#{inspection}"))
-      end
+      next if send(inspection, value)
+      object.errors.add(attribute, I18n.t("validators.credit_card.#{inspection}"))
     end
   end
 

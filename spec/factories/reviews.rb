@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :review do
-    title "MyString"
-    desc "MyText"
+    title 'MyString'
+    desc 'MyText'
     grade 4
     user_id { create(:user).id }
     book_id { create(:book).id }
@@ -10,5 +10,4 @@ FactoryGirl.define do
       title nil
     end
   end
-
 end

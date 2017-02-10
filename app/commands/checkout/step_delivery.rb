@@ -1,5 +1,4 @@
 class Checkout::StepDelivery < Rectify::Command
-
   attr_reader :order, :delivery_id
 
   def initialize(options)
@@ -24,5 +23,4 @@ class Checkout::StepDelivery < Rectify::Command
   def order_update
     order.update_attributes(delivery_id: delivery_id)
   end
-
 end

@@ -10,5 +10,4 @@ class Material < ApplicationRecord
   def downcase_name
     self.name.downcase!
   end
-
 end

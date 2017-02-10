@@ -1,5 +1,4 @@
 describe CheckoutMailer, type: :mailer do
-
   describe '#complete' do
     let(:user) { create :user }
     let(:order) { create :order, user: user }
@@ -25,6 +24,5 @@ describe CheckoutMailer, type: :mailer do
     it 'assigns @order' do
       expect(mail.body.encoded).to match("Order ##{order.id}")
     end
-
   end
 end

@@ -1,5 +1,4 @@
 describe CategoriesController, type: :controller do
-
   subject { create :category }
   let(:book) { create :book, category: subject }
   let(:user) { create :user }
@@ -17,10 +16,9 @@ describe CategoriesController, type: :controller do
     end
     it 'when category isnt exist' do
       expect(Books::IndexPresenter).not_to receive(:new)
-      get :show, params: { id: 10001 }
+      get :show, params: { id: 10_001 }
       expect(response).to redirect_to(books_path)
       expect(flash[:alert]).to eq(I18n.t('flash.failure.category_found'))
     end
   end
-
 end

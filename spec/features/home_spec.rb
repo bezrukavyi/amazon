@@ -1,5 +1,4 @@
-feature 'Home', :type => :feature do
-
+feature 'Home', type: :feature do
   before do
     @mobile = create :category, title: 'Mobile'
     @web_design = create :category, title: 'Web design'
@@ -50,6 +49,4 @@ feature 'Home', :type => :feature do
       expect(page).not_to have_content(@mob_book.title)
     end
   end
-
-
 end

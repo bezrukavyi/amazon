@@ -1,7 +1,5 @@
 describe ApplicationController, type: :controller do
-
   describe '#current_order' do
-
     it 'order with session' do
       order = create :order
       session[:order_id] = order.id
@@ -31,7 +29,5 @@ describe ApplicationController, type: :controller do
         controller.current_order
       end
     end
-
   end
-
 end

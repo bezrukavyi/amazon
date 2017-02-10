@@ -1,9 +1,7 @@
-feature 'Authentication', :type => :feature do
-
+feature 'Authentication', type: :feature do
   let(:user) { create :user }
 
   context 'Sign up' do
-
     scenario 'when user not exist' do
       visit new_user_registration_path
       within '#new_user' do
@@ -28,13 +26,12 @@ feature 'Authentication', :type => :feature do
     end
 
     context 'Omniauth' do
-
       scenario 'success sign up' do
         set_omniauth(:facebook)
         visit new_user_registration_path
         find_by_id('facebook_omniauth').click
         expect(page).to have_content I18n.t('devise.omniauth_callbacks.success',
-          kind: I18n.t('devise.providers.facebook'))
+                                            kind: I18n.t('devise.providers.facebook'))
       end
 
       scenario 'failure sign up' do
@@ -42,14 +39,13 @@ feature 'Authentication', :type => :feature do
         visit new_user_registration_path
         find_by_id('facebook_omniauth').click
         expect(page).to have_content I18n.t('devise.omniauth_callbacks.failure',
-          kind: I18n.t('devise.providers.facebook'), reason: 'Invalid crendentials')
+                                            kind: I18n.t('devise.providers.facebook'),
+                                            reason: 'Invalid crendentials')
       end
     end
-
   end
 
   context 'Log in' do
-
     scenario 'when user not exist' do
       visit new_user_session_path
       within '#new_user' do
@@ -57,7 +53,8 @@ feature 'Authentication', :type => :feature do
         fill_in I18n.t('simple_form.labels.user.password'), with: 'Rspec1234'
         click_button 'Log in'
       end
-      expect(page).to have_content I18n.t('devise.failure.invalid', authentication_keys: 'Email')
+      expect(page).to have_content I18n.t('devise.failure.invalid',
+                                          authentication_keys: 'Email')
     end
 
     scenario 'when user not singed in' do
@@ -80,7 +77,5 @@ feature 'Authentication', :type => :feature do
       end
       expect(page).to have_content I18n.t('devise.failure.already_authenticated')
     end
-
   end
-
 end

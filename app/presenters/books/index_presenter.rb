@@ -1,5 +1,4 @@
 class Books::IndexPresenter
-
   attr_reader :params, :category
 
   def initialize(options)
@@ -26,5 +25,4 @@ class Books::IndexPresenter
     books = books.where(category: category) if category.present?
     books
   end
-
 end

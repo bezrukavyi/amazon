@@ -1,5 +1,4 @@
 describe MainPagesController, type: :controller do
-
   describe 'GET #index' do
     before do
       create :book
@@ -10,7 +9,7 @@ describe MainPagesController, type: :controller do
       get :home, params: { category: 'web_design' }
     end
     it 'without category' do
-      stub_const("Category::HOME", 'web_dev')
+      stub_const('Category::HOME', 'web_dev')
       expect(Book).to receive(:with_category).with('Web dev').and_return(Book.all)
       get :home
     end
@@ -23,5 +22,4 @@ describe MainPagesController, type: :controller do
       get :home
     end
   end
-
 end

@@ -13,15 +13,14 @@ describe Author, type: :model do
     context 'nested uniqueness' do
       it 'valid' do
         author = create :author
-        expect(build :author, first_name: author.first_name,
-          last_name: 'Another name').to be_valid
+        expect(build(:author, first_name: author.first_name,
+                              last_name: 'Another name')).to be_valid
       end
       it 'invalid' do
         author = create :author
-        expect(build :author, first_name: author.first_name,
-          last_name: author.last_name).not_to be_valid
+        expect(build(:author, first_name: author.first_name,
+                              last_name: author.last_name)).not_to be_valid
       end
     end
   end
-
 end

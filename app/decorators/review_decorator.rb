@@ -7,7 +7,6 @@ class ReviewDecorator < Draper::Decorator
   end
 
   def created_strf
-    created_at.strftime("%d/%m/%y")
+    created_at.strftime('%d/%m/%y')
   end
-
 end

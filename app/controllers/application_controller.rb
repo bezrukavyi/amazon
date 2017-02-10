@@ -23,19 +23,17 @@ class ApplicationController < ActionController::Base
   end
 
   def fast_authenticate_user!
-    unless user_signed_in?
-      session['user_return_to'] = request.fullpath
-      redirect_to sign_up_path(type: 'fast')
-    end
+    return if user_signed_in?
+    session['user_return_to'] = request.fullpath
+    redirect_to sign_up_path(type: 'fast')
   end
 
   private
 
   def set_current_order
-    order = Order.find_by(id: session[:order_id], state: 'processing') || Order.create
-    if current_user
-      order = current_user.order_in_processing.merge_order!(order)
-    end
+    order = Order.find_by(id: session[:order_id], state: 'processing')
+    order ||= Order.create
+    order = current_user.order_in_processing.merge_order!(order) if current_user
     session[:order_id] = order.id
     order
   end
@@ -43,5 +41,4 @@ class ApplicationController < ActionController::Base
   def set_categories
     @categories = Category.select(:id, :title, :books_count)
   end
-
 end

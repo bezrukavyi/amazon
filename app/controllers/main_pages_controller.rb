@@ -1,5 +1,4 @@
 class MainPagesController < ApplicationController
-
   def home
     @category_title = category_title
     books = Book.with_category(@category_title).includes(:authors)
@@ -14,5 +13,4 @@ class MainPagesController < ApplicationController
     category = params[:category] || Category::HOME.to_s
     category.split('_').join(' ').capitalize
   end
-
 end

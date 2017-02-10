@@ -1,5 +1,4 @@
 describe Review, type: :model do
-
   subject { build :review }
 
   context 'associations' do
@@ -15,5 +14,4 @@ describe Review, type: :model do
       expect(subject).to transition_from(:unprocessed).to(:rejected).on_event(:reject)
     end
   end
-
 end

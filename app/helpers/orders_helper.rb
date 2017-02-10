@@ -1,5 +1,4 @@
 module OrdersHelper
-
   def state_title
     title = params[:state].blank? ? :all : params[:state]
     t("orders.index.states.#{title}")
@@ -12,5 +11,4 @@ module OrdersHelper
   def order_state_path(order)
     order.processing? ? edit_cart_path : order_path(order)
   end
-
 end

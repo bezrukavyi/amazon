@@ -1,5 +1,4 @@
 describe Delivery, type: :model do
-
   subject { build :delivery }
 
   context 'association' do
@@ -20,17 +19,17 @@ describe Delivery, type: :model do
         country_first = create :country
         country_second = create :country
         name = 'Rspec'
-        delivery_first = create :delivery, name: name, country: country_first
-        delivery_second = build :delivery, name: name, country: country_second
-        expect(delivery_second).to be_valid
+        create :delivery, name: name, country: country_first
+        delivery = build :delivery, name: name, country: country_second
+        expect(delivery).to be_valid
       end
 
       it 'invalid' do
         country = create :country
         name = 'Rspec'
-        delivery_first = create :delivery, name: name, country: country
-        delivery_second = build :delivery, name: name, country: country
-        expect(delivery_second).not_to be_valid
+        create :delivery, name: name, country: country
+        delivery = build :delivery, name: name, country: country
+        expect(delivery).not_to be_valid
       end
     end
 
@@ -42,9 +41,9 @@ describe Delivery, type: :model do
       it 'invalid' do
         delivery = build :delivery, min_days: 10, max_days: 5
         delivery.valid?
-        expect(delivery.errors.full_messages).to include('Min days ' + I18n.t('simple_form.error_notification.delivery.access_max_days'))
+        expect(delivery.errors.full_messages).to include('Min days ' +
+          I18n.t('simple_form.error_notification.delivery.access_max_days'))
       end
     end
   end
-
 end

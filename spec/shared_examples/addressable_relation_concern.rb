@@ -7,5 +7,4 @@ shared_examples_for 'addressable_relation' do
       expect(resource).to have_one(:test)
     end
   end
-
 end

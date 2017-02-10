@@ -1,5 +1,4 @@
 describe OrdersController, type: :controller do
-
   let(:user) { create :user }
 
   before do
@@ -26,7 +25,6 @@ describe OrdersController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
-
   end
 
   describe 'GET #show' do
@@ -45,5 +43,4 @@ describe OrdersController, type: :controller do
       expect(response).to redirect_to(orders_path)
     end
   end
-
 end

@@ -1,10 +1,9 @@
 describe UpdateOrder do
-
   let(:order) { create :order, :with_items }
   let(:order_item) { order.order_items.first }
   let(:coupon) { create :coupon }
 
-  subject { UpdateOrder.new({ order: order }) }
+  subject { UpdateOrder.new(order: order) }
 
   before do
     allow(subject).to receive(:coupon).and_return(coupon)
@@ -37,7 +36,7 @@ describe UpdateOrder do
       allow(subject).to receive(:order_params).and_return({})
     end
     it 'set new coupon' do
-      expect { subject.call }.to change{ order.reload.coupon }.from(nil).to(coupon)
+      expect { subject.call }.to change { order.reload.coupon }.from(nil).to(coupon)
     end
     it 'when coupon not passed' do
       allow(subject).to receive(:coupon_form).and_return(nil)
@@ -49,5 +48,4 @@ describe UpdateOrder do
       expect { subject.call }.to broadcast(:valid)
     end
   end
-
 end

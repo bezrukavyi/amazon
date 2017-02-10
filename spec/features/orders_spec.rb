@@ -1,7 +1,6 @@
 include ActionView::Helpers::NumberHelper
 
-feature 'Orders', :type => :feature do
-
+feature 'Orders', type: :feature do
   let(:user) { create :user }
 
   before do
@@ -39,7 +38,5 @@ feature 'Orders', :type => :feature do
       expect(page).not_to have_content(@processing_order.id)
       expect(page).not_to have_content(I18n.t("orders.index.states.#{@processing_order.state}"))
     end
-
   end
-
 end

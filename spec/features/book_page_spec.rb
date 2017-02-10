@@ -1,5 +1,4 @@
-feature 'BookPage', :type => :feature do
-
+feature 'BookPage', type: :feature do
   let(:review_attr) { attributes_for :review }
   let(:user) { create :user }
   let(:book) { create :book }
@@ -36,7 +35,7 @@ feature 'BookPage', :type => :feature do
   context 'Add to cart' do
     scenario 'Success added' do
       within '#add_to_cart' do
-        fill_in ('quantity'), with: 2
+        fill_in 'quantity', with: 2
         click_button I18n.t('add_to_cart')
       end
       expect(page).to have_content(I18n.t('flash.success.book_add', count: 2))
@@ -44,14 +43,11 @@ feature 'BookPage', :type => :feature do
 
     scenario 'Failed added' do
       within '#add_to_cart' do
-        fill_in ('quantity'), with: 100
+        fill_in 'quantity', with: 100
         click_button I18n.t('add_to_cart')
       end
       message = ['Quantity', I18n.t('errors.messages.less_than_or_equal_to', count: 99)].join(' ')
       expect(page).to have_content(I18n.t('flash.failure.book_add', errors: message))
     end
-
   end
-
-
 end

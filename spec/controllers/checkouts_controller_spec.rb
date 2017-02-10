@@ -1,5 +1,4 @@
 describe CheckoutsController, type: :controller do
-
   let(:user) { create :user }
 
   before do
@@ -11,7 +10,6 @@ describe CheckoutsController, type: :controller do
   end
 
   describe 'GET #show' do
-
     context 'accessed' do
       let(:order) { create :order, :checkout_package, user: user }
 
@@ -78,11 +76,9 @@ describe CheckoutsController, type: :controller do
         expect(response).to redirect_to checkout_path(:confirm)
       end
     end
-
   end
 
   describe 'PUT #update' do
-
     let(:order) { create :order, :checkout_package, user: user }
     let(:order_item) { create :order_item, quantity: 1, order: order }
 
@@ -93,7 +89,7 @@ describe CheckoutsController, type: :controller do
     context 'address step' do
       before do
         @params = { billing_attributes: attributes_for(:address_order, :billing),
-         shipping_attributes: attributes_for(:address_order, :shipping) }
+                    shipping_attributes: attributes_for(:address_order, :shipping) }
       end
 
       it 'call Checkout::StepAddress' do
@@ -105,7 +101,6 @@ describe CheckoutsController, type: :controller do
         put :update, params: { id: :address, order: @params }
         expect(response).to redirect_to checkout_path(:delivery)
       end
-
     end
 
     context 'delivery step' do
@@ -153,7 +148,5 @@ describe CheckoutsController, type: :controller do
         expect(response).to redirect_to checkout_path(:complete)
       end
     end
-
   end
-
 end

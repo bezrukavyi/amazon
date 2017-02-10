@@ -1,7 +1,6 @@
 describe ConfirmationsController, type: :controller do
-
   before(:each) do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
   describe '#PUT update' do
@@ -49,7 +48,5 @@ describe ConfirmationsController, type: :controller do
         expect(response).to render_template(:show)
       end
     end
-
   end
-
 end

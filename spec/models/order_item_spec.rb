@@ -1,5 +1,4 @@
 describe OrderItem, type: :model do
-
   subject { build :order_item }
   let(:order) { order_item.order }
 
@@ -32,6 +31,4 @@ describe OrderItem, type: :model do
       expect { item.valid? }.to change { OrderItem.count }.by(-1)
     end
   end
-
-
 end

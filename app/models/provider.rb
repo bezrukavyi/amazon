@@ -11,13 +11,12 @@ class Provider < ApplicationRecord
     password = HumanPasswordValidator.generate_password
     user = set_user(auth, password)
     skip_confirm = user.new_record?
-    if user.skip_confirmation! && user.save
-      ProviderMailer.authorize(user: user, provider: auth.provider, password: password).deliver if skip_confirm
-      user.providers.create(name: auth.provider, uid: auth.uid)
+    return unless user.skip_confirmation! && user.save
+    if skip_confirm
+      ProviderMailer.authorize(user: user, provider: auth.provider, password: password).deliver
     end
+    user.providers.create(name: auth.provider, uid: auth.uid)
   end
-
-  private
 
   def self.set_user(auth, password)
     User.find_or_initialize_by(email: auth.info.email) do |user|
@@ -30,12 +29,11 @@ class Provider < ApplicationRecord
 
   def self.parse_image(auth)
     return unless image = auth.info['image']
-    image.gsub('http://','https://')
+    image.gsub('http://', 'https://')
   end
 
   def self.parse_name(auth)
     return [] unless name = auth.info['name']
     name.split(' ')
   end
-
 end

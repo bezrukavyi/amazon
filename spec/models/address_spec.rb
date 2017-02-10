@@ -1,5 +1,4 @@
 describe Address, type: :model do
-
   subject { build :address_user, :billing }
 
   context 'associations' do
@@ -17,5 +16,4 @@ describe Address, type: :model do
       expect(address.address_type).to eq('shipping')
     end
   end
-
 end

@@ -4,5 +4,4 @@ class AddressDecorator < PersonDecorator
   def city_zip
     [city, zip].join(' ')
   end
-
 end

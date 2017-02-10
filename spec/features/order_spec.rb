@@ -1,7 +1,6 @@
 include ActionView::Helpers::NumberHelper
 
-feature 'Order', :type => :feature do
-
+feature 'Order', type: :feature do
   let(:user) { create :user }
 
   before do
@@ -17,7 +16,7 @@ feature 'Order', :type => :feature do
       expect(page).to have_content(book.decorate.short_desc)
       expect(page).to have_content(item.quantity)
       expect(page).to have_content(@order.decorate.completed_at)
-      expect(page).to have_content(number_to_currency book.price, locale: :eu)
+      expect(page).to have_content(number_to_currency(book.price, locale: :eu))
     end
   end
 
@@ -37,10 +36,8 @@ feature 'Order', :type => :feature do
 
   scenario 'order result panel' do
     [:sub_total, :delivery_cost, :coupon_cost, :total_price].each do |price|
-      expect(page).to have_content(number_to_currency @order.send(price), locale: :eu)
+      expect(page).to have_content(number_to_currency(@order.send(price), locale: :eu))
     end
     expect(page).to have_content(@order.decorate.discount_title)
   end
-
-
 end

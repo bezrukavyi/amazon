@@ -1,5 +1,4 @@
 describe BookDecorator do
-
   subject { create(:book).decorate }
 
   it '#publicate_at' do
@@ -34,7 +33,5 @@ describe BookDecorator do
         expect(subject.other_picutres).to be_blank
       end
     end
-
   end
-
 end

@@ -1,5 +1,4 @@
 class CreateReview < Rectify::Command
-
   attr_reader :user, :review_form
 
   def initialize(user, review_form)
@@ -22,5 +21,4 @@ class CreateReview < Rectify::Command
     review_params[:verified] = user.bought_book?(review_params[:book_id])
     Review.create(review_params)
   end
-
 end

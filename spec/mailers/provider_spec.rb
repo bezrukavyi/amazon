@@ -1,7 +1,10 @@
 describe ProviderMailer, type: :mailer do
   describe '#autorize' do
     let(:user) { create :user }
-    let(:mail) { described_class.authorize(user: user, provider: 'Facebook', password: 'test').deliver_now }
+    let(:mail) do
+      described_class.authorize(user: user, provider: 'Facebook',
+                                password: 'test').deliver_now
+    end
 
     it 'renders the subject' do
       expect(mail.subject).to eq('Success authorize')
@@ -24,8 +27,8 @@ describe ProviderMailer, type: :mailer do
     end
 
     it 'assigns provider' do
-      expect(mail.body.encoded).to match(I18n.t('devise.omniauth_callbacks.success', kind: 'Facebook'))
+      expect(mail.body.encoded).to match(I18n.t('devise.omniauth_callbacks.success',
+                                                kind: 'Facebook'))
     end
-
   end
 end

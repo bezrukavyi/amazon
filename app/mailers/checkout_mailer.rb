@@ -6,5 +6,4 @@ class CheckoutMailer < ApplicationMailer
     @order = order
     mail to: @user.email, subject: "Complete Order ##{@order.id}"
   end
-
 end
