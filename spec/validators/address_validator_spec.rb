@@ -19,7 +19,6 @@ describe AddressValidator, type: :validator do
         address.validate(:name)
         expect(address.errors.full_messages).to be_blank
       end
-
       it 'with -' do
         address.name = '343-2342'
       end

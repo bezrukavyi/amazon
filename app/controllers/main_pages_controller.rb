@@ -1,6 +1,7 @@
 class MainPagesController < ApplicationController
   def home
     @category_title = category_title
+    @current_category = Category.find_by_title(category_title)
     books = Book.with_category(@category_title).includes(:authors)
     @carousel_books = books.newest.limit(4)
     @best_sellers = books.best_sellers

@@ -9,7 +9,8 @@ class AddressValidator < ActiveModel::EachValidator
   private
 
   def name
-    /\A\w+(?>.*[-,\s])*\w+\z/
+    symbols = /[[:alpha:]\d]/
+    /\A#{symbols}+(?>.*[-,\s])*#{symbols}*\z/
   end
 
   def zip

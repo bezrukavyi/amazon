@@ -21,8 +21,8 @@ feature 'Home', type: :feature do
       expect(page).to have_content(I18n.t('flash.success.book_add', count: 1))
     end
     scenario 'get started' do
-      path = books_path(with_category: @mobile.title)
-      expect(page).to have_link(I18n.t('main_pages.home.get_started'), href: path)
+      path = category_path(id: @mobile.id)
+      expect(page).to have_link(I18n.t('main_pages.home.get_started', with: @mobile), href: path)
     end
     scenario 'best sellers' do
       expect(page).to have_content(@mob_book.title)
@@ -41,8 +41,8 @@ feature 'Home', type: :feature do
       expect(page).to have_content(I18n.t('flash.success.book_add', count: 1))
     end
     scenario 'get started' do
-      path = books_path(with_category: @web_design.title)
-      expect(page).to have_link(I18n.t('main_pages.home.get_started'), href: path)
+      path = category_path(id: @web_design.id)
+      expect(page).to have_link(I18n.t('main_pages.home.get_started', with: @web_design), href: path)
     end
     scenario 'best sellers' do
       expect(page).to have_content(@web_book.title)

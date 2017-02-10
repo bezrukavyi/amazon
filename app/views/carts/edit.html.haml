@@ -6,7 +6,8 @@
     .col-md-12.mb-40
       .center-block.general-text-align.center
         %p.h3.in-grey-600.mb-60= t('.empty_message')
-        = link_to t('back_to_store'), books_path, class: 'btn btn-default mb-20'
+        = link_to t('back_to_store'), cookies[:last_catalog_path] || books_path,
+          class: 'btn btn-default mb-20'
 
   - else
 

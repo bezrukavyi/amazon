@@ -1,5 +1,5 @@
 %main.container
-  = link_to cookies[:last_catalog_path], class: 'general-back-link' do
+  = link_to cookies[:last_catalog_path] || books_path, class: 'general-back-link' do
     %i.fa.fa-long-arrow-left.mr-15
     = t('.back_to_result')
 

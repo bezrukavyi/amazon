@@ -7,7 +7,7 @@
     %h2.h1= t('.wellcome')
     .mb-res-50
       %p= t('.description')
-      = link_to t('.get_started'), books_path(with_category: @category_title),
+      = link_to t('.get_started', with: @category_title), @current_category,
         class: 'btn btn-default'
 
   .mb-35
