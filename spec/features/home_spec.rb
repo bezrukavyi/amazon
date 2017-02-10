@@ -22,7 +22,7 @@ feature 'Home', type: :feature do
     end
     scenario 'get started' do
       path = category_path(id: @mobile.id)
-      expect(page).to have_link(I18n.t('main_pages.home.get_started', with: @mobile), href: path)
+      expect(page).to have_link(I18n.t('main_pages.home.get_started', with: @mobile.title), href: path)
     end
     scenario 'best sellers' do
       expect(page).to have_content(@mob_book.title)
@@ -42,7 +42,7 @@ feature 'Home', type: :feature do
     end
     scenario 'get started' do
       path = category_path(id: @web_design.id)
-      expect(page).to have_link(I18n.t('main_pages.home.get_started', with: @web_design), href: path)
+      expect(page).to have_link(I18n.t('main_pages.home.get_started', with: @web_design.title), href: path)
     end
     scenario 'best sellers' do
       expect(page).to have_content(@web_book.title)

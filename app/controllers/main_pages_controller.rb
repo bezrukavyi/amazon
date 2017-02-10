@@ -12,6 +12,6 @@ class MainPagesController < ApplicationController
 
   def category_title
     category = params[:category] || Category::HOME.to_s
-    category.split('_').join(' ').capitalize
+    category.gsub('_', ' ').capitalize
   end
 end
