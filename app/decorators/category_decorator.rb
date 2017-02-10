@@ -7,6 +7,6 @@ class CategoryDecorator < PersonDecorator
 
   def current?(param)
     return false if param.blank?
-    title.downcase.eql?(param.downcase)
+    title.casecmp(param)
   end
 end
