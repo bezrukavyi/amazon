@@ -47,7 +47,10 @@
                   = link_to t('settings'), edit_user_path, class: 'collapse-link'
                 %li
                   = link_to t('orders.title'), orders_path, class: 'collapse-link'
-
+              - if can? :access, :rails_admin
+                %li.divider{role: "separator"}
+                %li
+                  = link_to t('dashboard'), rails_admin_path, class: 'collapse-link'
               %li.divider{role: "separator"}
               %li
                 = link_to t('log_out'), destroy_user_session_path, method: :delete,
@@ -84,6 +87,10 @@
                   = link_to t('settings'), edit_user_path
                 %li
                   = link_to t('orders.title'), orders_path
+                - if can? :access, :rails_admin
+                  %li.divider{role: "separator"}
+                  %li
+                    = link_to t('dashboard'), rails_admin_path
                 %li.divider{role: "separator"}
                 %li
                   = link_to t('log_out'), destroy_user_session_path, method: :delete
