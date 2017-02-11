@@ -31,8 +31,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_order
-    order = Order.find_by(id: session[:order_id], state: 'processing')
-    order ||= Order.create
+    order = Order.find_by(id: session[:order_id], state: 'processing') || Order.create
     order = current_user.order_in_processing.merge_order!(order) if current_user
     session[:order_id] = order.id
     order

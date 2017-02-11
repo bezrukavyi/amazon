@@ -3,8 +3,8 @@ shared_examples_for 'addressable_relation' do
 
   describe '#has_address' do
     it 'has one test' do
-      resource.class.send('has_address', :test)
-      expect(resource).to have_one(:test)
+      resource.class.send('has_address', :shipping)
+      expect(resource).to have_one(:shipping)
     end
   end
 end

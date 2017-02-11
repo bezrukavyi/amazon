@@ -8,9 +8,7 @@ describe Order, type: :model do
     it { should have_many(:order_items) }
     it { should have_one(:coupon) }
     it { should accept_nested_attributes_for(:order_items) }
-  end
 
-  context 'Concern Addressing' do
     it_behaves_like 'addressable_relation'
   end
 
@@ -29,7 +27,7 @@ describe Order, type: :model do
     end
   end
 
-  describe '#add_item' do
+  context '#add_item' do
     it 'when order item exist' do
       order_item = create :order_item, order: subject
       expect { subject.add_item(order_item.book.id, 20).save }
@@ -52,27 +50,42 @@ describe Order, type: :model do
       expect { order.merge_order!(order) }.not_to change(order, :order_items)
     end
     context 'when another order' do
-      before do
-        @book = create :book
-        @first_item = create :order_item, book: @book, quantity: 2
-        @second_item = create :order_item, book: @book, quantity: 2
-        @first_order = create :order, order_items: [@first_item]
-        @second_order = create :order, order_items: [@second_item]
-      end
+      let(:book) { create :book }
+      let(:coupon) { create :coupon }
+      let(:first_item) { create :order_item, book: book, quantity: 2 }
+      let(:second_item) { create :order_item, book: book, quantity: 2 }
+      let(:first_order) { create :order, order_items: [first_item] }
+      let(:second_order) { create :order, order_items: [second_item], coupon: coupon }
 
       it 'update order_item quantity' do
-        expect { @first_order.merge_order!(@second_order) }
-          .to change { @first_item.reload.quantity }.by(2)
+        expect { first_order.merge_order!(second_order) }
+          .to change { first_item.reload.quantity }.by(2)
       end
       it 'update order total_price' do
-        expect { @first_order.merge_order!(@second_order) }
-          .to change { @first_order.reload.total_price }
+        expect { first_order.merge_order!(second_order) }
+          .to change { first_order.reload.total_price }
+      end
+      context 'update coupon' do
+        it 'when coupon exist' do
+          first_order.merge_order!(second_order)
+          expect(first_order.reload.coupon).not_to be_nil
+        end
+        it 'when coupon not exist' do
+          second_order.coupon = nil
+          first_order.merge_order!(second_order)
+          expect(first_order.reload.coupon).to be_nil
+        end
+        it 'when first order have coupon' do
+          first_order.coupon = create :coupon
+          expect { first_order.merge_order!(second_order) }
+            .to change { first_order.reload.coupon }.to(coupon)
+        end
       end
     end
     it 'return first_order' do
-      @first_order = create :order, :with_items
-      @second_order = create :order, :with_items
-      expect(@first_order.merge_order!(@second_order)).to eq(@first_order)
+      first_order = create :order, :with_items
+      second_order = create :order, :with_items
+      expect(first_order.merge_order!(second_order)).to eq(first_order)
     end
   end
 

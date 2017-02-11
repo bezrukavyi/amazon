@@ -74,7 +74,7 @@ class Order < ApplicationRecord
   end
 
   def items_count
-    @items_count ||= order_items.map(&:quantity).sum
+    order_items.map(&:quantity).sum
   end
 
   def add_item(book_id, quantity = 1)
@@ -91,6 +91,8 @@ class Order < ApplicationRecord
     order.order_items.each do |order_item|
       add_item(order_item.book_id, order_item.quantity).save
     end
+    self.coupon = nil if self.coupon.present? && order.coupon.present?
+    order.destroy && order.coupon&.update_attributes(order: self)
     tap(&:save)
   end
 
