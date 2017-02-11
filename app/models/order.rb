@@ -97,10 +97,7 @@ class Order < ApplicationRecord
   private
 
   def update_total_price
-    if items_count.zero?
-      self.delivery = nil
-      self.coupon = nil
-    end
+    self.coupon = nil if items_count.zero?
     self.total_price = calc_total_cost(:coupon, :delivery)
   end
 end

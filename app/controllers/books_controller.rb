@@ -9,6 +9,7 @@ class BooksController < ApplicationController
   end
 
   def show
+    session['user_return_to'] = request.fullpath unless current_user
     @review_form = ReviewForm.new
   end
 
