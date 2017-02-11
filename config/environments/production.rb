@@ -73,8 +73,8 @@ Rails.application.configure do
     domain: config.app_domain,
     authentication: :plain,
     enable_starttls_auto: true,
-    user_name: Figaro.env.mail.gmail_username,
-    password: Figaro.env.mail.gmail_password
+    user_name: Figaro.env.gmail_username,
+    password: Figaro.env.gmail_password
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
