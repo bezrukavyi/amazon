@@ -93,6 +93,7 @@ group :development do
   gem 'rails-erd'
   gem 'overcommit', require: false
   gem 'rubocop', require: false
+  gem 'haml_lint', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
