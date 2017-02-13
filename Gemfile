@@ -34,8 +34,6 @@ gem 'simple_form', '~> 3.2', '>= 3.2.1'
 
 gem 'rails-i18n'
 
-gem 'roo'
-
 gem 'aasm'
 
 gem 'wicked'

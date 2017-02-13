@@ -4,22 +4,22 @@ class CreditCardMonthYearValidator < ActiveModel::EachValidator
   def validate_each(object, attribute, value)
     INSPECTIONS.each do |inspection|
       next if send(inspection, value)
-      object.errors.add(attribute, I18n.t("validators.credit_card.#{inspection}"))
+      object.errors.add(attribute,
+                        I18n.t("validators.credit_card.#{inspection}"))
     end
   end
 
   private
 
   def slash_format(value)
-    value =~ /\A\d+\/\d+\z/
+    value =~ %r{\A\d+\/\d+\z}
   end
 
   def month_format(value)
-    value =~ /\A(0[1-9]|1[0-2])\//
+    value =~ %r{\A(0[1-9]|1[0-2])\/}
   end
 
   def year_format(value)
-    value =~ /\/\d{2}\z/
+    value =~ %r{\/\d{2}\z}
   end
-
 end

@@ -1,6 +1,5 @@
 describe OrderItem, type: :model do
   subject { build :order_item }
-  let(:order) { order_item.order }
 
   context 'association' do
     it { expect(subject).to belong_to(:book) }

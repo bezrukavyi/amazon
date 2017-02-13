@@ -1,5 +1,5 @@
 class SpecSymbolsValidator < ActiveModel::EachValidator
-  INSPECTION = /[!%$&?'`*^._=~+-\{\|\}\#\/]/
+  INSPECTION = /[[:punct:]]/
 
   def validate_each(object, attribute, value)
     return if value =~ /\A[[:alpha:]\s]+#{INSPECTION}?[[:alpha:]\s]*\z/

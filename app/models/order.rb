@@ -91,7 +91,7 @@ class Order < ApplicationRecord
     order.order_items.each do |order_item|
       add_item(order_item.book_id, order_item.quantity).save
     end
-    self.coupon = nil if self.coupon.present? && order.coupon.present?
+    self.coupon = nil if order.coupon.present?
     order.destroy && order.coupon&.update_attributes(order: self)
     tap(&:save)
   end
