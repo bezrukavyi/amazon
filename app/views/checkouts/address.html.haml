@@ -23,16 +23,16 @@
           %h3.general-subtitle.mt-0= t('shipping_address')
 
         = field.simple_fields_for :shipping, @shipping do |item_field|
-          #shipping_fields{class: "#{'hidden-fields' if params[:use_billing]}"}
+          #shipping_fields{class: "#{'hidden-fields' if params[:use_base_address]}"}
             = render 'addresses/fields', field: item_field, type: 'shipping'
 
         .form-group.checkbox
           %label.checkbox-label
-            = check_box_tag 'order[use_billing]', 0, params[:use_billing], class: 'checkbox-input',
-              hidden: 'hidden', id: 'use_billing'
+            = check_box_tag :use_base_address, nil, params[:use_base_address], class: 'checkbox-input',
+              hidden: 'hidden', id: 'use_base_address'
             %span.checkbox-icon
               %i.fa.fa-check
-            %span.checkbox-text= t('.use_billing')
+            %span.checkbox-text= t('.use_base_address')
 
     = render 'orders/result_panel', components: [:coupon]
 

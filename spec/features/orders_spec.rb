@@ -35,7 +35,7 @@ feature 'Orders', type: :feature do
     end
 
     scenario 'not exist other orders' do
-      expect(page).not_to have_content(@processing_order.id)
+      expect(page).not_to have_content(@processing_order.state)
       expect(page).not_to have_content(I18n.t("orders.index.states.#{@processing_order.state}"))
     end
   end

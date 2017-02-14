@@ -1,0 +1,35 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
+    - 'config/boot.rb'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'spec/features/*'
+    - 'spec/support/helpers/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
+    - 'Rakefile'
+    - 'corzinus.gemspec'
+  TargetRubyVersion: 2.3
+
+Style/Encoding:
+  EnforcedStyle: when_needed
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'

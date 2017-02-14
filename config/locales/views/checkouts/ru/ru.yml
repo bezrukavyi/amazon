@@ -8,7 +8,7 @@ ru:
       confirm: Подтверждение
       complete: Завершение
     address:
-      use_billing: Использовать адрес оплаты
+      use_base_address: Использовать адрес оплаты
     delivery:
       title: Доставка
     payment:

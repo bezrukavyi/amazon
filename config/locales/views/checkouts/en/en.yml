@@ -8,7 +8,7 @@ en:
       confirm: Confirm
       complete: Complete
     address:
-      use_billing: Use billing address
+      use_base_address: Use billing address
     delivery:
       title: Shipping
     payment:

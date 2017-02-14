@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -67,31 +67,32 @@ gem 'figaro'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'shoulda'
-  gem 'rails-controller-testing'
-  gem 'pry'
   gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'pry'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'shoulda'
+  gem 'wisper-rspec'
   gem 'with_model'
 end
 
 group :test do
-  gem 'database_cleaner'
   gem 'capybara-screenshot'
-  gem 'shoulda-matchers'
+  gem 'database_cleaner'
   gem 'poltergeist'
+  gem 'shoulda-matchers'
 end
 
 group :development do
-  gem 'web-console', '>= 3.3.0'
+  gem 'haml_lint', require: false
   gem 'listen', '~> 3.0.5'
+  gem 'overcommit', require: false
+  gem 'rails-erd'
+  gem 'rubocop', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rails-erd'
-  gem 'overcommit', require: false
-  gem 'rubocop', require: false
-  gem 'haml_lint', require: false
+  gem 'web-console', '>= 3.3.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

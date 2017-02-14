@@ -1,14 +1,12 @@
 describe CreateReview do
   let(:user) { create :user }
-  let(:review_form) { ReviewForm.from_params attributes_for(:review) }
+  let(:book) { create :book }
+  let(:params) { { review: attributes_for(:review) } }
 
   context '#call' do
-    subject { CreateReview.new(user, review_form) }
+    subject { CreateReview.new(user: user, book: book, params: params) }
 
     context 'valid' do
-      before do
-        allow(subject.review_form).to receive(:valid?).and_return(true)
-      end
       it 'set valid broadcast' do
         expect { subject.call }.to broadcast(:valid)
       end
@@ -17,12 +15,14 @@ describe CreateReview do
       end
       describe 'verifiding' do
         it 'when verified' do
-          allow(user).to receive(:bought_book?).with(review_form[:book_id]).and_return(true)
+          allow(user).to receive(:bought_book?).with(book.id)
+            .and_return(true)
           subject.call
           expect(Review.last.verified).to be_truthy
         end
         it 'when not verified' do
-          allow(user).to receive(:bought_book?).with(review_form[:book_id]).and_return(false)
+          allow(user).to receive(:bought_book?).with(book.id)
+            .and_return(false)
           subject.call
           expect(Review.last.verified).to be_falsey
         end
@@ -30,7 +30,8 @@ describe CreateReview do
     end
 
     it 'invalid' do
-      allow(subject.review_form).to receive(:valid?).and_return(false)
+      invalid_params = { review: attributes_for(:review, :invalid) }
+      allow(subject).to receive(:params).and_return(invalid_params)
       expect { subject.call }.to broadcast(:invalid)
     end
   end

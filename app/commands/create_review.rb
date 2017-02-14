@@ -1,24 +1,33 @@
 class CreateReview < Rectify::Command
-  attr_reader :user, :review_form
+  attr_reader :user, :book, :params
 
-  def initialize(user, review_form)
-    @user = user
-    @review_form = review_form
+  def initialize(options)
+    @user = options[:user]
+    @book = options[:book]
+    @params = options[:params]
   end
 
   def call
     if review_form.valid? && create_review
-      broadcast :valid
+      broadcast :valid, book
     else
-      broadcast :invalid
+      broadcast :invalid, review_form
     end
   end
 
   private
 
+  def review_form
+    @review_form ||= ReviewForm.from_params(review_params)
+  end
+
+  def review_params
+    params[:review].merge(user_id: user.id, book_id: @book.id)
+  end
+
   def create_review
     review_params = review_form.to_h
-    review_params[:verified] = user.bought_book?(review_params[:book_id])
+    review_params[:verified] = user.bought_book?(@book.id)
     Review.create(review_params)
   end
 end

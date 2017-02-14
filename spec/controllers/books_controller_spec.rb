@@ -42,7 +42,8 @@ describe BooksController, type: :controller do
 
     context 'when book not found' do
       before do
-        expect(Book).to receive_message_chain(:full_includes, :find_by).and_return(nil)
+        expect(Book).to receive_message_chain(:full_includes, :find_by)
+          .and_return(nil)
         get :show, params: { id: 1001 }
       end
       it 'redirect_to all books' do
@@ -55,31 +56,47 @@ describe BooksController, type: :controller do
   end
 
   describe 'PUT #update' do
+    let(:params) { { id: subject.id, review: attributes_for(:review) } }
     before do
       allow(Book).to receive(:find_by).with(subject.id).and_return(subject)
     end
 
-    context 'success' do
+    it 'CreateReview call' do
+      allow(controller).to receive(:params).and_return(params)
+      expect(CreateReview).to receive(:call)
+        .with(user: user, book: subject, params: params)
+      put :update, params: params
+    end
+
+    context 'success update' do
       before do
-        put :update, params: { id: subject.id, review: attributes_for(:review) }
-      end
-      it 'redirect to the book' do
-        expect(response).to redirect_to(book_path(subject))
+        stub_const('CreateReview', Support::Command::Valid)
+        Support::Command::Valid.block_value = subject
+        put :update, params: params
       end
       it 'flash notice' do
-        expect(flash[:notice]).to eq I18n.t('flash.success.review_create')
+        expect(flash[:notice]).to eq(I18n.t('flash.success.review_create'))
+      end
+      it 'redirect to edit user' do
+        expect(response).to redirect_to(subject)
       end
     end
 
-    context 'failure' do
+    context 'failure update' do
+      let(:review_form) { double('review_form') }
       before do
-        put :update, params: { id: subject.id, review: attributes_for(:review, :invalid) }
+        stub_const('CreateReview', Support::Command::Invalid)
+        Support::Command::Invalid.block_value = review_form
+        put :update, params: params
       end
-      it 'render show template' do
+      it 'flash notice' do
+        expect(flash[:alert]).to eq(I18n.t('flash.failure.review_create'))
+      end
+      it 'redirect to edit user' do
         expect(response).to render_template(:show)
       end
-      it 'flash alert' do
-        expect(flash[:alert]).to eq I18n.t('flash.failure.review_create')
+      it 'instance review_form' do
+        expect(assigns(:review_form)).to eq(review_form)
       end
     end
   end

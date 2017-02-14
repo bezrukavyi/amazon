@@ -84,68 +84,92 @@ describe CheckoutsController, type: :controller do
 
     before do
       allow(controller).to receive(:current_order).and_return(order)
+      Support::Command::Invalid.block_value = {
+        step_results: double('step_results')
+      }
     end
 
     context 'address step' do
-      before do
-        @params = { billing_attributes: attributes_for(:address_order, :billing),
-                    shipping_attributes: attributes_for(:address_order, :shipping) }
-      end
+      let(:params) { { id: :address, order: {} } }
 
-      it 'call Checkout::StepAddress' do
+      it 'Checkout::StepAddress call' do
         expect(Checkout::StepAddress).to receive(:call)
-        put :update, params: { id: :address, order: @params }
+        put :update, params: params
       end
 
-      it 'valid event' do
-        put :update, params: { id: :address, order: @params }
+      it 'success update' do
+        stub_const('Checkout::StepAddress', Support::Command::Valid)
+        put :update, params: params
         expect(response).to redirect_to checkout_path(:delivery)
+      end
+
+      it 'failure update' do
+        stub_const('Checkout::StepAddress', Support::Command::Invalid)
+        put :update, params: params
+        expect(response).to render_template :address
       end
     end
 
     context 'delivery step' do
-      let(:delivery) { create :delivery }
-      let(:params) { { id: :delivery, delivery_id: delivery.id } }
+      let(:params) { { id: :delivery, order: {} } }
 
-      it 'call Checkout::StepDelivery' do
+      it 'Checkout::StepDelivery call' do
         expect(Checkout::StepDelivery).to receive(:call)
         put :update, params: params
       end
 
-      it 'redirect to payment' do
+      it 'success update' do
+        stub_const('Checkout::StepDelivery', Support::Command::Valid)
         put :update, params: params
         expect(response).to redirect_to checkout_path(:payment)
+      end
+
+      it 'failure update' do
+        stub_const('Checkout::StepDelivery', Support::Command::Invalid)
+        put :update, params: params
+        expect(response).to render_template :delivery
       end
     end
 
     context 'payment step' do
-      before do
-        order.credit_card = nil
-        @params = { credit_card_attributes: attributes_for(:credit_card) }
-      end
+      let(:params) { { id: :payment, order: {} } }
 
-      it 'call Checkout::StepPayment' do
+      it 'Checkout::StepPayment call' do
         expect(Checkout::StepPayment).to receive(:call)
-        put :update, params: { id: :payment, order: @params }
+        put :update, params: params
       end
 
-      it 'redirect to payment' do
-        put :update, params: { id: :payment, order: @params }
+      it 'success update' do
+        stub_const('Checkout::StepPayment', Support::Command::Valid)
+        put :update, params: params
         expect(response).to redirect_to checkout_path(:confirm)
+      end
+
+      it 'failure update' do
+        stub_const('Checkout::StepPayment', Support::Command::Invalid)
+        put :update, params: params
+        expect(response).to render_template :payment
       end
     end
 
     context 'confirm step' do
       let(:params) { { id: :confirm, confirm: true } }
 
-      it 'call Checkout::StepConfirm' do
+      it 'Checkout::StepConfirm call' do
         expect(Checkout::StepConfirm).to receive(:call)
         put :update, params: params
       end
 
-      it 'redirect to payment' do
+      it 'success update' do
+        stub_const('Checkout::StepConfirm', Support::Command::Valid)
         put :update, params: params
         expect(response).to redirect_to checkout_path(:complete)
+      end
+
+      it 'failure update' do
+        stub_const('Checkout::StepConfirm', Support::Command::Invalid)
+        put :update, params: params
+        expect(response).to render_template :confirm
       end
     end
   end

@@ -2,19 +2,44 @@ describe Checkout::StepPayment do
   let(:order) { create :order }
 
   context 'valid' do
-    let(:credit_card) { CreditCardForm.from_params(attributes_for(:credit_card)) }
-    subject { Checkout::StepPayment.new(order: order, payment_form: credit_card) }
+    let(:params) do
+      { order: { credit_card_attributes: attributes_for(:credit_card) } }
+    end
 
-    it 'set broadcast' do
-      expect { subject.call }.to broadcast(:valid)
+    context 'when credit not exit' do
+      let(:credit_card) do
+        CreditCardForm.from_params(params[:order][:credit_card_attributes])
+      end
+      subject { Checkout::StepPayment.new(order: order, params: params) }
+      before do
+        expect(CreditCardForm).to receive(:from_params)
+          .with(params[:order][:credit_card_attributes])
+          .and_return(credit_card)
+      end
+
+      it 'set credit_card to order' do
+        expect { subject.call }.to change(order, :credit_card)
+      end
+      it 'not create new credit card' do
+        expect { subject.call }.to change { CreditCard.count }.by(1)
+      end
+      it 'set broadcast' do
+        expect { subject.call }.to broadcast(:valid)
+      end
     end
 
     context 'when credit exit' do
-      before do
-        @credit_card = create :credit_card
-      end
+      before { @credit_card = create :credit_card }
       let(:payment_form) { CreditCardForm.from_model(@credit_card) }
-      subject { Checkout::StepPayment.new(order: order, payment_form: payment_form) }
+
+      before do
+        allow_any_instance_of(Checkout::StepPayment).to receive(:payment_form)
+          .and_return(payment_form)
+      end
+
+      subject do
+        Checkout::StepPayment.new(order: order, params: params)
+      end
 
       it 'set credit_card to order' do
         expect { subject.call }.to change(order, :credit_card)
@@ -22,30 +47,13 @@ describe Checkout::StepPayment do
       it 'not create new credit card' do
         expect { subject.call }.not_to change { CreditCard.count }
       end
-    end
-
-    context 'when credit not exit' do
-      it 'set credit_card to order' do
-        expect { subject.call }.to change(order, :credit_card)
+      it 'update credit card' do
+        payment_form.name = 'Rspec Rspec'
+        expect { subject.call }.to change { @credit_card.reload.name }
       end
-      it 'not create new credit card' do
-        expect { subject.call }.to change { CreditCard.count }.by(1)
+      it 'set broadcast' do
+        expect { subject.call }.to broadcast(:valid)
       end
-    end
-  end
-
-  context 'invalid' do
-    let(:credit_card) { CreditCardForm.from_params(attributes_for(:credit_card, :invalid)) }
-    subject { Checkout::StepPayment.new(order: order, payment_form: credit_card) }
-
-    it 'set broadcast' do
-      expect { subject.call }.to broadcast(:invalid)
-    end
-    it 'dont update order' do
-      expect { subject.call }.not_to change(order, :credit_card)
-    end
-    it 'dont create new credit_card' do
-      expect { subject.call }.not_to change { CreditCard.count }
     end
   end
 end

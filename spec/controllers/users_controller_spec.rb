@@ -29,69 +29,81 @@ describe UsersController, type: :controller do
   describe 'PUT #update' do
     before(:each) { sign_in subject }
 
-    context 'update user data' do
-      let(:user_params) { { email: subject.email } }
-      before do
-        allow(controller).to receive(:current_user).and_return(subject)
-        allow(controller).to receive(:allowed_params).and_return(user_params)
+    context 'UpdateUser' do
+      let(:params) { { email: subject.email } }
+      before { allow(controller).to receive(:params).and_return(params) }
+
+      it 'UpdateUser call' do
+        expect(UpdateUser).to receive(:call).with(subject, params)
+        put :update
       end
 
-      context 'Flash messages' do
+      context 'success update' do
         before do
-          allow(controller).to receive(:params).and_return(address: false, with_password: true)
+          stub_const('UpdateUser', Support::Command::Valid)
+          put :update
         end
         it 'flash notice' do
-          expect(subject).to receive(:update_with_password).and_return(true)
-          put :update, params: user_params
-          expect(flash[:notice]).to eq I18n.t('flash.success.user_update')
+          expect(flash[:notice]).to eq(I18n.t('flash.success.privacy_update'))
         end
-
-        it 'flash alert' do
-          expect(subject).to receive(:update_with_password).and_return(false)
-          put :update, params: user_params
-          expect(flash[:alert]).to eq I18n.t('flash.failure.user_update')
+        it 'redirect to edit user' do
+          expect(response).to redirect_to(edit_user_path)
         end
       end
 
-      context 'success update with password' do
+      context 'failure update' do
         before do
-          allow(controller).to receive(:params).and_return(address: false, with_password: true)
+          stub_const('UpdateUser', Support::Command::Invalid)
+          put :update
         end
-        it '#update_with_password' do
-          expect(subject).to receive(:update_with_password).with(user_params)
-          put :update, params: user_params
+        it 'flash notice' do
+          expect(flash[:alert]).to eq(I18n.t('flash.failure.privacy_update'))
         end
-        it '.bypass_sign_in' do
-          allow(subject).to receive(:update_with_password).and_return(true)
-          expect(controller).to receive(:bypass_sign_in).with(subject).and_return(true)
-          put :update, params: user_params
+        it 'redirect to edit user' do
+          expect(response).to render_template(:edit)
         end
-      end
-
-      it 'update without password' do
-        allow(controller).to receive(:params).and_return(address: false, with_password: false)
-        expect(subject).to receive(:update_without_password).with(user_params).and_return(true)
-        put :update, params: user_params
       end
     end
 
-    context 'address user data' do
-      let(:address_params) { { address: attributes_for(:address_user, :billing) } }
+    context 'UpdateAddress' do
+      let(:params) do
+        { address: attributes_for(:address_user, :billing) }
+      end
       before do
-        allow(controller).to receive(:params).and_return(address_params)
+        allow(controller).to receive(:params).and_return(params)
       end
 
-      it '.set_address_by_params' do
-        allow(UpdateAddress).to receive(:call)
-        expect(controller).to receive(:set_address_by_params).with(address_params[:address])
-        put :update, params: address_params
+      it 'UpdateUser call' do
+        expect(UpdateAddress).to receive(:call)
+          .with(addressable: subject, params: params)
+        put :update
       end
 
-      it 'UpdateAddress call' do
-        address = double('address')
-        allow(controller).to receive(:set_address_by_params).and_return(address)
-        expect(UpdateAddress).to receive(:call).with(addressable: subject, addresses: [address])
-        put :update, params: address_params
+      context 'success update' do
+        before do
+          stub_const('UpdateAddress', Support::Command::Valid)
+          put :update
+        end
+        it 'flash notice' do
+          expect(flash[:notice]).to eq(I18n.t('flash.success.address_update'))
+        end
+        it 'redirect to edit user' do
+          expect(response).to redirect_to(edit_user_path)
+        end
+      end
+
+      context 'failure update' do
+        before do
+          stub_const('UpdateAddress', Support::Command::Invalid)
+          expect(controller).to receive(:expose)
+          put :update
+        end
+        it 'flash notice' do
+          expect(flash[:alert]).to eq(I18n.t('flash.failure.address_update'))
+        end
+        it 'redirect to edit user' do
+          expect(response).to render_template(:edit)
+        end
       end
     end
   end

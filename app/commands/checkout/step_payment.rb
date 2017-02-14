@@ -1,30 +1,33 @@
-class Checkout::StepPayment < Rectify::Command
-  attr_reader :order, :payment_form
+module Checkout
+  class StepPayment < Rectify::Command
+    attr_reader :order, :payment_form
 
-  def initialize(options)
-    @order = options[:order]
-    @payment_form = options[:payment_form]
-  end
-
-  def call
-    if payment_form.valid? && update_order
-      broadcast(:valid)
-    else
-      broadcast(:invalid)
+    def initialize(options)
+      @order = options[:order]
+      payment_attrs = options[:params][:order][:credit_card_attributes]
+      @payment_form = CreditCardForm.from_params(payment_attrs)
     end
-  end
 
-  private
+    def call
+      if payment_form.valid? && update_order
+        broadcast(:valid)
+      else
+        broadcast(:invalid)
+      end
+    end
 
-  def update_order
-    order.update_attributes(credit_card: credit_card)
-  end
+    private
 
-  def credit_card
-    CreditCard.find_or_create_by(number: payment_form.number) do |credit_card|
-      credit_card.name = payment_form.name
-      credit_card.cvv = payment_form.cvv
-      credit_card.month_year = payment_form.month_year
+    def update_order
+      order.update_attributes(credit_card: credit_card)
+    end
+
+    def credit_card
+      card = CreditCard.find_or_initialize_by(number: payment_form.number)
+      card.name = payment_form.name
+      card.cvv = payment_form.cvv
+      card.month_year = payment_form.month_year
+      card.tap(&:save)
     end
   end
 end

@@ -1,5 +1,5 @@
+- completed_order = current_user.complete_order
 %main.container.general-main-wrap
-
   = render 'step_nav'
 
   .text-center.mb-40
@@ -8,24 +8,24 @@
   .row.mb-20
     .col-sm-6
       .visible-xs
-        %p.general-order-number.mb-0= t('.order_id', id: @completed_order.id)
-        %p.general-address.mb-30= @completed_order.decorate.created_strf
+        %p.general-order-number.mb-0= t('.order_id', id: completed_order.id)
+        %p.general-address.mb-30= completed_order.decorate.created_strf
 
-      = render 'addresses/panel', address: @completed_order.shipping
+      = render 'addresses/panel', address: completed_order.shipping
 
     .col-sm-6.hidden-xs.text-right
-      %p.general-order-number.mb-0= t('.order_id', id: @completed_order.id)
-      %p.general-address.mb-30= @completed_order.decorate.created_strf
+      %p.general-order-number.mb-0= t('.order_id', id: completed_order.id)
+      %p.general-address.mb-30= completed_order.decorate.created_strf
 
     .visible-xs
-      - @completed_order.order_items.each do |order_item|
+      - completed_order.order_items.each do |order_item|
         = render 'order_items/order_item', order_item: order_item
 
     .hidden-xs
-      = render 'order_items/table', order_items: @completed_order.order_items
+      = render 'order_items/table', order_items: completed_order.order_items
 
   .text-center.general-text-right
-    = render 'orders/result_panel', order: @completed_order, right: true
+    = render 'orders/result_panel', order: completed_order, right: true
 
   .col-md-12.mb-40
     .center-block.general-text-align.center

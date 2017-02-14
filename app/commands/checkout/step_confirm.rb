@@ -1,24 +1,26 @@
-class Checkout::StepConfirm < Rectify::Command
-  attr_reader :order, :user, :confirm
+module Checkout
+  class StepConfirm < Rectify::Command
+    attr_reader :order, :user, :confirm
 
-  def initialize(options)
-    @order = options[:order]
-    @user = options[:user]
-    @confirm = options[:confirm]
-  end
-
-  def call
-    return broadcast(:invalid) if confirm.blank? || user.blank?
-    transaction do
-      order.confirm!
-      send_mail
+    def initialize(options)
+      @order = options[:order]
+      @user = options[:user]
+      @confirm = options[:params][:confirm] if options[:params]
     end
-    broadcast :valid
-  end
 
-  private
+    def call
+      return broadcast(:invalid) if confirm.blank? || user.blank?
+      transaction do
+        order.confirm!
+        send_mail
+      end
+      broadcast :valid
+    end
 
-  def send_mail
-    CheckoutMailer.complete(user, order).deliver
+    private
+
+    def send_mail
+      CheckoutMailer.complete(user, order).deliver
+    end
   end
 end

@@ -15,51 +15,42 @@ describe CartsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let(:valid_params) do
-      { order: {
-        order_items_attributes: { '0' => { quantity: 2, id: order_item.id } },
-        coupon: { code: coupon.code }
-      } }
+    let(:params) { { order: { coupon: { code: coupon.code } } } }
+
+    it 'UpdateOrder call' do
+      allow(controller).to receive(:params).and_return(params)
+      expect(UpdateOrder).to receive(:call).with(subject, params)
+      put :update, params: params
     end
-    let(:coupon_form) { CouponForm.new(valid_params[:order][:coupon]) }
-    let(:parameters) { ActionController::Parameters.new(valid_params) }
 
-    context 'success' do
+    context 'success update' do
       before do
-        allow(CouponForm).to receive(:from_params)
-          .with(parameters[:order][:coupon]).and_return(coupon_form)
+        stub_const('UpdateOrder', Support::Command::Valid)
+        put :update, params: params
       end
-
-      it 'UpdateOrder call' do
-        expect(UpdateOrder).to receive(:call)
-        put :update, params: valid_params
+      it 'flash notice' do
+        expect(flash[:notice]).to eq(I18n.t('flash.success.cart_update'))
       end
-
-      it 'assign coupon_form' do
-        put :update, params: valid_params
-        expect(assigns[:coupon_form]).not_to be_nil
-      end
-
-      it 'redirect_to cart' do
-        put :update, params: valid_params
+      it 'redirect to edit user' do
         expect(response).to redirect_to(edit_cart_path)
       end
-
-      it 'flash notice' do
-        put :update, params: valid_params
-        expect(flash[:notice]).to eq I18n.t('flash.success.cart_update')
-      end
     end
 
-    context 'failure' do
+    context 'failure update' do
+      let(:coupon_form) { double('coupon_form') }
       before do
-        put :update, params: { order: { coupon: { code: 'wrong_coupon' } } }
+        stub_const('UpdateOrder', Support::Command::Invalid)
+        Support::Command::Invalid.block_value = coupon_form
+        put :update, params: params
       end
-      it 'render edit' do
+      it 'flash notice' do
+        expect(flash[:alert]).to eq(I18n.t('flash.failure.cart_update'))
+      end
+      it 'redirect to edit user' do
         expect(response).to render_template(:edit)
       end
-      it 'flash alert' do
-        expect(flash[:alert]).to eq I18n.t('flash.failure.cart_update')
+      it 'instance review_form' do
+        expect(assigns(:coupon_form)).to eq(coupon_form)
       end
     end
   end

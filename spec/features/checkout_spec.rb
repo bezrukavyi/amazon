@@ -28,7 +28,7 @@ feature 'Checkout', type: :feature do
         fill_in I18n.t('simple_form.labels.address.phone'), with: billing_attr[:phone]
         find('#country_id_billing_address').find(:xpath, 'option[2]').select_option
       end
-      first('label', text: I18n.t('checkouts.address.use_billing')).click
+      first('label', text: I18n.t('checkouts.address.use_base_address')).click
       click_button I18n.t('simple_form.titles.save_and_continue')
 
       first('label', text: @delivery.name).click
@@ -65,7 +65,7 @@ feature 'Checkout', type: :feature do
       expect(find_field(I18n.t('simple_form.labels.address.zip')).value).to eq(address.zip)
       expect(find_field(I18n.t('simple_form.labels.address.phone')).value).to eq(address.phone)
     end
-    first('label', text: I18n.t('checkouts.address.use_billing')).click
+    first('label', text: I18n.t('checkouts.address.use_base_address')).click
     click_button I18n.t('simple_form.titles.save_and_continue')
 
     expect(current_path).to eq checkout_path(id: :delivery)

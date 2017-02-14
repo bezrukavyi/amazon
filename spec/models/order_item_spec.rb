@@ -7,13 +7,24 @@ describe OrderItem, type: :model do
   end
 
   context 'validation' do
-    it { should validate_numericality_of(:quantity).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:quantity).is_less_than_or_equal_to(99) }
+    it do
+      should validate_numericality_of(:quantity).is_greater_than_or_equal_to(0)
+    end
+    it do
+      should validate_numericality_of(:quantity).is_less_than_or_equal_to(99)
+    end
 
-    it '#stock_validate' do
-      subject.book.count = 5
-      subject.quantity = 6
-      expect(subject).not_to be_valid
+    describe '#stock_validate' do
+      it 'invalid' do
+        subject.book.count = 5
+        subject.quantity = 6
+        expect(subject).not_to be_valid
+      end
+      it 'valid' do
+        subject.book.count = 5
+        subject.quantity = 4
+        expect(subject).to be_valid
+      end
     end
   end
 

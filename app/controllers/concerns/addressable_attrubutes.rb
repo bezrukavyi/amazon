@@ -5,25 +5,23 @@ module AddressableAttrubutes
     attr_accessor(*Address::TYPES)
   end
 
-  def set_addresses_by_model(current_object)
+  def addresses_by_model(current_object)
     Address::TYPES.each do |type|
       address = current_object.send(type)
       send("#{type}=", AddressForm.from_model(address))
     end
   end
 
-  def set_addresses_by_params(params)
+  def addresses_by_params(params, use_base_address = false)
     Address::TYPES.map do |type|
-      if params[:use_billing]
-        form_params = params[:billing_attributes].merge(address_type: type)
-      else
-        form_params = params[:"#{type}_attributes"]
-      end
-      set_address_by_params(form_params)
+      base_type = use_base_address ? Address::BASE : type
+      form_params = params[:"#{base_type}_attributes"]
+      form_params = form_params.merge(address_type: type) if use_base_address
+      address_by_params(form_params)
     end
   end
 
-  def set_address_by_params(params)
+  def address_by_params(params)
     send("#{params[:address_type]}=", AddressForm.from_params(params))
   end
 

@@ -1,5 +1,5 @@
 $(document).on "turbolinks:load", ->
-  $('#use_billing').click ->
+  $('#use_base_address').click ->
     $('#shipping_fields').slideToggle()
 
   $('input[name=delivery_id]').click ->

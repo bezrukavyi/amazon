@@ -5,12 +5,12 @@
 
   .visible-xs.mb-40
     = form_tag checkout_path, class: 'delivery_form', method: :patch do
-      = render 'deliveries/deliveries_xs', deliveries: @deliveries
+      = render 'deliveries/deliveries_xs', deliveries: current_order.access_deliveries
 
 
   = form_tag checkout_path, class: 'delivery_form', method: :patch do
     .hidden-xs.mb-res-50
-      = render 'deliveries/deliveries_md', deliveries: @deliveries
+      = render 'deliveries/deliveries_md', deliveries: current_order.access_deliveries
 
     = render 'orders/result_panel'
 

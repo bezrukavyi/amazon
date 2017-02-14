@@ -2,7 +2,7 @@ en:
   flash:
     failure:
       confirm_intentions: You must confirm your intentions about destroy account
-      user_update: "Your privacy data wasn't updated"
+      privacy_update: "Your privacy data wasn't updated"
       address_update: "You address wasn't updated"
       step: You must end this step
       order_found: Order not found
@@ -15,7 +15,7 @@ en:
       book_destroy: "Can't destroy this book from your cart %{errors}"
       update_password: "Password wasn't updated"
     success:
-      user_update: Your privacy data successfully updated
+      privacy_update: Your privacy data successfully updated
       address_update: Address successfully saved
       cart_update: "Your cart successfully updated"
       review_create: Your review successfully created and sent for approval by administator

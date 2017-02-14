@@ -48,13 +48,14 @@ class Order < ApplicationRecord
 
   def self.not_empty
     joins(:order_items)
-    .group('orders.id')
-    .having('COUNT(order_items) != 0')
+      .group('orders.id')
+      .having('COUNT(order_items) != 0')
   end
 
   def access_deliveries
-    return unless shipping
-    @access_deliveries ||= Delivery.where(country: shipping.country)
+    address = send(Address::DELIVERY)
+    return unless address
+    @access_deliveries ||= Delivery.where(country: address.country)
   end
 
   def sub_total
@@ -79,7 +80,8 @@ class Order < ApplicationRecord
 
   def add_item(book_id, quantity = 1)
     return if quantity.zero?
-    if item = order_items.find_by(book_id: book_id)
+    item = order_items.find_by(book_id: book_id)
+    if item
       item.increment :quantity, quantity
     else
       order_items.new(quantity: quantity, book_id: book_id)

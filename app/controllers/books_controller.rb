@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  include Rectify::ControllerHelpers
+
   before_action :authenticate_user!, only: :update
   before_action :set_book, only: [:show, :update]
   before_action :set_reviews, only: [:show, :update]
@@ -14,10 +16,14 @@ class BooksController < ApplicationController
   end
 
   def update
-    @review_form = ReviewForm.from_params(review_params)
-    CreateReview.call(current_user, @review_form) do
-      on(:valid) { redirect_to book_path(params[:id]), notice: t('flash.success.review_create') }
-      on(:invalid) { flash_render :show, alert: t('flash.failure.review_create') }
+    CreateReview.call(user: current_user, book: @book, params: params) do
+      on(:valid) do |book|
+        redirect_to book, notice: t('flash.success.review_create')
+      end
+      on(:invalid) do |review_form|
+        expose review_form: review_form
+        flash_render :show, alert: t('flash.failure.review_create')
+      end
     end
   end
 
@@ -30,9 +36,5 @@ class BooksController < ApplicationController
 
   def set_reviews
     @reviews = @book.reviews
-  end
-
-  def review_params
-    params[:review].merge(user_id: current_user.id, book_id: @book.id)
   end
 end
