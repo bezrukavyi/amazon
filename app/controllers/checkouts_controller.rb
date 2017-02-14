@@ -25,7 +25,7 @@ class CheckoutsController < ApplicationController
     "Checkout::Step#{step.capitalize}".constantize.call(options) do
       on(:valid) { render_wizard current_order }
       on(:invalid) do |step_results|
-        expose step_results
+        expose step_results if step_results
         render_wizard
       end
     end

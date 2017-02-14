@@ -12,7 +12,7 @@ module Checkout
       if payment_form.valid? && update_order
         broadcast(:valid)
       else
-        broadcast(:invalid)
+        broadcast :invalid, payment_form: payment_form
       end
     end
 

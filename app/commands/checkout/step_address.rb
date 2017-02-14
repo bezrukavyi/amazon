@@ -22,7 +22,7 @@ module Checkout
     private
 
     def attributes_valid?
-      addresses.all?(&:valid?)
+      addresses.map(&:valid?).all?
     end
 
     def update_order
