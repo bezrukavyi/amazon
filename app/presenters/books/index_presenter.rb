@@ -2,9 +2,9 @@ module Books
   class IndexPresenter
     attr_reader :params, :category
 
-    def initialize(options)
-      @params = options[:params]
-      @category = options[:category]
+    def initialize(params, category = nil)
+      @params = params
+      @category = category
     end
 
     def sort_types
@@ -25,8 +25,7 @@ module Books
       books = Book.select(:id, :price, :title, :count, :avatar)
                   .sorted_by(params[:sorted_by])
                   .page(params[:page]).with_authors
-      books = books.where(category: category) if category.present?
-      books
+      category.present? ? books.where(category: category) : books
     end
   end
 end

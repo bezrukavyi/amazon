@@ -11,8 +11,7 @@ describe CategoriesController, type: :controller do
     it 'when category exist' do
       params = { sorted_by: 'asc_title', id: subject.id }
       allow(controller).to receive(:params).and_return(params)
-      expect(Books::IndexPresenter).to receive(:new).with(params: params,
-                                                          category: subject)
+      expect(Books::IndexPresenter).to receive(:new).with(params, subject)
       get :show, params: { id: subject.id }
     end
     it 'when category isnt exist' do

@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  include CookiePathable
   include Rectify::ControllerHelpers
 
   before_action :authenticate_user!, only: :update
@@ -6,8 +7,8 @@ class BooksController < ApplicationController
   before_action :set_reviews, only: [:show, :update]
 
   def index
-    cookies[:last_catalog_path] = books_path(sorted_by: params[:sorted_by])
-    @presenter = Books::IndexPresenter.new(params: params)
+    last_catalog_path!
+    @presenter = Books::IndexPresenter.new(params)
   end
 
   def show

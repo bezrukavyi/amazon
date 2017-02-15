@@ -10,7 +10,7 @@ describe BooksController, type: :controller do
     it 'get presenter' do
       params = { sorted_by: 'asc_title' }
       allow(controller).to receive(:params).and_return(params)
-      expect(Books::IndexPresenter).to receive(:new).with(params: params)
+      expect(Books::IndexPresenter).to receive(:new).with(params)
       get :index
     end
   end

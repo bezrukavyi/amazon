@@ -14,4 +14,8 @@ module BooksHelper
   def sort_title
     t("books.index.sorted_by.#{sort_key}")
   end
+
+  def last_catalog_path
+    cookies['last_catalog_path'] || books_path
+  end
 end

@@ -6,7 +6,7 @@ describe Books::IndexPresenter do
     @params = { sorted_by: 'asc_title', page: 2 }
   end
 
-  subject { Books::IndexPresenter.new(params: @params) }
+  subject { Books::IndexPresenter.new(@params, @category) }
 
   it '#sort_types' do
     expect(subject.sort_types).to eq(Book::SORT_TYPES)
