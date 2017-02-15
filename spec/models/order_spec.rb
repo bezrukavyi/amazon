@@ -2,7 +2,7 @@ describe Order, type: :model do
   subject { build :order }
 
   context 'associations' do
-    [:user, :credit_card, :delivery].each do |model_name|
+    %i(user credit_card delivery).each do |model_name|
       it { should belong_to(model_name) }
     end
     it { should have_many(:order_items) }
@@ -14,16 +14,20 @@ describe Order, type: :model do
 
   context 'aasm state' do
     it 'processing -> in_progress' do
-      expect(subject).to transition_from(:processing).to(:in_progress).on_event(:confirm)
+      expect(subject).to transition_from(:processing).to(:in_progress)
+        .on_event(:confirm)
     end
     it 'in_progress -> in_transit' do
-      expect(subject).to transition_from(:in_progress).to(:in_transit).on_event(:sent)
+      expect(subject).to transition_from(:in_progress).to(:in_transit)
+        .on_event(:sent)
     end
     it 'in_transit -> delivered' do
-      expect(subject).to transition_from(:in_transit).to(:delivered).on_event(:delivered)
+      expect(subject).to transition_from(:in_transit).to(:delivered)
+        .on_event(:delivered)
     end
     it 'in_progress -> cancel' do
-      expect(subject).to transition_from(:in_progress).to(:canceled).on_event(:cancel)
+      expect(subject).to transition_from(:in_progress).to(:canceled)
+        .on_event(:cancel)
     end
   end
 
@@ -55,7 +59,9 @@ describe Order, type: :model do
       let(:first_item) { create :order_item, book: book, quantity: 2 }
       let(:second_item) { create :order_item, book: book, quantity: 2 }
       let(:first_order) { create :order, order_items: [first_item] }
-      let(:second_order) { create :order, order_items: [second_item], coupon: coupon }
+      let(:second_order) do
+        create :order, order_items: [second_item], coupon: coupon
+      end
 
       it 'update order_item quantity' do
         expect { first_order.merge_order!(second_order) }
@@ -122,14 +128,13 @@ describe Order, type: :model do
     shipping = create :address_order, :shipping, country: country
     first_delivery = create :delivery, country: country
     second_delivery = create :delivery, country: country
-    third_delivery = create :delivery
     allow(subject).to receive(:shipping).and_return(shipping)
     expect(subject.access_deliveries).to eq([first_delivery, second_delivery])
   end
 
   describe '#any_address?' do
     it 'when true' do
-      shipping = create :address_order, :shipping, addressable: subject
+      create :address_order, :shipping, addressable: subject
       expect(subject.any_address?).to be_truthy
     end
     it 'when false' do
@@ -146,7 +151,7 @@ describe Order, type: :model do
   end
 
   it '.not_empty' do
-    order = create :order, order_items: [create(:order_item)]
+    create :order, order_items: [create(:order_item)]
     empty_order = create :order, order_items: []
     expect(Order.not_empty).not_to include(empty_order)
   end

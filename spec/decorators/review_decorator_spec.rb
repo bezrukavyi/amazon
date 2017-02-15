@@ -6,6 +6,6 @@ describe ReviewDecorator do
   end
 
   it '#created_strf' do
-    expect(subject.created_strf).to match(/\d{2}\/\d{2}\/\d{2}/)
+    expect(subject.created_strf).to match(%r{\d{2}\/\d{2}\/\d{2}})
   end
 end

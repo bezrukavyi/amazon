@@ -10,11 +10,13 @@ describe Book, type: :model do
   end
 
   context 'validation' do
-    [:title, :price, :count].each do |attribute|
+    %i(title price count).each do |attribute|
       it { should validate_presence_of(attribute) }
     end
 
-    it { should validate_numericality_of(:count).is_greater_than_or_equal_to(0) }
+    it do
+      should validate_numericality_of(:count).is_greater_than_or_equal_to(0)
+    end
     it { should validate_numericality_of(:price).is_greater_than(0) }
 
     describe '#access_dimension' do

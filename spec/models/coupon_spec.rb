@@ -11,7 +11,11 @@ describe Coupon, type: :model do
     it { should validate_length_of(:code).is_at_most(100) }
 
     it { should validate_presence_of(:discount) }
-    it { should validate_numericality_of(:discount).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:discount).is_less_than_or_equal_to(100) }
+    it do
+      should validate_numericality_of(:discount).is_greater_than_or_equal_to(0)
+    end
+    it do
+      should validate_numericality_of(:discount).is_less_than_or_equal_to(100)
+    end
   end
 end

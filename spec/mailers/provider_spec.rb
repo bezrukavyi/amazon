@@ -27,8 +27,8 @@ describe ProviderMailer, type: :mailer do
     end
 
     it 'assigns provider' do
-      expect(mail.body.encoded).to match(I18n.t('devise.omniauth_callbacks.success',
-                                                kind: 'Facebook'))
+      expect(mail.body.encoded)
+        .to match(I18n.t('devise.omniauth_callbacks.success', kind: 'Facebook'))
     end
   end
 end

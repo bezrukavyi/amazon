@@ -1,39 +1,36 @@
 class Provider < ApplicationRecord
   belongs_to :user
 
-  scope :find_by_omniauth, -> (auth) do
-    where(name: auth.provider, uid: auth.uid)
-  end
-
   def self.authorize(auth)
-    provider = find_by_omniauth(auth)
-    return provider.first if provider.present?
+    provider = find_by(name: auth.provider, uid: auth.uid)
+    return provider if provider.present?
     password = HumanPasswordValidator.generate_password
-    user = set_user(auth, password)
-    skip_confirm = user.new_record?
-    return unless user.skip_confirmation! && user.save
-    if skip_confirm
-      ProviderMailer.authorize(user: user, provider: auth.provider, password: password).deliver
+    user = user_by_auth(auth, password)
+    if user.new_record? && user.save
+      ProviderMailer.authorize(user: user, provider: auth.provider,
+                               password: password).deliver
     end
     user.providers.create(name: auth.provider, uid: auth.uid)
   end
 
-  def self.set_user(auth, password)
+  def self.user_by_auth(auth, password)
     User.find_or_initialize_by(email: auth.info.email) do |user|
       user.password = password
-      user.remote_avatar_url = parse_image(auth)
-      user.first_name = parse_name(auth).first
-      user.last_name = parse_name(auth).last
+      user.remote_avatar_url = parse_image(auth.info['image'])
+      name = parse_name(auth.info['name'])
+      user.first_name = name.first
+      user.last_name = name.last
+      user.skip_confirmation!
     end
   end
 
-  def self.parse_image(auth)
-    return unless image = auth.info['image']
+  def self.parse_image(image)
+    return unless image
     image.gsub('http://', 'https://')
   end
 
-  def self.parse_name(auth)
-    return [] unless name = auth.info['name']
+  def self.parse_name(name)
+    return [] unless name
     name.split(' ')
   end
 end

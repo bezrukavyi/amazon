@@ -7,7 +7,7 @@ describe Delivery, type: :model do
   end
 
   context 'validation' do
-    [:min_days, :max_days, :name, :price].each do |attribute_name|
+    %i(min_days max_days name price).each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
 
@@ -42,7 +42,7 @@ describe Delivery, type: :model do
         delivery = build :delivery, min_days: 10, max_days: 5
         delivery.valid?
         expect(delivery.errors.full_messages).to include('Min days ' +
-          I18n.t('simple_form.error_notification.delivery.access_max_days'))
+          I18n.t('validators.delivery.access_max_days'))
       end
     end
   end

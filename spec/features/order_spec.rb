@@ -21,7 +21,7 @@ feature 'Order', type: :feature do
   end
 
   scenario 'order components info' do
-    [:shipping, :billing].each do |address|
+    %i(shipping billing).each do |address|
       address = @order.send(address)
       expect(page).to have_content(address.name)
       expect(page).to have_content(address.decorate.city_zip)
@@ -35,8 +35,9 @@ feature 'Order', type: :feature do
   end
 
   scenario 'order result panel' do
-    [:sub_total, :delivery_cost, :coupon_cost, :total_price].each do |price|
-      expect(page).to have_content(number_to_currency(@order.send(price), locale: :eu))
+    %i(sub_total delivery_cost coupon_cost total_price).each do |price|
+      expect(page).to have_content(number_to_currency(@order.send(price),
+                                                      locale: :eu))
     end
     expect(page).to have_content(@order.decorate.discount_title)
   end

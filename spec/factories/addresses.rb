@@ -4,7 +4,7 @@ FactoryGirl.define do
     last_name 'Ivan'
     name FFaker::Address.street_name
     city 'Dnepr'
-    zip 49000
+    zip 49_000
     phone '+380632863823'
     country_id { create(:country).id }
   end

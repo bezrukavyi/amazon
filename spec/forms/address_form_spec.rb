@@ -8,17 +8,17 @@ describe AddressForm, :address_form do
   end
 
   context 'validation' do
-    [:first_name, :last_name, :name, :zip, :phone, :city].each do |attribute_name|
+    %i(first_name last_name name zip phone city).each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
 
-    [:country_id, :address_type].each do |attribute_name|
+    %i(country_id address_type).each do |attribute_name|
       it { should validate_presence_of(attribute_name) }
     end
 
     it { should validate_length_of(:zip).is_at_most(10) }
 
-    [:first_name, :last_name, :city].each do |attribute_name|
+    %i(first_name last_name city).each do |attribute_name|
       it { should validate_length_of(attribute_name).is_at_most(50) }
     end
 

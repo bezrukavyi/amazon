@@ -24,8 +24,8 @@ class AddressForm < Rectify::Form
   private
 
   def wrong_code
-    return unless country = Country.find_by_id(country_id)
-    return if phone =~ /\A\+#{country.code}/
+    country = Country.find_by_id(country_id)
+    return if country.blank? || phone =~ /\A\+#{country.code}/
     errors.add(:phone, I18n.t('simple_form.error_notification.country_code',
                               code: "+#{country.code}"))
   end

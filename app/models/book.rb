@@ -22,40 +22,39 @@ class Book < ApplicationRecord
   SORT_TYPES = [:asc_title, :desc_title, :newest, :low_price, :hight_price,
                 :popular].freeze
 
-  scope :sorted_by, -> (type) { type.present? ? send(type) : asc_title }
+  scope :sorted_by, ->(type) { type.present? ? send(type) : asc_title }
   scope :asc_title, -> { order(title: :asc) }
   scope :desc_title, -> { order(title: :desc) }
   scope :newest, -> { order(created_at: :desc) }
   scope :low_price, -> { order(price: :asc) }
   scope :hight_price, -> { order(price: :desc) }
   scope :with_authors, -> { includes(:authors) }
+  scope :best_sellers, -> { popular.limit(4) }
 
-  scope :full_includes, -> do
+  def self.full_includes
     with_authors.includes(:pictures, :materials, reviews: :user)
   end
 
-  scope :with_category, -> (term) do
+  def self.with_category(term)
     joins(:category).where('lower(categories.title) = ?', term.downcase)
   end
 
-  scope :best_sellers, -> { popular.limit(4) }
-
   def self.popular
     joins(:orders)
-    .where('orders.state' => 'delivered')
-    .group('order_items.book_id', 'books.id')
-    .order('SUM(order_items.quantity) desc')
-    .limit(4)
+      .where('orders.state' => 'delivered')
+      .group('order_items.book_id', 'books.id')
+      .order('SUM(order_items.quantity) desc')
+      .limit(4)
   end
 
   def in_stock?
-    count > 0
+    count.positive?
   end
 
   private
 
   def access_dimension
-    dimension.each do |key, value|
+    dimension.each do |key, _|
       next if DIMENSION.include?(key)
       errors.add(:dimension, "not support #{key}")
     end

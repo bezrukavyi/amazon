@@ -4,7 +4,7 @@ describe Checkout::StepAddress do
   context 'valid' do
     let(:params) { { order: double('order'), use_base_address: false } }
     subject { Checkout::StepAddress.new(order: order, params: params) }
-    [:shipping, :billing].each do |type|
+    %i(shipping billing).each do |type|
       let(:"#{type}_form") do
         AddressForm.from_params(attributes_for(:address_order, type.to_sym))
       end
@@ -24,7 +24,7 @@ describe Checkout::StepAddress do
       expect { subject.call }.to broadcast(:valid)
     end
     it 'update order addresses' do
-      [:shipping, :billing].each do |type|
+      %i(shipping billing).each do |type|
         expect { subject.call }.to change(order, type.to_sym)
       end
     end
@@ -45,7 +45,7 @@ describe Checkout::StepAddress do
       expect { subject.call }.to broadcast(:invalid)
     end
     it 'dont update addresses' do
-      [:shipping, :billing].each do |type|
+      %i(shipping billing).each do |type|
         expect { subject.call }.not_to change(order, type.to_sym)
       end
     end

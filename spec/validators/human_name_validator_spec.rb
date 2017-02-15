@@ -1,5 +1,4 @@
 describe HumanNameValidator, type: :validator do
-
   with_model :MockUser do
     table do |t|
       t.string :name
@@ -24,8 +23,8 @@ describe HumanNameValidator, type: :validator do
     context 'invalid' do
       after do
         user.validate(:name)
-        expect(user.errors.full_messages)
-          .to include('Name ' + I18n.t('validators.human.name.base_regexp'))
+        expect(user.errors.full_messages).to include('Name ' +
+          I18n.t('validators.human.name.base_regexp'))
       end
       it 'without end numeric' do
         user.name = 'yaroslav5'
@@ -50,8 +49,8 @@ describe HumanNameValidator, type: :validator do
     context 'invalid' do
       after do
         user.validate(:names)
-        expect(user.errors.full_messages)
-          .to include('Names ' + I18n.t('validators.human.name.base_regexp'))
+        expect(user.errors.full_messages).to include('Names ' +
+          I18n.t('validators.human.name.base_regexp'))
       end
       it 'with spec sumbols' do
         user.names = 'yaroslav#fdasfd'
@@ -61,5 +60,4 @@ describe HumanNameValidator, type: :validator do
       end
     end
   end
-
 end

@@ -1,0 +1,5 @@
+ru:
+  corzinus:
+    validators:
+      order_item:
+        stock: Вы не можете добавить больше, чем у нас есть в наличие

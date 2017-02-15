@@ -25,7 +25,8 @@ describe ApplicationController, type: :controller do
       it 'merge order' do
         user_order = create :order
         expect(user).to receive(:order_in_processing).and_return(user_order)
-        expect(user_order).to receive(:merge_order!).with(order).and_return(order)
+        expect(user_order).to receive(:merge_order!).with(order)
+          .and_return(order)
         controller.current_order
       end
     end

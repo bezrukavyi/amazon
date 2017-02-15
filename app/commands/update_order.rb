@@ -8,7 +8,8 @@ class UpdateOrder < Rectify::Command
 
   def call
     if coupon_valid? && update_order
-      broadcast :valid
+      type = params[:to_checkout] ? :to_checkout : :valid
+      broadcast type
     else
       broadcast :invalid, coupon_form
     end
@@ -22,7 +23,9 @@ class UpdateOrder < Rectify::Command
 
   def update_order
     order.coupon = coupon
-    order.update_attributes(order_params)
+    order.assign_attributes(order_params)
+    changes = order.coupon.try(:changed?) || order.order_items.any?(&:changed?)
+    changes ? order.save : true
   end
 
   def coupon_valid?

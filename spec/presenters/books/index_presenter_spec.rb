@@ -19,7 +19,8 @@ describe Books::IndexPresenter do
 
   context '#books' do
     before do
-      expect(Book).to receive(:sorted_by).with(@params[:sorted_by]).and_return(Book)
+      expect(Book).to receive(:sorted_by).with(@params[:sorted_by])
+        .and_return(Book)
       expect(Book).to receive(:page).with(@params[:page]).and_return(Book)
       expect(Book).to receive(:with_authors).and_return(Book)
     end

@@ -33,13 +33,15 @@ describe OrderItemsController, type: :controller do
     context 'failed add item to order' do
       before do
         allow(subject).to receive(:save).and_return(false)
-        allow(subject).to receive_message_chain(:decorate, :all_errors).and_return('errors')
+        allow(subject).to receive_message_chain(:decorate, :all_errors)
+          .and_return('errors')
         allow(order).to receive(:save).and_return(false)
         post :create, params: { book_id: book_id, quantity: 0 }
       end
 
       it 'alert flash' do
-        expect(flash[:alert]).to eq I18n.t('flash.failure.book_add', errors: 'errors')
+        expect(flash[:alert]).to eq I18n.t('flash.failure.book_add',
+                                           errors: 'errors')
       end
 
       it 'redirect_back' do
@@ -60,7 +62,8 @@ describe OrderItemsController, type: :controller do
       end
 
       it 'notice flash' do
-        expect(flash[:notice]).to eq I18n.t('flash.success.book_destroy', title: subject.book.title)
+        expect(flash[:notice]).to eq I18n.t('flash.success.book_destroy',
+                                            title: subject.book.title)
       end
 
       it 'renders the :show template' do
@@ -71,13 +74,15 @@ describe OrderItemsController, type: :controller do
     context 'failed destroy' do
       before do
         allow(subject).to receive(:destroy).and_return(false)
-        allow(subject).to receive_message_chain(:decorate, :all_errors).and_return('errors')
+        allow(subject).to receive_message_chain(:decorate, :all_errors)
+          .and_return('errors')
         allow(order).to receive(:save).and_return(false)
         delete :destroy, params: { id: subject.id }
       end
 
       it 'alert falsh' do
-        expect(flash[:alert]).to eq I18n.t('flash.failure.book_destroy', errors: 'errors')
+        expect(flash[:alert]).to eq I18n.t('flash.failure.book_destroy',
+                                           errors: 'errors')
       end
 
       it 'redirect_to edit_cart_path' do

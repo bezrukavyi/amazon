@@ -1,5 +1,4 @@
 describe SpecSymbolsValidator, type: :validator do
-
   with_model :MockReview do
     table do |t|
       t.string :title
@@ -31,8 +30,8 @@ describe SpecSymbolsValidator, type: :validator do
   context 'invalid' do
     after do
       review.validate(:title)
-      expect(review.errors.full_messages)
-        .to include('Title ' + I18n.t('validators.spec_symbols.base_regexp'))
+      expect(review.errors.full_messages).to include('Title ' +
+        I18n.t('validators.spec_symbols.base_regexp'))
     end
     it 'when empty' do
       review.title = nil
@@ -46,7 +45,5 @@ describe SpecSymbolsValidator, type: :validator do
     it 'started with symbol' do
       review.title = '!yaroslav'
     end
-
   end
-
 end

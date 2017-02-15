@@ -22,7 +22,8 @@ module Checkout
     end
 
     def order_update
-      order.update_attributes(delivery_id: delivery_id)
+      order.assign_attributes(delivery_id: delivery_id)
+      order.changed? ? order.save : true
     end
   end
 end

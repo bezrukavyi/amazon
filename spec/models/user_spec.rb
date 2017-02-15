@@ -2,7 +2,7 @@ describe User, type: :model do
   subject { create :user }
 
   context 'associations' do
-    [:providers, :reviews, :orders, :credit_cards].each do |model_name|
+    %i(providers reviews orders credit_cards).each do |model_name|
       it { should have_many(model_name) }
     end
   end
@@ -41,15 +41,15 @@ describe User, type: :model do
     end
   end
 
-  describe '#has_password?' do
-    it 'return true' do
+  describe '#password_empty?' do
+    it 'return false' do
       user = User.new(email: 'test@gmail.com', password: 'Test5555',
                       password_confirmation: 'Test5555')
-      expect(user.has_password?).to be_truthy
+      expect(user.password_empty?).to be_falsey
     end
-    it 'return false' do
+    it 'return true' do
       user = User.new(email: 'test@gmail.com')
-      expect(user.has_password?).to be_falsey
+      expect(user.password_empty?).to be_truthy
     end
   end
 

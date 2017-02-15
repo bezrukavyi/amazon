@@ -32,7 +32,8 @@ describe AddressValidator, type: :validator do
     context 'invalid' do
       after do
         address.validate(:name)
-        expect(address.errors.full_messages).to include('Name ' + I18n.t('validators.address.name'))
+        expect(address.errors.full_messages).to include('Name ' +
+          I18n.t('validators.address.name'))
       end
       it 'when empty' do
         address.name = nil
@@ -52,7 +53,8 @@ describe AddressValidator, type: :validator do
     context 'invalid' do
       after do
         address.validate(:zip)
-        expect(address.errors.full_messages).to include('Zip ' + I18n.t('validators.address.zip'))
+        expect(address.errors.full_messages).to include('Zip ' +
+          I18n.t('validators.address.zip'))
       end
       it 'when empty' do
         address.zip = nil

@@ -31,7 +31,8 @@ describe OrdersController, type: :controller do
     let(:order) { create :order }
 
     it 'find order' do
-      allow(Order).to receive(:find_by).with(id: order.id.to_s, user: user).and_return(order)
+      allow(Order).to receive(:find_by).with(id: order.id.to_s, user: user)
+        .and_return(order)
       get :show, params: { id: order.id }
       expect(response).to render_template(:show)
     end

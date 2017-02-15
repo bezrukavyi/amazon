@@ -1,5 +1,4 @@
 describe HumanEmailValidator, type: :validator do
-
   with_model :MockUser do
     table do |t|
       t.string :email
@@ -20,8 +19,8 @@ describe HumanEmailValidator, type: :validator do
   describe '#domain_regexp' do
     after do
       user.validate(:email)
-      expect(user.errors.full_messages)
-        .to include('Email ' + I18n.t('validators.human.email.base_regexp'))
+      expect(user.errors.full_messages).to include('Email ' +
+        I18n.t('validators.human.email.base_regexp'))
     end
     it 'when empty' do
       user.email = nil
@@ -54,8 +53,8 @@ describe HumanEmailValidator, type: :validator do
     context 'invalid' do
       after do
         user.validate(:email)
-        expect(user.errors.full_messages)
-          .to include('Email ' + I18n.t('validators.human.email.symbols_regexp'))
+        expect(user.errors.full_messages).to include('Email ' +
+          I18n.t('validators.human.email.symbols_regexp'))
       end
       it 'when empty' do
         user.email = nil
@@ -73,12 +72,11 @@ describe HumanEmailValidator, type: :validator do
   end
 
   describe '#dot_regexp' do
-
     context 'invalid' do
       after do
         user.validate(:email)
-        expect(user.errors.full_messages)
-          .to include('Email ' + I18n.t('validators.human.email.dot_regexp'))
+        expect(user.errors.full_messages).to include('Email ' +
+          I18n.t('validators.human.email.dot_regexp'))
       end
       it 'when empty' do
         user.email = nil
@@ -91,5 +89,4 @@ describe HumanEmailValidator, type: :validator do
       end
     end
   end
-
 end

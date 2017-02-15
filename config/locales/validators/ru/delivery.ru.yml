@@ -1,0 +1,4 @@
+ru:
+  validators:
+    delivery:
+      access_max_days: не может быть больше чем макс. срок прибытия

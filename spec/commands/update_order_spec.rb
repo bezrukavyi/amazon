@@ -10,12 +10,16 @@ describe UpdateOrder do
       end
       subject { UpdateOrder.new(order, params) }
       before do
-        allow(subject).to receive(:order_params)
-          .and_return(params[:order])
+        allow(subject).to receive(:order_params).and_return(params[:order])
       end
 
       it 'set valid broadcast' do
         expect { subject.call }.to broadcast(:valid)
+      end
+
+      it 'set to_checkout broadcast' do
+        params[:to_checkout] = true
+        expect { subject.call }.to broadcast(:to_checkout)
       end
       it 'change order items' do
         expect { subject.call }.to change { order_item.reload.quantity }.from(1)

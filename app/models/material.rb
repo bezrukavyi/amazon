@@ -8,6 +8,6 @@ class Material < ApplicationRecord
   private
 
   def downcase_name
-    self.name.downcase!
+    name.downcase!
   end
 end

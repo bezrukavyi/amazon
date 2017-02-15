@@ -5,10 +5,13 @@ AllCops:
     - 'tmp/**/*'
     - 'bin/**/*'
     - 'config/boot.rb'
+    - 'config/**/*'
     - 'db/schema.rb'
+    - 'db/seeds.rb'
     - 'db/migrate/*'
     - 'spec/features/*'
-    - 'spec/support/helpers/*'
+    - 'spec/support/*.rb'
+    - 'spec/support/**/*.rb'
     - 'script/**/*'
     - 'vendor/**/*'
     - 'Rakefile'
@@ -19,11 +22,19 @@ Style/Encoding:
   EnforcedStyle: when_needed
   Enabled: true
 
+Metrics/AbcSize:
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 
+Style/PredicateName:
+  Exclude:
+    - 'app/models/concerns/addressable_relation.rb'
+
 Documentation:
   Enabled: false
+
 
 Style/FrozenStringLiteralComment:
   Enabled: false

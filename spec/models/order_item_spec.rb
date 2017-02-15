@@ -18,7 +18,9 @@ describe OrderItem, type: :model do
       it 'invalid' do
         subject.book.count = 5
         subject.quantity = 6
-        expect(subject).not_to be_valid
+        subject.valid?
+        expect(subject.errors.full_messages).to include('Quantity ' +
+          I18n.t('validators.order_item.stock'))
       end
       it 'valid' do
         subject.book.count = 5

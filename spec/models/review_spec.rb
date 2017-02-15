@@ -8,10 +8,12 @@ describe Review, type: :model do
 
   context 'aasm state' do
     it 'unprocessed -> approved' do
-      expect(subject).to transition_from(:unprocessed).to(:approved).on_event(:approve)
+      expect(subject).to transition_from(:unprocessed).to(:approved)
+        .on_event(:approve)
     end
     it 'unprocessed -> rejecte' do
-      expect(subject).to transition_from(:unprocessed).to(:rejected).on_event(:reject)
+      expect(subject).to transition_from(:unprocessed).to(:rejected)
+        .on_event(:reject)
     end
   end
 end

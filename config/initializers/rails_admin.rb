@@ -32,9 +32,11 @@ RailsAdmin.config do |config|
     show
     edit
     delete do
-      except ['Order, OrderItem']
+      except %w(Order OrderItem)
     end
-    show_in_app
+    show_in_app do
+      except %w(User Order OrderItem)
+    end
     state
 
     ## With an audit adapter, you can add:
@@ -103,8 +105,6 @@ RailsAdmin.config do |config|
           :assm_states
         end
       end
-      fields :book, :created_at, :user
-      exclude_fields :title, :desc, :verified
     end
 
     state({
@@ -128,6 +128,15 @@ RailsAdmin.config do |config|
 
   config.model 'Material' do
     exclude_fields :id, :created_at, :updated_at, :books
+  end
+
+  config.model 'User' do
+    list do
+      fields :id, :avatar, :admin, :email, :first_name, :created_at
+    end
+    edit do
+      fields :admin
+    end
   end
 
 end

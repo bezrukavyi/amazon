@@ -7,7 +7,8 @@ class OrderItem < ApplicationRecord
   before_validation :destroy_if_empty
 
   validates :quantity, presence: true,
-    numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }
+                       numericality: { greater_than_or_equal_to: 0,
+                                       less_than_or_equal_to: 99 }
 
   validate :stock_validate
 
@@ -23,6 +24,6 @@ class OrderItem < ApplicationRecord
 
   def stock_validate
     return if errors.present? || quantity <= book.count
-    errors.add(:quantity, I18n.t('simple_form.error_notification.order_item.stock'))
+    errors.add(:quantity, I18n.t('validators.order_item.stock'))
   end
 end

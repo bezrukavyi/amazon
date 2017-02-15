@@ -4,7 +4,7 @@ class HumanNameValidator < ActiveModel::EachValidator
   def validate_each(object, attribute, value)
     inspection = options[:with] || :one
     return if value.blank? || value =~ send(inspection)
-    object.errors.add(attribute, I18n.t("validators.human.name.base_regexp"))
+    object.errors.add(attribute, I18n.t('validators.human.name.base_regexp'))
   end
 
   private

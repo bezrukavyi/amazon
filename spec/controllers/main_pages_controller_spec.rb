@@ -5,12 +5,14 @@ describe MainPagesController, type: :controller do
     end
 
     it 'with category web design' do
-      expect(Book).to receive_message_chain(:with_category).with('Web design').and_return(Book.all)
+      expect(Book).to receive_message_chain(:with_category).with('Web design')
+        .and_return(Book.all)
       get :home, params: { category: 'web_design' }
     end
     it 'without category' do
       stub_const('Category::HOME', 'web_dev')
-      expect(Book).to receive(:with_category).with('Web dev').and_return(Book.all)
+      expect(Book).to receive(:with_category).with('Web dev')
+        .and_return(Book.all)
       get :home
     end
     it 'get newest' do

@@ -3,7 +3,8 @@ class HumanPasswordValidator < ActiveModel::EachValidator
 
   def validate_each(object, attribute, value)
     return if value =~ INSPECTION
-    object.errors.add(attribute, I18n.t('validators.human.password.base_regexp'))
+    object.errors.add(attribute,
+                      I18n.t('validators.human.password.base_regexp'))
   end
 
   def self.generate_password

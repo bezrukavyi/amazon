@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :coupon do
-    code { rand(1000000).to_s }
+    code { rand(1_000_000).to_s }
     discount 25
 
     trait :used do

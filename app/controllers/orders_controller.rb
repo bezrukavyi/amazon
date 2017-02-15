@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   def index
     @states = Order.assm_states.unshift(:all)
     @orders = Order.order(created_at: :desc).where(user: current_user).not_empty
-    @orders = @orders.send(params[:state].to_s) unless default_state?
+    @orders = @orders.send(params[:state]) unless default_state?
   end
 
   def show

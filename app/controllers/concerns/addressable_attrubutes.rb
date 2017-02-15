@@ -26,6 +26,6 @@ module AddressableAttrubutes
   end
 
   def set_countries
-    @countries = Country.all
+    @countries = Country.select(:id, :name)
   end
 end

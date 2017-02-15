@@ -19,7 +19,8 @@ module Checkout
     private
 
     def update_order
-      order.update_attributes(credit_card: credit_card)
+      order.assign_attributes(credit_card: credit_card)
+      order.credit_card.changed? ? order.save : true
     end
 
     def credit_card

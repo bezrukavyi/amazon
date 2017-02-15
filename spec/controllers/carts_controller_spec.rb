@@ -36,6 +36,19 @@ describe CartsController, type: :controller do
       end
     end
 
+    context 'success update and to checkout' do
+      before do
+        stub_const('UpdateOrder', Support::Command::ToCheckout)
+        put :update, params: params
+      end
+      it 'flash notice' do
+        expect(flash[:notice]).to eq(I18n.t('flash.success.cart_update'))
+      end
+      it 'redirect to edit user' do
+        expect(response).to redirect_to(checkout_path(:address))
+      end
+    end
+
     context 'failure update' do
       let(:coupon_form) { double('coupon_form') }
       before do

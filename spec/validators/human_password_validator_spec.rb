@@ -1,5 +1,4 @@
 describe HumanPasswordValidator, type: :validator do
-
   with_model :MockUser do
     table do |t|
       t.string :password
@@ -15,8 +14,8 @@ describe HumanPasswordValidator, type: :validator do
   context '#invalid' do
     after do
       user.validate(:password)
-      expect(user.errors.full_messages)
-        .to include('Password ' + I18n.t('validators.human.password.base_regexp'))
+      expect(user.errors.full_messages).to include('Password ' +
+        I18n.t('validators.human.password.base_regexp'))
     end
     it 'when empty' do
       user.password = nil
@@ -34,11 +33,11 @@ describe HumanPasswordValidator, type: :validator do
 
   describe '.generate_password' do
     it 'valid password' do
-      expect(HumanPasswordValidator.generate_password).to match(HumanPasswordValidator::INSPECTION)
+      expect(HumanPasswordValidator.generate_password)
+        .to match(HumanPasswordValidator::INSPECTION)
     end
     it 'lenght 50' do
       expect(HumanPasswordValidator.generate_password.length).to eq(50)
     end
   end
-
 end
