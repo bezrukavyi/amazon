@@ -21,93 +21,15 @@
       .visible-xs
         %button.close{type: "button", 'aria-label': "Close"}
           %span{'aria-hidden': "true"} &times;
-
-        %ul.nav.navbar-nav
-          %li
-            = render layout: 'layouts/collapse_ul', locals: { type: 'home', title: 'home' } do
-              - @categories.each do |category|
-                %li
-                  = link_to category.title, home_path(category.decorate.title_key), class: 'collapse-link'
-
-          %li
-            = render layout: 'layouts/collapse_ul', locals: { type: 'menu', title: 'language.title' } do
-              %li
-                = link_to t('language.en'), url_for(locale: :en), class: 'collapse-link'
-              %li
-                = link_to t('language.ru'), url_for(locale: :ru), class: 'collapse-link'
-
-          %li
-            = render layout: 'layouts/collapse_ul', locals: { type: 'shop', title: 'shop' } do
-              = render 'books/items_with_category', items: @categories, link_class: 'collapse-link'
-
-          - if signed_in?
-            %li
-              = render layout: 'layouts/collapse_ul', locals: { type: 'account', title: 'account' } do
-                %li
-                  = link_to t('settings'), edit_user_path, class: 'collapse-link'
-                %li
-                  = link_to t('orders.title'), orders_path, class: 'collapse-link'
-              - if can? :access, :rails_admin
-                %li.divider{role: "separator"}
-                %li
-                  = link_to t('dashboard'), rails_admin_path, class: 'collapse-link'
-              %li.divider{role: "separator"}
-              %li
-                = link_to t('log_out'), destroy_user_session_path, method: :delete,
-                  class: 'collapse-link'
-          - else
-            %li
-              = link_to t('log_in'), new_user_session_path
-            %li
-              = link_to t('sign_up'), new_user_registration_path
+        = render 'layouts/navbar', type: 'collapse'
 
       .hidden-xs
-        %ul.nav.navbar-nav
-          %li.dropdown
-            = render layout: 'layouts/dropdown_ul', locals: { title: 'home' } do
-              - @categories.each do |category|
-                %li
-                  = link_to category.title, home_path(category.decorate.title_key), class: 'collapse-link'
-
-          %li.dropdown
-            = render layout: 'layouts/dropdown_ul', locals: { title: 'language.title' } do
-              %li
-                = link_to t('language.en'), locale: :en
-              %li
-                = link_to t('language.ru'), locale: :ru
-
-          %li.dropdown
-            = render layout: 'layouts/dropdown_ul', locals: { title: 'shop' } do
-              = render 'books/items_with_category', items: @categories
-
-          - if signed_in?
-            %li.dropdown
-              = render layout: 'layouts/dropdown_ul', locals: { title: 'account' } do
-                %li
-                  = link_to t('settings'), edit_user_path
-                %li
-                  = link_to t('orders.title'), orders_path
-                - if can? :access, :rails_admin
-                  %li.divider{role: "separator"}
-                  %li
-                    = link_to t('dashboard'), rails_admin_path
-                %li.divider{role: "separator"}
-                %li
-                  = link_to t('log_out'), destroy_user_session_path, method: :delete
-          - else
-            %li
-              = link_to t('log_in'), new_user_session_path
-            %li
-              = link_to t('sign_up'), new_user_registration_path
+        = render 'layouts/navbar', type: 'dropdown'
 
 
   .header-messages
     - flash.each do |key, value|
-      - alert_class = case key
-      - when 'notice' then 'success'
-      - when 'alert' then 'warning'
-      - else key
-      = content_tag :div, class: "alert alert-#{alert_class}" do
+      = message_wrap(key) do
         %button.close{ 'aria-label':  'Close', 'data-dismiss': 'alert', type: 'button' }
           %span{ 'aria-hidden': 'true' } ×
-        = value
+        %span= value

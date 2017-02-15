@@ -12,6 +12,7 @@ AllCops:
     - 'spec/features/*'
     - 'spec/support/*.rb'
     - 'spec/support/**/*.rb'
+    - 'app/views/**/*.haml'
     - 'script/**/*'
     - 'vendor/**/*'
     - 'Rakefile'
