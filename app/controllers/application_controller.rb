@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_order
+  helper_method :session_user_return
 
   def current_order
     @current_order ||= set_current_order
@@ -24,8 +25,12 @@ class ApplicationController < ActionController::Base
 
   def fast_authenticate_user!
     return if user_signed_in?
-    session['user_return_to'] = request.fullpath
+    session_user_return
     redirect_to sign_up_path(type: 'fast')
+  end
+
+  def session_user_return
+    session['user_return_to'] = request.fullpath
   end
 
   private
