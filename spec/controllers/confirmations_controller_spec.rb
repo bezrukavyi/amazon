@@ -14,14 +14,14 @@ describe ConfirmationsController, type: :controller do
     end
 
     it 'call update attributes' do
-      allow(user).to receive(:password_empty?).and_return(false)
+      allow(user).to receive(:password?).and_return(false)
       expect(user).to receive(:update_attributes).with(params)
       put :update, params: params
     end
 
     context 'success update' do
       before do
-        allow(user).to receive(:password_empty?).and_return(false)
+        allow(user).to receive(:password?).and_return(false)
         allow(user).to receive(:update_attributes).and_return(true)
       end
       it 'auth user' do
@@ -40,7 +40,7 @@ describe ConfirmationsController, type: :controller do
 
     context 'failure update' do
       before do
-        allow(user).to receive(:password_empty?).and_return(true)
+        allow(user).to receive(:password?).and_return(true)
         allow(user).to receive(:update_attributes).and_return(false)
       end
       it 'render :show' do

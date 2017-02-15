@@ -41,15 +41,15 @@ describe User, type: :model do
     end
   end
 
-  describe '#password_empty?' do
+  describe '#password?' do
     it 'return false' do
       user = User.new(email: 'test@gmail.com', password: 'Test5555',
                       password_confirmation: 'Test5555')
-      expect(user.password_empty?).to be_falsey
+      expect(user.password?).to be_truthy
     end
     it 'return true' do
       user = User.new(email: 'test@gmail.com')
-      expect(user.password_empty?).to be_truthy
+      expect(user.password?).to be_falsey
     end
   end
 

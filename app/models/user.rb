@@ -36,8 +36,8 @@ class User < ApplicationRecord
     purchase(book_id).any?
   end
 
-  def password_empty?
-    encrypted_password.blank?
+  def password?
+    encrypted_password.present?
   end
 
   def password_required?

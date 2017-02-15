@@ -2,11 +2,11 @@ class ConfirmationsController < Devise::ConfirmationsController
   before_action :set_resource, only: [:show, :update]
 
   def show
-    super unless resource.password_empty?
+    super if resource.password?
   end
 
   def update
-    if !resource.password_empty? && resource.update_attributes(allowed_params)
+    if !resource.password? && resource.update_attributes(allowed_params)
       bypass_sign_in resource
       redirect_to checkout_path(:address),
                   notice: t('devise.confirmations.confirmed')
