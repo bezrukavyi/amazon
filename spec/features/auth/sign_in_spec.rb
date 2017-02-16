@@ -1,14 +1,7 @@
 include Support::UserAuth
 
 feature 'Sign in', type: :feature do
-  scenario 'When user not exist' do
-    visit new_user_session_path
-    sign_in('new_user', attributes_for(:user))
-    expect(page).to have_content I18n.t('devise.failure.invalid',
-                                        authentication_keys: 'Email')
-  end
-
-  scenario 'When user not singed in' do
+  scenario 'When user success sign in' do
     user = create :user
     visit new_user_session_path
     sign_in('new_user', email: user.email, password: user.password)

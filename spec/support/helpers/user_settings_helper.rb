@@ -1,6 +1,6 @@
 module Support
   module UserSettings
-    def fill_email(form_id, options)
+    def fill_user_data(form_id, options)
       within "##{form_id}" do
         fill_in I18n.t('simple_form.labels.user.email'), with: options[:email]
         fill_in I18n.t('simple_form.labels.user.first_name'), with: options[:first_name]

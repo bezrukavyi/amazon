@@ -6,8 +6,7 @@ feature 'Sign up', type: :feature do
     user_attrs = attributes_for(:user)
     sign_up 'new_user', user_attrs
     expect(page).to have_content I18n.t('devise.registrations.signed_up')
-    open_email(user_attrs[:email])
-    current_email.click_link 'Confirm my account'
+    get_confirm_email(user_attrs[:email])
     expect(page).to have_content I18n.t('devise.confirmations.confirmed')
   end
 
@@ -15,8 +14,7 @@ feature 'Sign up', type: :feature do
     user = create :user
     visit new_user_registration_path
     sign_up 'new_user', attributes_for(:user, email: user.email)
-    expect(page)
-      .to have_content I18n.t('errors.messages.taken')
+    expect(page).to have_content I18n.t('errors.messages.taken')
   end
 
   scenario 'User has already signed up' do

@@ -1,5 +1,4 @@
 include Support::CheckAttributes
-require_relative Rails.root.join('app/decorators/book_decorator.rb').to_s
 
 feature 'Show Catalog', type: :feature do
   let(:fantasy) { create :category }

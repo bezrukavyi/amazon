@@ -3,7 +3,7 @@ module Support
     include ActionView::Helpers::NumberHelper
 
     def check_price(objects, name = :price, exist = true)
-      objects = [objects] unless objects.respond_to?(:each)
+      objects = check_objects(objects)
       objects.each do |object|
         value = number_to_currency(object.send(name), locale: :eu)
         exist_value(value, exist)
@@ -11,9 +11,17 @@ module Support
     end
 
     def check_title(objects, name = :title, exist = true)
-      objects = [objects] unless objects.respond_to?(:each)
+      objects = check_objects(objects)
       objects.each do |object|
         exist_value(object.send(name), exist)
+      end
+    end
+
+    def check_field(objects, type, title)
+      objects = check_objects(objects)
+      objects.each do |object|
+        field_label = I18n.t("simple_form.labels.#{type}.#{title}")
+        expect(page).to have_field(field_label, with: object.send(title))
       end
     end
 
@@ -23,6 +31,11 @@ module Support
       else
         expect(page).to have_no_content(value)
       end
+    end
+
+    private
+    def check_objects(objects)
+      objects.respond_to?(:each) ? objects : [objects]
     end
   end
 end

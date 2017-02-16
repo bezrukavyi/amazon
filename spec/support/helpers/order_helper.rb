@@ -1,5 +1,9 @@
+require_relative 'check_attributes_helper'
+
 module Support
   module Order
+    include CheckAttributes
+
     def fill_order(form_id, values)
       values = [values] unless values.respond_to?(:each)
       within "##{form_id}" do
@@ -27,6 +31,16 @@ module Support
     def choose_state(state)
       find('#order_types').click
       find('label', text: state).click
+    end
+
+    def check_order_items(order)
+      items = order.order_items
+      books = items.map(&:book).map(&:decorate)
+      check_title(items, :quantity)
+      check_price(items, :sub_total)
+      check_title(books)
+      check_title(books, :short_desc)
+      check_price(books)
     end
   end
 end

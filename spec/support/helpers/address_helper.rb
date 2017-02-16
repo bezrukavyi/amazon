@@ -22,5 +22,11 @@ module Support
         check_title(addresses, title)
       end
     end
+
+    def check_address_fields(addresses)
+      %i(first_name last_name name city zip phone).each do |title|
+        check_field(addresses, 'address', title)
+      end
+    end
   end
 end

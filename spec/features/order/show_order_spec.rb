@@ -15,12 +15,7 @@ feature 'Show Order', type: :feature do
   end
 
   scenario 'User on page order' do
-    books = items.map(&:book).map(&:decorate)
-    check_title(items, :quantity)
-    check_price(items, :sub_total)
-    check_title(books)
-    check_title(books, :short_desc)
-    check_price(books)
+    check_order_items(order)
     check_price(order, :sub_total)
     check_price(order, :completed_at)
     check_address(order.addresses)

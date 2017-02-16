@@ -1,11 +1,11 @@
 class ConfirmationsController < Devise::ConfirmationsController
   def show
-    resource = resource_class.find_by_confirmation_token(token)
+    self.resource = resource_class.find_by_confirmation_token(token)
     super if resource.password?
   end
 
   def update
-    resource = resource_class.confirm_by_token(token)
+    self.resource = resource_class.confirm_by_token(token)
     if !resource.password? && resource.update_attributes(allowed_params)
       bypass_sign_in resource
       redirect_to checkout_path(:address),
