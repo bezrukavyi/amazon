@@ -9,6 +9,7 @@ ru:
       category: Категория
       review_title: Напишите ваше мнение об этой книге
       read_more: Подробнее
+      auth_review: Для создания отзыва вам необходимо
       hide: Скрыть
       dimensions:
         title: Размерность (дюймы)

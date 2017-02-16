@@ -11,6 +11,7 @@ require 'omniauth'
 require 'rectify/rspec'
 require 'wisper/rspec/stub_wisper_publisher'
 require 'capybara/rspec'
+require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 require 'carrierwave/test/matchers'
@@ -31,7 +32,6 @@ RSpec.configure do |config|
   config.include ActionDispatch::TestProcess
   config.include Rectify::RSpec::Helpers
   config.include Warden::Test::Helpers
-  config.include Support::OmniauthHelper
   config.include Rectify::RSpec::Helpers
   config.include CarrierWave::Test::Matchers
   config.include I18n

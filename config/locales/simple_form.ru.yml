@@ -51,6 +51,7 @@ ru:
         first_name: Имя
         last_name: Фамилия
         email: Эл.почту
+        new_password: Введите Новый Пароль
         password: Пароль
         password_confirmation: Подтвердите Пароль
         current_password: Старый пароль
@@ -88,8 +89,6 @@ ru:
         title: Заголовок
       coupon:
         code: Код Вашего Купон
-    user:
-      new_password: Введите Новый Пароль
     titles:
       change: Изменить
       save: Сохранить

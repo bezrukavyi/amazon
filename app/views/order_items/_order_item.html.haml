@@ -19,7 +19,8 @@
         %span.in-grey-600= t('carts.edit.quantity')
       %td
         .input-group.align-center
-          = render 'order_items/quantity_field', order_item: order_item, field: local_assigns[:field]
+          = render 'order_items/quantity_field', order_item: order_item,
+            field: local_assigns[:field]
     %tr
       %td
         %span.in-grey-600= t('carts.edit.sub_total')

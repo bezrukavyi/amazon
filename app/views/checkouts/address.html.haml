@@ -15,16 +15,18 @@
         .visible-xs.visible-sm
           %h3.general-subtitle.mt-0= t('billing_address')
 
-        = field.simple_fields_for :billing, @billing do |item_field|
-          = render 'addresses/fields', field: item_field, type: 'billing'
+        #billing_address
+          = field.simple_fields_for :billing, @billing do |item_field|
+            = render 'addresses/fields', field: item_field, type: 'billing'
 
       .col-md-5.col-md-offset-1
         .visible-xs.visible-sm
           %h3.general-subtitle.mt-0= t('shipping_address')
 
-        = field.simple_fields_for :shipping, @shipping do |item_field|
-          #shipping_fields{class: "#{'hidden-fields' if params[:use_base_address]}"}
-            = render 'addresses/fields', field: item_field, type: 'shipping'
+        #shipping_address
+          = field.simple_fields_for :shipping, @shipping do |item_field|
+            #shipping_fields{class: "#{'hidden-fields' if params[:use_base_address]}"}
+              = render 'addresses/fields', field: item_field, type: 'shipping'
 
         .form-group.checkbox
           %label.checkbox-label

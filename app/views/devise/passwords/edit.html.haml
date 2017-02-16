@@ -8,8 +8,8 @@
   = field.full_error :reset_password_token
 
   .form-group.mb-30
-    = field.input :password, placeholder: t('simple_form.user.new_password'),
-      label: t('simple_form.user.new_password'),
+    = field.input :password, placeholder: t('simple_form.labels.user.new_password'),
+      label: t('simple_form.labels.user.new_password'),
       required: true, autofocus: true,
       hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
 

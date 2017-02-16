@@ -11,5 +11,9 @@ FactoryGirl.define do
     trait :invalid do
       title nil
     end
+
+    trait :long_desc do
+      desc { FFaker::CheesyLingo.paragraph }
+    end
   end
 end

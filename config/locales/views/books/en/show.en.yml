@@ -8,6 +8,7 @@ en:
       category: Category
       review_title: Write your review about this book
       read_more: Read more
+      auth_review: That create new review you must
       hide: Hide
       dimensions:
         title: Dimensions (inches)

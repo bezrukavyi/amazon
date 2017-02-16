@@ -7,8 +7,7 @@
 
 
     .visible-xs
-      - current_order.order_items.each do |order_item|
-        = render 'order_items/order_item', order_item: order_item
+      = render current_order.order_items
 
     .hidden-xs.divider-lg.pt-20
       = render 'order_items/table', order_items: current_order.order_items

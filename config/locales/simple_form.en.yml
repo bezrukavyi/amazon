@@ -51,6 +51,7 @@ en:
         first_name: First Name
         last_name: Last Name
         email: Enter Email
+        new_password: Type a new Password
         password: Password
         password_confirmation: Confirm Password
         current_password: Old Password
@@ -92,8 +93,6 @@ en:
         title: Title
       coupon:
         code: Your Coupon Code
-    user:
-      new_password: Type a new Password
     titles:
       change: Change
       save: Save

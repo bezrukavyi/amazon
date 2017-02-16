@@ -22,8 +22,7 @@ describe UpdateOrder do
         expect { subject.call }.to broadcast(:to_checkout)
       end
       it 'change order items' do
-        expect { subject.call }.to change { order_item.reload.quantity }.from(1)
-          .to(20)
+        expect { subject.call }.to change { order_item.reload.quantity }.to(20)
       end
     end
 

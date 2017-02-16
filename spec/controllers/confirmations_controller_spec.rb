@@ -8,8 +8,8 @@ describe ConfirmationsController, type: :controller do
     let(:params) { { password: 'Test5555', password_confirmation: 'Test5555' } }
 
     before do
-      allow(controller).to receive(:set_resource)
-      allow(controller).to receive(:resource).and_return(user)
+      allow(controller).to receive(:token)
+      allow(User).to receive(:confirm_by_token).and_return(user)
       allow(controller).to receive(:allowed_params).and_return(params)
     end
 

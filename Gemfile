@@ -67,8 +67,8 @@ gem 'figaro'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'letter_opener_web'
   gem 'pry'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
@@ -78,6 +78,8 @@ group :development, :test do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'capybara-email'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'poltergeist'

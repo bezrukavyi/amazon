@@ -18,8 +18,7 @@
       %p.general-address.mb-30= completed_order.decorate.created_strf
 
     .visible-xs
-      - completed_order.order_items.each do |order_item|
-        = render 'order_items/order_item', order_item: order_item
+      = render completed_order.order_items
 
     .hidden-xs
       = render 'order_items/table', order_items: completed_order.order_items

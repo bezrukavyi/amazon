@@ -10,11 +10,11 @@ class BookDecorator < Draper::Decorator
                  :materials_name].freeze
 
   def authors_name
-    authors.map(&:full_name).join(', ')
+    authors.sort_by(&:first_name).map(&:full_name).join(', ')
   end
 
   def materials_name
-    materials.map(&:name).join(', ').capitalize
+    materials.sort_by(&:name).map(&:name).join(', ').capitalize
   end
 
   def publicate_at
