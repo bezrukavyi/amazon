@@ -1,6 +1,4 @@
-include Support::Address
-include Support::CreditCard
-include Support::Delivery
+include Support::Order
 
 feature 'Show Order', type: :feature do
   let(:user) { create :user }
@@ -15,12 +13,7 @@ feature 'Show Order', type: :feature do
   end
 
   scenario 'User on page order' do
-    check_order_items(order)
-    check_price(order, :sub_total)
-    check_price(order, :completed_at)
-    check_address(order.addresses)
-    check_credit_card(order.credit_card)
-    check_delivery(order.delivery)
+    check_order_info(order)
   end
 
   scenario 'User want go to another order which not belong' do

@@ -1,8 +1,14 @@
 require_relative 'check_attributes_helper'
+require_relative 'address_helper'
+require_relative 'credit_card_helper'
+require_relative 'delivery_helper'
 
 module Support
   module Order
     include CheckAttributes
+    include Address
+    include CreditCard
+    include Delivery
 
     def fill_order(form_id, values)
       values = [values] unless values.respond_to?(:each)
@@ -31,6 +37,16 @@ module Support
     def choose_state(state)
       find('#order_types').click
       find('label', text: state).click
+    end
+
+    def check_order_info(order)
+      order = order.decorate
+      check_order_items(order)
+      check_price(order, :sub_total)
+      check_price(order, :completed_at)
+      check_address(order.addresses)
+      check_credit_card(order.credit_card)
+      check_delivery(order.delivery)
     end
 
     def check_order_items(order)

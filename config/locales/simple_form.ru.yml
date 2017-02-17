@@ -24,7 +24,7 @@ ru:
         email: Введите эл.почту
         first_name: Введите Имя
         last_name: Введите Фамилию
-        password: Пароль
+        password: Введите Пароль
         password_confirmation: Подтвердите Пароль
         current_password: Старый Пароль
       address:
@@ -51,7 +51,7 @@ ru:
         first_name: Имя
         last_name: Фамилия
         email: Эл.почту
-        new_password: Введите Новый Пароль
+        new_password: Новый Пароль
         password: Пароль
         password_confirmation: Подтвердите Пароль
         current_password: Старый пароль

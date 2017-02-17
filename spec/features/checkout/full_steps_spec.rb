@@ -1,4 +1,4 @@
-include Support::Checkout
+include Support::Order
 
 feature 'Full steps', type: :feature do
   let(:order) { create :order, :with_items }
@@ -26,7 +26,7 @@ feature 'Full steps', type: :feature do
     fill_credit_card('credit_card_form', attributes_for(:credit_card), false)
     click_button I18n.t('simple_form.titles.save_and_continue')
 
-    check_confirm_step(order)
+    check_order_info(order)
     click_button I18n.t('checkouts.confirm.place_order')
 
     expect(page).to have_content(I18n.t('checkouts.complete.thanks_message'))

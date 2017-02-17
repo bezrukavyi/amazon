@@ -9,15 +9,6 @@ module Support
       end
     end
 
-    def fill_password(form_id, options)
-      within "##{form_id}" do
-        fill_in I18n.t('simple_form.labels.user.current_password').first, with: options[:password]
-        fill_in I18n.t('simple_form.labels.user.password'), with: options[:new_password]
-        fill_in I18n.t('simple_form.labels.user.password_confirmation'), with: options[:new_password]
-        click_button I18n.t('simple_form.titles.save')
-      end
-    end
-
     def destroy_account(form_id, confirm = nil)
       within "##{form_id}" do
         if confirm

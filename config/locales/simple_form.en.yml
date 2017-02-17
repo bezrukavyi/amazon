@@ -24,7 +24,7 @@ en:
         email: Enter Email
         first_name: Enter First Name
         last_name: Enter Last Name
-        password: Password
+        password: Enter Password
         password_confirmation: Confirm Password
         current_password: Old Password
       address:

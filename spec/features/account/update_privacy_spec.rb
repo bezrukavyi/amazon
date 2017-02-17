@@ -1,3 +1,4 @@
+include Support::UserAuth
 include Support::UserSettings
 
 feature 'Update privacy', type: :feature do
@@ -21,14 +22,14 @@ feature 'Update privacy', type: :feature do
 
   scenario 'User fill valid password data' do
     new_password = 'Rspec3333'
-    fill_password('edit_user_password', password: user.password,
-                                        new_password: new_password)
+    fill_new_password('edit_user_password', password: user.password,
+                                            new_password: new_password)
     expect(page).to have_content I18n.t('flash.success.privacy_update')
   end
 
   scenario 'User fill invalid password data' do
     new_password = 'Rspec3333'
-    fill_password('edit_user_password', new_password: new_password)
+    fill_new_password('edit_user_password', new_password: new_password)
     expect(page).to have_content I18n.t('flash.failure.privacy_update')
   end
 end
