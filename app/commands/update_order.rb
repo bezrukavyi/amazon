@@ -22,7 +22,7 @@ class UpdateOrder < Rectify::Command
   end
 
   def update_order
-    order.coupon = coupon
+    order.coupon = coupon if coupon.present?
     order.assign_attributes(order_params)
     changes = order.coupon.try(:changed?) || order.order_items.any?(&:changed?)
     changes ? order.save : true

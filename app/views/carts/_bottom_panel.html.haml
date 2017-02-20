@@ -3,7 +3,7 @@
     .col-sm-4
       .input-group.general-input-group
         = field.simple_fields_for :coupon, @coupon_form do |coupon|
-          = coupon.input :code
+          = coupon.input :code, coupon_options(coupon)
       .mb-30
         = field.submit t('carts.edit.update_cart'),
           class: 'btn btn-primary mb-15 res-block'

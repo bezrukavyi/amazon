@@ -13,5 +13,6 @@ class Ability
     can :manage, [Book, Author, Category, Review, Country, Material, Picture,
                   Delivery, Coupon, Order, User]
     can :all_events, Order
+    can :read, Address
   end
 end
