@@ -58,6 +58,8 @@ gem 'mini_magick'
 
 gem 'carrierwave'
 
+gem 'fog'
+
 gem 'activemodel-serializers-xml', github: 'rails/activemodel-serializers-xml'
 gem 'draper', github: 'audionerd/draper', branch: 'rails5'
 
