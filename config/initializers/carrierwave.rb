@@ -1,3 +1,5 @@
+require 'carrierwave/storage/fog'
+
 CarrierWave.configure do |config|
   if Rails.env.test? || Rails.env.development?
     config.storage = :file
