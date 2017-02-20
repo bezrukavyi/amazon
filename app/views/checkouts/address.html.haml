@@ -30,7 +30,8 @@
 
         .form-group.checkbox
           %label.checkbox-label
-            = check_box_tag :use_base_address, 0, use_base_address_param, class: 'checkbox-input', hidden: 'hidden', id: 'use_base_address'
+            = check_box_tag :use_base_address, nil, use_base_address_param,
+              class: 'checkbox-input', hidden: 'hidden', id: 'use_base_address'
             %span.checkbox-icon
               %i.fa.fa-check
             %span.checkbox-text= t('.use_base_address')

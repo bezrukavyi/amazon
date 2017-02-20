@@ -32,5 +32,7 @@ feature 'Address step', type: :feature do
     first('label', text: I18n.t('checkouts.address.use_base_address')).click
     click_button I18n.t('simple_form.titles.save_and_continue')
     expect(current_path).to eq checkout_path(id: :delivery)
+    visit checkout_path(id: :address)
+    expect(find('#use_base_address', visible: false)).to be_checked
   end
 end

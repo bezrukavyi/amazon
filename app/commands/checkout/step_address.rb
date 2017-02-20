@@ -12,7 +12,7 @@ module Checkout
     end
 
     def call
-      if attributes_valid? && update_order
+      if attributes_valid? && update_addressable
         broadcast(:valid)
       else
         broadcast :invalid, expose_addresses
@@ -25,11 +25,11 @@ module Checkout
       addresses.map(&:valid?).all?
     end
 
-    def update_order
+    def update_addressable
       attributes = addresses.map do |address|
         ["#{address[:address_type]}_attributes", address.to_h.except(:id)]
       end
-      if params && params[:use_base_address]
+      if addressable.respond_to?(:use_base_address)
         attributes << [:use_base_address, params[:use_base_address]]
       end
       addressable.update_attributes(attributes.to_h)
