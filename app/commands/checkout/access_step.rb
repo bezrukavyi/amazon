@@ -27,7 +27,7 @@ module Checkout
     private
 
     def delivery_accessed?
-      order.shipping.present? && order.billing.present?
+      order.addresses.map(&:present?).all?
     end
 
     def payment_accessed?

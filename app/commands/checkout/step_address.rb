@@ -29,6 +29,9 @@ module Checkout
       attributes = addresses.map do |address|
         ["#{address[:address_type]}_attributes", address.to_h.except(:id)]
       end
+      if params && params[:use_base_address]
+        attributes << [:use_base_address, params[:use_base_address]]
+      end
       addressable.update_attributes(attributes.to_h)
     end
 

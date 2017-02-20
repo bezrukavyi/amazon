@@ -11,4 +11,8 @@ module OrdersHelper
   def order_state_path(order)
     order.processing? ? edit_cart_path : order_path(order)
   end
+
+  def use_base_address_param
+    current_order.use_base_address || params[:use_base_address]
+  end
 end

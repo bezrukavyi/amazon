@@ -14,9 +14,11 @@ module AddressableAttrubutes
 
   def addresses_by_params(params, use_base_address = false)
     Address::TYPES.map do |type|
-      base_type = use_base_address ? Address::BASE : type
-      form_params = params[:"#{base_type}_attributes"]
-      form_params = form_params.merge(address_type: type) if use_base_address
+      form_params = params[:"#{type}_attributes"]
+      if use_base_address
+        form_params = params[:"#{Address::BASE}_attributes"]
+        form_params[:address_type] = type
+      end
       address_by_params(form_params)
     end
   end
