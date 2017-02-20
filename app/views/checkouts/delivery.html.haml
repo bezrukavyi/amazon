@@ -7,7 +7,6 @@
     = form_tag checkout_path, class: 'delivery_form', method: :patch do
       = render 'deliveries/deliveries_xs', deliveries: current_order.access_deliveries
 
-
   = form_tag checkout_path, class: 'delivery_form', method: :patch do
     .hidden-xs.mb-res-50
       = render 'deliveries/deliveries_md', deliveries: current_order.access_deliveries

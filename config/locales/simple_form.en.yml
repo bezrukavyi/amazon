@@ -34,7 +34,7 @@ en:
         city: Enter City
         zip: Enter Zip code
         country: Choose Country
-        phone: Enter Phone
+        phone: Enter phone with correct code your country
       review:
         title: Enter Title
         grade: Enter Grade (from 1 to 5)
