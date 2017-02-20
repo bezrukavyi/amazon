@@ -1,8 +1,6 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  storage :fog
-
   def cache_dir
     "#{Rails.root}/tmp/uploads"
   end
