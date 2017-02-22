@@ -24,7 +24,7 @@ feature 'User update coupon', type: :feature do
     fill_coupon('update_order', code)
     expect(page).to have_content(I18n.t('flash.failure.cart_update'))
     expect(first('#order_coupon_code').value).to eq(code)
-    not_found = I18n.t('simple_form.error_notification.not_found.coupon')
+    not_found = I18n.t('validators.coupon.not_found')
     expect(page).to have_content(not_found)
   end
 end

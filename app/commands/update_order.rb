@@ -23,14 +23,11 @@ class UpdateOrder < Rectify::Command
 
   def update_order
     order.coupon = coupon if coupon.present?
-    order.assign_attributes(order_params)
-    changes = order.coupon.try(:changed?) || order.order_items.any?(&:changed?)
-    changes ? order.save : true
+    order.update_attributes(order_params)
   end
 
   def coupon_valid?
-    return true if coupon.present? && coupon == order.coupon
-    coupon_form.valid?
+    coupon_form.valid?(order)
   end
 
   def coupon

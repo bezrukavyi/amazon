@@ -59,11 +59,11 @@ describe UpdateOrder do
       allow(Coupon).to receive(:find_by_code).and_return(nil)
       expect { subject.call }.to broadcast(:invalid)
     end
-    it 'when coupon exist and belongs subject' do
+    it 'when order have coupon' do
       order.coupon = coupon
       allow(subject).to receive(:coupon_form)
-        .and_return(CouponForm.from_model(coupon))
-      expect { subject.call }.to broadcast(:valid)
+        .and_return(CouponForm.from_model(create(:coupon)))
+      expect { subject.call }.to broadcast(:invalid)
     end
   end
 end
