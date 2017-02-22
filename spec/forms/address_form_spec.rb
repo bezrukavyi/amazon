@@ -44,4 +44,18 @@ describe AddressForm, :address_form do
       is_expected.not_to be_valid
     end
   end
+
+  describe '#merge_info' do
+    let(:object) { create :user }
+    it 'when form have attribute' do
+      subject.first_name = nil
+      subject.last_name = nil
+      subject.merge_info(object)
+      expect(subject.first_name).to eq(object.first_name)
+      expect(subject.last_name).to eq(object.last_name)
+    end
+    it 'when form havent attribute' do
+      expect { subject.merge_info(object) }.not_to change(subject, :first_name)
+    end
+  end
 end

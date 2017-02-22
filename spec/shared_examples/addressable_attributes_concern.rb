@@ -3,18 +3,12 @@ shared_examples_for 'addressable_attrubutes' do
   let(:user) { create :user, :full_package }
 
   context 'set addresses' do
-    after do
-      %i(shipping billing).each do |type|
-        expect(resource.send(type.to_s)).not_to be_nil
-      end
-    end
-
     it '#addresses_by_model' do
-      %i(shipping billing).each do |type|
-        expect(AddressForm).to receive(:from_model).with(user.send(type.to_s))
-          .and_return(double(type))
-      end
+      result = double(:billing)
+      allow(AddressForm).to receive_message_chain(:from_model, :merge_info)
+        .with(user.send(:billing)).with(user).and_return(result)
       resource.send('addresses_by_model', user)
+      expect(resource.send(:billing)).to eq(result)
     end
 
     it '#addresses_by_params' do

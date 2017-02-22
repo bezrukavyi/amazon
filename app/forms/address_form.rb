@@ -21,6 +21,14 @@ class AddressForm < Rectify::Form
 
   validate :wrong_code
 
+  def merge_info(object)
+    STRING_ATTRS.each do |attribute|
+      next if !object.respond_to?(attribute) || send(attribute).present?
+      send("#{attribute}=", object.send(attribute))
+    end
+    self
+  end
+
   private
 
   def wrong_code

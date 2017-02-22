@@ -3,8 +3,7 @@ class UsersController < Devise::RegistrationsController
   include Rectify::ControllerHelpers
 
   before_action :authenticate_user!
-  before_action only: [:edit, :update] { addresses_by_model(current_user) }
-  before_action :set_countries, only: [:edit, :update]
+  before_action :set_addresses_components, only: [:edit, :update]
 
   def new
     super { render('fast_auth') && return if params[:type] == 'fast' }
@@ -53,6 +52,11 @@ class UsersController < Devise::RegistrationsController
         failure_update('address')
       end
     end
+  end
+
+  def set_addresses_components
+    addresses_by_model(current_user)
+    set_countries
   end
 
   def failure_update(type)

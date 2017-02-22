@@ -8,7 +8,8 @@ module AddressableAttrubutes
   def addresses_by_model(current_object)
     Address::TYPES.each do |type|
       address = current_object.send(type)
-      send("#{type}=", AddressForm.from_model(address))
+      form = AddressForm.from_model(address).merge_info(current_object)
+      send("#{type}=", form)
     end
   end
 
