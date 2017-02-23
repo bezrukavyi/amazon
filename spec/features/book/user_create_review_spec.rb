@@ -3,6 +3,7 @@ include Support::Book
 feature 'User create review', type: :feature do
   let(:user) { create :user }
   let(:book) { create :book }
+
   background do
     login_as(user, scope: :user)
     visit book_path(id: book.id)

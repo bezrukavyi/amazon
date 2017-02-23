@@ -31,12 +31,8 @@ RailsAdmin.config do |config|
     bulk_delete
     show
     edit
-    delete do
-      except %w(Order OrderItem)
-    end
-    show_in_app do
-      except %w(User Order OrderItem)
-    end
+    delete
+    show_in_app
     state
 
     ## With an audit adapter, you can add:
@@ -108,13 +104,13 @@ RailsAdmin.config do |config|
     end
 
     state({
-    states: {
-      unprocessed: 'btn-warning',
-      rejected: 'btn-danger',
-      approved: 'btn-success' },
-    events: {
-      approve: 'btn-success',
-      reject: 'btn-danger' }
+      states: {
+        unprocessed: 'btn-warning',
+        rejected: 'btn-danger',
+        approved: 'btn-success' },
+      events: {
+        approve: 'btn-success',
+        reject: 'btn-danger' }
     })
   end
 

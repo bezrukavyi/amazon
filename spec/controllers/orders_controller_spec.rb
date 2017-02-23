@@ -12,7 +12,7 @@ describe OrdersController, type: :controller do
     end
 
     it 'assigns orders' do
-      expect(Order).to receive_message_chain(:order, :where, :not_empty)
+      expect(Order).to receive_message_chain(:not_empty, :order)
       get :index
     end
 
@@ -24,24 +24,6 @@ describe OrdersController, type: :controller do
     it 'render index template' do
       get :index
       expect(response).to render_template :index
-    end
-  end
-
-  describe 'GET #show' do
-    let(:order) { create :order }
-
-    it 'find order' do
-      allow(Order).to receive(:find_by).with(id: order.id.to_s, user: user)
-        .and_return(order)
-      get :show, params: { id: order.id }
-      expect(response).to render_template(:show)
-    end
-
-    it 'not find order' do
-      allow(Order).to receive(:find_by).and_return(nil)
-      get :show, params: { id: order.id }
-      expect(flash[:alert]).to eq I18n.t('flash.failure.order_found')
-      expect(response).to redirect_to(orders_path)
     end
   end
 end

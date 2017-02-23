@@ -1,15 +1,14 @@
 class OrderItemsController < ApplicationController
   def create
-    book_id = params[:book_id]
-    quantity = params[:quantity].to_i
-    order_item = current_order.add_item(book_id, quantity)
-    if order_item.try(:save) && current_order.save
-      flash[:notice] = t('flash.success.book_add', count: quantity)
-    else
-      errors = order_item.decorate.all_errors if order_item.present?
-      flash[:alert] = t('flash.failure.book_add', errors: errors)
+    AddOrderItem.call(current_order, params) do
+      on(:valid) do |quantity|
+        flash[:notice] = t('flash.success.book_add', count: quantity)
+      end
+      on(:invalid) do |errors|
+        flash[:alert] = t('flash.failure.book_add', errors: errors)
+      end
     end
-    redirect_back(fallback_location: book_path(book_id))
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy

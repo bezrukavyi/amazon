@@ -2,7 +2,7 @@ class UsersController < Devise::RegistrationsController
   include AddressableAttrubutes
   include Rectify::ControllerHelpers
 
-  before_action :authenticate_user!
+  load_and_authorize_resource only: [:edit, :update]
   before_action :set_addresses_components, only: [:edit, :update]
 
   def new

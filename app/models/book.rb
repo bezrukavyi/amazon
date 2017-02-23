@@ -31,8 +31,8 @@ class Book < ApplicationRecord
   scope :with_authors, -> { includes(:authors) }
   scope :best_sellers, -> { popular.limit(4) }
 
-  def self.full_includes
-    with_authors.includes(:pictures, :materials, reviews: :user)
+  def self.full_joins
+    joins(:authors, :pictures, :materials, reviews: :user)
   end
 
   def self.with_category(term)

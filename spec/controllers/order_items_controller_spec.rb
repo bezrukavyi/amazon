@@ -10,42 +10,40 @@ describe OrderItemsController, type: :controller do
 
   describe 'POST #create' do
     let(:book_id) { subject.book.id }
+    let(:params) { { book_id: book_id, quantity: 20 } }
 
-    before do
-      allow(order).to receive(:add_item).and_return(subject)
+    it 'UpdateUser call' do
+      allow(controller).to receive(:params).and_return(params)
+      expect(AddOrderItem).to receive(:call).with(order, params)
+      put :create
     end
 
-    context 'success add item to order' do
+    context 'success update' do
       before do
-        allow(subject).to receive(:save).and_return(true)
-        allow(order).to receive(:save).and_return(true)
-        post :create, params: { book_id: book_id, quantity: 20 }
+        stub_const('AddOrderItem', Support::Command::Valid)
+        Support::Command::Valid.block_value = 20
+        put :create
       end
-
       it 'notice flash' do
         expect(flash[:notice]).to eq I18n.t('flash.success.book_add', count: 20)
       end
       it 'redirect_back' do
-        expect(response).to redirect_to(book_path(book_id))
+        expect(response).to redirect_to(root_path)
       end
     end
 
-    context 'failed add item to order' do
+    context 'failure update' do
       before do
-        allow(subject).to receive(:save).and_return(false)
-        allow(subject).to receive_message_chain(:decorate, :all_errors)
-          .and_return('errors')
-        allow(order).to receive(:save).and_return(false)
-        post :create, params: { book_id: book_id, quantity: 0 }
+        stub_const('AddOrderItem', Support::Command::Invalid)
+        Support::Command::Invalid.block_value = 'errors'
+        put :create
       end
-
       it 'alert flash' do
         expect(flash[:alert]).to eq I18n.t('flash.failure.book_add',
                                            errors: 'errors')
       end
-
       it 'redirect_back' do
-        expect(response).to redirect_to(book_path(book_id))
+        expect(response).to redirect_to(root_path)
       end
     end
   end

@@ -1,3 +1,5 @@
+include Support::CanCanStub
+
 describe UsersController, type: :controller do
   subject { create :user }
 
@@ -27,7 +29,10 @@ describe UsersController, type: :controller do
   end
 
   describe 'PUT #update' do
-    before(:each) { sign_in subject }
+    before(:each) do
+      sign_in subject
+      receive_cancan(:load_and_authorize)
+    end
 
     context 'UpdateUser' do
       let(:params) { { email: subject.email } }

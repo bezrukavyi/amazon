@@ -1,15 +1,10 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource through: :current_user, only: [:show, :index]
 
   def index
     @states = Order.assm_states.unshift(:all)
-    @orders = Order.order(created_at: :desc).where(user: current_user).not_empty
+    @orders = @orders.not_empty.order(created_at: :desc)
     @orders = @orders.send(params[:state]) unless default_state?
-  end
-
-  def show
-    @order = Order.find_by(id: params[:id], user: current_user)
-    redirect_to orders_path, alert: t('flash.failure.order_found') unless @order
   end
 
   private

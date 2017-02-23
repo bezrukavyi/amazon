@@ -2,9 +2,8 @@ class BooksController < ApplicationController
   include CookiePathable
   include Rectify::ControllerHelpers
 
-  before_action :authenticate_user!, only: :update
-  before_action :set_book, only: [:show, :update]
-  before_action :set_reviews, only: [:show, :update]
+  load_and_authorize_resource only: [:update, :show]
+  before_action :decorate_book, only: [:show, :update]
 
   def index
     last_catalog_path!
@@ -30,12 +29,7 @@ class BooksController < ApplicationController
 
   private
 
-  def set_book
-    @book = Book.full_includes.find_by(id: params[:id]).try(:decorate)
-    redirect_to books_path, alert: t('flash.failure.book_found') unless @book
-  end
-
-  def set_reviews
-    @reviews = @book.reviews
+  def decorate_book
+    @book = @book.decorate
   end
 end
