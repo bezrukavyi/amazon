@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  include Corzinus::Controllable
+  helper Corzinus::Engine.helpers
+
   protect_from_forgery with: :exception
 
   include Localable
@@ -16,32 +19,23 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: update_attrs
   end
 
-  helper_method :current_order
   helper_method :session_user_return
-
-  def current_order
-    @current_order ||= set_current_order
-  end
 
   def fast_authenticate_user!
     return if user_signed_in?
     session_user_return
-    redirect_to sign_up_path(type: 'fast')
+    redirect_to main_app.sign_up_path(type: 'fast')
   end
 
   def session_user_return
     session['user_return_to'] = request.fullpath
   end
 
-  private
-
-  def set_current_order
-    order = Order.find_by(id: session[:order_id], state: 'processing')
-    order ||= Order.create
-    order = current_user.order_in_processing.merge_order!(order) if current_user
-    session[:order_id] = order.id
-    order
+  def authenticate_corzinus_person!
+    fast_authenticate_user!
   end
+
+  private
 
   def set_categories
     @categories = Category.select(:id, :title, :books_count)

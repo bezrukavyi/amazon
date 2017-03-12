@@ -1,0 +1,5 @@
+en:
+  corzinus:
+    validators:
+      delivery:
+        access_max_days: cant be greater than max days

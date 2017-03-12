@@ -92,27 +92,4 @@ describe Book, type: :model do
       expect(subject.in_stock?).to be_falsey
     end
   end
-
-  it '.best_sellers' do
-    @jruby = create :book
-    @rails = create :book
-    @rspec = create :book
-    20.times do
-      create :order, state: :in_progress, order_items:
-        [create(:order_item, book: @jruby, quantity: 1)]
-    end
-    5.times do
-      create :order, state: :delivered, order_items:
-        [create(:order_item, book: @jruby, quantity: 1)]
-    end
-    10.times do
-      create :order, state: :delivered, order_items:
-        [create(:order_item, book: @rails, quantity: 1)]
-    end
-    15.times do
-      create :order, state: :delivered, order_items:
-        [create(:order_item, book: @rspec, quantity: 1)]
-    end
-    expect(Book.best_sellers).to eq([@rspec, @rails, @jruby])
-  end
 end

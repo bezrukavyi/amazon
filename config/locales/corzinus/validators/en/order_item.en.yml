@@ -1,0 +1,5 @@
+en:
+  corzinus:
+    validators:
+      order_item:
+        stock: You cant add more than we have in stock

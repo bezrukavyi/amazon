@@ -9,7 +9,7 @@ class Book < ApplicationRecord
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :materials
 
-  has_many :order_items
+  has_many :order_items, class_name: 'Corzinus::OrderItem', as: :productable
   has_many :orders, through: :order_items
 
   validates_associated :authors
@@ -41,9 +41,9 @@ class Book < ApplicationRecord
 
   def self.popular
     joins(:orders)
-      .where('orders.state' => 'delivered')
-      .group('order_items.book_id', 'books.id')
-      .order('SUM(order_items.quantity) desc')
+      .where('corzinus_orders.state' => 'delivered')
+      .group('corzinus_order_items.productable_id', 'books.id')
+      .order('SUM(corzinus_order_items.quantity) desc')
       .limit(4)
   end
 

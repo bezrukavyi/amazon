@@ -40,9 +40,9 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.model 'Order' do
+  config.model 'Corzinus::Order' do
     list do
-      scopes [:with_users]
+      scopes [:with_persons]
       fields :id, :created_at
       field :state, :state
     end
@@ -114,11 +114,11 @@ RailsAdmin.config do |config|
     })
   end
 
-  config.model 'Country' do
+  config.model 'Corzinus::Country' do
     fields :name, :code, :deliveries
   end
 
-  config.model 'Delivery' do
+  config.model 'Corzinus::Delivery' do
     exclude_fields :id, :created_at, :updated_at
   end
 

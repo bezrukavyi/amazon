@@ -28,10 +28,6 @@ describe ConfirmationsController, type: :controller do
         expect(controller).to receive(:bypass_sign_in).with(user)
         put :update, params: params
       end
-      it 'redirect_to checkout first step' do
-        put :update, params: params
-        expect(response).to redirect_to(checkout_path(:address))
-      end
       it 'flash notice' do
         put :update, params: params
         expect(flash[:notice]).to eq(I18n.t('devise.confirmations.confirmed'))

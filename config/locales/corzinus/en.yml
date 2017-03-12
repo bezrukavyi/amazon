@@ -1,0 +1,59 @@
+en:
+  corzinus:
+    carts:
+      title: Cart
+      product: Product
+      price: Price
+      quantity: Quantity
+      sub_total: SubTotal
+      coupon: Coupon
+      delivery: Delivery
+      order_total: Order Total
+      checkout: Checkout
+      order_summary: Order Summary
+      update_cart: Update cart
+      success_updated: Cart successfully updated
+      failed_updated: We cant update cart
+      method: Method
+      empty_message: Sorry, but your cart is empty
+    checkouts:
+      title: Checkout
+      nav:
+        address: Address
+        delivery: Delivery
+        payment: Payment
+        confirm: Confirm
+        complete: Complete
+      address:
+        use_base_address: Use billing address
+      delivery:
+        from: from
+        to: to
+        days: Days
+        title: Shipping
+      payment:
+        title: Credit Card
+      confirm:
+        edit: 'edit'
+        shipments: Shipments
+        payment: Payment Information
+        place_order: Place Order
+      complete:
+        order_id: "Order #%{id}"
+        thanks_message: Thank You for your Order!
+        email_confirm: "An order confirmation has been sent to %{email}"
+    orders:
+      order_id: "Order #%{id}"
+      title: Orders
+      number: Number
+      completed_at: Completed at
+      status: Status
+      total: Total
+      states:
+        all: All orders
+        processing: Waiting for processing
+        in_progress: In Progress
+        in_transit: In Transit
+        delivered: Delivered
+        canceled: Canceled
+    sure?: Are you sure?

@@ -9,7 +9,7 @@ class Ability
     can :read, Review
 
     if user.persisted?
-      can :read, Order, user_id: user.id
+      can :read, Corzinus::Order, user_id: user.id
       can :manage, User, id: user.id
       can :new, Review
       can :update, Book
@@ -18,12 +18,12 @@ class Ability
       if user.admin?
         can :access, :rails_admin
         can :dashboard
-        can :read, Address
-        can :all_events, Order
-        can :manage, [Book, Author, Category, Review, Country, Material, Picture,
-                      Delivery, Coupon, Order, User]
+        can :read, Corzinus::Address
+        can :all_events, Corzinus::Order
+        can :manage, [Book, Author, Category, Review, Corzinus::Country, Material, Picture,
+                      Corzinus::Delivery, Corzinus::Coupon, Corzinus::Order, User]
 
-        cannot :show_in_app, Order
+        cannot :show_in_app, Corzinus::Order
         cannot :show_in_app, User
       end
     end

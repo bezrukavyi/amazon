@@ -22,8 +22,9 @@
               %p.lead= truncate(book.desc, length: 50)
               %p.lead.small= book.authors_name
               .general-align
-                = form_tag order_items_path, method: :post do
-                  = hidden_field_tag :book_id, book.id
+                = form_tag corzinus.order_items_path, method: :post do
+                  = hidden_field_tag :productable_id, book.id
+                  = hidden_field_tag :productable_type, 'Book'
                   = hidden_field_tag :quantity, 1
                   = button_tag t('buy_now'), name: nil, type: :submit,
                     class: "btn btn-primary #{book.disabled_class}"

@@ -1,0 +1,17 @@
+ru:
+  corzinus:
+    flash:
+      failure:
+        step: Вы должны завершить этот этап
+        order_found: Order not found
+        cart_update: Ваша корзина не была обновлена
+        empty_cart: Извините, но ваша корзина пустая
+        product_add: Товар не была добавлена в корзину %{errors}
+        product_destroy: Не могу удалить эту книгу с вашей корзины %{errors}
+      success:
+        cart_update: Ваша корзина успешно обновлена
+        product_add:
+          one: В корзину успешно добавлена 1 книга
+          few: "В корзину успешно добавлена %{count} книги"
+          many: "В корзину успешно добавлена %{count} книг"
+        product_destroy: "Товар '%{title}' был удалена из вашей корзины"

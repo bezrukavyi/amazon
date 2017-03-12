@@ -33,12 +33,12 @@ Book.find_each do |book|
 end
 
 { 'Ukraine': '380', 'Russia': '230' }.each do |name, code|
-  Country.find_or_create_by!(name: name, code: code)
+  Corzinus::Country.find_or_create_by!(name: name, code: code)
 end
 
-Country.find_each do |country|
+Corzinus::Country.find_each do |country|
   %w[Standart Express].each do |delivery_name|
-    Delivery.find_or_create_by!(name: "#{country.name}#{delivery_name}") do |delivery|
+    Corzinus::Delivery.find_or_create_by!(name: "#{country.name}#{delivery_name}") do |delivery|
       delivery.country = country
       delivery.price = rand(30..100)
       delivery.min_days = rand(5..10)
@@ -57,15 +57,15 @@ ORDER_STATES = [:in_progress, :in_transit, :delivered, :canceled]
 
 User.find_each do |user|
 
-  card = CreditCard.find_or_create_by!(number: 5274576394259961, user: user) do |card|
+  card = Corzinus::CreditCard.find_or_create_by!(number: 5274576394259961, person: user) do |card|
     card.name = FFaker::Name.first_name
     card.cvv = '123'
     card.month_year = '12/17'
   end
 
-  country = Country.find(rand(1..Country.count))
+  country = Corzinus::Country.find(rand(1..Corzinus::Country.count))
 
-  user.shipping = Address.create! do |shipping|
+  user.shipping = Corzinus::Address.create! do |shipping|
     shipping.address_type = 'shipping'
     shipping.first_name = FFaker::Name.first_name
     shipping.last_name = FFaker::Name.last_name
@@ -76,7 +76,7 @@ User.find_each do |user|
     shipping.phone = "+#{country.code}632863823"
   end
 
-  user.billing = Address.create! do |billing|
+  user.billing = Corzinus::Address.create! do |billing|
     billing.address_type = 'billing'
     billing.first_name = FFaker::Name.first_name
     billing.last_name = FFaker::Name.last_name
@@ -89,7 +89,7 @@ User.find_each do |user|
 
   rand(3..6).times do
 
-    order = Order.create! do |order|
+    order = Corzinus::Order.create! do |order|
       order.credit_card = card.dup
       order.shipping = user.shipping.dup
       order.billing = user.billing.dup
@@ -98,9 +98,10 @@ User.find_each do |user|
     end
 
     rand(1..5).times do
-      item = OrderItem.create! do |item|
+      item = Corzinus::OrderItem.create! do |item|
         item.quantity = rand(1..3)
-        item.book_id = rand(1..Book.count)
+        item.productable_id = rand(1..Book.count)
+        item.productable_type = 'Book'
         order.order_items << item
       end
 

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   scope '(:locale)', locale: /en|ru/ do
 
+    mount Corzinus::Engine => '/cart'
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
     devise_for :users, path: '/', skip: :omniauth_callbacks,
@@ -19,10 +20,6 @@ Rails.application.routes.draw do
 
     resources :books, only: [:index, :show, :update]
     resources :categories, only: :show
-    resources :order_items, only: [:create, :destroy]
-    resource :cart, only: [:edit, :update], path_names: { edit: '' }, path: 'cart'
-    resources :checkouts, only: [:show, :update]
-    resources :orders, only: [:index, :show, :update]
 
     get "home/(:category)", to: 'main_pages#home', as: :home
     root to: 'main_pages#home'

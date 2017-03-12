@@ -7,13 +7,13 @@
         %span.icon-bar
         %span.icon-bar
 
-      = link_to 'Bookstore', root_path, class: 'navbar-brand'
+      = link_to 'Bookstore', main_app.root_path, class: 'navbar-brand'
 
-      = link_to edit_cart_path, class: 'shop-link pull-right visible-xs' do
+      = link_to corzinus.root_path, class: 'shop-link pull-right visible-xs' do
         %span.shop-icon{class: empty_cart_class}
           %span.shop-quantity= current_order.items_count
 
-    = link_to edit_cart_path, class: 'shop-link pull-right hidden-xs' do
+    = link_to corzinus.root_path, class: 'shop-link pull-right hidden-xs' do
       %span.shop-icon{class: empty_cart_class}
         %span.shop-quantity= current_order.items_count
 

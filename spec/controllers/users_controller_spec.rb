@@ -7,10 +7,6 @@ describe UsersController, type: :controller do
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
-  context 'Concern Addressable' do
-    it_behaves_like 'addressable_attrubutes'
-  end
-
   describe '#GET new' do
     it 'render fast_auth template' do
       get :new, params: { type: 'fast' }
@@ -63,48 +59,6 @@ describe UsersController, type: :controller do
         end
         it 'flash notice' do
           expect(flash[:alert]).to eq(I18n.t('flash.failure.privacy_update'))
-        end
-        it 'redirect to edit user' do
-          expect(response).to render_template(:edit)
-        end
-      end
-    end
-
-    context 'UpdateAddress' do
-      let(:params) do
-        { address: attributes_for(:address_user, :billing) }
-      end
-      before do
-        allow(controller).to receive(:params).and_return(params)
-      end
-
-      it 'UpdateUser call' do
-        expect(UpdateAddress).to receive(:call)
-          .with(addressable: subject, params: params)
-        put :update
-      end
-
-      context 'success update' do
-        before do
-          stub_const('UpdateAddress', Support::Command::Valid)
-          put :update
-        end
-        it 'flash notice' do
-          expect(flash[:notice]).to eq(I18n.t('flash.success.address_update'))
-        end
-        it 'redirect to edit user' do
-          expect(response).to redirect_to(edit_user_path)
-        end
-      end
-
-      context 'failure update' do
-        before do
-          stub_const('UpdateAddress', Support::Command::Invalid)
-          expect(controller).to receive(:expose)
-          put :update
-        end
-        it 'flash notice' do
-          expect(flash[:alert]).to eq(I18n.t('flash.failure.address_update'))
         end
         it 'redirect to edit user' do
           expect(response).to render_template(:edit)

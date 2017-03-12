@@ -8,7 +8,7 @@ class ConfirmationsController < Devise::ConfirmationsController
     self.resource = resource_class.confirm_by_token(token)
     if !resource.password? && resource.update_attributes(allowed_params)
       bypass_sign_in resource
-      redirect_to checkout_path(:address),
+      redirect_to corzinus.checkout_path(:address),
                   notice: t('devise.confirmations.confirmed')
     else
       flash_render :show, alert: t('flash.failure.update_password')

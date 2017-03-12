@@ -1,6 +1,6 @@
 module BooksHelper
   def category_sorted_path(category)
-    category_path(id: category.id, sorted_by: params[:sorted_by])
+    main_app.category_path(id: category.id, sorted_by: params[:sorted_by])
   end
 
   def category_title(category)

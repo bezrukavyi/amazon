@@ -1,0 +1,16 @@
+en:
+  corzinus:
+    flash:
+      failure:
+        step: You must end this step
+        order_found: Order not found
+        cart_update: "Your cart wasn't updated"
+        empty_cart: "Sorry, but your cart is empty"
+        product_add: "Product wasn't add product to cart %{errors}"
+        product_destroy: "Can't destroy this product from your cart %{errors}"
+      success:
+        cart_update: "Your cart successfully updated"
+        product_add:
+          one: "To cart successfully added 1 product"
+          other: "To cart successfully added %{count} products"
+        product_destroy: "Product '%{title}' deleted from yout cart"

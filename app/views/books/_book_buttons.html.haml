@@ -2,8 +2,9 @@
   .general-thumb-link-wrap.align-center
     = link_to book, class: 'thumb-hover-link button' do
       %i.fa.fa-eye.thumb-icon{"aria-hidden" => "true"}
-    = form_tag order_items_path, method: :post do
-      = hidden_field_tag :book_id, book.id
+    = form_tag corzinus.order_items_path, method: :post do
+      = hidden_field_tag :productable_id, book.id
+      = hidden_field_tag :productable_type, 'Book'
       = hidden_field_tag :quantity, 1
       = button_tag '', name: nil, type: :submit, class: "thumb-hover-link",
         id: "add_to_cart_#{book.id}" do

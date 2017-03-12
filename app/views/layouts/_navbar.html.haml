@@ -4,7 +4,7 @@
     = render "layouts/#{type}_ul", list_id: 'home', title: 'home' do
       - @categories.each do |category|
         %li
-          = link_to category.title, home_path(category.decorate.title_key),
+          = link_to category.title, main_app.home_path(category.decorate.title_key),
             class: "#{type}-link"
 
   %li{class: "#{type}"}
@@ -25,19 +25,19 @@
     %li{class: "#{type}"}
       = render "layouts/#{type}_ul", list_id: 'account', title: 'account' do
         %li
-          = link_to t('settings'), edit_user_path, class: "#{type}-link"
+          = link_to t('settings'), main_app.edit_user_path, class: "#{type}-link"
         %li
-          = link_to t('orders.title'), orders_path, class: "#{type}-link"
+          -# = link_to t('orders.title'), corzinus.orders_path, class: "#{type}-link"
         - if can? :access, :rails_admin
           %li.divider{role: "separator"}
           %li
-            = link_to t('dashboard'), rails_admin_path, class: "#{type}-link"
+            = link_to t('dashboard'), main_app.rails_admin_path, class: "#{type}-link"
         %li.divider{role: "separator"}
         %li
-          = link_to t('log_out'), destroy_user_session_path, method: :delete,
+          = link_to t('log_out'), main_app.destroy_user_session_path, method: :delete,
             class: "#{type}-link"
   - else
     %li
-      = link_to t('log_in'), new_user_session_path
+      = link_to t('log_in'), main_app.new_user_session_path
     %li
-      = link_to t('sign_up'), new_user_registration_path
+      = link_to t('sign_up'), main_app.new_user_registration_path

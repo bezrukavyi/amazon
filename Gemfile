@@ -67,6 +67,8 @@ gem 'credit_card_validations'
 
 gem 'figaro'
 
+gem 'corzinus', path: '../corzinus'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'factory_girl_rails'

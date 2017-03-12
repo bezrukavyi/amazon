@@ -1,9 +1,0 @@
-%h1.general-title-margin= t('checkouts.title')
-%ul.steps.list-inline
-  - @steps.each_with_index do |step, index|
-    - index += 1
-    %li.step{class: active_step_class(step)}
-      %span.step-number= index
-      = link_to t("checkouts.nav.#{step}"), checkout_path(step), class: 'span step-text hidden-xs'
-    - unless step == @steps.last
-      %li.step-divider

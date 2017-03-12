@@ -1,0 +1,59 @@
+ru:
+  corzinus:
+    carts:
+      title: Корзина
+      product: Товар
+      price: Цена
+      quantity: Количество
+      sub_total: Сумма
+      coupon: Купон
+      delivery: Доставка
+      order_total: Итого
+      checkout: Оформление заказа
+      order_summary: Итого по заказу
+      update_cart: Обновить корзину
+      success_updated: Корзина успешно обновлена
+      failed_updated: Корзина не может быть обновлена
+      method: Доставка через
+      empty_message: К сожалению, ваша корзина пуста
+    checkouts:
+      title: Оформление заказа
+      nav:
+        address: Адрес
+        delivery: Доставка
+        payment: Оплата
+        confirm: Подтверждение
+        complete: Завершение
+      address:
+        use_base_address: Использовать адрес оплаты
+      delivery:
+        from: от
+        to: до
+        days: Дней
+        title: Доставка
+      payment:
+        title: Кредитная карта
+      confirm:
+        edit: изменить
+        place_order: Разместить заказ
+        shipments: Информация о доставке
+        payment: Информация об оплате
+      complete:
+        order_id: "Заказ #%{id}"
+        thanks_message: Спасибо за ваш заказ!
+        email_confirm: "Вся информаци о заказе был отправлена на %{email}"
+    orders:
+      order_id: "Заказ #%{id}"
+      title: Заказы
+      number: Номер
+      completed_at: Дата завершения
+      status: Статус
+      total: Счет
+      states:
+        all: Все заказы
+        processing: Оформляется
+        in_progress: В процессе обработки
+        in_transit: В процессе перевозки
+        delivered: Доставлен
+        canceled: Отменен
+    sure?: Вы уверены?

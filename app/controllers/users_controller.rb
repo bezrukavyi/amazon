@@ -1,5 +1,5 @@
 class UsersController < Devise::RegistrationsController
-  include AddressableAttrubutes
+  include Corzinus::AddressableAttrubutes
   include Rectify::ControllerHelpers
 
   load_and_authorize_resource only: [:edit, :update]
@@ -43,7 +43,7 @@ class UsersController < Devise::RegistrationsController
   end
 
   def address_update
-    UpdateAddress.call(addressable: current_user, params: params) do
+    Corzinus::UpdateAddress.call(addressable: current_user, params: params) do
       on(:valid) do
         success_update('address')
       end

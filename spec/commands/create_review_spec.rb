@@ -15,13 +15,13 @@ describe CreateReview do
       end
       describe 'verifiding' do
         it 'when verified' do
-          allow(user).to receive(:bought_book?).with(book.id)
+          allow(user).to receive(:bought_product?).with(book)
             .and_return(true)
           subject.call
           expect(Review.last.verified).to be_truthy
         end
         it 'when not verified' do
-          allow(user).to receive(:bought_book?).with(book.id)
+          allow(user).to receive(:bought_product?).with(book)
             .and_return(false)
           subject.call
           expect(Review.last.verified).to be_falsey

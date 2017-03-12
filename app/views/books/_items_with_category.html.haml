@@ -1,5 +1,5 @@
 %li
-  = link_to t('books.index.sorted_by.all'), books_path(sorted_by: params[:sorted_by]),
+  = link_to t('books.index.sorted_by.all'), main_app.books_path(sorted_by: params[:sorted_by]),
     class: local_assigns[:link_class]
 
 - items.decorate.each do |category|

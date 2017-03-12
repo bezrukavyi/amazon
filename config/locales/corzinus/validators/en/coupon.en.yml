@@ -1,0 +1,7 @@
+en:
+  corzinus:
+    validators:
+      coupon:
+        not_found: Not found coupon by this code
+        used: This coupon has already used
+        check_order: You have already use coupon
