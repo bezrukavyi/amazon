@@ -53,7 +53,7 @@ User.find_or_create_by!(email: 'yaroslav555@gmail.com') do |user|
   user.admin = true
 end
 
-ORDER_STATES = [:in_progress, :in_transit, :delivered, :canceled]
+ORDER_STATES = [:processing, :in_transit, :delivered, :canceled]
 
 User.find_each do |user|
 
