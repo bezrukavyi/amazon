@@ -18,25 +18,6 @@ GIT
       activesupport (> 5.x)
       builder (~> 3.1)
 
-PATH
-  remote: ../corzinus
-  specs:
-    corzinus (0.1.0)
-      aasm
-      bootstrap-sass
-      cancancan
-      coffee-rails (~> 4.2)
-      credit_card_validations
-      drape
-      haml
-      jquery-rails
-      rails (~> 5.0.1)
-      rails-i18n
-      rectify
-      simple_form
-      turbolinks (~> 5)
-      wicked
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -125,6 +106,21 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
+    corzinus (0.1.0)
+      aasm
+      bootstrap-sass
+      cancancan
+      coffee-rails (~> 4.2)
+      credit_card_validations
+      drape
+      haml
+      jquery-rails
+      rails (~> 5.0.1)
+      rails-i18n
+      rectify
+      simple_form
+      turbolinks (~> 5)
+      wicked
     credit_card_validations (3.4.0)
       activemodel (>= 3, <= 6)
       activesupport (>= 3, <= 6)
@@ -582,7 +578,7 @@ DEPENDENCIES
   capybara-screenshot
   carrierwave
   coffee-rails (~> 4.2)
-  corzinus!
+  corzinus
   credit_card_validations
   database_cleaner
   devise
