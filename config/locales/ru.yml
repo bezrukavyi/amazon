@@ -28,6 +28,8 @@ ru:
   edit: изменить
   dashboard: Панель администратора
   confirm_account: Подтвердить аккаунт
+  inventories:
+    title: Менеджер запасов
   language:
     title: Язык
     en: Английский

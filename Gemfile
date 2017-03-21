@@ -38,6 +38,8 @@ gem 'aasm'
 
 gem 'wicked'
 
+gem 'kaminari'
+
 gem 'rectify'
 
 gem 'ffaker'
@@ -67,7 +69,7 @@ gem 'credit_card_validations'
 
 gem 'figaro'
 
-gem 'corzinus'
+gem 'corzinus', github: 'bezrukavyi/corzinus', branch: 'Inventory'
 
 group :development, :test do
   gem 'byebug', platform: :mri

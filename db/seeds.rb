@@ -1,4 +1,7 @@
-['Mobile', 'Development', 'Photo', 'Web design', 'Web development'].each do |name|
+DAYS = 150
+DEMAND = 0..10
+
+['Mobile', 'Development', 'Photo', 'Web design'].each do |name|
   Category.find_or_create_by!(title: name)
 end
 
@@ -11,15 +14,14 @@ end
 end
 
 Category.find_each do |category|
-  rand(5..25).times do
-    title = FFaker::Book.title
-    Book.find_or_create_by!(title: title) do |book|
-      book.price = rand(10.00..20.00)
-      book.count = rand(100..500)
-      book.desc = FFaker::Book.description
-      book.dimension = { "h": rand(5.0..10.0).round(1), "w": 4.4, "d": 10.0 }
-      book.category = category
-    end
+  title = FFaker::Book.title
+  Book.find_or_create_by!(title: title) do |book|
+    book.price = rand(10.00..20.00)
+    book.count = rand(50..100)
+    book.desc = FFaker::Book.description
+    book.dimension = { "h": rand(5.0..10.0).round(1), "w": 4.4, "d": 10.0 }
+    book.category = category
+    book.inventory = Corzinus::Inventory.create(count: book.count)
   end
 end
 
@@ -37,7 +39,7 @@ end
 end
 
 Corzinus::Country.find_each do |country|
-  %w[Standart Express].each do |delivery_name|
+  %w(Standart Express).each do |delivery_name|
     Corzinus::Delivery.find_or_create_by!(name: "#{country.name}#{delivery_name}") do |delivery|
       delivery.country = country
       delivery.price = rand(30..100)
@@ -53,11 +55,8 @@ User.find_or_create_by!(email: 'yaroslav555@gmail.com') do |user|
   user.admin = true
 end
 
-ORDER_STATES = [:processing, :in_transit, :delivered, :canceled]
-
 User.find_each do |user|
-
-  card = Corzinus::CreditCard.find_or_create_by!(number: 5274576394259961, person: user) do |card|
+  created_card = Corzinus::CreditCard.find_or_create_by!(number: 5_274_576_394_259_961, person: user) do |card|
     card.name = FFaker::Name.first_name
     card.cvv = '123'
     card.month_year = '12/17'
@@ -71,7 +70,7 @@ User.find_each do |user|
     shipping.last_name = FFaker::Name.last_name
     shipping.name = FFaker::Address.street_name
     shipping.city = 'Dnepr'
-    shipping.zip = 49000
+    shipping.zip = 49_000
     shipping.country = country
     shipping.phone = "+#{country.code}632863823"
   end
@@ -82,30 +81,36 @@ User.find_each do |user|
     billing.last_name = FFaker::Name.last_name
     billing.name = FFaker::Address.street_name
     billing.city = 'Dnepr'
-    billing.zip = 49000
+    billing.zip = 49_000
     billing.country = country
     billing.phone = "+#{country.code}632863823"
   end
 
-  rand(3..6).times do
+  DAYS.downto(0) do |day_number|
+    date = DateTime.now - day_number.to_i.day
 
-    order = Corzinus::Order.create! do |order|
-      order.credit_card = card.dup
-      order.shipping = user.shipping.dup
-      order.billing = user.billing.dup
-      order.delivery = country.deliveries.first
-      order.state = ORDER_STATES[rand(0..3)]
-    end
-
-    rand(1..5).times do
-      item = Corzinus::OrderItem.create! do |item|
-        item.quantity = rand(1..3)
-        item.productable_id = rand(1..Book.count)
-        item.productable_type = 'Book'
-        order.order_items << item
+    rand(1..3).times do
+      created_order = Corzinus::Order.create! do |order|
+        order.credit_card = created_card.dup
+        order.shipping = user.shipping.dup
+        order.billing = user.billing.dup
+        order.delivery = country.deliveries.first
+        order.created_at = date
       end
 
-      user.orders << order
+      Corzinus::OrderItem.create do |item|
+        item.quantity = rand(DEMAND)
+        item.productable_id = rand(1..Book.count)
+        item.productable_type = 'Book'
+        created_order.order_items << item
+      end
+
+      created_order.confirm!
+      user.orders << created_order
+    end
+
+    Book.all.each do |book|
+      book.inventory.add_sale(date)
     end
   end
 

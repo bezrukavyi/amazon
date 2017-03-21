@@ -26,12 +26,12 @@
       = render "layouts/#{type}_ul", list_id: 'account', title: 'account' do
         %li
           = link_to t('settings'), main_app.edit_user_path, class: "#{type}-link"
-        %li
-          -# = link_to t('orders.title'), corzinus.orders_path, class: "#{type}-link"
         - if can? :access, :rails_admin
           %li.divider{role: "separator"}
           %li
             = link_to t('dashboard'), main_app.rails_admin_path, class: "#{type}-link"
+          %li
+            = link_to t('inventories.title'), corzinus.inventories_path, class: "#{type}-link"
         %li.divider{role: "separator"}
         %li
           = link_to t('log_out'), main_app.destroy_user_session_path, method: :delete,

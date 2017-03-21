@@ -10,6 +10,30 @@ GIT
       request_store (~> 1.0)
 
 GIT
+  remote: https://github.com/bezrukavyi/corzinus.git
+  revision: b4e0ada7733e0fedb3ba7c6cb00f5a095e372adf
+  branch: Inventory
+  specs:
+    corzinus (0.1.0)
+      aasm
+      bootstrap-sass
+      cancancan
+      chartkick
+      coffee-rails (~> 4.2)
+      credit_card_validations
+      drape
+      haml
+      highcharts-rails
+      jquery-rails
+      kaminari
+      rails (~> 5.0.1)
+      rails-i18n
+      rectify
+      simple_form
+      turbolinks (~> 5)
+      wicked
+
+GIT
   remote: https://github.com/rails/activemodel-serializers-xml.git
   revision: dd9c0acf26aab111ebc647cd8deb99ebc6946531
   specs:
@@ -91,6 +115,7 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    chartkick (2.2.3)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
@@ -106,21 +131,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
-    corzinus (0.1.0)
-      aasm
-      bootstrap-sass
-      cancancan
-      coffee-rails (~> 4.2)
-      credit_card_validations
-      drape
-      haml
-      jquery-rails
-      rails (~> 5.0.1)
-      rails-i18n
-      rectify
-      simple_form
-      turbolinks (~> 5)
-      wicked
     credit_card_validations (3.4.0)
       activemodel (>= 3, <= 6)
       activesupport (>= 3, <= 6)
@@ -302,6 +312,8 @@ GEM
       rubocop (>= 0.47.0)
       sysexits (~> 1.1)
     hashie (3.5.3)
+    highcharts-rails (5.0.7)
+      railties (>= 3.1)
     html2haml (2.1.0)
       erubis (~> 2.7.0)
       haml (~> 4.0)
@@ -578,7 +590,7 @@ DEPENDENCIES
   capybara-screenshot
   carrierwave
   coffee-rails (~> 4.2)
-  corzinus
+  corzinus!
   credit_card_validations
   database_cleaner
   devise
@@ -591,6 +603,7 @@ DEPENDENCIES
   haml_lint
   jbuilder (~> 2.5)
   jquery-rails
+  kaminari
   letter_opener_web
   listen (~> 3.0.5)
   mini_magick

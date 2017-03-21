@@ -1,7 +1,7 @@
 class ConfirmationsController < Devise::ConfirmationsController
   def show
     self.resource = resource_class.find_by_confirmation_token(token)
-    super if resource.password?
+    super if resource.blank? || resource.password?
   end
 
   def update

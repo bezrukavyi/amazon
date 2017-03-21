@@ -4,11 +4,11 @@ class Book < ApplicationRecord
   DIMENSION = %w(h w d).freeze
 
   belongs_to :category, counter_cache: true
-  has_many :pictures, as: :imageable
-  has_many :reviews, -> { where state: 'approved' }
+  has_one :inventory, as: :productable, class_name: 'Corzinus::Inventory'
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :materials
-
+  has_many :pictures, as: :imageable
+  has_many :reviews, -> { where state: 'approved' }
   has_many :order_items, class_name: 'Corzinus::OrderItem', as: :productable
   has_many :orders, through: :order_items
 

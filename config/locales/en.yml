@@ -28,6 +28,8 @@ en:
   edit: edit
   dashboard: Dashboard
   confirm_account: Confirm Account
+  inventories:
+    title: Inventories manager
   language:
     title: Language
     en: English

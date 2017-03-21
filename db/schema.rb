@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312142653) do
+ActiveRecord::Schema.define(version: 20170321212508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,34 @@ ActiveRecord::Schema.define(version: 20170312142653) do
     t.index ["country_id"], name: "index_corzinus_deliveries_on_country_id", using: :btree
   end
 
+  create_table "corzinus_inventories", force: :cascade do |t|
+    t.integer  "count"
+    t.string   "productable_type"
+    t.integer  "productable_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["productable_type", "productable_id"], name: "index_corzinus_inventory_productable", using: :btree
+  end
+
+  create_table "corzinus_inventory_sales", force: :cascade do |t|
+    t.integer  "start_stock"
+    t.integer  "finish_stock"
+    t.integer  "inventory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "demand"
+    t.index ["inventory_id"], name: "index_corzinus_inventory_sales_on_inventory_id", using: :btree
+  end
+
+  create_table "corzinus_inventory_supplies", force: :cascade do |t|
+    t.integer  "size"
+    t.datetime "arrived_at"
+    t.integer  "inventory_sale_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["inventory_sale_id"], name: "index_corzinus_inventory_supplies_on_inventory_sale_id", using: :btree
+  end
+
   create_table "corzinus_order_items", force: :cascade do |t|
     t.integer  "quantity"
     t.integer  "order_id"
@@ -134,6 +162,7 @@ ActiveRecord::Schema.define(version: 20170312142653) do
     t.integer  "person_id"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.datetime "paid_at"
     t.index ["credit_card_id"], name: "index_corzinus_orders_on_credit_card_id", using: :btree
     t.index ["delivery_id"], name: "index_corzinus_orders_on_delivery_id", using: :btree
     t.index ["person_id"], name: "index_corzinus_orders_on_person_id", using: :btree
