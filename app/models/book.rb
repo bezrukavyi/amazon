@@ -13,8 +13,7 @@ class Book < ApplicationRecord
   has_many :orders, through: :order_items
 
   validates_associated :authors
-  validates :title, :price, :count, presence: true
-  validates :count, numericality: { greater_than_or_equal_to: 0 }
+  validates :title, :price, presence: true
   validates :price, numericality: { greater_than: 0 }
 
   validate :access_dimension
@@ -48,7 +47,8 @@ class Book < ApplicationRecord
   end
 
   def in_stock?
-    count.positive?
+    return false if inventory.blank?
+    inventory.count.positive?
   end
 
   private

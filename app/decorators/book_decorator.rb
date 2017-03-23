@@ -45,6 +45,10 @@ class BookDecorator < Draper::Decorator
     desc.length > 200
   end
 
+  def count
+    inventory.present? ? inventory.count : 0
+  end
+
   def parse_dimension
     dimension.map do |key, value|
       [I18n.t("books.show.dimensions.#{key}"), value].join(':')

@@ -22,7 +22,8 @@ module Books
     private
 
     def set_books
-      books = Book.select(:id, :price, :title, :count, :avatar)
+      books = Book.select(:id, :price, :title, :avatar)
+                  .includes(:inventory)
                   .sorted_by(params[:sorted_by])
                   .page(params[:page]).with_authors
       category.present? ? books.where(category: category) : books
