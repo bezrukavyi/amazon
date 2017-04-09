@@ -1,0 +1,43 @@
+%ul.nav.navbar-nav
+  %li{class: "#{type}"}
+
+    = render "layouts/#{type}_ul", list_id: 'home', title: 'home' do
+      - @categories.each do |category|
+        %li
+          = link_to category.title, home_path(category.decorate.title_key),
+            class: "#{type}-link"
+
+  %li{class: "#{type}"}
+
+    = render "layouts/#{type}_ul", list_id: 'menu', title: 'language.title' do
+      %li
+        = link_to t('language.en'), url_for(locale: :en), class: "#{type}-link"
+      %li
+        = link_to t('language.ru'), url_for(locale: :ru), class: "#{type}-link"
+
+  %li{class: "#{type}"}
+
+    = render "layouts/#{type}_ul", list_id: 'shop', title: 'shop' do
+      = render 'books/items_with_category', items: @categories,
+        link_class: "#{type}-link"
+
+  - if signed_in?
+    %li{class: "#{type}"}
+      = render "layouts/#{type}_ul", list_id: 'account', title: 'account' do
+        %li
+          = link_to t('settings'), edit_user_path, class: "#{type}-link"
+        %li
+          = link_to t('orders.title'), orders_path, class: "#{type}-link"
+        - if can? :access, :rails_admin
+          %li.divider{role: "separator"}
+          %li
+            = link_to t('dashboard'), rails_admin_path, class: "#{type}-link"
+        %li.divider{role: "separator"}
+        %li
+          = link_to t('log_out'), destroy_user_session_path, method: :delete,
+            class: "#{type}-link"
+  - else
+    %li
+      = link_to t('log_in'), new_user_session_path
+    %li
+      = link_to t('sign_up'), new_user_registration_path

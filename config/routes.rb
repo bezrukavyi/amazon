@@ -1,3 +1,36 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  devise_for :users, path: '/', only: :omniauth_callbacks,
+    controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
+  scope '(:locale)', locale: /en|ru/ do
+
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+    devise_for :users, path: '/', skip: :omniauth_callbacks,
+      controllers: { registrations: 'users', confirmations: 'confirmations' }
+
+    devise_scope :user do
+      resource :user, path_names: { edit: '' }, path: 'settings'
+      patch 'confirmation', to: 'confirmations#update', as: :update_user_confirmation
+      get "sign_up/(:type)", to: 'users#new', as: :sign_up
+      post "sign_up/(:type)", to: 'users#create'
+    end
+
+    resources :books, only: [:index, :show, :update]
+    resources :categories, only: :show
+    resources :order_items, only: [:create, :destroy]
+    resource :cart, only: [:edit, :update], path_names: { edit: '' }, path: 'cart'
+    resources :checkouts, only: [:show, :update]
+    resources :orders, only: [:index, :show, :update]
+
+    get "home/(:category)", to: 'main_pages#home', as: :home
+    root to: 'main_pages#home'
+
+  end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
 end

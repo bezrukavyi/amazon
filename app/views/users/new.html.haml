@@ -1,0 +1,28 @@
+.container.general-main-wrap
+  .text-center
+    %h3.general-login-title= t('simple_form.titles.sign_up')
+
+    = render 'omni_links'
+
+    %p.general-login-text= t('or')
+
+  = general_simple_form_for resource, as: resource_name,
+    url: registration_path(resource_name) do |field|
+
+    .form-group.mb-30
+      = field.input :email, autofocus: true
+
+    .form-group.mb-30
+      = field.input :password, autocomplete: 'off'
+
+    .form-group.mb-30
+      = field.input :password_confirmation, autocomplete: 'off'
+
+    .text-center
+      = field.button :submit, t('simple_form.titles.sign_up'),
+        class: 'btn btn-default mb-20'
+
+  %p.general-sign-text.text-center
+    Do you have account?
+    = link_to t('simple_form.titles.log_in'),
+      new_session_path(resource_name), class: 'in-gold-500'

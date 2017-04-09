@@ -1,0 +1,12 @@
+%h2 Resend confirmation instructions
+
+= simple_form_for resource, as: resource_name,
+  url: confirmation_path(resource_name), html: { method: :post } do |field|
+
+  = field.error_notification
+  = field.full_error :confirmation_token
+
+  .form-inputs
+    = field.input :email, required: true, autofocus: true
+  .form-actions
+    = field.button :submit, "Resend confirmation instructions"

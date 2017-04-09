@@ -1,0 +1,6 @@
+en:
+  validators:
+    credit_card:
+      slash_format: "Does not match format: 'MM/YY'"
+      month_format: Month format with numbers from 01 to 12
+      year_format: You should record the last two numbers of the year

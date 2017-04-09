@@ -1,0 +1,16 @@
+ru:
+  orders:
+    title: Заказы
+    index:
+      title: Мои Заказы
+      states:
+        all: Все заказы
+        processing: Оформляется
+        in_progress: В процессе обработки
+        in_transit: В процессе перевозки
+        delivered: Доставлен
+        canceled: Отменен
+      number: Номер
+      completed_at: Дата завершения
+      status: Статус
+      total: Счет

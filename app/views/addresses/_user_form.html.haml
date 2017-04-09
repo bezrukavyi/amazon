@@ -1,0 +1,8 @@
+= simple_form_for object, url: user_path(anchor: 'address'), method: :patch,
+  html: { id: "#{type}_address" }, data: { type: 'address' } do |field|
+
+  = render 'addresses/fields', field: field, type: type
+
+  .mb-40
+  .text-center.general-text-align
+    = field.button :submit, t('simple_form.titles.save'), class: "btn"

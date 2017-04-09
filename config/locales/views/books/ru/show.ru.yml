@@ -1,0 +1,23 @@
+ru:
+  books:
+    show:
+      back_to_result: Назад к результатам
+      count: Количество
+      publicate_at: Год публикации
+      materials: Материалы
+      reviews_count: 'Отзывы (%{amount})'
+      category: Категория
+      review_title: Напишите ваше мнение об этой книге
+      read_more: Подробнее
+      auth_review: Для создания отзыва вам необходимо
+      hide: Скрыть
+      dimensions:
+        title: Размерность (дюймы)
+        h: В
+        w: Ш
+        d: Г
+      not_in_stock: Нет в наличии
+      publicate_at: Год публикации
+      category_name: :"books.show.materials"
+      materials_name: :"books.show.category"
+      parse_dimension: :"books.show.dimensions.title"

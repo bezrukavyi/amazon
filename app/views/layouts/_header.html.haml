@@ -1,0 +1,34 @@
+%header.navbar.navbar-default
+  .container
+    .navbar-header
+      %button.navbar-toggle.pull-left{type: "button", 'data-toggle': "collapse", 'data-target': "#navbar"}
+        %span.sr-only
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+
+      = link_to 'Bookstore', root_path, class: 'navbar-brand'
+
+      = link_to edit_cart_path, class: 'shop-link pull-right visible-xs' do
+        %span.shop-icon{class: empty_cart_class}
+          %span.shop-quantity= current_order.items_count
+
+    = link_to edit_cart_path, class: 'shop-link pull-right hidden-xs' do
+      %span.shop-icon{class: empty_cart_class}
+        %span.shop-quantity= current_order.items_count
+
+    #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
+      .visible-xs
+        %button.close{type: "button", 'aria-label': "Close"}
+          %span{'aria-hidden': "true"} &times;
+        = render 'layouts/navbar', type: 'collapse'
+
+      .hidden-xs
+        = render 'layouts/navbar', type: 'dropdown'
+
+  .header-messages
+    - flash.each do |key, value|
+      = message_wrap(key) do
+        %button.close{ 'aria-label':  'Close', 'data-dismiss': 'alert', type: 'button' }
+          %span{ 'aria-hidden': 'true' } ×
+        %span= value

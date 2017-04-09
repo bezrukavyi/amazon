@@ -1,0 +1,30 @@
+%main.container
+
+  = render 'books/carousel_books', books: @carousel_books
+
+.container
+  .jumbotron.text-center.mb-0
+    %h2.h1= t('.wellcome')
+    .mb-res-50
+      %p= t('.description')
+      = link_to t('.get_started', with: @category_title), @current_category,
+        class: 'btn btn-default'
+
+  .mb-35
+    %h3= t('.best_sellers')
+    .row
+      - @best_sellers.each do |book|
+        .col-sm-6.col-md-3
+          .general-thumb-wrap
+            .thumbnail.general-thumbnail
+              = image_tag book.avatar_url,
+                class: 'img-shadow general-thumbnail-img'
+
+              = render 'books/book_buttons', book: book
+
+          .mb-35
+            .clearfix
+              %p.pull-right.font-16.in-gold-500= currency_price(book.price)
+              %p.title.mr-55= book.title
+            %span.divider-sm
+            %p.lead.small= book.decorate.authors_name

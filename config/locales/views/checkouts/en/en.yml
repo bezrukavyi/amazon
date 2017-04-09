@@ -1,0 +1,23 @@
+en:
+  checkouts:
+    title: Checkout
+    nav:
+      address: Address
+      delivery: Delivery
+      payment: Payment
+      confirm: Confirm
+      complete: Complete
+    address:
+      use_base_address: Use billing address
+    delivery:
+      title: Shipping
+    payment:
+      title: Credit Card
+    confirm:
+      shipments: Shipments
+      payment: Payment Information
+      place_order: Place Order
+    complete:
+      order_id: "Order #%{id}"
+      thanks_message: Thank You for your Order!
+      email_confirm: "An order confirmation has been sent to %{email}"

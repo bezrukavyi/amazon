@@ -1,0 +1,13 @@
+= simple_form_for current_user, url: user_registration_path, method: :delete,
+  html: { id: 'destroy_account' } do |field|
+
+  .general-settings-btn
+    = field.submit t('users.edit.remove_account.petition'), class: 'btn mb-20'
+
+  .form-group.checkbox.general-settings-checkbox
+    %label.checkbox-label
+      = check_box_tag :agree_cancel, 0, false, class: 'checkbox-input',
+        hidden: 'hidden'
+      %span.checkbox-icon
+        %i.fa.fa-check
+      %span.checkbox-text= t('users.edit.remove_account.confirm_title')

@@ -1,0 +1,22 @@
+en:
+  books:
+    show:
+      back_to_result: Back to results
+      count: Quantity
+      materials: Materials
+      reviews_count: 'Reviews (%{amount})'
+      category: Category
+      review_title: Write your review about this book
+      read_more: Read more
+      auth_review: That create new review you must
+      hide: Hide
+      dimensions:
+        title: Dimensions (inches)
+        h: H
+        w: W
+        d: D
+      not_in_stock: Not in stock
+      publicate_at: Year of publication
+      category_name: :"books.show.materials"
+      materials_name: :"books.show.category"
+      parse_dimension: :"books.show.dimensions.title"

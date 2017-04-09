@@ -1,0 +1,23 @@
+ru:
+  checkouts:
+    title: Оформление заказа
+    nav:
+      address: Адрес
+      delivery: Доставка
+      payment: Оплата
+      confirm: Подтверждение
+      complete: Завершение
+    address:
+      use_base_address: Использовать адрес оплаты
+    delivery:
+      title: Доставка
+    payment:
+      title: Кредитная карта
+    confirm:
+      place_order: Разместить заказ
+      shipments: Информация о доставке
+      payment: Информация об оплате
+    complete:
+      order_id: "Заказ #%{id}"
+      thanks_message: Спасибо за ваш заказ!
+      email_confirm: "Вся информаци о заказе был отправлена на %{email}"

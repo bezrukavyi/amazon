@@ -1,0 +1,15 @@
+= simple_form_for current_user, url: user_path(anchor: 'privacy'), method: :patch,
+  html: { class: 'general-form-md', id: 'edit_user_data' } do |field|
+
+  .form-group.mb-30
+    = field.input :first_name
+
+  .form-group.mb-30
+    = field.input :last_name
+
+  .form-group.mb-40
+    = field.input :email
+
+  .general-text-align
+    = field.button :submit, t('simple_form.titles.save'),
+      class: 'btn btn-default mb-35'

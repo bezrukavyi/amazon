@@ -1,0 +1,20 @@
+%tr
+  %td
+    .general-img-wrap-table
+      = link_to order_item.book do
+        = image_tag order_item.book.avatar_url, class: 'cart-img-shadow pull-left'
+  %td
+    = link_to order_item.book.title, order_item.book, class: 'title'
+    %p.in-grey-600.fw-300= order_item.book.decorate.short_desc
+
+  %td
+    %span.font-16.in-gold-500= currency_price(order_item.book.price)
+  %td
+    = render 'order_items/quantity_field', order_item: order_item,
+      field: local_assigns[:field]
+  %td
+    %span.font-16.in-gold-500= currency_price(order_item.sub_total)
+
+  - if local_assigns[:field]
+    %td
+      = render 'order_items/delete_link', order_item: order_item

@@ -1,0 +1,18 @@
+ru:
+  carts:
+    edit:
+      title: Корзина
+      product: Товар
+      price: Цена
+      quantity: Количество
+      sub_total: Сумма
+      coupon: Купон
+      delivery: Доставка
+      order_total: Итого
+      checkout: Оформление заказа
+      order_summary: Итого по заказу
+      update_cart: Обновить корзину
+      success_updated: Корзина успешно обновлена
+      failed_updated: Корзина не может быть обновлена
+      method: Доставка через
+      empty_message: К сожалению, ваша корзина пуста

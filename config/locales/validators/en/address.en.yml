@@ -1,0 +1,6 @@
+en:
+  validators:
+    address:
+      name: must consist only letters, without special symbols
+      zip: "must consist only numeric, without special symbols, except '-'"
+      country_code: "Phone must started by %{code}"

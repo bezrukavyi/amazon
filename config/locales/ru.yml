@@ -1,0 +1,34 @@
+ru:
+  welcome: Добро пожаловать в BookStore, %{name}
+  home: Главная
+  shop: Магазин
+  account: Мой аккаунт
+  settings: Настройки
+  orders:
+    title: Заказы
+  buy_now: Купить сейчас
+  log_in: Войти
+  sign_up: Регистрация
+  log_out: Выйти
+  or: или
+  cancel: Отмена
+  confirm_intentions: Вы должны подтвердить свое намерение
+  success_updated: Данные успешно обновлены
+  privacy: Личные данные
+  address: Адрес
+  shipping_address: Адрес доставки
+  billing_address: Адрес оплаты
+  add_to_cart: Добавить в корзину
+  description: Описание
+  back_to_store: Назад в каталог
+  sure?: Вы уверены?
+  from: от
+  to: до
+  days: дней
+  edit: изменить
+  dashboard: Панель администратора
+  confirm_account: Подтвердить аккаунт
+  language:
+    title: Язык
+    en: Английский
+    ru: Русский

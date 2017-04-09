@@ -1,0 +1,25 @@
+en:
+  flash:
+    failure:
+      confirm_intentions: You must confirm your intentions about destroy account
+      privacy_update: "Your privacy data wasn't updated"
+      address_update: "You address wasn't updated"
+      step: You must end this step
+      order_found: Order not found
+      book_found: Book not found
+      category_found: Category not found
+      cart_update: "Your cart wasn't updated"
+      empty_cart: "Sorry, but your cart is empty"
+      review_create: "Your review wasn't created"
+      book_add: "Book wasn't add book to cart %{errors}"
+      book_destroy: "Can't destroy this book from your cart %{errors}"
+      update_password: "Password wasn't updated"
+    success:
+      privacy_update: Your privacy data successfully updated
+      address_update: Address successfully saved
+      cart_update: "Your cart successfully updated"
+      review_create: Your review successfully created and sent for approval by administator
+      book_add:
+        one: "To cart successfully added 1 book"
+        other: "To cart successfully added %{count} books"
+      book_destroy: "Book '%{title}' deleted from yout cart"

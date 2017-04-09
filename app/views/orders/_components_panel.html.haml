@@ -1,0 +1,21 @@
+- order.addresses.each do |address|
+  .col-sm-3
+    = render 'addresses/panel', address: address, edit: local_assigns[:edit]
+
+.col-sm-3
+  %h3.general-subtitle= t('checkouts.confirm.shipments')
+  %p.general-address
+    = order.delivery.name
+    - if local_assigns[:edit]
+      %span.general-edit= link_to t('edit'), checkout_path(:delivery)
+    %br
+    = order.delivery.decorate.duration
+
+.col-sm-3
+  %h3.general-subtitle= t('checkouts.confirm.payment')
+  %p.general-address
+    = order.credit_card.decorate.hidden_number
+    - if local_assigns[:edit]
+      %span.general-edit= link_to t('edit'), checkout_path(:payment)
+    %br
+    = order.credit_card.month_year

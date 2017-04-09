@@ -1,0 +1,15 @@
+.container.general-main-wrap
+  .text-center
+    %h3.general-login-title= t('simple_form.titles.log_in')
+
+    = render 'users/omni_links'
+
+    %p.general-login-text= t('or')
+
+  = render 'login_form'
+
+  %p.general-sign-text.text-center
+    = t('.not_account?')
+    = link_to t('simple_form.titles.sign_up'),
+      new_registration_path(resource_name),
+      class: 'in-gold-500'

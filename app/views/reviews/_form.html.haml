@@ -1,0 +1,21 @@
+= simple_form_for @book, as: @review_form,
+  html: { id: 'review_form' } do |field|
+
+  .form-group
+    = field.input :title
+
+  .form-group
+    = field.input :grade, input_html: { class: 'hidden-fields' } do
+      .rate-fields
+        - 5.downto(1).each do |grade|
+          = field.radio_button :grade, grade, id: "rate_#{grade}",
+            class: 'input-star', hidden: true
+          %label.label-star{ for: "rate_#{grade}" }
+            %i.fa.fa-star.rate-empty
+
+  .form-group
+    = field.input :desc, as: :text
+
+  .text-center.general-text-align
+    = field.button :submit, t('simple_form.titles.save'),
+      class: "btn"

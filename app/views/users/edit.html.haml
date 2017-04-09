@@ -1,0 +1,44 @@
+%main.container
+  %h1.general-title-margin= t('.settings')
+  %ul.nav.clearfix.mb-20{:role => "tablist"}
+    %li.tab-item.active{:role => "presentation"}
+      %a.tab-link{"aria-controls": "address", "data-toggle": "tab", href: "#address", role: "tab", id: 'address_nav'}= t('address')
+    %li.tab-item{:role => "presentation"}
+      %a.tab-link{"aria-controls": "privacy", "data-toggle": "tab", href: "#privacy", role: "tab", id: 'privacy_nav'}= t('privacy')
+
+  .tab-content
+    #address.tab-pane.fade.in.active.general-main-wrap{role: "tabpanel"}
+      .hidden-xs.hidden-sm
+        .row
+          .col-md-5
+            %h3.general-subtitle.mt-0= t('billing_address')
+          .col-md-5.col-md-offset-1
+            %h3.general-subtitle.mt-0= t('shipping_address')
+      .row
+        .col-md-5.mb-40
+          .visible-xs.visible-sm
+            %h3.general-subtitle.mt-0= t('billing_address')
+
+          = render 'addresses/user_form', object: @billing, type: 'billing'
+
+        .col-md-5.col-md-offset-1.mb-25
+          .visible-xs.visible-sm
+            %h3.general-subtitle.mt-0= t('shipping_address')
+
+          = render 'addresses/user_form', object: @shipping, type: 'shipping'
+
+    #privacy.tab-pane.fade{:role => "tabpanel"}
+      .row.mb-60
+        .col-sm-5
+          %p.in-gold-500.font-18.mb-25= t('.email')
+          = render 'user_form'
+
+
+        .col-sm-5.col-sm-offset-1
+          %p.in-gold-500.font-18.mb-25= t('.password')
+          = render 'password_form'
+
+
+        .col-sm-12
+          %p.in-gold-500.font-18.mb-25= t('.remove_account.title')
+          = render 'remove_account_form'

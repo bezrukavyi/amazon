@@ -1,0 +1,75 @@
+%main.container
+  = link_to last_catalog_path, class: 'general-back-link' do
+    %i.fa.fa-long-arrow-left.mr-15
+    = t('.back_to_result')
+
+  .row
+    .col-sm-6
+      .product-pictures
+        .mb-20
+          = image_tag @book.main_picture, class: 'img-responsive', id: 'main-picture'
+        .images.clearfix
+          - @book.other_picutres.each do |picture|
+            = image_tag picture.path.to_s, class: 'img-link bonus-picture'
+
+    .col-sm-6
+      %h1.mt-res-0= @book.title
+      %p.lead.small= @book.authors_name
+
+      .row
+        .col-xs-12.col-md-4
+          %p.h1.in-gold-500.mt-10= @book.currency_price
+
+        = form_tag order_items_path, method: :post, id: 'add_to_cart' do
+          = hidden_field_tag :book_id, @book.id
+
+          .col-xs-5.col-md-3
+            .input-group.general-position.align-center.quantity-field
+              %div.input-link.quantity-minus
+                %i.fa.fa-minus.line-height-40
+              = text_field_tag :quantity, 1, class: 'form-control quantity-input'
+              %div.input-link.quantity-plus
+                %i.fa.fa-plus.line-height-40
+
+          .col-xs-7.col-md-5
+            - if @book.in_stock?
+              = submit_tag t('add_to_cart'), class: "btn btn-default pull-right general-position", name: nil
+            - else
+              .general-position.align-center
+                %h3.mt-res-0= t('.not_in_stock')
+
+      .general-info-wrap.divider-lg
+        %p= t('description')
+        - if @book.long_desc?
+          %div.lead.small.line-height-2.description-block
+            = @book.desc
+            %a.in-gold-500.ml-10.desc_button= t('.hide')
+
+        %div.lead.small.line-height-2.description-block.active
+          - if @book.long_desc?
+            = @book.short_desc
+            %a.in-gold-500.ml-10.desc_button= t('.read_more')
+          - else
+            = @book.desc
+
+        - BookDecorator::MAIN_PARAMS.each do |name|
+          .general-info-wrap.divider-lg
+            .clearfix
+              %p.pull-left= t(".#{name}")
+              %p.lead.small.pull-right= @book.send(name)
+
+
+  .mb-80
+    %h3.in-gold-500.mb-25= t('.reviews_count', amount: @book.reviews.count)
+    = render @book.reviews
+
+  .mb-80
+    - if can? :create, Review
+      .h3.in-gold-500= t('.review_title')
+      = render 'reviews/form'
+
+    - else
+      .h3
+        = t('.auth_review')
+        = link_to link_to t('simple_form.titles.log_in'), new_user_session_path,
+          class: 'in-gold-500'

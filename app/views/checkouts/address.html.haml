@@ -1,0 +1,44 @@
+.container
+  = render 'step_nav'
+
+  = simple_form_for current_order, url: checkout_path, class: 'res-mb-100' do |field|
+    .hidden-xs.hidden-sm
+      .row
+        .col-md-5
+          %h3.general-subtitle= t('billing_address')
+          %p.general-info-text= t('simple_form.titles.required_fields')
+        .col-md-5.col-md-offset-1
+          %h3.general-subtitle= t('shipping_address')
+
+    .row
+      .col-md-5.mb-40
+        .visible-xs.visible-sm
+          %h3.general-subtitle.mt-0= t('billing_address')
+
+        #billing_address
+          = field.simple_fields_for :billing, @billing do |item_field|
+            = render 'addresses/fields', field: item_field, type: 'billing'
+
+      .col-md-5.col-md-offset-1
+        .visible-xs.visible-sm
+          %h3.general-subtitle.mt-0= t('shipping_address')
+
+        #shipping_address
+          = field.simple_fields_for :shipping, @shipping do |item_field|
+            #shipping_fields{class: "#{'hidden-fields' if use_base_address_param}"}
+              = render 'addresses/fields', field: item_field, type: 'shipping'
+
+        .form-group.checkbox
+          %label.checkbox-label
+            = check_box_tag :use_base_address, nil, use_base_address_param,
+              class: 'checkbox-input', hidden: 'hidden', id: 'use_base_address'
+            %span.checkbox-icon
+              %i.fa.fa-check
+            %span.checkbox-text= t('.use_base_address')
+
+    = render 'orders/result_panel', components: [:coupon]
+
+    .col-md-12.mb-40
+      .center-block.general-text-align.center
+        = field.submit t('simple_form.titles.save_and_continue'),
+          class: 'button btn btn-default mb-20'

@@ -1,0 +1,4 @@
+en:
+  validators:
+    spec_symbols:
+      base_regexp: "must consist of a-z, A-Z, 0-9 or one of '! # $ % & ' * + - / = ? ^ _ ` { | } ~ .' not on start"

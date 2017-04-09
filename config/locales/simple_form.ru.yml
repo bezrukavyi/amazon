@@ -1,0 +1,91 @@
+ru:
+  simple_form:
+    "yes": 'Да'
+    "no": 'Нет'
+    required:
+      text: 'Обязательно'
+      mark: '*'
+    error_notification:
+      default_message: "Пожалуйста, ознакомьтесь с проблемами, указанными ниже:"
+    placeholders:
+      order:
+        shipping: :"simple_form.placeholders.address"
+        billing: :"simple_form.placeholders.address"
+      user:
+        email: Введите эл.почту
+        first_name: Введите Имя
+        last_name: Введите Фамилию
+        password: Введите Пароль
+        password_confirmation: Подтвердите Пароль
+        current_password: Старый Пароль
+      address:
+        first_name: Введите Имя
+        last_name: Введите Фамилию
+        name: Введите Адрес
+        city: Введите Город
+        zip: Введите Почтовый Индекс
+        country: Выберите страну
+        phone: Введите телефон в соответствие с кодом вашей страны
+      review:
+        title: Введите Заголовок
+        grade: Введите Оценку (от 1 до 5)
+        desc: Напишите Мнение
+      coupon:
+        code: Введите Код Вашего Купона
+      credit_card:
+        number: Введите Номер Карты
+        name: Введите Имя На Карте
+        month_year: ММ / ГГ
+        cvv: CVV
+    labels:
+      user:
+        first_name: Имя
+        last_name: Фамилия
+        email: Эл.почту
+        new_password: Новый Пароль
+        password: Пароль
+        password_confirmation: Подтвердите Пароль
+        current_password: Старый пароль
+        remember_me: Запомнить меня
+      address:
+        first_name: Имя
+        last_name: Фамилия
+        name: Адрес
+        city: Город
+        zip: Почтовый Индекс
+        country: Страна
+        phone: Телефон
+      order:
+        shipping: :"simple_form.labels.address"
+        billing: :"simple_form.labels.address"
+      credit_card: :"simple_form.placeholders.credit_card"
+      book:
+        title: Заголовок
+        desc: Описание
+        price: Цена
+        count: Количество
+        author: Автор
+        categories: Категории
+      review:
+        title: Заголовок
+        grade: Оценка
+        desc: Мнение
+      author:
+        first_name: Имя
+        last_name: Фамилию
+        biogr: Biography
+      country:
+        name: Имя
+      category:
+        title: Заголовок
+      coupon:
+        code: Код Вашего Купон
+    titles:
+      change: Изменить
+      save: Сохранить
+      save_and_continue: Сохранить и продолжить
+      forgot_password?: Забыли пароль?
+      new_password: Задать новый пароль
+      log_in: Войти
+      sign_up: Зарегистрироваться
+      required_fields: все поля являются обязательными

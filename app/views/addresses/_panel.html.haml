@@ -1,0 +1,13 @@
+%h3.general-subtitle= t("#{address.address_type}_address")
+%p.general-address
+  = address.decorate.full_name
+  - if local_assigns[:edit]
+    %span.general-edit= link_to t('edit'), checkout_path(:address)
+  %br
+  = address.name
+  %br
+  = address.decorate.city_zip
+  %br
+  = address.country.name
+  %br
+  = address.phone

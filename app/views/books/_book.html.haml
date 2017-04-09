@@ -1,0 +1,13 @@
+- if book
+  .col-xs-6.col-sm-3
+    .general-thumb-wrap
+      .thumbnail.general-thumbnail{class: book.disabled_class}
+        = image_tag book.avatar_url, class: 'img-shadow general-thumbnail-img'
+
+        = render 'books/book_buttons', book: book
+
+    .general-thumb-info
+      %p.title= book.title
+      %p.font-16.in-gold-500= book.currency_price
+      %span.divider-sm
+      %p.lead.small= book.authors_name

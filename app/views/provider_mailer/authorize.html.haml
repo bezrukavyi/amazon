@@ -1,0 +1,8 @@
+%p= t('welcome', name: @user.email)
+
+%p= t('devise.omniauth_callbacks.success', kind: @provider)
+
+%p= "We generated for your password: '#{@password}'"
+%div
+  %p You can it change in
+  = link_to t('settings'), edit_user_url

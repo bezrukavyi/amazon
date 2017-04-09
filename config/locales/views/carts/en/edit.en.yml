@@ -1,0 +1,18 @@
+en:
+  carts:
+    edit:
+      title: Cart
+      product: Product
+      price: Price
+      quantity: Quantity
+      sub_total: SubTotal
+      coupon: Coupon
+      delivery: Delivery
+      order_total: Order Total
+      checkout: Checkout
+      order_summary: Order Summary
+      update_cart: Update cart
+      success_updated: Cart successfully updated
+      failed_updated: We cant update cart
+      method: Method
+      empty_message: Sorry, but your cart is empty
