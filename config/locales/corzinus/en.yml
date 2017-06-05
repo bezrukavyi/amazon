@@ -56,4 +56,7 @@ en:
         in_transit: In Transit
         delivered: Delivered
         canceled: Canceled
+    inventory:
+      title: "Inventory #%{id}"
+    more: More
     sure?: Are you sure?

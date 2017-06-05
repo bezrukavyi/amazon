@@ -56,4 +56,7 @@ ru:
         in_transit: В процессе перевозки
         delivered: Доставлен
         canceled: Отменен
+    inventory:
+      title: "Запас #%{id}"
+    more: Больше
     sure?: Вы уверены?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321212507) do
+ActiveRecord::Schema.define(version: 20170605073654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,19 @@ ActiveRecord::Schema.define(version: 20170321212507) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["productable_type", "productable_id"], name: "index_corzinus_inventory_productable", using: :btree
+  end
+
+  create_table "corzinus_inventory_analyses", force: :cascade do |t|
+    t.json     "inventory_data"
+    t.json     "demand_data"
+    t.json     "price_data"
+    t.json     "original_price_data"
+    t.float    "delivery_cost"
+    t.float    "warehous_cost"
+    t.string   "reserves",                         array: true
+    t.integer  "delivery_days"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "corzinus_inventory_sales", force: :cascade do |t|
