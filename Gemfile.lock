@@ -11,10 +11,10 @@ GIT
 
 GIT
   remote: https://github.com/bezrukavyi/corzinus.git
-  revision: a235b544b6434aa89cc81e2587c63f95a7b9fd10
+  revision: 0e97a4e74021f2f4f8ff76acc83faa8a9d8b79a8
   branch: Inventory
   specs:
-    corzinus (0.2.2)
+    corzinus (0.2.3)
       aasm
       bootstrap-sass
       cancancan
