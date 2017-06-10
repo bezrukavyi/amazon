@@ -31,7 +31,7 @@
           %li
             = link_to t('dashboard'), main_app.rails_admin_path, class: "#{type}-link"
           %li
-            = link_to t('inventories.title'), corzinus.inventories_path, class: "#{type}-link"
+            = link_to t('inventories.title'), corzinus.inventory_analysis_path, class: "#{type}-link"
         %li.divider{role: "separator"}
         %li
           = link_to t('log_out'), main_app.destroy_user_session_path, method: :delete,
